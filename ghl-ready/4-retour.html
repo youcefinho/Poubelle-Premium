@@ -7,6 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
+        /* ===== FIX GHL Custom Code: header pleine largeur + anti-flash 2-langues ===== */
+        header.header-nav, .header-nav {
+          width: 100vw !important;
+          max-width: 100vw !important;
+          margin-left: calc(-50vw + 50%) !important;
+          margin-right: calc(-50vw + 50%) !important;
+          box-sizing: border-box !important;
+        }
+        .en-text, .en-block { display: none !important; }
+        .fr-text { display: inline; }
+        .fr-block { display: block; }
+        .lang-en .fr-text, .lang-en .fr-block { display: none !important; }
+        .lang-en .en-text { display: inline !important; }
+        .lang-en .en-block { display: block !important; }
+
         *, ::before, ::after { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { min-height: 100%; font-family: 'Poppins', sans-serif; }
         body { background: #f9f9f9; }
@@ -134,13 +149,17 @@
             overflow-x: hidden;
         }
 
-        /* Hide/show by language — robuste sans dépendance body (FR par défaut) */
-        .en-text, .en-block { display: none !important; }
-        .fr-text { display: inline; }
-        .fr-block { display: block; }
-        .lang-en .fr-text, .lang-en .fr-block { display: none !important; }
-        .lang-en .en-text { display: inline !important; }
-        .lang-en .en-block { display: block !important; }
+        body.lang-fr .en-text {
+            display: none !important;
+        }
+
+        body.lang-en .fr-text {
+            display: none !important;
+        }
+
+        body:not(.lang-en):not(.lang-fr) .en-text {
+            display: none !important;
+        }
 
         /* ===== HEADER (SOUMISSION STYLE) ===== */
         .header-nav {
@@ -435,7 +454,7 @@
 <nav style="display: flex; align-items: center;">
 <ul class="nav-links">
 <li><a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
-<li><a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
 <li><a href="/avis-clients"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a></li>
 </ul>
 <div class="lang-switcher-container">
@@ -451,7 +470,7 @@
 </header>
     <nav class="unihdr" id="pp-mobile-nav">
 <a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a>
-<a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>
+<a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>
 <a href="/avis-clients"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a>
 <a class="pp-mob-cta" href="/soumission"><span class="fr-text">Demander un devis gratuit</span><span class="en-text">Request a free quote</span></a>
 </nav>
@@ -613,8 +632,8 @@
 <h3><span class="fr-text">Navigation</span><span class="en-text">Navigation</span></h3>
 <ul>
 <li><a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
-<li><a href="/#section-jIShhaMz_f"><span class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
-<li><a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-jIShhaMz_f"><span class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
 <li><a href="/soumission"><span class="fr-text">Soumission</span><span class="en-text">Quote</span></a></li>
 </ul>
 </div>
@@ -658,18 +677,27 @@
             });
         });
     })();
-</script>
+    </script>
 
-<script>
-    // Force la classe lang-* sur body au load (sans ça en GHL, les 2 langues s'affichent en même temps)
+    <script>
+    // Lang switch + init robuste pour GHL Custom Code
+    window.switchLang = function (lang) {
+        document.body.classList.remove('lang-fr', 'lang-en');
+        document.body.classList.add('lang-' + lang);
+        document.querySelectorAll('[data-lang]').forEach(function (btn) {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('pp_lang', lang); } catch (e) { }
+    };
     (function () {
         var f = function () {
             var lang = 'fr';
             try { if (localStorage.getItem('pp_lang') === 'en') lang = 'en'; } catch (e) { }
-            document.body.classList.add('lang-' + lang);
+            window.switchLang(lang);
         };
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
         else f();
     })();
-</script>
+    </script>
 

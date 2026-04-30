@@ -7,7 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <script crossorigin="anonymous" src="https://kit.fontawesome.com/a076d05399.js"></script>
 <style>
-        /* Hide/show by language — robuste sans dépendance body (FR par défaut) */
+        /* ===== FIX GHL Custom Code: header pleine largeur + anti-flash 2-langues ===== */
+        header.header-nav, .header-nav {
+          width: 100vw !important;
+          max-width: 100vw !important;
+          margin-left: calc(-50vw + 50%) !important;
+          margin-right: calc(-50vw + 50%) !important;
+          box-sizing: border-box !important;
+        }
         .en-text, .en-block { display: none !important; }
         .fr-text { display: inline; }
         .fr-block { display: block; }
@@ -699,7 +706,7 @@
 <nav style="display: flex; align-items: center;">
 <ul class="nav-links">
 <li><a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
-<li><a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
 <li><a href="/avis-clients"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a></li>
 </ul>
 <div class="lang-switcher-container">
@@ -733,7 +740,7 @@
 </div>
 <nav class="unihdr" id="pp-mobile-nav">
 <a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a>
-<a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>
+<a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>
 <a href="/avis-clients"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a>
 <a class="pp-mob-cta" href="/soumission"><span class="fr-text">Demander un devis gratuit</span><span class="en-text">Request a free quote</span></a>
 </nav>
@@ -1139,8 +1146,8 @@
 <h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;">Navigation</h3>
 <ul style="list-style:none; padding:0;">
 <li style="margin-bottom:12px;"><a href="/" style="color:#4a5568; text-decoration:none;">Accueil</a></li>
-<li style="margin-bottom:12px;"><a href="/#section-jIShhaMz_f" style="color:#4a5568; text-decoration:none;">À Propos</a></li>
-<li style="margin-bottom:12px;"><a href="/#section-Q-QVu_CWVt" style="color:#4a5568; text-decoration:none;">Services</a></li>
+<li style="margin-bottom:12px;"><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-jIShhaMz_f" style="color:#4a5568; text-decoration:none;">À Propos</a></li>
+<li style="margin-bottom:12px;"><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt" style="color:#4a5568; text-decoration:none;">Services</a></li>
 <li style="margin-bottom:12px;"><a href="/soumission" style="color:#4a5568; text-decoration:none;">Soumission</a></li>
 </ul>
 </div>
@@ -1291,7 +1298,7 @@
         })();
     </script>
 <script>
-        // Lang switch integration
+        // Lang switch — pose la classe lang-en sur body (compatible CSS .lang-en .fr-text)
         window.switchLang = function (lang) {
             document.body.classList.remove('lang-fr', 'lang-en');
             document.body.classList.add('lang-' + lang);
@@ -1302,16 +1309,12 @@
             try { localStorage.setItem('pp_lang', lang); } catch (e) { }
         };
 
+        // Restauration robuste (pattern compatible GHL Custom Code)
         (function () {
-            // Forcer une langue par défaut (FR) ou restaurer la préférence sauvegardée
             var f = function () {
                 var lang = 'fr';
-                try {
-                    var saved = localStorage.getItem('pp_lang');
-                    if (saved === 'en') lang = 'en';
-                } catch (e) { }
-                if (typeof window.switchLang === 'function') window.switchLang(lang);
-                else document.body.classList.add('lang-' + lang);
+                try { if (localStorage.getItem('pp_lang') === 'en') lang = 'en'; } catch (e) { }
+                window.switchLang(lang);
             };
             if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
             else f();

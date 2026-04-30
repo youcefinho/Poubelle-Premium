@@ -126,8 +126,14 @@
     function restoreLang() {
       try {
         var saved = localStorage.getItem('pp_lang');
-        if (saved && saved !== 'fr') window.switchLang(saved);
-      } catch (e) { }
+        var lang = (saved === 'en') ? 'en' : 'fr';
+        document.body.classList.remove('lang-fr', 'lang-en');
+        document.body.classList.add('lang-' + lang);
+        document.documentElement.lang = lang;
+        if (lang === 'en' && typeof window.switchLang === 'function') window.switchLang('en');
+      } catch (e) {
+        document.body.classList.add('lang-fr');
+      }
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restoreLang);
     else restoreLang();

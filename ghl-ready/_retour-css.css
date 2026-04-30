@@ -53,3 +53,26 @@ header.header-nav,
   .header-nav.unihdr,
   header.header-nav { display: none !important; }
 }
+
+
+/* Menu mobile robuste : open marche partout + fr-text visible dans menu */
+#pp-mobile-nav.open {
+  display: flex !important;
+  flex-direction: column !important;
+}
+#pp-mobile-nav a {
+  display: block !important;
+}
+#pp-mobile-nav a .fr-text,
+#pp-mobile-nav a .en-text {
+  display: inline !important;
+}
+body.lang-en #pp-mobile-nav a .fr-text,
+html[lang="en"] #pp-mobile-nav a .fr-text {
+  display: none !important;
+}
+body:not(.lang-en) #pp-mobile-nav a .en-text,
+body.lang-fr #pp-mobile-nav a .en-text,
+html:not([lang="en"]) #pp-mobile-nav a .en-text {
+  display: none !important;
+}

@@ -1,4 +1,33 @@
-
+<!-- PP-SOUMISSION-V2-2026-04-30 -->
+<style>
+/* === FIX HEADER SOUMISSION : domine tout header GHL natif === */
+body > header:not(.header-nav):not(.unihdr),
+body > section:first-of-type [class*="hl-header"],
+body > .hl-header-section,
+body > section.section-header,
+body > .fullSection.header,
+.hl-funnel-header,
+[class*="hl-page-header"] {
+  display: none !important;
+}
+.header-nav.unihdr,
+header.header-nav {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 99999 !important;
+  background: #fff !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+@media (min-width: 768px) {
+  .header-nav.unihdr,
+  header.header-nav {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+</style>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Demande de Soumission | Poubelle Premium</title>

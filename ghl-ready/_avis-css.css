@@ -80,3 +80,14 @@ body.lang-en .en-text,
 body.lang-en .en-block,
 body.lang-en #pp-mobile-nav .en-text { display: inline !important; }
 body.lang-en #pp-mobile-nav a { display: block !important; }
+
+
+/* Fallback : force visibilite des elements animes apres 1s (filet de securite) */
+@keyframes pp-force-visible-fallback {
+  to { opacity: 1; visibility: visible; transform: none; }
+}
+[data-aos], .animate-in, .animate-on-scroll {
+  animation: pp-force-visible-fallback 0s 1.5s forwards;
+}
+/* Une fois AOS init, il prend le relais (la classe aos-animate override) */
+[data-aos].aos-animate { animation: none; }

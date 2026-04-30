@@ -16,7 +16,7 @@ Chaque page GHL reçoit **4 collages** :
 |-------------|---------------|--------------------------|----------------------------|------------------------------|-----------------------|
 | Accueil     | `/`           | `1-accueil.html`         | `_accueil-header.html`     | `_accueil-footer.html`       | `_accueil-css.css`    |
 | Avis        | `/avis-clients` | `2-avis-clients.html`  | `_avis-header.html`        | `_avis-footer.html`          | `_avis-css.css`       |
-| Soumission  | `/soumission` | `3-soumission.html`      | `_soumission-header.html`  | `_soumission-footer.html`    | `_soumission-css.css` |
+| Soumission  | `/soumission_1` | `3-soumission.html`      | `_soumission-header.html`  | `_soumission-footer.html`    | `_soumission-css.css` |
 | Retour      | `/retour`     | `4-retour.html`          | `_retour-header.html`      | `_retour-footer.html`        | `_retour-css.css`     |
 
 ---

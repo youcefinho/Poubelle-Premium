@@ -939,22 +939,18 @@
 <div class="option-radio">
 <div class="standard-radio-container"><input id="forfait_perso" name="forfait_2025" type="radio" value="PERSONNALISÉ"/><label for="forfait_perso">PERSONNALISÉ</label></div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<!-- Slide 3: Personnalisé -->
-<div class="slide-no-3 form-builder--wrap-questions ghl-question">
-<div class="row fields-container">
-<div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="O6h88hnjwJPzxjzLbQjx">Veuillez précisez votre forfait personnalisé
+<!-- Champ "personnalisé" affiché uniquement si PERSONNALISÉ est coché -->
+<div id="forfait-perso-wrap" class="col-12 form-field-wrapper" style="display:none;margin-top:14px;">
+<label class="label-alignment field-label" for="O6h88hnjwJPzxjzLbQjx">Veuillez préciser votre forfait personnalisé
                                                 (fréquence) <span>*</span></label>
-<div class="flex-col"><input class="form-control" data-required="true" id="O6h88hnjwJPzxjzLbQjx" name="O6h88hnjwJPzxjzLbQjx" placeholder="Ex: Poubelle et recyclage une fois par mois et compost 2 fois par mois" type="text"/></div>
+<div class="flex-col"><input class="form-control" id="O6h88hnjwJPzxjzLbQjx" name="O6h88hnjwJPzxjzLbQjx" placeholder="Ex: Poubelle et recyclage une fois par mois et compost 2 fois par mois" type="text"/></div>
 </div>
 </div>
 </div>
-<!-- Slide 4: Détails bacs -->
-<div class="slide-no-4 form-builder--wrap-questions ghl-question">
+</div>
+</div>
+<!-- Slide 3: Détails bacs -->
+<div class="slide-no-3 form-builder--wrap-questions ghl-question">
 <div class="row fields-container">
 <div class="col-12 form-field-wrapper">
 <label class="label-alignment field-label">Particulier ou entreprise
@@ -1158,7 +1154,15 @@
 <script>
         // Multi-step form navigation
         let currentSlide = 1;
-        const totalSlides = 4;
+        const totalSlides = 3;
+
+        function scrollFormToTop() {
+            const form = document.getElementById('_builder-form');
+            if (!form) return;
+            const headerH = (document.querySelector('.header-nav') || {}).offsetHeight || 80;
+            const top = form.getBoundingClientRect().top + window.pageYOffset - headerH - 20;
+            window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+        }
 
         function updateUI() {
             document.querySelectorAll('.ghl-question').forEach(q => q.classList.remove('ghl-page-current'));
@@ -1191,6 +1195,7 @@
             if (currentSlide < totalSlides) {
                 currentSlide++;
                 updateUI();
+                scrollFormToTop();
             }
         }
 
@@ -1198,8 +1203,26 @@
             if (currentSlide > 1) {
                 currentSlide--;
                 updateUI();
+                scrollFormToTop();
             }
         }
+
+        // Affiche/cache le champ "Forfait personnalisé" selon le radio choisi
+        document.addEventListener('change', function (e) {
+            if (e.target && e.target.name === 'forfait_2025') {
+                const wrap = document.getElementById('forfait-perso-wrap');
+                const input = document.getElementById('O6h88hnjwJPzxjzLbQjx');
+                if (!wrap || !input) return;
+                const isPerso = e.target.value === 'PERSONNALISÉ';
+                wrap.style.display = isPerso ? 'block' : 'none';
+                if (isPerso) {
+                    input.setAttribute('data-required', 'true');
+                } else {
+                    input.removeAttribute('data-required');
+                    input.value = '';
+                }
+            }
+        });
 
         function ghlSubmit() {
             // Gather form data and submit to GHL endpoint

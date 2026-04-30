@@ -69,5 +69,86 @@
     else patchOldLinks();
     setTimeout(patchOldLinks, 1000);
     setTimeout(patchOldLinks, 3000);
+
+    // === Aligner le header GHL natif de Soumission sur celui des autres pages ===
+    // Ajoute "Services" + "Avis clients" si manquants, change CTA "Faire nettoyer..." en "Demander un devis"
+    function fixSoumissionHeader() {
+      var accueilAnchors = Array.prototype.filter.call(
+        document.querySelectorAll('a'),
+        function (a) {
+          var t = (a.textContent || '').trim().toLowerCase();
+          return t === 'accueil' || t === 'home';
+        }
+      );
+
+      accueilAnchors.forEach(function (a) {
+        a.setAttribute('href', '/accueil_index');
+        var container = a.closest('ul, nav, .nav-links, [class*="menu"], [class*="nav"]');
+        if (!container) return;
+        if (container._ppSoumissionFixed) return;
+
+        var allLinks = container.querySelectorAll('a');
+        var hasServices = Array.prototype.some.call(allLinks, function (x) {
+          return /services/i.test((x.textContent || '').trim());
+        });
+        var hasAvis = Array.prototype.some.call(allLinks, function (x) {
+          return /avis|review/i.test((x.textContent || '').trim());
+        });
+
+        var li = a.closest('li');
+
+        if (!hasServices) {
+          if (li) {
+            var newLi = li.cloneNode(false);
+            var newA = a.cloneNode(false);
+            newA.setAttribute('href', '/accueil_index#section-Q-QVu_CWVt');
+            newA.innerHTML = '<span class="fr-text">Services</span><span class="en-text">Services</span>';
+            newLi.appendChild(newA);
+            li.parentNode.insertBefore(newLi, li.nextSibling);
+          } else {
+            var newA = a.cloneNode(false);
+            newA.setAttribute('href', '/accueil_index#section-Q-QVu_CWVt');
+            newA.innerHTML = '<span class="fr-text">Services</span><span class="en-text">Services</span>';
+            a.parentNode.insertBefore(newA, a.nextSibling);
+          }
+        }
+
+        if (!hasAvis) {
+          if (li) {
+            var newLi2 = li.cloneNode(false);
+            var newA2 = a.cloneNode(false);
+            newA2.setAttribute('href', '/avis-clients');
+            newA2.innerHTML = '<span class="fr-text">Avis clients</span><span class="en-text">Reviews</span>';
+            newLi2.appendChild(newA2);
+            container.appendChild(newLi2);
+          } else {
+            var newA2 = a.cloneNode(false);
+            newA2.setAttribute('href', '/avis-clients');
+            newA2.innerHTML = '<span class="fr-text">Avis clients</span><span class="en-text">Reviews</span>';
+            container.appendChild(newA2);
+          }
+        }
+
+        container._ppSoumissionFixed = true;
+      });
+
+      // Renommer CTA "Faire nettoyer mes bacs" → "Demander un devis" dans les headers uniquement
+      Array.prototype.forEach.call(document.querySelectorAll('a'), function (a) {
+        var inHeader = a.closest('header, [class*="hl-header"], [id*="header"], nav, [class*="header-nav"]');
+        if (!inHeader) return;
+        var txt = (a.textContent || '').trim();
+        if (/faire nettoyer/i.test(txt) || /get my bins/i.test(txt)) {
+          var frSpan = a.querySelector('.fr-text');
+          var enSpan = a.querySelector('.en-text');
+          if (frSpan) frSpan.textContent = 'Demander un devis';
+          if (enSpan) enSpan.textContent = 'Request a quote';
+          if (!frSpan && !enSpan) a.textContent = 'Demander un devis';
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fixSoumissionHeader);
+    else fixSoumissionHeader();
+    setTimeout(fixSoumissionHeader, 800);
+    setTimeout(fixSoumissionHeader, 2500);
   })();
 </script>

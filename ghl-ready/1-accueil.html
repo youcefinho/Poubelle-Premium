@@ -24847,29 +24847,30 @@
         pointer-events: none;
       }
 
-      /* Hide/show by language - dynamique via body class */
-      body.lang-fr .en-text,
-      body.lang-fr .en-block {
+      /* ===== Hide/show by language — robuste sans dépendre de body =====
+         Par défaut: FR visible, EN caché (pour éviter le flash 2-langues au load
+         si la classe lang-* n'a pas encore été posée sur body, ce qui arrive en GHL). */
+      .en-text,
+      .en-block {
         display: none !important;
       }
-      body.lang-fr .fr-text {
-        display: inline !important;
+      .fr-text {
+        display: inline;
       }
-      body.lang-fr .fr-block {
-        display: block !important;
+      .fr-block {
+        display: block;
       }
-      body.lang-en .fr-text,
-      body.lang-en .fr-block {
+      /* Quand lang-en est posé n'importe où dans la chaîne d'ancêtres, on inverse */
+      .lang-en .fr-text,
+      .lang-en .fr-block {
         display: none !important;
       }
-      body.lang-en .en-text {
+      .lang-en .en-text {
         display: inline !important;
       }
-      body.lang-en .en-block {
+      .lang-en .en-block {
         display: block !important;
       }
-
-      /* .en-block et .fr-block sont gérés dynamiquement par body.lang-fr/lang-en ci-dessus */
 
       /* ===== END LANGUAGE SWITCHER ===== */
       /* Mobile hamburger header */

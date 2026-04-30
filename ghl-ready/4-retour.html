@@ -134,17 +134,13 @@
             overflow-x: hidden;
         }
 
-        body.lang-fr .en-text {
-            display: none !important;
-        }
-
-        body.lang-en .fr-text {
-            display: none !important;
-        }
-
-        body:not(.lang-en):not(.lang-fr) .en-text {
-            display: none !important;
-        }
+        /* Hide/show by language — robuste sans dépendance body (FR par défaut) */
+        .en-text, .en-block { display: none !important; }
+        .fr-text { display: inline; }
+        .fr-block { display: block; }
+        .lang-en .fr-text, .lang-en .fr-block { display: none !important; }
+        .lang-en .en-text { display: inline !important; }
+        .lang-en .en-block { display: block !important; }
 
         /* ===== HEADER (SOUMISSION STYLE) ===== */
         .header-nav {

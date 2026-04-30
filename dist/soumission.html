@@ -1303,12 +1303,16 @@
             try { localStorage.setItem('pp_lang', lang); } catch (e) { }
         };
 
-        document.addEventListener('DOMContentLoaded', function () {
-            try {
-                var saved = localStorage.getItem('pp_lang');
-                if (saved && saved !== 'fr') window.switchLang(saved);
-            } catch (e) { }
-        });
+        (function () {
+            var f = function () {
+                try {
+                    var saved = localStorage.getItem('pp_lang');
+                    if (saved && saved !== 'fr') window.switchLang(saved);
+                } catch (e) { }
+            };
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
+            else f();
+        })();
     </script>
 
 <script class="unihdr">

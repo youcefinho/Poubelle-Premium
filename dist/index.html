@@ -21322,7 +21322,7 @@
               <script>
                 (function () {
                   function ppCount(id, end, dur) { var el = document.getElementById(id); if (!el) return; var s = null; function step(ts) { if (!s) s = ts; var p = Math.min((ts - s) / dur, 1); var e = 1 - Math.pow(1 - p, 3); el.textContent = "+" + Math.floor(e * end).toLocaleString('fr-CA'); if (p < 1) requestAnimationFrame(step); } requestAnimationFrame(step); }
-                  document.addEventListener('DOMContentLoaded', function () { setTimeout(function () { ppCount('pp-bacs', 2450, 2200); }, 600); });
+                  (function(){var f=function(){setTimeout(function(){ppCount('pp-bacs',2450,2200);},600);};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',f);else f();})();
                   var acts = [
                     '<strong class="fr-text">Nouveau client</strong><strong class="en-text">New client</strong><span class="fr-text"> &mdash; Secteur Laval &middot; il y a 3 min</span><span class="en-text"> &mdash; Laval &middot; 3 min ago</span>',
                     '<strong class="fr-text">Bac lav&eacute;</strong><strong class="en-text">Bin washed</strong><span class="fr-text"> &mdash; Rosemont &middot; il y a 6 min</span><span class="en-text"> &mdash; Rosemont &middot; 6 min ago</span>',
@@ -24714,12 +24714,16 @@
           else openItem(item);
         });
 
-        // Init icônes (chevron-down + curseur visible)
-        document.addEventListener('DOMContentLoaded', function () {
-          document.querySelectorAll('.hl-faq-child-heading-icon').forEach(function (ic) {
-            ic.classList.add('fa-chevron-down');
-          });
-        });
+        // Init icônes (chevron-down + curseur visible) — robuste à un DOM déjà prêt
+        (function(){
+          var f = function () {
+            document.querySelectorAll('.hl-faq-child-heading-icon').forEach(function (ic) {
+              ic.classList.add('fa-chevron-down');
+            });
+          };
+          if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
+          else f();
+        })();
       })();
     </script>
     <div id="teleports"></div>
@@ -25062,13 +25066,17 @@
           // Sauvegarder la préférence
           try { localStorage.setItem('pp_lang', lang); } catch (e) { }
         };
-        // Au chargement, restaurer la préférence sauvegardée
-        document.addEventListener('DOMContentLoaded', function () {
-          try {
-            var saved = localStorage.getItem('pp_lang');
-            if (saved && saved !== 'fr') window.switchLang(saved);
-          } catch (e) { }
-        });
+        // Au chargement, restaurer la préférence sauvegardée — robuste à un DOM déjà prêt
+        (function(){
+          var f = function () {
+            try {
+              var saved = localStorage.getItem('pp_lang');
+              if (saved && saved !== 'fr') window.switchLang(saved);
+            } catch (e) { }
+          };
+          if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
+          else f();
+        })();
       })();
     </script>
     <!-- ===== END LANGUAGE SWITCHER JS ===== -->

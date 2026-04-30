@@ -59,12 +59,21 @@
           margin-right: calc(-50vw + 50%) !important;
           box-sizing: border-box !important;
         }
-        .en-text, .en-block { display: none !important; }
-        .fr-text { display: inline; }
-        .fr-block { display: block; }
-        .lang-en .fr-text, .lang-en .fr-block { display: none !important; }
-        .lang-en .en-text { display: inline !important; }
-        .lang-en .en-block { display: block !important; }
+        /* Lang switch : robuste, base sur body.lang-fr / body.lang-en */
+        .en-text { display: none !important; }
+        .en-block { display: none !important; }
+        .fr-text { display: inline !important; }
+        .fr-block { display: block !important; }
+
+        body.lang-en .fr-text,
+        body.lang-en .fr-block { display: none !important; }
+        body.lang-en .en-text { display: inline !important; }
+        body.lang-en .en-block { display: block !important; }
+
+        body.lang-fr .fr-text { display: inline !important; }
+        body.lang-fr .fr-block { display: block !important; }
+        body.lang-fr .en-text,
+        body.lang-fr .en-block { display: none !important; }
 
         /* ===== RESET & BASE (Header/Footer Protection) ===== */
         :root {
@@ -83,17 +92,7 @@
             overflow-x: hidden;
         }
 
-        body.lang-fr .en-text {
-            display: none !important;
-        }
-
-        body.lang-en .fr-text {
-            display: none !important;
-        }
-
-        body:not(.lang-en):not(.lang-fr) .en-text {
-            display: none !important;
-        }
+        /* Regles lang dupliquees retirees (deja gerees plus haut avec !important) */
 
         /* ===== HEADER (SOUMISSION STYLE) ===== */
         .header-nav {

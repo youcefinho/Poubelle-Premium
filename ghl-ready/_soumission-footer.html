@@ -1,0 +1,58 @@
+<script>
+  (function () {
+    if (typeof window.switchLang !== 'function') {
+      var currentLang = 'fr';
+      window.switchLang = function (lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+        document.querySelectorAll('.fr-text, .fr-block').forEach(function (el) {
+          var d = el.classList.contains('fr-block') ? 'block' : 'inline';
+          el.style.setProperty('display', lang === 'fr' ? d : 'none', 'important');
+        });
+        document.querySelectorAll('.en-text, .en-block').forEach(function (el) {
+          var d = el.classList.contains('en-block') ? 'block' : 'inline';
+          el.style.setProperty('display', lang === 'en' ? d : 'none', 'important');
+        });
+        document.querySelectorAll('[data-lang]').forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('pp_lang', lang); } catch (e) { }
+      };
+    }
+    function restoreLang() {
+      try {
+        var saved = localStorage.getItem('pp_lang');
+        if (saved && saved !== 'fr') window.switchLang(saved);
+      } catch (e) { }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restoreLang);
+    else restoreLang();
+
+    function scrollFormToTop() {
+      var form = document.getElementById('_builder-form');
+      if (!form) return;
+      var headerH = (document.querySelector('.header-nav') || {}).offsetHeight || 80;
+      var top = form.getBoundingClientRect().top + window.pageYOffset - headerH - 20;
+      window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+    }
+    window.ppScrollFormToTop = scrollFormToTop;
+
+    function initPersoToggle() {
+      document.addEventListener('change', function (e) {
+        if (!e.target || e.target.name !== 'forfait_2025') return;
+        var wrap = document.getElementById('forfait-perso-wrap');
+        if (!wrap) return;
+        var isPerso = e.target.value === 'PERSONNALISÉ';
+        wrap.style.display = isPerso ? 'block' : 'none';
+        var input = wrap.querySelector('input, textarea, select');
+        if (input) {
+          if (isPerso) input.setAttribute('required', 'required');
+          else input.removeAttribute('required');
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPersoToggle);
+    else initPersoToggle();
+  })();
+</script>

@@ -1,0 +1,55 @@
+<script>
+  (function () {
+    if (typeof window.switchLang !== 'function') {
+      var currentLang = 'fr';
+      window.switchLang = function (lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+        document.querySelectorAll('.fr-text, .fr-block').forEach(function (el) {
+          var d = el.classList.contains('fr-block') ? 'block' : 'inline';
+          el.style.setProperty('display', lang === 'fr' ? d : 'none', 'important');
+        });
+        document.querySelectorAll('.en-text, .en-block').forEach(function (el) {
+          var d = el.classList.contains('en-block') ? 'block' : 'inline';
+          el.style.setProperty('display', lang === 'en' ? d : 'none', 'important');
+        });
+        document.querySelectorAll('[data-lang]').forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('pp_lang', lang); } catch (e) { }
+      };
+    }
+    function restoreLang() {
+      try {
+        var saved = localStorage.getItem('pp_lang');
+        if (saved && saved !== 'fr') window.switchLang(saved);
+      } catch (e) { }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restoreLang);
+    else restoreLang();
+
+    function initReviewsSwiper() {
+      if (typeof Swiper === 'undefined') return false;
+      var el = document.querySelector('.reviewsSwiper');
+      if (!el || el._ppRetourSwInit) return true;
+      el._ppRetourSwInit = true;
+      try {
+        new Swiper('.reviewsSwiper', {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          autoplay: { delay: 4500, disableOnInteraction: false },
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+          pagination: { el: '.swiper-pagination', clickable: true },
+          breakpoints: { 768: { slidesPerView: 2 }, 1100: { slidesPerView: 3 } }
+        });
+      } catch (e) { }
+      return true;
+    }
+    var swTries = 0;
+    var swIv = setInterval(function () {
+      if (initReviewsSwiper() || swTries++ > 30) clearInterval(swIv);
+    }, 100);
+  })();
+</script>

@@ -1,0 +1,32 @@
+<script>
+  (function () {
+    if (typeof window.switchLang !== 'function') {
+      var currentLang = 'fr';
+      window.switchLang = function (lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+        document.querySelectorAll('.fr-text, .fr-block').forEach(function (el) {
+          var d = el.classList.contains('fr-block') ? 'block' : 'inline';
+          el.style.setProperty('display', lang === 'fr' ? d : 'none', 'important');
+        });
+        document.querySelectorAll('.en-text, .en-block').forEach(function (el) {
+          var d = el.classList.contains('en-block') ? 'block' : 'inline';
+          el.style.setProperty('display', lang === 'en' ? d : 'none', 'important');
+        });
+        document.querySelectorAll('[data-lang]').forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+        });
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('pp_lang', lang); } catch (e) { }
+      };
+    }
+    function restoreLang() {
+      try {
+        var saved = localStorage.getItem('pp_lang');
+        if (saved && saved !== 'fr') window.switchLang(saved);
+      } catch (e) { }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restoreLang);
+    else restoreLang();
+  })();
+</script>

@@ -1,0 +1,27 @@
+.en-text, .en-block { display: none !important; }
+.fr-text { display: inline !important; }
+.fr-block { display: block !important; }
+
+html[lang="en"] .fr-text,
+html[lang="en"] .fr-block { display: none !important; }
+html[lang="en"] .en-text { display: inline !important; }
+html[lang="en"] .en-block { display: block !important; }
+
+header.header-nav,
+.header-nav {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  box-sizing: border-box !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+.reviewsSwiper {
+  padding-bottom: 50px;
+}
+.reviewsSwiper .swiper-pagination-bullet-active {
+  background: #FE8800;
+}

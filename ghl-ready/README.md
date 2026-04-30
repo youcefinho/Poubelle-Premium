@@ -1,32 +1,41 @@
 # Fichiers prêts à coller dans GHL
 
-4 fichiers nettoyés (sans `<!DOCTYPE>`, `<html>`, `<head>`, `<body>` — déjà présents dans la page GHL parente).
+## Vue d'ensemble — 4 pages × 4 emplacements
 
-## Procédure (à répéter 4 fois)
+Chaque page GHL reçoit **4 collages** :
+- 1× HTML markup → bloc Custom Code
+- 1× lib externe → Code de suivi → Suivi d'**en-tête**
+- 1× scripts init → Code de suivi → Suivi du **pied de page**
+- 1× styles → **CSS personnalisé**
 
-### 1. Créer les 4 pages dans le funnel GHL
+---
 
-| Fichier source                  | Nom de page GHL  | Slug d'URL          | Taille |
-|---------------------------------|------------------|---------------------|--------|
-| `1-accueil.html`                | Accueil          | `/` (home du funnel) | 1.3 MB |
-| `2-avis-clients.html`           | Avis clients     | `/avis-clients`     | 32 KB  |
-| `3-soumission.html`             | Soumission       | `/soumission`       | 53 KB  |
-| `4-retour.html`                 | Retour           | `/retour`           | 32 KB  |
+## 📋 Tableau de correspondance (1 ligne = 1 page)
 
-Dans GHL : `Funnel → + Add Page` → définis le **nom** et le **slug** d'URL.
+| Page GHL    | Slug          | Bloc Custom Code         | Code de suivi (en-tête)    | Code de suivi (pied de page) | CSS personnalisé      |
+|-------------|---------------|--------------------------|----------------------------|------------------------------|-----------------------|
+| Accueil     | `/`           | `1-accueil.html`         | `_accueil-header.html`     | `_accueil-footer.html`       | `_accueil-css.css`    |
+| Avis        | `/avis-clients` | `2-avis-clients.html`  | `_avis-header.html`        | `_avis-footer.html`          | `_avis-css.css`       |
+| Soumission  | `/soumission` | `3-soumission.html`      | `_soumission-header.html`  | `_soumission-footer.html`    | `_soumission-css.css` |
+| Retour      | `/retour`     | `4-retour.html`          | `_retour-header.html`      | `_retour-footer.html`        | `_retour-css.css`     |
 
-### 2. Pour chaque page
+---
 
-1. Ouvre la page dans le builder
-2. Drop un bloc **Custom HTML/JS** (1 Column Row → bloc HTML/Javascript personnalisé)
-3. Ouvre le fichier correspondant ici (`1-accueil.html`, etc.)
-4. **Ctrl+A** (tout sélectionner) → **Ctrl+C** (copier)
-5. Colle dans le bloc Custom Code GHL
-6. Sauvegarder + Publier
+## Procédure pour 1 page (à répéter 4 fois)
 
-### 3. SEO de chaque page (à faire dans GHL, PAS dans le code)
+1. Ouvre la page dans le builder GHL (Funnel → Page concernée)
+2. **Bloc Custom Code** : drop un bloc HTML/JS personnalisé → ouvre le fichier `1-accueil.html` (ou autre) → Ctrl+A → Ctrl+C → coller dans le bloc
+3. **Paramètres de la page → CSS personnalisé** : ouvre `_<nom>-css.css` → Ctrl+A → Ctrl+C → coller
+4. **Paramètres de la page → Code de suivi** :
+   - Onglet **Suivi d'en-tête** : colle `_<nom>-header.html`
+   - Onglet **Suivi du pied de page** : colle `_<nom>-footer.html`
+5. Sauvegarder → Publier
 
-Dans `Page Settings → SEO` de chaque page GHL, configure :
+---
+
+## SEO de chaque page
+
+Dans `Page Settings → SEO` :
 
 | Page              | Title                                          | Meta description                                                    |
 |-------------------|------------------------------------------------|---------------------------------------------------------------------|
@@ -35,21 +44,12 @@ Dans `Page Settings → SEO` de chaque page GHL, configure :
 | Soumission        | Demande de Soumission \| Poubelle Premium      | Remplissez notre formulaire en ligne pour recevoir une soumission rapide. |
 | Retour            | Votre retour — Poubelle Premium                | Partagez votre retour avec Poubelle Premium.                        |
 
-Les `<meta>` et `<title>` qui restent en haut des fichiers HTML sont **ignorés** par le navigateur quand insérés dans le body — c'est cosmétique, GHL utilise ce que tu mets dans le SEO panel.
+---
 
-## Liens internes
+## Pourquoi 4 emplacements et pas 1 seul ?
 
-Les `href` ont été patchés pour pointer vers les **slugs GHL** :
+GHL injecte le bloc Custom Code via `innerHTML`. Conséquence : **les `<script>` à l'intérieur ne s'exécutent pas toujours** (compteur sans «+», animations bloquées, FAQ figée, switcher FR/EN buggé).
 
-```
-href="/"                ← Accueil
-href="/avis-clients"    ← page Avis
-href="/soumission"      ← page Soumission
-href="/retour"          ← page Retour
-```
+Solution : dupliquer les libs externes et les scripts d'init dans les emplacements GHL natifs (`Code de suivi` + `CSS personnalisé`) où le code est exécuté nativement.
 
-⚠️ Si tu changes un slug dans GHL, il faut **regénérer les fichiers** avec les nouveaux slugs (sinon les liens cassent).
-
-## Test après publication
-
-Vérifie que les 4 liens du menu (Accueil / Services / Avis clients / Demander un devis) fonctionnent depuis chaque page. Pareil pour les CTAs dans les sections (boutons "Faire nettoyer mes bacs" → soumission).
+Le bloc Custom Code reste indispensable pour le HTML markup. Les 3 autres collages renforcent et garantissent l'exécution.

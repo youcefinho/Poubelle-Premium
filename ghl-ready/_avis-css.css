@@ -52,6 +52,38 @@ header.header-nav,
 #pp-mobile-nav.open {
   display: flex !important;
   flex-direction: column !important;
+  height: auto !important;
+  min-height: 250px !important;
+  overflow: visible !important;
+  background: #fff !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 20px !important;
+}
+#pp-mobile-nav.open a {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  color: #212023 !important;
+  padding: 14px 10px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+#pp-mobile-nav.open a span {
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: inherit !important;
+}
+#pp-mobile-nav.open .pp-mob-cta {
+  background: #F48716 !important;
+  color: #fff !important;
+  border-radius: 50px !important;
+  text-align: center !important;
+  margin-top: 15px !important;
+  border-bottom: none !important;
 }
 #pp-mobile-nav a {
   display: block !important;

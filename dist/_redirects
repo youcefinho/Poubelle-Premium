@@ -1,0 +1,11 @@
+# Anciennes URLs GHL -> nouvelles routes (301 = SEO permanent)
+/accueil6709844         /              301
+/quote-bin-cleaning     /soumission    301
+/blog-poubelle-premium  /              301
+
+# Anciens articles de blog (présents dans le HTML home en liens absolus)
+/blog                   /              301
+/post/*                 /              301
+
+# Cloudflare Pages sert automatiquement /page-avis pour /page-avis.html
+# (pretty URLs built-in) — pas besoin de redirect explicite.

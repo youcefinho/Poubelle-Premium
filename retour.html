@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre retour — Poubelle Premium</title>
+    <meta name="description" content="Partagez votre retour avec Poubelle Premium. Vos commentaires nous aident à nous améliorer continuellement.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        *, ::before, ::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { min-height: 100%; font-family: 'Poppins', sans-serif; }
+        body { background: #f9f9f9; }
+        a { color: inherit; text-decoration: inherit; }
+
+        :root {
+            --beige: #F48716; /* Orange Poubelle Premium */
+            --navy: #0B1B36;  /* Navy */
+            --steel: #1e3a8a; /* Lighter Navy */
+        }
+
+        .display-font {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
+        .animate-in { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .delay-1 { animation-delay: .15s }
+        .delay-2 { animation-delay: .3s }
+        .delay-3 { animation-delay: .45s }
+
+        /* HERO SPLIT */
+        .hero-split {
+            background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/003dc18c-4c45-4316-a8ba-cbaa3de00a95.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(11, 27, 54, 0.95) 0%, rgba(30, 58, 138, 0.9) 100%); }
+
+        .hero-grid { position: relative; z-index: 10; width: 100%; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+        @media(min-width:1024px) { .hero-grid { grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; } }
+
+        .surtitle { color: var(--beige); font-size: .875rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; display: block; }
+
+        .hero-divider { width: 60px; height: 3px; background: var(--beige); border-radius: 2px; margin: 1.5rem 0; }
+
+        /* RIGHT FORM */
+        .form-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25); }
+        .form-card-top { background: linear-gradient(90deg, var(--navy), var(--steel)); padding: 1.25rem 2rem; display: flex; align-items: center; gap: .75rem; justify-content: center; }
+
+        /* REVIEWS SECTION */
+        .reviews-section { padding: 5rem 1.5rem; background: linear-gradient(135deg, #f9f9f9, #EEEEEE); }
+        .reviews-section .container { max-width: 1280px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+
+        .premium-card { background: #fff; border: 1px solid rgba(11, 27, 54, .1); border-radius: 16px; padding: 2rem; transition: all .4s; position: relative; height: 100%; box-shadow: 0 4px 14px rgba(0,0,0,0.03); }
+        .premium-card::before { content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 3px; background: var(--beige); }
+        .premium-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(11, 27, 54, .12); }
+
+        .stars { display: flex; gap: .25rem; margin-bottom: 1rem; color: #FFC107; font-size: 1.25rem; font-family: sans-serif; }
+        .g-icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+        /* Rating bar */
+        .rating-box { background: #fff; border: 1px solid rgba(244, 135, 22, .25); border-radius: 16px; padding: 2rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        .rating-num { font-size: 4rem; font-weight: 800; color: var(--navy); line-height: 1; }
+        .rating-detail { flex: 1; min-width: 200px; }
+        .rating-google-btn { display: inline-flex; align-items: center; gap: .6rem; background: #fff; color: #374151; font-weight: 600; padding: .75rem 1.5rem; border-radius: 10px; border: 2px solid #e5e7eb; font-size: .875rem; transition: all 0.3s; margin-top: .75rem; font-family: 'Poppins', sans-serif; }
+        .rating-google-btn:hover { border-color: var(--beige); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, .1); }
+
+        /* Swiper */
+        .reviewsSwiper { padding: 1rem .5rem 4rem; overflow: hidden; position: relative; }
+        
+        
+/* ===== UNIFIED HEADER CSS ===== */
+.header-nav { background: #fff; border-bottom: 2px solid #F48716; padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+.container-header { max-width: 1170px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 70px; width: auto; }
+.nav-links { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; align-items: center; }
+.nav-links a { text-decoration: none; color: #212023; font-weight: 700; font-size: 1.1rem; transition: color 0.3s; font-family: 'Poppins', sans-serif;}
+.nav-links a:hover { color: #F48716; }
+.btn-quote-header { background-color: #F48716; color: #fff; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s; font-size: 1rem; font-family: 'Poppins', sans-serif;}
+.btn-quote-header:hover { opacity: 0.9; transform: scale(1.02); color: #fff; }
+
+/* LANG SWITCH */
+.lang-switcher-container { display: flex; align-items: center; gap: 3px; background: rgba(244, 135, 22, 0.07); border: 1.5px solid rgba(244, 135, 22, 0.28); border-radius: 50px; padding: 4px 9px; margin-left: 10px; }
+.lang-btn { padding: 3px 8px; border-radius: 50px; border: none; background: transparent; font-size: 0.78rem; font-weight: 700; color: #666; cursor: pointer; transition: all 0.22s ease; }
+.lang-btn.active { background: #F48716; color: #fff; }
+
+/* MOBILE HEADER & NAV */
+#pp-mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #fff; border-bottom: 2px solid #F48716; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); padding: 10px 20px; align-items: center; justify-content: space-between; }
+#pp-mobile-header .pp-mob-logo img { height: 50px; width: auto; object-fit: contain; }
+#pp-hamburger-btn { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 38px; height: 38px; cursor: pointer; background: none; border: none; padding: 4px; }
+#pp-hamburger-btn span { display: block; width: 100%; height: 3px; background: #F48716; border-radius: 3px; transition: all 0.3s ease; }
+#pp-hamburger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+#pp-hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#pp-hamburger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+#pp-mobile-nav { display: none; position: fixed; top: 71px; left: 0; right: 0; background: #fff; z-index: 9998; flex-direction: column; padding: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); border-top: 1px solid rgba(244, 135, 22, 0.2); }
+#pp-mobile-nav.open { display: flex; }
+#pp-mobile-nav a { display: block; padding: 14px 10px; font-size: 1rem; font-weight: 600; color: #212023; text-decoration: none; border-bottom: 1px solid rgba(0, 0, 0, 0.06); font-family: 'Poppins', sans-serif;}
+#pp-mobile-nav a:hover { color: #F48716; }
+#pp-mobile-nav .pp-mob-cta { margin-top: 15px; background: #F48716; color: #fff !important; border-radius: 50px; text-align: center; padding: 14px 20px; font-weight: 700; border-bottom: none; }
+
+@media (max-width: 767px) {
+    .header-nav { display: none !important; }
+    #pp-mobile-header { display: flex !important; }
+    body { padding-top: 71px !important; }
+}
+
+        
+
+        /* ===== RESET & BASE (Header/Footer Protection) ===== */
+        :root {
+            --orange: #FE8800;
+            --orange2: #F48716;
+            --navy: #0B1B36;
+            --white: #FFFFFF;
+            --light-bg: #f9f9f9;
+            --light-bg2: #EEEEEE;
+            --text-dark: #212023;
+            --poppins: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--poppins) !important;
+            overflow-x: hidden;
+        }
+
+        body.lang-fr .en-text {
+            display: none !important;
+        }
+
+        body.lang-en .fr-text {
+            display: none !important;
+        }
+
+        body:not(.lang-en):not(.lang-fr) .en-text {
+            display: none !important;
+        }
+
+        /* ===== HEADER (SOUMISSION STYLE) ===== */
+        .header-nav {
+            background: var(--white);
+            border-bottom: 2px solid var(--orange2);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .container-header {
+            max-width: 1170px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange2);
+        }
+
+        .btn-quote-header {
+            background-color: var(--orange2);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-quote-header:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* ===== MOBILE HEADER OVERRIDE (SOUMISSION) ===== */
+        #pp-mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: #fff;
+            border-bottom: 2px solid var(--orange2);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 10px 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #pp-mobile-header .pp-mob-logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        #pp-hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        #pp-hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--orange2);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        #pp-hamburger-btn.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        #pp-mobile-nav {
+            display: none;
+            position: fixed;
+            top: 71px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 9998;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            border-top: 1px solid rgba(244, 135, 22, 0.2);
+        }
+
+        #pp-mobile-nav.open {
+            display: flex;
+        }
+
+        #pp-mobile-nav a {
+            display: block;
+            padding: 14px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        #pp-mobile-nav a:hover {
+            color: var(--orange2);
+        }
+
+        #pp-mobile-nav .pp-mob-cta {
+            margin-top: 15px;
+            background: var(--orange2);
+            color: #fff !important;
+            border-radius: 50px;
+            text-align: center;
+            padding: 14px 20px;
+            font-weight: 700;
+        }
+
+        /* Lang switch */
+        .lang-switcher-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(244, 135, 22, 0.07);
+            border: 1.5px solid rgba(244, 135, 22, 0.28);
+            border-radius: 50px;
+            padding: 4px 9px;
+            margin-left: 10px;
+        }
+
+        .lang-btn {
+            padding: 3px 8px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--orange2);
+            color: #fff;
+        }
+
+        /* ===== FOOTER (SOUMISSION STYLE) ===== */
+        .footer {
+            background: var(--white);
+            color: #1a202c;
+            padding: 80px 0 40px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo img {
+            height: 90px;
+            margin-bottom: 20px;
+        }
+
+        .footer h3 {
+            color: var(--orange2);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer li {
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+
+        .footer a {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--orange2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+        }
+
+        @media (max-width: 767px) {
+            .header-nav {
+                display: none !important;
+            }
+
+            #pp-mobile-header {
+                display: flex;
+            }
+
+            body {
+                padding-top: 71px !important;
+            }
+        }
+    
+    </style>
+</head>
+<body class="lang-fr">
+    <div class="unihdr" id="pp-mobile-header">
+<a class="pp-mob-logo" href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html">
+<img alt="Poubelle Premium" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"/>
+</a>
+<div style="display:flex;align-items:center;gap:10px;">
+<div class="lang-switcher-container" style="margin-left:0; background:none; border:none; padding:0;">
+<button class="lang-btn active" data-lang="fr" onclick="if(window.switchLang) window.switchLang('fr')" style="padding:0 4px;">FR</button>
+<span style="color:#ccc;">|</span>
+<button class="lang-btn" data-lang="en" onclick="if(window.switchLang) window.switchLang('en')" style="padding:0 4px;">EN</button>
+</div>
+<button aria-label="Ouvrir le menu" id="pp-hamburger-btn">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</div>
+    <header class="header-nav unihdr">
+<div class="container-header">
+<a class="logo" href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html">
+<img alt="Poubelle Premium Logo" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"/>
+</a>
+<nav style="display: flex; align-items: center;">
+<ul class="nav-links">
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li><a href="page-avis.html"><span class="fr-text">Avis Clients</span><span class="en-text">Reviews</span></a></li>
+</ul>
+<div class="lang-switcher-container">
+<button class="lang-btn active" data-lang="fr" onclick="if(window.switchLang) window.switchLang('fr')">FR</button>
+<button class="lang-btn" data-lang="en" onclick="if(window.switchLang) window.switchLang('en')">EN</button>
+</div>
+</nav>
+<a class="btn-quote-header" href="soumission.html">
+<span class="fr-text">Demander un devis</span>
+<span class="en-text">Request a quote</span>
+</a>
+</div>
+</header>
+    <nav class="unihdr" id="pp-mobile-nav">
+<a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a>
+<a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>
+<a href="page-avis.html"><span class="fr-text">Avis Clients</span><span class="en-text">Reviews</span></a>
+<a class="pp-mob-cta" href="soumission.html"><span class="fr-text">Demander un devis gratuit</span><span class="en-text">Request a free quote</span></a>
+</nav>
+
+    <div class="hero-split">
+        <div class="hero-overlay"></div>
+        <div class="hero-grid">
+            <div class="hero-left">
+                <span class="surtitle animate-in delay-1" style="color:rgba(251,251,251,0.7);">
+                    <span class="fr-text">Votre opinion compte</span>
+                    <span class="en-text">Your opinion matters</span>
+                </span>
+                <h1 class="display-font animate-in delay-1" style="color:#ffffff;font-size:clamp(1.6rem,3.5vw,3rem);line-height:1.2;margin-bottom:1.25rem;">
+                   <span class="fr-text">Merci de votre sincérité.</span>
+                   <span class="en-text">Thank you for your honesty.</span>
+                </h1>
+                <div class="hero-divider animate-in delay-1"></div>
+                <p class="animate-in delay-2" style="color:#CBD5E0;font-size:1.05rem;line-height:1.8;max-width:480px;">
+                    <span class="fr-text">Chaque retour compte. S'il y a eu la moindre déception concernant le nettoyage de vos bacs, nous tenons à le savoir pour améliorer notre service et vous offrir un résultat impeccable.</span>
+                    <span class="en-text">Every feedback counts. If there was any disappointment regarding the cleaning of your bins, we want to know it to improve our service and offer you an impeccable result.</span>
+                </p>
+                <div class="animate-in delay-3" style="margin-top:2rem;">
+                    <a href="page-avis.html" style="color:var(--beige);font-size:1rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;transition:opacity .2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                        <span class="fr-text">← Retour à la page d'avis</span>
+                        <span class="en-text">← Back to reviews</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-right animate-in delay-2">
+                <div class="form-card">
+                    <div class="form-card-top">
+                        <span style="color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;">
+                            <span class="fr-text">Vos précieux retours</span>
+                            <span class="en-text">Your valuable feedback</span>
+                        </span>
+                    </div>
+                    <div class="form-card-body">
+                        <iframe src="https://api.leadconnectorhq.com/widget/form/veu1ZjRl4uyHSZBQUNWJ" style="width:100%;min-height:280px;border:none;" id="inline-veu1ZjRl4uyHSZBQUNWJ" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Formulaire Retour" data-height="280" data-layout-iframe-id="inline-veu1ZjRl4uyHSZBQUNWJ" data-form-id="veu1ZjRl4uyHSZBQUNWJ" title="Formulaire Retour"></iframe>
+                        <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span style="color:var(--beige);font-size:.875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.75rem;">
+                    <span class="fr-text">Témoignages Authentiques</span>
+                    <span class="en-text">Authentic Testimonials</span>
+                </span>
+                <h2 class="display-font" style="color:var(--navy);font-size:clamp(1.25rem,3vw,2rem);">
+                    <span class="fr-text">Ce que disent nos clients</span>
+                    <span class="en-text">What our clients say</span>
+                </h2>
+                <p style="color:#4A5F75;font-size:1rem;margin-top:1rem;">
+                    <span class="fr-text">Avis récents publiés sur notre fiche Google Maps.</span>
+                    <span class="en-text">Recent reviews published on our Google Maps listing.</span>
+                </p>
+            </div>
+
+            <div class="rating-box animate-in">
+                <div>
+                    <div class="rating-num">5.0</div>
+                    <div style="display:flex;gap:.25rem;margin:.5rem 0;color:var(--beige);font-size:1.5rem;">
+                        ★★★★★
+                    </div>
+                    <p style="color:#4A5F75;font-size:.875rem;font-weight:600;">
+                        <span class="fr-text">Note Google parfaite</span>
+                        <span class="en-text">Perfect Google rating</span>
+                    </p>
+                </div>
+                <div class="rating-detail">
+                    <p style="color:var(--navy);font-size:1.05rem;line-height:1.7;">
+                        <span class="fr-text">Des centaines de familles confient l'hygiène de leurs bacs à Poubelle Premium.</span>
+                        <span class="en-text">Hundreds of families trust Poubelle Premium with their bins' hygiene.</span>
+                    </p>
+                    <a href="https://www.google.com/search?hl=fr-DZ&gl=dz&q=Poubelle+Premium&ludocid=9599883789523511772" target="_blank" rel="noopener" class="rating-google-btn">
+                        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.2H42V20H24v8h11.3C33.6 32.9 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 2.9l5.7-5.7C34.5 6.5 29.5 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.8z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.4 15.5 18.9 12 24 12c3.1 0 5.8 1.1 8 2.9l5.7-5.7C34.5 6.5 29.5 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.1l-6.2-5.2C29.3 35.5 26.7 36 24 36c-5.2 0-9.6-3.1-11.3-7.5l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.2H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.5l6.2 5.2C42.5 34.5 44 29.7 44 24c0-1.3-.1-2.6-.4-3.8z"/></svg>
+                        <span class="fr-text">Laisser un avis Google ★★★★★</span>
+                        <span class="en-text">Leave a Google review ★★★★★</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="swiper reviewsSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Poubelle Premium Adapted Review 1 -->
+                    <div class="swiper-slide premium-card animate-in delay-1">
+                        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+                            <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--steel));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.125rem;flex-shrink:0;">A</div>
+                            <div>
+                                <p style="color:var(--navy);font-weight:700;font-size:.9375rem;">Anny L.</p>
+                                <p style="color:#7D92A7;font-size:.75rem;display:flex;align-items:center;gap:4px;">Il y a 1 mois · Google</p>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p style="color:#4A5F75;font-style:italic;line-height:1.7;">"Excellent service professionnel ! Mes bacs n'ont jamais été aussi propres. Élimine totalement les odeurs avec un concept écologique."</p>
+                    </div>
+                    <!-- Poubelle Premium Adapted Review 2 -->
+                    <div class="swiper-slide premium-card animate-in delay-2">
+                        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+                            <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--beige),#d97706);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.125rem;flex-shrink:0;">M</div>
+                            <div>
+                                <p style="color:var(--navy);font-weight:700;font-size:.9375rem;">Marc B.</p>
+                                <p style="color:#7D92A7;font-size:.75rem;display:flex;align-items:center;gap:4px;">Il y a 3 mois · Google</p>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p style="color:#4A5F75;font-style:italic;line-height:1.7;">"Service incroyable et très ponctuel. Fini les mouches et les bactéries après les collectes d'été. C'est du super travail, je recommande fort!"</p>
+                    </div>
+                    <!-- Poubelle Premium Adapted Review 3 -->
+                    <div class="swiper-slide premium-card animate-in delay-3">
+                        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+                            <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#4A5F75,#7D92A7);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.125rem;flex-shrink:0;">S</div>
+                            <div>
+                                <p style="color:var(--navy);font-weight:700;font-size:.9375rem;">Sylvie T.</p>
+                                <p style="color:#7D92A7;font-size:.75rem;display:flex;align-items:center;gap:4px;">Il y a 5 mois · Google</p>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p style="color:#4A5F75;font-style:italic;line-height:1.7;">"Équipe de confiance à Laval. Le camion arrive juste après le vidangeur et lave tout à 100% avec d'eau recyclée."</p>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev" style="color:var(--beige);"></div>
+                <div class="swiper-button-next" style="color:var(--beige);"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+<div class="container-header">
+<div class="footer-grid">
+<div class="footer-col">
+<div class="footer-logo">
+<img alt="Logo Footer" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"/>
+</div>
+<p>
+<span class="fr-text">Votre partenaire de confiance pour un environnement sain et sans
+                            odeurs.</span>
+<span class="en-text">Your trusted partner for a healthy and odorless environment.</span>
+</p>
+</div>
+<div class="footer-col">
+<h3><span class="fr-text">Contact</span><span class="en-text">Contact</span></h3>
+<ul>
+<li><a href="tel:+14387994449">(438) 799-4449</a></li>
+<li><a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></li>
+<li>
+<span class="fr-text">Laval et Rive-Nord</span>
+<span class="en-text">Laval &amp; North Shore</span>
+</li>
+</ul>
+</div>
+<div class="footer-col">
+<h3><span class="fr-text">Navigation</span><span class="en-text">Navigation</span></h3>
+<ul>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-jIShhaMz_f"><span class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
+<li><a href="Nettoyage de Bacs - Devis Gratuit Poubelle Premium.html#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li><a href="soumission.html"><span class="fr-text">Soumission</span><span class="en-text">Quote</span></a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>
+<span class="fr-text">© 2026 Poubelle Premium. Tous droits réservés.</span>
+<span class="en-text">© 2026 Poubelle Premium. All rights reserved.</span>
+</p>
+</div>
+</div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.style.animation = 'fadeInUp 0.8s ease-out forwards'; });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-in').forEach(el => obs.observe(el));
+
+        new Swiper('.reviewsSwiper', {
+            slidesPerView: 1, spaceBetween: 28,
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+    </script>
+    <script class="unihdr">
+    (function () {
+        const btn = document.getElementById('pp-hamburger-btn');
+        const nav = document.getElementById('pp-mobile-nav');
+        if (!btn || !nav) return;
+        btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            nav.classList.toggle('open');
+        });
+        nav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                btn.classList.remove('open');
+                nav.classList.remove('open');
+            });
+        });
+    })();
+</script>
+    
+</body>
+</html>

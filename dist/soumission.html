@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Demande de Soumission | Poubelle Premium</title>
+<meta content="Remplissez notre formulaire en ligne pour recevoir une soumission rapide et personnalisée. Service fiable et écologique!" name="description"/>
+<link crossorigin="anonymous" href="https://fonts.googleapis.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a076d05399.js"></script>
+<style>
+        body.lang-fr .en-text { display: none !important; }
+        body.lang-en .fr-text { display: none !important; }
+        body:not(.lang-en):not(.lang-fr) .en-text { display: none !important; }
+        
+        .lang-switcher-container { display: flex; align-items: center; gap: 3px; background: rgba(244, 135, 22, 0.07); border: 1.5px solid rgba(244, 135, 22, 0.28); border-radius: 50px; padding: 4px 9px; margin-left: 10px; }
+        .lang-btn { padding: 3px 8px; border-radius: 50px; border: none; background: transparent; font-size: 0.78rem; font-weight: 700; color: #666; cursor: pointer; transition: all 0.22s ease; }
+        .lang-btn.active { background: var(--primary); color: #fff; }
+
+        :root {
+            --primary: #F48716;
+            --secondary: #188bf6;
+            --white: #ffffff;
+            --black: #000000;
+            --bg-light: #f9f9f9;
+            --dark-blue: #0B1B36;
+            --orange-bg: #F48716;
+            --headlinefont: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--black);
+            background-color: var(--white);
+        }
+
+        /* Header Styles */
+        .header-nav {
+            background: var(--white);
+            border-bottom: 2px solid var(--primary);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .container {
+            max-width: 1170px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-quote-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-quote-header:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* Hero Section (Orange) */
+        .hero-section {
+            padding: 60px 0 0;
+            background-color: var(--orange-bg);
+            background-image: linear-gradient(rgba(244, 135, 22, 0.85), rgba(244, 135, 22, 0.85)), url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/003dc18c-4c45-4316-a8ba-cbaa3de00a95.jpeg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 35% 65%;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .hero-content {
+            padding-top: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--white);
+            margin-bottom: 30px;
+        }
+
+        .hero-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .hero-list li {
+            margin-bottom: 15px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--white);
+        }
+
+        .hero-list li::before {
+            content: '✓';
+            font-weight: 900;
+        }
+
+        /* Form Container */
+        .form-box {
+            background: transparent;
+            border-radius: 8px;
+            padding: 0;
+            overflow: visible;
+            width: 100%;
+            max-width: 550px;
+            margin-left: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* GHL Form Styles */
+        .ghl-form-wrap {
+            max-width: 550px;
+            border-radius: 8px;
+            box-shadow: 0px 15px 33px 4px #00000026;
+            margin-bottom: 50px;
+            background: #fff;
+        }
+
+        .ghl-survey-form {
+            background-color: #FFFFFF;
+            border: 1px solid #CDE0EC;
+            border-radius: 8px 8px 0 0;
+            max-width: 550px;
+            width: 100%;
+            padding: 20px 40px 0 40px;
+            box-sizing: border-box;
+        }
+
+        .ghl-question-set {
+            margin-top: 0;
+        }
+
+        .form-builder--wrap-questions {
+            overflow: hidden;
+        }
+
+        .ghl-question {
+            display: none;
+        }
+
+        .ghl-page-current {
+            display: block;
+        }
+
+        .form-field-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .field-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #F48716;
+            box-shadow: 0 0 0 2px rgba(244, 135, 22, 0.15);
+        }
+
+        .field-divider {
+            border-top: 1px solid #f0f0f0;
+            margin: 10px 0;
+        }
+
+        .label-alignment span {
+            color: #e53e3e;
+            margin-left: 2px;
+        }
+
+        .error {
+            color: #e53e3e;
+            font-size: 0.8rem;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terms-and-conditions {
+            padding: 10px 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .checkbox-container input[type=checkbox] {
+            margin-top: 4px;
+            flex-shrink: 0;
+            accent-color: #F48716;
+        }
+
+        .terms-text-container p {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .option-radio {
+            display: block;
+            width: 100%;
+        }
+
+        .standard-radio-container {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .standard-radio-container input[type=radio] {
+            accent-color: #F48716;
+        }
+
+        .standard-radio-container label {
+            margin-left: 10px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        /* Multiselect */
+        .multiselect {
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .multiselect__tags {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px 12px;
+            cursor: pointer;
+            background: #fff;
+            min-height: 42px;
+        }
+
+        .multiselect__placeholder {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .multiselect__input {
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .multiselect__content-wrapper {
+            position: absolute;
+            width: 100%;
+            z-index: 100;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .multiselect__content {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            display: block;
+        }
+
+        .multiselect__element {
+            cursor: pointer;
+        }
+
+        .multiselect__option {
+            display: block;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+        }
+
+        .multiselect__option:hover,
+        .multiselect__option--highlight {
+            background: #FFF4E6;
+            color: #F48716;
+        }
+
+        .multiselect__select {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #888;
+            cursor: pointer;
+        }
+
+        .multiselect__select::after {
+            content: '';
+        }
+
+        /* GHL Footer / Navigation Buttons */
+        .ghl-footer {
+            background-color: #FC8901;
+            border-radius: 0 0 8px 8px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ghl-footer-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 50px;
+            color: #fff;
+        }
+
+        .ghl-btn-placeholder {
+            flex: 1;
+            height: 50px;
+        }
+
+        .ghl-btn {
+            background: rgba(0, 0, 0, 0.1);
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            cursor: pointer;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            color: #fff;
+            transition: background 0.2s;
+        }
+
+        .ghl-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .ghl-btn-back {
+            border-radius: 0 0 0 8px;
+        }
+
+        .ghl-btn-next,
+        .ghl-btn-submit {
+            border-radius: 0 0 8px 0;
+        }
+
+        /* GHL Avis Section (First Section) */
+        #section-AvisClients2 {
+            background-color: #f9f9f9;
+            padding: 80px 0 20px 0;
+        }
+
+        .avis-title-premium-2 {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .avis-title-premium-2 h2 {
+            font-family: var(--headlinefont), 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111;
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding-bottom: 15px;
+        }
+
+        .avis-title-premium-2 h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #F48716;
+            border-radius: 2px;
+        }
+
+        .ghl-review-wrapper-2 {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-box {
+                margin: 0 auto;
+            }
+
+            .avis-title-premium-2 h2 {
+                font-size: 2rem;
+            }
+
+            #section-AvisClients2 {
+                padding: 60px 0 15px 0;
+            }
+
+            #msgsndr_reviews {
+                height: 600px !important;
+                /* Increased height for mobile */
+            }
+
+            .ghl-review-wrapper-2 {
+                padding: 0 10px;
+                overflow: visible !important;
+            }
+        }
+
+        /* Mobile hamburger header */
+        #pp-mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: #fff;
+            border-bottom: 2px solid #F48716;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 10px 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #pp-mobile-header .pp-mob-logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Hamburger button */
+        #pp-hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        #pp-hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #F48716;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* X animation when open */
+        #pp-hamburger-btn.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Mobile nav menu */
+        #pp-mobile-nav {
+            display: none;
+            position: fixed;
+            top: 71px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 9998;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            border-top: 1px solid rgba(244, 135, 22, 0.2);
+            animation: slideDown 0.3s ease;
+        }
+
+        #pp-mobile-nav.open {
+            display: flex;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #pp-mobile-nav a {
+            display: block;
+            padding: 14px 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: color 0.2s ease;
+        }
+
+        #pp-mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        #pp-mobile-nav a:hover {
+            color: #F48716;
+        }
+
+        #pp-mobile-nav .pp-mob-cta {
+            margin-top: 15px;
+            background: #F48716;
+            color: #fff !important;
+            border-radius: 50px;
+            text-align: center;
+            padding: 14px 20px;
+            font-weight: 700;
+        }
+
+        #pp-mobile-nav .pp-mob-cta:hover {
+            background: #d97706;
+            color: #fff !important;
+        }
+
+        @media (max-width: 767px) {
+            #pp-mobile-header {
+                display: flex;
+            }
+
+            body {
+                padding-top: 71px !important;
+            }
+
+            .header-nav {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            #pp-mobile-header {
+                display: none !important;
+            }
+
+            #pp-mobile-nav {
+                display: none !important;
+            }
+        }
+    </style>
+<style class="unihdr">
+/* ===== UNIFIED HEADER CSS ===== */
+.header-nav { background: #fff; border-bottom: 2px solid #F48716; padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+.container-header { max-width: 1170px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+.logo img { height: 70px; width: auto; }
+.nav-links { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; align-items: center; }
+.nav-links a { text-decoration: none; color: #212023; font-weight: 700; font-size: 1.1rem; transition: color 0.3s; font-family: 'Poppins', sans-serif;}
+.nav-links a:hover { color: #F48716; }
+.btn-quote-header { background-color: #F48716; color: #fff; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s; font-size: 1rem; font-family: 'Poppins', sans-serif;}
+.btn-quote-header:hover { opacity: 0.9; transform: scale(1.02); color: #fff; }
+
+/* LANG SWITCH */
+.lang-switcher-container { display: flex; align-items: center; gap: 3px; background: rgba(244, 135, 22, 0.07); border: 1.5px solid rgba(244, 135, 22, 0.28); border-radius: 50px; padding: 4px 9px; margin-left: 10px; }
+.lang-btn { padding: 3px 8px; border-radius: 50px; border: none; background: transparent; font-size: 0.78rem; font-weight: 700; color: #666; cursor: pointer; transition: all 0.22s ease; }
+.lang-btn.active { background: #F48716; color: #fff; }
+
+/* MOBILE HEADER & NAV */
+#pp-mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #fff; border-bottom: 2px solid #F48716; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); padding: 10px 20px; align-items: center; justify-content: space-between; }
+#pp-mobile-header .pp-mob-logo img { height: 50px; width: auto; object-fit: contain; }
+#pp-hamburger-btn { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 38px; height: 38px; cursor: pointer; background: none; border: none; padding: 4px; }
+#pp-hamburger-btn span { display: block; width: 100%; height: 3px; background: #F48716; border-radius: 3px; transition: all 0.3s ease; }
+#pp-hamburger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+#pp-hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#pp-hamburger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+#pp-mobile-nav { display: none; position: fixed; top: 71px; left: 0; right: 0; background: #fff; z-index: 9998; flex-direction: column; padding: 20px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); border-top: 1px solid rgba(244, 135, 22, 0.2); }
+#pp-mobile-nav.open { display: flex; }
+#pp-mobile-nav a { display: block; padding: 14px 10px; font-size: 1rem; font-weight: 600; color: #212023; text-decoration: none; border-bottom: 1px solid rgba(0, 0, 0, 0.06); font-family: 'Poppins', sans-serif;}
+#pp-mobile-nav a:hover { color: #F48716; }
+#pp-mobile-nav .pp-mob-cta { margin-top: 15px; background: #F48716; color: #fff !important; border-radius: 50px; text-align: center; padding: 14px 20px; font-weight: 700; border-bottom: none; }
+
+@media (max-width: 767px) {
+    .header-nav { display: none !important; }
+    #pp-mobile-header { display: flex !important; }
+    body { padding-top: 71px !important; }
+}
+</style></head>
+<body class="lang-fr">
+<header class="header-nav unihdr">
+<div class="container-header">
+<a class="logo" href="/">
+<img alt="Poubelle Premium Logo" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"/>
+</a>
+<nav style="display: flex; align-items: center;">
+<ul class="nav-links">
+<li><a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+<li><a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li><a href="page-avis.html"><span class="fr-text">Avis Clients</span><span class="en-text">Reviews</span></a></li>
+</ul>
+<div class="lang-switcher-container">
+<button class="lang-btn active" data-lang="fr" onclick="if(window.switchLang) window.switchLang('fr')">FR</button>
+<button class="lang-btn" data-lang="en" onclick="if(window.switchLang) window.switchLang('en')">EN</button>
+</div>
+</nav>
+<a class="btn-quote-header" href="soumission.html">
+<span class="fr-text">Demander un devis</span>
+<span class="en-text">Request a quote</span>
+</a>
+</div>
+</header>
+
+<div class="unihdr" id="pp-mobile-header">
+<a class="pp-mob-logo" href="/">
+<img alt="Poubelle Premium" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"/>
+</a>
+<div style="display:flex;align-items:center;gap:10px;">
+<div class="lang-switcher-container" style="margin-left:0; background:none; border:none; padding:0;">
+<button class="lang-btn active" data-lang="fr" onclick="if(window.switchLang) window.switchLang('fr')" style="padding:0 4px;">FR</button>
+<span style="color:#ccc;">|</span>
+<button class="lang-btn" data-lang="en" onclick="if(window.switchLang) window.switchLang('en')" style="padding:0 4px;">EN</button>
+</div>
+<button aria-label="Ouvrir le menu" id="pp-hamburger-btn">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</div>
+<nav class="unihdr" id="pp-mobile-nav">
+<a href="/"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a>
+<a href="/#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>
+<a href="page-avis.html"><span class="fr-text">Avis Clients</span><span class="en-text">Reviews</span></a>
+<a class="pp-mob-cta" href="soumission.html"><span class="fr-text">Demander un devis gratuit</span><span class="en-text">Request a free quote</span></a>
+</nav>
+
+
+<!-- HAMBURGER HEADER HTML -->
+
+<!-- MOBILE NAV DROPDOWN -->
+
+<section class="hero-section">
+<div class="container">
+<div class="hero-grid">
+<div class="hero-content">
+<h1><strong>Mettons-nous au travail</strong></h1>
+<p>Gardez votre environnement propre !</p>
+<ul class="hero-list">
+<li>Bacs de poubelle</li>
+<li>Bacs de recyclage</li>
+<li>Bacs de compost</li>
+<li>Conteneurs sur roues</li>
+</ul>
+</div>
+<div class="form-box">
+<!-- GHL Real Form HTML -->
+<div class="ghl-form-wrap" style="max-width:550px;border-radius:8px;box-shadow:0px 15px 33px 4px #00000026;margin-bottom:50px;">
+<form class="ghl-survey-form" id="_builder-form" name="builder-form" style="background-color:#FFFFFF;border:1px solid #CDE0EC;border-radius:8px 8px 0 0;max-width:550px;width:100%;padding:20px 40px 0 40px;box-shadow:none;margin-bottom:0;box-sizing:border-box;">
+<div class="ghl-question-set" style="margin-top:0px;">
+<!-- Slide 1: Coordonnées -->
+<div class="ghl-page-current slide-no-1 form-builder--wrap-questions ghl-question">
+<div class="row fields-container">
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="first_name">Prénom
+                                                <span>*</span></label>
+<div class="flex-col"><input class="form-control" data-required="true" id="first_name" name="first_name" placeholder="Prénom" type="text"/></div>
+<div class="error">Prénom est obligatoire</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="last_name">Nom
+                                                <span>*</span></label>
+<div class="flex-col"><input class="form-control" data-required="true" id="last_name" name="last_name" placeholder="Nom" type="text"/></div>
+<div class="error">Nom est obligatoire</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="address">Adresse
+                                                <span>*</span></label>
+<div class="flex-col"><input class="form-control" data-required="true" id="address" name="address" placeholder="Adresse" type="text"/></div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="city">Ville</label>
+<div class="flex-col"><input class="form-control" id="city" name="city" placeholder="Ville" type="text"/></div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="postal-select">Code postal
+                                                <span>*</span></label>
+<div class="flex-col">
+<div class="multiselect" id="postal-multiselect">
+<div class="multiselect__select"></div>
+<div class="multiselect__tags" onclick="toggleDropdown('postal')">
+<input autocomplete="off" class="multiselect__input" id="postal-input" name="scKMvREIXcSDhf8ZPwMD" onfocus="showDropdown('postal')" oninput="filterOptions(this, 'postal-list')" placeholder="Veuillez sélectionner les 3 premiers caractères" type="text"/>
+<span class="multiselect__placeholder" id="postal-placeholder">Veuillez sélectionner les 3
+                                                            premiers</span>
+</div>
+<div class="multiselect__content-wrapper" id="postal-dropdown">
+<ul class="multiselect__content" id="postal-list">
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'Mon code postal n\'est pas dans la liste')">Mon
+                                                                    code postal n'est pas dans la liste</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7A')">H7A</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7B')">H7B</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7C')">H7C</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7E')">H7E</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7G')">H7G</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7H')">H7H</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7J')">H7J</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7K')">H7K</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7L')">H7L</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7M')">H7M</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7N')">H7N</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7P')">H7P</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7R')">H7R</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7S')">H7S</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7T')">H7T</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7V')">H7V</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7W')">H7W</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7X')">H7X</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7Y')">H7Y</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J0N')">J0N</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J6W')">J6W</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J6X')">J6X</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J6Y')">J6Y</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J6Z')">J6Z</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7A')">J7A</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7B')">J7B</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7C')">J7C</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7E')">J7E</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7G')">J7G</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7J')">J7J</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7M')">J7M</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7N')">J7N</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7P')">J7P</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7R')">J7R</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7Y')">J7Y</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'J7Z')">J7Z</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="email">Courriel
+                                                <span>*</span></label>
+<div class="flex-col"><input class="form-control" data-required="true" id="email" name="email" placeholder="Courriel" type="email"/>
+</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="phone">Téléphone
+                                                <span>*</span></label>
+<div class="flex-col"><input class="form-control" data-required="true" id="phone" name="phone" placeholder="Téléphone" type="tel"/></div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<div class="terms-and-conditions">
+<div class="checkbox-container">
+<input data-required="true" id="terms_and_conditions" name="terms_and_conditions" type="checkbox" value="terms_and_conditions"/>
+<label for="terms_and_conditions" style="margin-left:10px;"><span class="terms-text-container" style="color:inherit;">
+<p>J'accepte de recevoir des notifications SMS, des alertes
+                                                                et des communications marketing occasionnelles de
+                                                                Poubelle Premium. La fréquence des messages peut varier.
+                                                                Des frais de messagerie et de données peuvent
+                                                                s'appliquer. Vous pouvez répondre STOP à tout moment
+                                                                pour vous désinscrire.</p>
+</span></label>
+</div>
+</div>
+<div class="field-divider"></div>
+</div>
+</div>
+</div>
+<!-- Slide 2: Forfait -->
+<div class="slide-no-2 form-builder--wrap-questions ghl-question">
+<div class="row fields-container">
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label">Forfait 2025</label>
+<div class="flex-col">
+<div class="option-radio">
+<div class="standard-radio-container"><input id="forfait_ponctuel" name="forfait_2025" type="radio" value="PONCTUEL (Un seul nettoyage)"/><label for="forfait_ponctuel">PONCTUEL
+                                                            (Un seul nettoyage)</label></div>
+</div>
+<div class="option-radio">
+<div class="standard-radio-container"><input id="forfait_bimestriel" name="forfait_2025" type="radio" value="BIMESTRIEL (1 fois aux 2 mois)"/><label for="forfait_bimestriel">BIMESTRIEL (1 fois aux 2
+                                                            mois)</label></div>
+</div>
+<div class="option-radio">
+<div class="standard-radio-container"><input id="forfait_mensuel" name="forfait_2025" type="radio" value="MENSUEL (Forfait le plus populaire 🔥)"/><label for="forfait_mensuel">MENSUEL
+                                                            (Forfait le plus populaire 🔥)</label></div>
+</div>
+<div class="option-radio">
+<div class="standard-radio-container"><input id="forfait_bimensuel" name="forfait_2025" type="radio" value="BIMENSUEL (2 fois par mois)"/><label for="forfait_bimensuel">BIMENSUEL
+                                                            (2 fois par mois)</label></div>
+</div>
+<div class="option-radio">
+<div class="standard-radio-container"><input id="forfait_perso" name="forfait_2025" type="radio" value="PERSONNALISÉ"/><label for="forfait_perso">PERSONNALISÉ</label></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 3: Personnalisé -->
+<div class="slide-no-3 form-builder--wrap-questions ghl-question">
+<div class="row fields-container">
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label" for="O6h88hnjwJPzxjzLbQjx">Veuillez précisez votre forfait personnalisé
+                                                (fréquence) <span>*</span></label>
+<div class="flex-col"><input class="form-control" data-required="true" id="O6h88hnjwJPzxjzLbQjx" name="O6h88hnjwJPzxjzLbQjx" placeholder="Ex: Poubelle et recyclage une fois par mois et compost 2 fois par mois" type="text"/></div>
+</div>
+</div>
+</div>
+<!-- Slide 4: Détails bacs -->
+<div class="slide-no-4 form-builder--wrap-questions ghl-question">
+<div class="row fields-container">
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label">Particulier ou entreprise
+                                                <span>*</span></label>
+<div class="flex-col">
+<div class="option-radio">
+<div class="standard-radio-container"><input data-required="true" id="particulier" name="particulier_ou_entreprise" type="radio" value="Particulier"/><label for="particulier">Particulier</label></div>
+</div>
+<div class="option-radio">
+<div class="standard-radio-container"><input data-required="true" id="entreprise" name="particulier_ou_entreprise" type="radio" value="Entreprise, syndicat de copropriété, etc."/><label for="entreprise">Entreprise,
+                                                            syndicat de copropriété, etc.</label></div>
+</div>
+</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label">Nombre de bac(s) de poubelle à
+                                                nettoyer <span>*</span></label>
+<div class="flex-col">
+<div class="multiselect" id="poubelle-multiselect">
+<div class="multiselect__select"></div>
+<div class="multiselect__tags" onclick="toggleDropdown('poubelle')">
+<input autocomplete="off" class="multiselect__input" id="poubelle-input" name="JXBNnl6lF5Ta1uEy4LWN" onfocus="showDropdown('poubelle')" oninput="filterOptions(this, 'poubelle-list')" placeholder="Choisir" type="text"/>
+</div>
+<div class="multiselect__content-wrapper" id="poubelle-dropdown">
+<ul class="multiselect__content" id="poubelle-list">
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '0')">0</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '1')">1</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '2')">2</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '3')">3</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '4')">4</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '5')">5</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '6')">6</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '7')">7</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '8')">8</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '9')">9</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('poubelle', '10+')">10+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label">Nombre de bac(s) de recyclage à
+                                                nettoyer <span>*</span></label>
+<div class="flex-col">
+<div class="multiselect" id="recyclage-multiselect">
+<div class="multiselect__select"></div>
+<div class="multiselect__tags" onclick="toggleDropdown('recyclage')">
+<input autocomplete="off" class="multiselect__input" id="recyclage-input" name="0aAPPOlk1LQSk6hNIXn1" onfocus="showDropdown('recyclage')" oninput="filterOptions(this, 'recyclage-list')" placeholder="Choisir" type="text"/>
+</div>
+<div class="multiselect__content-wrapper" id="recyclage-dropdown">
+<ul class="multiselect__content" id="recyclage-list">
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '0')">0</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '1')">1</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '2')">2</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '3')">3</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '4')">4</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '5')">5</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '6')">6</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '7')">7</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '8')">8</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '9')">9</span>
+</li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('recyclage', '10+')">10+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label">Nombre de bac(s) de compost à
+                                                nettoyer <span>*</span></label>
+<div class="flex-col">
+<div class="multiselect" id="compost-multiselect">
+<div class="multiselect__select"></div>
+<div class="multiselect__tags" onclick="toggleDropdown('compost')">
+<input autocomplete="off" class="multiselect__input" id="compost-input" name="nCfAaEZdVxku8RkgwBKk" onfocus="showDropdown('compost')" oninput="filterOptions(this, 'compost-list')" placeholder="Choisir" type="text"/>
+</div>
+<div class="multiselect__content-wrapper" id="compost-dropdown">
+<ul class="multiselect__content" id="compost-list">
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '0')">0</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '1')">1</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '2')">2</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '3')">3</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '4')">4</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '5')">5</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '6')">6</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '7')">7</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '8')">8</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '9')">9</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('compost', '10+')">10+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="field-divider"></div>
+</div>
+<div class="col-12 form-field-wrapper">
+<label class="label-alignment field-label">Comment voulez-vous être contacté
+                                                <span>*</span></label>
+<div class="flex-col">
+<div class="option-radio">
+<div class="standard-radio-container"><input data-required="true" id="contact_appel" name="comment_voulez_vous_etre_contacte" type="radio" value="Par appel téléphonique"/><label for="contact_appel">Par appel
+                                                            téléphonique</label></div>
+</div>
+<div class="option-radio">
+<div class="standard-radio-container"><input data-required="true" id="contact_texto" name="comment_voulez_vous_etre_contacte" type="radio" value="Par texto"/><label for="contact_texto">Par
+                                                            texto</label></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+<!-- Footer Navigation -->
+<div class="ghl-footer" id="form-footer">
+<div class="ghl-footer-buttons">
+<div class="ghl-btn-placeholder" id="btn-back-wrap" style="display:none;">
+<button class="ghl-btn ghl-btn-back" id="btn-back" onclick="ghlPrev()" type="button">◀ Précédent</button>
+</div>
+<div class="ghl-btn-placeholder" id="progress-spacer" style="flex:1;"></div>
+<button class="ghl-btn ghl-btn-next" id="btn-next" onclick="ghlNext()" type="button">Suivant ▶</button>
+<button class="ghl-btn ghl-btn-submit" id="btn-submit" onclick="ghlSubmit()" style="display:none;" type="button">Envoyer ✓</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section Avis Clients (Déplacée après le formulaire) -->
+<div class="fullSection c-section section-AvisClients2" id="section-AvisClients2">
+<div class="inner">
+<div class="avis-title-premium-2">
+<h2>Avis de nos clients</h2>
+</div>
+<div class="ghl-review-wrapper-2">
+<iframe frameborder="0" height="460" id="msgsndr_reviews" scrolling="no" src="https://backend.leadconnectorhq.com/appengine/reviews/get_widget/Q4K7xsLSm5SH7e2GyuSi" style="min-width:100%; width:100%; height:350px; overflow:hidden;"></iframe>
+</div>
+</div>
+</div>
+<footer class="footer" style="background: var(--white); color: #1a202c; padding: 80px 0 40px; border-top: 1px solid #e2e8f0;">
+<div class="container">
+<div class="footer-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:40px;">
+<div class="footer-col">
+<div class="footer-logo">
+<img alt="Logo Footer" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" style="height:90px; margin-bottom:20px;"/>
+</div>
+<p style="color: #4a5568;">Votre partenaire de confiance pour un environnement sain et sans odeurs.
+                    </p>
+</div>
+<div class="footer-col">
+<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;">Contact</h3>
+<ul style="list-style:none; padding:0;">
+<li style="margin-bottom:12px;"><a href="tel:+14387994449" style="color:#4a5568; text-decoration:none;">(438) 799-4449</a></li>
+<li style="margin-bottom:12px;"><a href="mailto:info@poubellepremium.ca" style="color:#4a5568; text-decoration:none;">info@poubellepremium.ca</a></li>
+<li style="color:#4a5568;">Laval et Rive-Nord</li>
+</ul>
+</div>
+<div class="footer-col">
+<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;">Navigation</h3>
+<ul style="list-style:none; padding:0;">
+<li style="margin-bottom:12px;"><a href="/" style="color:#4a5568; text-decoration:none;">Accueil</a></li>
+<li style="margin-bottom:12px;"><a href="/#section-jIShhaMz_f" style="color:#4a5568; text-decoration:none;">À Propos</a></li>
+<li style="margin-bottom:12px;"><a href="/#section-Q-QVu_CWVt" style="color:#4a5568; text-decoration:none;">Services</a></li>
+<li style="margin-bottom:12px;"><a href="soumission.html" style="color:#4a5568; text-decoration:none;">Soumission</a></li>
+</ul>
+</div>
+</div>
+<div style="text-align:center; margin-top:50px; padding-top:20px; border-top:1px solid #e2e8f0; color:#718096;">
+<p>© 2024 Poubelle Premium. Tous droits réservés.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Multi-step form navigation
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        function updateUI() {
+            document.querySelectorAll('.ghl-question').forEach(q => q.classList.remove('ghl-page-current'));
+            const active = document.querySelector('.slide-no-' + currentSlide);
+            if (active) active.classList.add('ghl-page-current');
+
+            const backWrap = document.getElementById('btn-back-wrap');
+            const btnNext = document.getElementById('btn-next');
+            const btnSubmit = document.getElementById('btn-submit');
+            const spacer = document.getElementById('progress-spacer');
+
+            if (currentSlide > 1) {
+                backWrap.style.display = 'block';
+                spacer.style.flex = '0';
+            } else {
+                backWrap.style.display = 'none';
+                spacer.style.flex = '1';
+            }
+
+            if (currentSlide === totalSlides) {
+                btnNext.style.display = 'none';
+                btnSubmit.style.display = 'flex';
+            } else {
+                btnNext.style.display = 'flex';
+                btnSubmit.style.display = 'none';
+            }
+        }
+
+        function ghlNext() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function ghlPrev() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function ghlSubmit() {
+            // Gather form data and submit to GHL endpoint
+            const form = document.getElementById('_builder-form');
+            const data = new FormData(form);
+            const payload = {};
+            data.forEach((v, k) => payload[k] = v);
+            console.log('Form submitted:', payload);
+            // Show success message
+            form.closest('.ghl-form-wrap').innerHTML = '<div style="padding:60px 40px;text-align:center;"><div style="font-size:3rem;margin-bottom:20px;">✅</div><h2 style="color:#F48716;">Merci !</h2><p>Votre demande a été envoyée avec succès. Nous vous contacterons bientôt.</p></div>';
+        }
+
+        // Dropdown / Multiselect logic
+        function showDropdown(id) {
+            document.getElementById(id + '-dropdown').style.display = 'block';
+        }
+        function hideDropdown(id) {
+            setTimeout(() => { document.getElementById(id + '-dropdown').style.display = 'none'; }, 200);
+        }
+        function toggleDropdown(id) {
+            const d = document.getElementById(id + '-dropdown');
+            d.style.display = d.style.display === 'block' ? 'none' : 'block';
+        }
+        function selectOption(id, value) {
+            document.getElementById(id + '-input').value = value;
+            document.getElementById(id + '-dropdown').style.display = 'none';
+            const ph = document.getElementById(id + '-placeholder');
+            if (ph) ph.style.display = 'none';
+        }
+        function filterOptions(input, listId) {
+            const val = input.value.toLowerCase();
+            document.querySelectorAll('#' + listId + ' .multiselect__element').forEach(li => {
+                li.style.display = li.textContent.toLowerCase().includes(val) ? '' : 'none';
+            });
+        }
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', function (e) {
+            ['postal', 'poubelle', 'recyclage', 'compost'].forEach(id => {
+                const dd = document.getElementById(id + '-dropdown');
+                const ms = document.getElementById(id + '-multiselect');
+                if (dd && ms && !ms.contains(e.target)) dd.style.display = 'none';
+            });
+        });
+
+        // Initialize
+        updateUI();
+    </script>
+<script>
+        (function () {
+            const btn = document.getElementById('pp-hamburger-btn');
+            const nav = document.getElementById('pp-mobile-nav');
+            if (!btn || !nav) return;
+
+            btn.addEventListener('click', function () {
+                btn.classList.toggle('open');
+                nav.classList.toggle('open');
+            });
+
+            // Close on nav link click
+            nav.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    btn.classList.remove('open');
+                    nav.classList.remove('open');
+                });
+            });
+        })();
+    </script>
+<script>
+        // Lang switch integration
+        window.switchLang = function (lang) {
+            document.body.classList.remove('lang-fr', 'lang-en');
+            document.body.classList.add('lang-' + lang);
+            document.querySelectorAll('[data-lang]').forEach(function (btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.lang = lang;
+            try { localStorage.setItem('pp_lang', lang); } catch (e) { }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var saved = localStorage.getItem('pp_lang');
+                if (saved && saved !== 'fr') window.switchLang(saved);
+            } catch (e) { }
+        });
+    </script>
+
+<script class="unihdr">
+    (function () {
+        const btn = document.getElementById('pp-hamburger-btn');
+        const nav = document.getElementById('pp-mobile-nav');
+        if (!btn || !nav) return;
+        btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            nav.classList.toggle('open');
+        });
+        nav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                btn.classList.remove('open');
+                nav.classList.remove('open');
+            });
+        });
+    })();
+</script>
+</body>
+</html>

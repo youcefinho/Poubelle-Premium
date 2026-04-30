@@ -1,0 +1,862 @@
+﻿<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Avis Clients | Poubelle Premium</title>
+    <meta
+        content="Découvrez pourquoi des centaines de familles font confiance à Poubelle Premium pour le nettoyage de leurs bacs. Lisez nos avis Google vérifiés."
+        name="description" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        orange: {
+                            DEFAULT: '#FE8800',
+                            hover: '#F48716',
+                        },
+                        navy: {
+                            DEFAULT: '#0B1B36',
+                            light: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ===== RESET & BASE (Header/Footer Protection) ===== */
+        :root {
+            --orange: #FE8800;
+            --orange2: #F48716;
+            --navy: #0B1B36;
+            --white: #FFFFFF;
+            --light-bg: #f9f9f9;
+            --light-bg2: #EEEEEE;
+            --text-dark: #212023;
+            --poppins: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--poppins) !important;
+            overflow-x: hidden;
+        }
+
+        body.lang-fr .en-text {
+            display: none !important;
+        }
+
+        body.lang-en .fr-text {
+            display: none !important;
+        }
+
+        body:not(.lang-en):not(.lang-fr) .en-text {
+            display: none !important;
+        }
+
+        /* ===== HEADER (SOUMISSION STYLE) ===== */
+        .header-nav {
+            background: var(--white);
+            border-bottom: 2px solid var(--orange2);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .container-header {
+            max-width: 1170px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange2);
+        }
+
+        .btn-quote-header {
+            background-color: var(--orange2);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-quote-header:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* ===== MOBILE HEADER OVERRIDE (SOUMISSION) ===== */
+        #pp-mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: #fff;
+            border-bottom: 2px solid var(--orange2);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 10px 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #pp-mobile-header .pp-mob-logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .mobile-quote-btn {
+            background: var(--orange2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        #pp-hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        #pp-hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--orange2);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        #pp-hamburger-btn.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        #pp-mobile-nav {
+            display: none;
+            position: fixed;
+            top: 71px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 9998;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            border-top: 1px solid rgba(244, 135, 22, 0.2);
+        }
+
+        #pp-mobile-nav.open {
+            display: flex;
+        }
+
+        #pp-mobile-nav a {
+            display: block;
+            padding: 14px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        #pp-mobile-nav a:hover {
+            color: var(--orange2);
+        }
+
+        #pp-mobile-nav .pp-mob-cta {
+            margin-top: 15px;
+            background: var(--orange2);
+            color: #fff !important;
+            border-radius: 50px;
+            text-align: center;
+            padding: 14px 20px;
+            font-weight: 700;
+        }
+
+        /* Lang switch */
+        .lang-switcher-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(244, 135, 22, 0.07);
+            border: 1.5px solid rgba(244, 135, 22, 0.28);
+            border-radius: 50px;
+            padding: 4px 9px;
+            margin-left: 10px;
+        }
+
+        .lang-btn {
+            padding: 3px 8px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--orange2);
+            color: #fff;
+        }
+
+        /* ===== FOOTER (SOUMISSION STYLE) ===== */
+        .footer {
+            background: var(--white);
+            color: #1a202c;
+            padding: 80px 0 40px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo img {
+            height: 90px;
+            margin-bottom: 20px;
+        }
+
+        .footer h3 {
+            color: var(--orange2);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer li {
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+
+        .footer a {
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--orange2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+        }
+
+        @media (max-width: 767px) {
+            .header-nav {
+                display: none !important;
+            }
+
+            #pp-mobile-header {
+                display: flex;
+            }
+
+            body {
+                padding-top: 71px !important;
+            }
+        }
+    </style>
+    <style class="unihdr">
+        /* ===== UNIFIED HEADER CSS ===== */
+        .header-nav {
+            background: #fff;
+            border-bottom: 2px solid #F48716;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .container-header {
+            max-width: 1170px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #212023;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-links a:hover {
+            color: #F48716;
+        }
+
+        .btn-quote-header {
+            background-color: #F48716;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-quote-header:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* LANG SWITCH */
+        .lang-switcher-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(244, 135, 22, 0.07);
+            border: 1.5px solid rgba(244, 135, 22, 0.28);
+            border-radius: 50px;
+            padding: 4px 9px;
+            margin-left: 10px;
+        }
+
+        .lang-btn {
+            padding: 3px 8px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .lang-btn.active {
+            background: #F48716;
+            color: #fff;
+        }
+
+        /* MOBILE HEADER & NAV */
+        #pp-mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: #fff;
+            border-bottom: 2px solid #F48716;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            padding: 10px 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #pp-mobile-header .pp-mob-logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .mobile-quote-btn {
+            background: #F48716;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        #pp-hamburger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        #pp-hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #F48716;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        #pp-hamburger-btn.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        #pp-hamburger-btn.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        #pp-mobile-nav {
+            display: none;
+            position: fixed;
+            top: 71px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 9998;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            border-top: 1px solid rgba(244, 135, 22, 0.2);
+        }
+
+        #pp-mobile-nav.open {
+            display: flex;
+        }
+
+        #pp-mobile-nav a {
+            display: block;
+            padding: 14px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #212023;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #pp-mobile-nav a:hover {
+            color: #F48716;
+        }
+
+        #pp-mobile-nav .pp-mob-cta {
+            margin-top: 15px;
+            background: #F48716;
+            color: #fff !important;
+            border-radius: 50px;
+            text-align: center;
+            padding: 14px 20px;
+            font-weight: 700;
+            border-bottom: none;
+        }
+
+        @media (max-width: 767px) {
+            .header-nav {
+                display: none !important;
+            }
+
+            #pp-mobile-header {
+                display: flex !important;
+            }
+
+            body {
+                padding-top: 71px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="lang-fr bg-gray-50">
+    <header class="header-nav unihdr">
+        <div class="container-header">
+            <a class="logo" href="/">
+                <img alt="Poubelle Premium Logo"
+                    src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
+            </a>
+            <nav style="display: flex; align-items: center;">
+                <ul class="nav-links">
+                    <li><a href="/"><span
+                                class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+                    <li><a href="/#section-Q-QVu_CWVt"><span
+                                class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+                    <li><a href="page-avis.html"><span class="fr-text">Avis Clients</span><span
+                                class="en-text">Reviews</span></a></li>
+                </ul>
+                <div class="lang-switcher-container">
+                    <button class="lang-btn active" data-lang="fr"
+                        onclick="if(window.switchLang) window.switchLang('fr')">FR</button>
+                    <button class="lang-btn" data-lang="en"
+                        onclick="if(window.switchLang) window.switchLang('en')">EN</button>
+                </div>
+            </nav>
+            <a class="btn-quote-header" href="soumission.html">
+                <span class="fr-text">FAIRE NETTOYER MES BACS</span>
+                <span class="en-text">CLEAN MY BINS</span>
+            </a>
+        </div>
+    </header>
+    <div class="unihdr" id="pp-mobile-header">
+        <a class="pp-mob-logo" href="/">
+            <img alt="Poubelle Premium"
+                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
+        </a>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div class="lang-switcher-container" style="margin-left:0; background:none; border:none; padding:0;">
+                <button class="lang-btn active" data-lang="fr" onclick="if(window.switchLang) window.switchLang('fr')"
+                    style="padding:0 4px;">FR</button>
+                <span style="color:#ccc;">|</span>
+                <button class="lang-btn" data-lang="en" onclick="if(window.switchLang) window.switchLang('en')"
+                    style="padding:0 4px;">EN</button>
+            </div>
+            <a href="soumission.html" class="mobile-quote-btn">
+                <span class="fr-text">Devis</span>
+                <span class="en-text">Quote</span>
+            </a>
+            <button aria-label="Ouvrir le menu" id="pp-hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    <nav class="unihdr" id="pp-mobile-nav">
+        <a href="/"><span class="fr-text">Accueil</span><span
+                class="en-text">Home</span></a>
+        <a href="/#section-Q-QVu_CWVt"><span
+                class="fr-text">Services</span><span class="en-text">Services</span></a>
+        <a href="page-avis.html"><span class="fr-text">Avis Clients</span><span class="en-text">Reviews</span></a>
+        <a class="pp-mob-cta" href="soumission.html"><span class="fr-text">Demander un devis gratuit</span><span
+                class="en-text">Request a free quote</span></a>
+    </nav>
+    <!-- ===== HEADER (SOUMISSION STYLE) DESKTOP ===== -->
+    <!-- ===== HEADER (SOUMISSION STYLE) MOBILE ===== -->
+    <!-- ══════════ HERO SECTION AVIS (PATRICK STRUCTURE) ══════════ -->
+    <header class="relative bg-white pt-24 md:pt-32 lg:pt-32 pb-24 lg:pb-32 overflow-hidden">
+        <!-- Floating shapes background -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute w-[500px] h-[500px] bg-orange rounded-full blur-[120px] opacity-20 -top-40 -right-20">
+            </div>
+            <div
+                class="absolute w-[400px] h-[400px] bg-orange-hover rounded-full blur-[100px] opacity-10 -bottom-20 -left-20">
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <!-- Left: Poubelle Premium Logo (Replaces Patrick Photo) -->
+                <div class="w-full lg:w-5/12 flex justify-center order-2 lg:order-1 relative">
+                    <!-- The circle container -->
+                    <div
+                        class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-gradient-to-tr from-white to-gray-100 shadow-2xl border border-gray-200 flex items-center justify-center bg-white z-10">
+                        <img alt="Poubelle Premium Logo" class="w-10/12 h-auto object-contain rounded-full"
+                            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
+                        <!-- Rating Badge -->
+                        <div
+                            class="absolute -bottom-6 right-2 md:-bottom-2 md:right-6 bg-white rounded-full px-5 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.4)] border-2 border-orange flex flex-col items-center">
+                            <div class="flex text-yellow-500 text-lg mb-1">
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                            </div>
+                            <span class="font-bold text-navy text-xl leading-none">5.0 / 5</span>
+                            <span class="text-[10px] text-gray-500 mt-1 font-semibold uppercase tracking-wider">
+                                <span class="fr-text">Avis VÉRIFIÉS</span>
+                                <span class="en-text">VERIFIED</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right: Text & Star Selector -->
+                <div class="w-full lg:w-7/12 order-1 lg:order-2 text-center lg:text-left">
+                    <div
+                        class="inline-flex items-center justify-center space-x-2 bg-orange/10 backdrop-blur-md rounded-full px-5 py-2 mb-6 border border-orange/20">
+                        <span class="text-navy text-sm font-semibold tracking-wide">
+                            <span class="fr-text">Plus de 50 avis Google à 5 étoiles</span>
+                            <span class="en-text">Over 50 5-star Google reviews</span>
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-navy mb-6 tracking-tight leading-tight">
+                        <span class="fr-text">L'excellence est notre <span class="text-orange">standard</span></span>
+                        <span class="en-text">Excellence is our <span class="text-orange">standard</span></span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        <span class="fr-text">Découvrez pourquoi des centaines de familles et d'entreprises font
+                            confiance à Poubelle Premium pour le nettoyage de leurs bacs à ordures.</span>
+                        <span class="en-text">Discover why hundreds of families and businesses trust Poubelle Premium
+                            for the cleaning of their waste bins.</span>
+                    </p>
+                    <div
+                        class="bg-gray-50 p-6 md:p-8 rounded-3xl border border-gray-100 shadow-md max-w-lg mx-auto lg:mx-0">
+                        <h3
+                            class="text-navy text-lg md:text-xl font-semibold mb-4 flex items-center justify-center lg:justify-start gap-3">
+                            <span class="fr-text">Évaluez votre expérience avec nous</span>
+                            <span class="en-text">Rate your experience with us</span>
+                        </h3>
+                        <!-- STAR SELECTOR -->
+                        <div class="flex items-center justify-center lg:justify-start gap-3 md:gap-4 cursor-pointer group"
+                            id="star-selector">
+                            <a class="text-4xl text-gray-300 hover:opacity-100 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110"
+                                href="https://www.google.com/search?hl=fr-DZ&amp;gl=dz&amp;q=Poubelle+Premium&amp;ludocid=9599883789523511772&amp;lsig=AB86z5Ug82aZqOjv0hREbm8oNfm9#lrd=0xaf3ef64ce9c08449:0x8539a371b79469dc,3"
+                                onmouseover="highlightStars(1)" target="_blank">★</a>
+                            <a class="text-4xl text-gray-300 hover:opacity-100 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110"
+                                href="https://www.google.com/search?hl=fr-DZ&amp;gl=dz&amp;q=Poubelle+Premium&amp;ludocid=9599883789523511772&amp;lsig=AB86z5Ug82aZqOjv0hREbm8oNfm9#lrd=0xaf3ef64ce9c08449:0x8539a371b79469dc,3"
+                                onmouseover="highlightStars(2)" target="_blank">★</a>
+                            <a class="text-4xl text-gray-300 hover:opacity-100 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110"
+                                href="https://www.google.com/search?hl=fr-DZ&amp;gl=dz&amp;q=Poubelle+Premium&amp;ludocid=9599883789523511772&amp;lsig=AB86z5Ug82aZqOjv0hREbm8oNfm9#lrd=0xaf3ef64ce9c08449:0x8539a371b79469dc,3"
+                                onmouseover="highlightStars(3)" target="_blank">★</a>
+                            <a class="text-4xl text-gray-300 hover:opacity-100 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110"
+                                href="https://www.google.com/search?hl=fr-DZ&amp;gl=dz&amp;q=Poubelle+Premium&amp;ludocid=9599883789523511772&amp;lsig=AB86z5Ug82aZqOjv0hREbm8oNfm9#lrd=0xaf3ef64ce9c08449:0x8539a371b79469dc,3"
+                                onmouseover="highlightStars(4)" target="_blank">★</a>
+                            <a class="text-4xl text-gray-300 hover:opacity-100 hover:text-yellow-400 transition-all duration-300 transform hover:scale-110"
+                                href="https://www.google.com/search?hl=fr-DZ&amp;gl=dz&amp;q=Poubelle+Premium&amp;ludocid=9599883789523511772&amp;lsig=AB86z5Ug82aZqOjv0hREbm8oNfm9#lrd=0xaf3ef64ce9c08449:0x8539a371b79469dc,3"
+                                onmouseover="highlightStars(5)" target="_blank">★</a>
+                        </div>
+                        <p class="text-xs md:text-sm text-gray-500 mt-5 pt-5 border-t border-gray-200">
+                            <span class="fr-text"><strong>Cliquez sur la 5e étoile</strong> pour nous laisser un avis
+                                directement sur Google.</span>
+                            <span class="en-text"><strong>Click the 5th star</strong> to leave us a review directly on
+                                Google.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function highlightStars(count) {
+                const stars = document.querySelectorAll('#star-selector a');
+                stars.forEach((star, index) => {
+                    if (index < count) {
+                        star.classList.remove('text-gray-300');
+                        star.classList.add('text-yellow-400', 'drop-shadow-[0_0_15px_rgba(250,204,21,0.6)]');
+                    } else {
+                        star.classList.add('text-gray-300');
+                        star.classList.remove('text-yellow-400', 'drop-shadow-[0_0_15px_rgba(250,204,21,0.6)]');
+                    }
+                });
+            }
+            const container = document.getElementById('star-selector');
+            if (container) {
+                container.addEventListener('mouseleave', () => highlightStars(0));
+            }
+        </script>
+    </header>
+    <!-- ══════════ REVIEWS GRID OVERLAP (GHL WIDGET) ══════════ -->
+    <div class="fullSection c-section section-AvisClients2" id="section-AvisClients2">
+        <div class="inner">
+            <div class="avis-title-premium-2">
+                <h2>Avis de nos clients</h2>
+            </div>
+            <div class="ghl-review-wrapper-2">
+                <iframe frameborder="0" height="460" id="msgsndr_reviews" scrolling="no"
+                    src="https://backend.leadconnectorhq.com/appengine/reviews/get_widget/Q4K7xsLSm5SH7e2GyuSi"
+                    style="min-width:100%; width:100%; height:350px; overflow:hidden;"></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- ===== FOOTER (STYLE SOUMISSION.HTML) ===== -->
+    <footer class="footer">
+        <div class="container-header">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img alt="Logo Footer"
+                            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
+                    </div>
+                    <p>
+                        <span class="fr-text">Votre partenaire de confiance pour un environnement sain et sans
+                            odeurs.</span>
+                        <span class="en-text">Your trusted partner for a healthy and odorless environment.</span>
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h3><span class="fr-text">Contact</span><span class="en-text">Contact</span></h3>
+                    <ul>
+                        <li><a href="tel:+14387994449">(438) 799-4449</a></li>
+                        <li><a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></li>
+                        <li>
+                            <span class="fr-text">Laval et Rive-Nord</span>
+                            <span class="en-text">Laval &amp; North Shore</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3><span class="fr-text">Navigation</span><span class="en-text">Navigation</span></h3>
+                    <ul>
+                        <li><a href="/"><span
+                                    class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+                        <li><a href="/#section-jIShhaMz_f"><span
+                                    class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
+                        <li><a href="/#section-Q-QVu_CWVt"><span
+                                    class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+                        <li><a href="soumission.html"><span class="fr-text">Soumission</span><span
+                                    class="en-text">Quote</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>
+                    <span class="fr-text">© 2026 Poubelle Premium. Tous droits réservés.</span>
+                    <span class="en-text">© 2026 Poubelle Premium. All rights reserved.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Lang switch integration
+        window.switchLang = function (lang) {
+            document.body.classList.remove('lang-fr', 'lang-en');
+            document.body.classList.add('lang-' + lang);
+            document.querySelectorAll('[data-lang]').forEach(function (btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.documentElement.lang = lang;
+            try { localStorage.setItem('pp_lang', lang); } catch (e) { }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                var saved = localStorage.getItem('pp_lang');
+                if (saved && saved !== 'fr') window.switchLang(saved);
+            } catch (e) { }
+        });
+
+        // Mobile Hamburger
+        (function () {
+            const btn = document.getElementById('pp-hamburger-btn');
+            const nav = document.getElementById('pp-mobile-nav');
+            if (!btn || !nav) return;
+
+            btn.addEventListener('click', function () {
+                btn.classList.toggle('open');
+                nav.classList.toggle('open');
+            });
+
+            nav.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    btn.classList.remove('open');
+                    nav.classList.remove('open');
+                });
+            });
+        })();
+    </script>
+    <script class="unihdr">
+        (function () {
+            const btn = document.getElementById('pp-hamburger-btn');
+            const nav = document.getElementById('pp-mobile-nav');
+            if (!btn || !nav) return;
+            btn.addEventListener('click', function () {
+                btn.classList.toggle('open');
+                nav.classList.toggle('open');
+            });
+            nav.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    btn.classList.remove('open');
+                    nav.classList.remove('open');
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

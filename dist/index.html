@@ -24819,22 +24819,29 @@
         pointer-events: none;
       }
 
-      /* Hide/show by language */
-      .en-text {
+      /* Hide/show by language - dynamique via body class */
+      body.lang-fr .en-text,
+      body.lang-fr .en-block {
         display: none !important;
       }
-
-      .fr-text {
+      body.lang-fr .fr-text {
         display: inline !important;
       }
-
-      .en-block {
-        display: none !important;
-      }
-
-      .fr-block {
+      body.lang-fr .fr-block {
         display: block !important;
       }
+      body.lang-en .fr-text,
+      body.lang-en .fr-block {
+        display: none !important;
+      }
+      body.lang-en .en-text {
+        display: inline !important;
+      }
+      body.lang-en .en-block {
+        display: block !important;
+      }
+
+      /* .en-block et .fr-block sont gérés dynamiquement par body.lang-fr/lang-en ci-dessus */
 
       /* ===== END LANGUAGE SWITCHER ===== */
       /* Mobile hamburger header */
@@ -25009,38 +25016,25 @@
         });
       })();
     </script>
-    <!-- ===== LANGUAGE SWITCHER JS ===== -->
     <script>
       (function () {
         var currentLang = 'fr';
         window.switchLang = function (lang) {
           if (lang === currentLang) return;
           currentLang = lang;
-          // Toggle all fr-text / en-text elements
-          var frEls = document.querySelectorAll('.fr-text, .fr-block');
-          var enEls = document.querySelectorAll('.en-text, .en-block');
-          frEls.forEach(function (el) {
-            el.style.setProperty('display', lang === 'fr' ? 'inline' : 'none', 'important');
-            if (el.classList.contains('fr-block')) {
-              el.style.setProperty('display', lang === 'fr' ? 'block' : 'none', 'important');
-            }
-          });
-          enEls.forEach(function (el) {
-            el.style.setProperty('display', lang === 'en' ? 'inline' : 'none', 'important');
-            if (el.classList.contains('en-block')) {
-              el.style.setProperty('display', lang === 'en' ? 'block' : 'none', 'important');
-            }
-          });
-          // Update all switcher buttons
+          // Basculer la classe du body
+          document.body.classList.remove('lang-fr', 'lang-en');
+          document.body.classList.add('lang-' + lang);
+          // Mettre à jour tous les boutons de langue
           document.querySelectorAll('[data-lang]').forEach(function (btn) {
             btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
           });
-          // Update html lang attribute
+          // Attribut html lang
           document.documentElement.lang = lang;
-          // Save preference
+          // Sauvegarder la préférence
           try { localStorage.setItem('pp_lang', lang); } catch (e) { }
         };
-        // On DOM ready, restore saved preference
+        // Au chargement, restaurer la préférence sauvegardée
         document.addEventListener('DOMContentLoaded', function () {
           try {
             var saved = localStorage.getItem('pp_lang');
@@ -25067,24 +25061,7 @@
         });
       })();
     </script>
-    <script class="unihdr-lang">
-      window.switchLang = function (lang) {
-        document.body.classList.remove('lang-fr', 'lang-en');
-        document.body.classList.add('lang-' + lang);
-        document.querySelectorAll('[data-lang]').forEach(function (btn) {
-          btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-        });
-        document.documentElement.lang = lang;
-        try { localStorage.setItem('pp_lang', lang); } catch (e) { }
-      };
 
-      document.addEventListener('DOMContentLoaded', function () {
-        try {
-          var saved = localStorage.getItem('pp_lang');
-          if (saved && saved !== 'fr') window.switchLang(saved);
-        } catch (e) { }
-      });
-    </script>
 </body>
 
 </html>

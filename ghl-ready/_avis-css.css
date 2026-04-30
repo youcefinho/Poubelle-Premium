@@ -9,12 +9,40 @@ html[lang="en"] .en-block { display: block !important; }
 
 header.header-nav,
 .header-nav {
-  width: 100% !important;
-  max-width: 100% !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
   left: 0 !important;
-  right: 0 !important;
+  right: auto !important;
+  margin: 0 !important;
   box-sizing: border-box !important;
   position: fixed !important;
   top: 0 !important;
   z-index: 9999 !important;
+}
+
+
+/* Mobile header force fixed + hamburger cliquable (overrides GHL natif) */
+@media (max-width: 767px) {
+  #pp-mobile-header {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+  }
+  #pp-hamburger-btn {
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative !important;
+  }
+  #pp-mobile-nav {
+    z-index: 9998 !important;
+    pointer-events: auto !important;
+  }
+  .header-nav.unihdr,
+  header.header-nav { display: none !important; }
 }

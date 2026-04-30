@@ -70,85 +70,76 @@
     setTimeout(patchOldLinks, 1000);
     setTimeout(patchOldLinks, 3000);
 
-    // === Aligner le header GHL natif de Soumission sur celui des autres pages ===
-    // Ajoute "Services" + "Avis clients" si manquants, change CTA "Faire nettoyer..." en "Demander un devis"
-    function fixSoumissionHeader() {
-      var accueilAnchors = Array.prototype.filter.call(
-        document.querySelectorAll('a'),
-        function (a) {
-          var t = (a.textContent || '').trim().toLowerCase();
-          return t === 'accueil' || t === 'home';
-        }
-      );
+    // === REMPLACEMENT TOTAL du header sur Soumission ===
+    // Injecte un header propre identique aux autres pages, cache le header GHL natif
+    function injectSoumissionHeader() {
+      if (document.getElementById('pp-injected-header')) return;
 
-      accueilAnchors.forEach(function (a) {
-        a.setAttribute('href', '/accueil_index');
-        var container = a.closest('ul, nav, .nav-links, [class*="menu"], [class*="nav"]');
-        if (!container) return;
-        if (container._ppSoumissionFixed) return;
+      var css = document.createElement('style');
+      css.textContent = ''
+        + '/* Cache le header GHL natif de Soumission */\n'
+        + 'body > header:not(#pp-injected-header),\n'
+        + 'body > section:first-of-type [class*="hl-header"],\n'
+        + 'body > .hl-header-section,\n'
+        + 'body > section.section-header {\n'
+        + '  display: none !important;\n'
+        + '}\n'
+        + '/* Notre header injecté */\n'
+        + '#pp-injected-header {\n'
+        + '  position: sticky !important;\n'
+        + '  top: 0 !important;\n'
+        + '  left: 0 !important;\n'
+        + '  width: 100% !important;\n'
+        + '  z-index: 99999 !important;\n'
+        + '  background: #fff !important;\n'
+        + '  padding: 18px 40px !important;\n'
+        + '  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;\n'
+        + '  display: flex !important;\n'
+        + '  align-items: center !important;\n'
+        + '  justify-content: space-between !important;\n'
+        + '  font-family: "Poppins", sans-serif !important;\n'
+        + '  box-sizing: border-box !important;\n'
+        + '}\n'
+        + '#pp-injected-header .pp-h-logo img { height: 50px !important; width: auto !important; }\n'
+        + '#pp-injected-header .pp-h-nav { display: flex !important; gap: 32px !important; align-items: center !important; }\n'
+        + '#pp-injected-header .pp-h-nav a { color: #1a202c !important; font-weight: 700 !important; font-size: 1rem !important; text-decoration: none !important; }\n'
+        + '#pp-injected-header .pp-h-nav a:hover { color: #FE8800 !important; }\n'
+        + '#pp-injected-header .pp-h-lang { display: inline-flex !important; align-items: center !important; gap: 0 !important; background: rgba(244,135,22,0.08) !important; border-radius: 99px !important; padding: 4px !important; }\n'
+        + '#pp-injected-header .pp-h-lang button { border: 0 !important; background: transparent !important; padding: 6px 14px !important; cursor: pointer !important; font-weight: 700 !important; font-size: 0.85rem !important; border-radius: 99px !important; color: #4a5568 !important; }\n'
+        + '#pp-injected-header .pp-h-lang button.active { background: #FE8800 !important; color: #fff !important; }\n'
+        + '#pp-injected-header .pp-h-cta { background: #FE8800 !important; color: #fff !important; padding: 14px 30px !important; border-radius: 99px !important; font-weight: 700 !important; font-size: 1rem !important; text-decoration: none !important; box-shadow: 0 4px 14px rgba(254,136,0,0.35) !important; transition: all 0.3s ease !important; }\n'
+        + '#pp-injected-header .pp-h-cta:hover { background: #e07700 !important; transform: translateY(-2px) !important; }\n'
+        + '@media (max-width: 768px) {\n'
+        + '  #pp-injected-header { padding: 14px 20px !important; }\n'
+        + '  #pp-injected-header .pp-h-nav { gap: 16px !important; font-size: 0.9rem !important; }\n'
+        + '  #pp-injected-header .pp-h-cta { padding: 10px 18px !important; font-size: 0.9rem !important; }\n'
+        + '  #pp-injected-header .pp-h-logo img { height: 38px !important; }\n'
+        + '}\n'
+        + '@media (max-width: 560px) {\n'
+        + '  #pp-injected-header .pp-h-nav { display: none !important; }\n'
+        + '}';
+      document.head.appendChild(css);
 
-        var allLinks = container.querySelectorAll('a');
-        var hasServices = Array.prototype.some.call(allLinks, function (x) {
-          return /services/i.test((x.textContent || '').trim());
-        });
-        var hasAvis = Array.prototype.some.call(allLinks, function (x) {
-          return /avis|review/i.test((x.textContent || '').trim());
-        });
-
-        var li = a.closest('li');
-
-        if (!hasServices) {
-          if (li) {
-            var newLi = li.cloneNode(false);
-            var newA = a.cloneNode(false);
-            newA.setAttribute('href', '/accueil_index#section-Q-QVu_CWVt');
-            newA.innerHTML = '<span class="fr-text">Services</span><span class="en-text">Services</span>';
-            newLi.appendChild(newA);
-            li.parentNode.insertBefore(newLi, li.nextSibling);
-          } else {
-            var newA = a.cloneNode(false);
-            newA.setAttribute('href', '/accueil_index#section-Q-QVu_CWVt');
-            newA.innerHTML = '<span class="fr-text">Services</span><span class="en-text">Services</span>';
-            a.parentNode.insertBefore(newA, a.nextSibling);
-          }
-        }
-
-        if (!hasAvis) {
-          if (li) {
-            var newLi2 = li.cloneNode(false);
-            var newA2 = a.cloneNode(false);
-            newA2.setAttribute('href', '/avis-clients');
-            newA2.innerHTML = '<span class="fr-text">Avis clients</span><span class="en-text">Reviews</span>';
-            newLi2.appendChild(newA2);
-            container.appendChild(newLi2);
-          } else {
-            var newA2 = a.cloneNode(false);
-            newA2.setAttribute('href', '/avis-clients');
-            newA2.innerHTML = '<span class="fr-text">Avis clients</span><span class="en-text">Reviews</span>';
-            container.appendChild(newA2);
-          }
-        }
-
-        container._ppSoumissionFixed = true;
-      });
-
-      // Renommer CTA "Faire nettoyer mes bacs" → "Demander un devis" dans les headers uniquement
-      Array.prototype.forEach.call(document.querySelectorAll('a'), function (a) {
-        var inHeader = a.closest('header, [class*="hl-header"], [id*="header"], nav, [class*="header-nav"]');
-        if (!inHeader) return;
-        var txt = (a.textContent || '').trim();
-        if (/faire nettoyer/i.test(txt) || /get my bins/i.test(txt)) {
-          var frSpan = a.querySelector('.fr-text');
-          var enSpan = a.querySelector('.en-text');
-          if (frSpan) frSpan.textContent = 'Demander un devis';
-          if (enSpan) enSpan.textContent = 'Request a quote';
-          if (!frSpan && !enSpan) a.textContent = 'Demander un devis';
-        }
-      });
+      var hdr = document.createElement('header');
+      hdr.id = 'pp-injected-header';
+      hdr.innerHTML = ''
+        + '<a class="pp-h-logo" href="/accueil_index" aria-label="Accueil Poubelle Premium">'
+        + '  <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" alt="Poubelle Premium"/>'
+        + '</a>'
+        + '<nav class="pp-h-nav">'
+        + '  <a href="/accueil_index"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a>'
+        + '  <a href="/accueil_index#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a>'
+        + '  <a href="/avis-clients"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a>'
+        + '  <span class="pp-h-lang">'
+        + '    <button type="button" class="active" data-lang="fr" onclick="if(window.switchLang)window.switchLang(\'fr\')">FR</button>'
+        + '    <button type="button" data-lang="en" onclick="if(window.switchLang)window.switchLang(\'en\')">EN</button>'
+        + '  </span>'
+        + '</nav>'
+        + '<a class="pp-h-cta" href="/soumission"><span class="fr-text">Demander un devis</span><span class="en-text">Request a quote</span></a>';
+      document.body.insertBefore(hdr, document.body.firstChild);
     }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fixSoumissionHeader);
-    else fixSoumissionHeader();
-    setTimeout(fixSoumissionHeader, 800);
-    setTimeout(fixSoumissionHeader, 2500);
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', injectSoumissionHeader);
+    else injectSoumissionHeader();
+    setTimeout(injectSoumissionHeader, 500);
   })();
 </script>

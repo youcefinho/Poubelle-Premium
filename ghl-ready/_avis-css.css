@@ -69,3 +69,14 @@ body.lang-fr #pp-mobile-nav a .en-text,
 html:not([lang="en"]) #pp-mobile-nav a .en-text {
   display: none !important;
 }
+
+
+/* Force visibilite menu mobile Avis (specifique : body.lang-* au lieu de html[lang]) */
+body.lang-fr .fr-text,
+body.lang-fr .fr-block,
+body:not(.lang-en) #pp-mobile-nav .fr-text { display: inline !important; }
+body.lang-fr #pp-mobile-nav a { display: block !important; }
+body.lang-en .en-text,
+body.lang-en .en-block,
+body.lang-en #pp-mobile-nav .en-text { display: inline !important; }
+body.lang-en #pp-mobile-nav a { display: block !important; }

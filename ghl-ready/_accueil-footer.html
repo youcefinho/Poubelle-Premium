@@ -178,5 +178,24 @@
     }
     window.addEventListener('hashchange', smartScrollServices);
     if (location.hash) setTimeout(smartScrollServices, 400);
+
+    // Click sur iframe Google reviews -> redirige vers /retour apres ouverture nouvel onglet
+    var lastIframeClick = 0;
+    document.addEventListener('mousedown', function (e) {
+      var t = e.target;
+      while (t) {
+        if (t.id === 'msgsndr_reviews' || (t.tagName === 'IFRAME' && t.src && t.src.indexOf('leadconnectorhq.com/appengine/reviews') >= 0)) {
+          lastIframeClick = Date.now();
+          break;
+        }
+        t = t.parentElement;
+      }
+    }, true);
+    window.addEventListener('blur', function () {
+      if (Date.now() - lastIframeClick < 3000 &&
+          document.activeElement && document.activeElement.tagName === 'IFRAME') {
+        setTimeout(function () { window.location.href = '/retour'; }, 600);
+      }
+    });
   })();
 </script>

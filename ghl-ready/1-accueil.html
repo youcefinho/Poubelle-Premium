@@ -21470,7 +21470,26 @@
               <script>
                 (function () {
                   function ppCount(id, end, dur) { var el = document.getElementById(id); if (!el) return; var s = null; function step(ts) { if (!s) s = ts; var p = Math.min((ts - s) / dur, 1); var e = 1 - Math.pow(1 - p, 3); el.textContent = "+" + Math.floor(e * end).toLocaleString('fr-CA'); if (p < 1) requestAnimationFrame(step); } requestAnimationFrame(step); }
-                  function ppRunCounter(){ try { ppCount('pp-bacs',2450,2200); } catch(e){} }
+                  function ppRunCounter(){
+                    var el = document.getElementById('pp-bacs');
+                    if (!el) return;
+                    // Demarre l'animation seulement quand l'element devient visible (mieux sur mobile + header fixe)
+                    if ('IntersectionObserver' in window) {
+                      var triggered = false;
+                      var obs = new IntersectionObserver(function(entries){
+                        entries.forEach(function(e){
+                          if (e.isIntersecting && !triggered) {
+                            triggered = true;
+                            try { ppCount('pp-bacs',2450,2200); } catch(err){}
+                            obs.unobserve(e.target);
+                          }
+                        });
+                      }, { threshold: 0.3 });
+                      obs.observe(el);
+                    } else {
+                      try { ppCount('pp-bacs',2450,2200); } catch(err){}
+                    }
+                  }
                   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ppRunCounter); else ppRunCounter();
                   var acts = [
                     '<strong class="fr-text">Nouveau client</strong><strong class="en-text">New client</strong><span class="fr-text"> &mdash; Secteur Laval &middot; il y a 3 min</span><span class="en-text"> &mdash; Laval &middot; 3 min ago</span>',
@@ -25210,7 +25229,15 @@
           if (aosOk) return;
           if (typeof AOS === 'undefined') return;
           decorate();
-          try { AOS.init({ duration: 800, once: true, offset: 50 }); aosOk = true; } catch (e) {}
+          try {
+            AOS.init({ duration: 800, once: true, offset: 50, disable: false });
+            aosOk = true;
+            // Force un refresh apres load complet et au resize (mobile + header fixe peuvent perturber les calculs initiaux)
+            window.addEventListener('load', function () { try { AOS.refresh(); } catch (e) {} });
+            window.addEventListener('resize', function () { try { AOS.refresh(); } catch (e) {} });
+            // Nouveau refresh apres 1s pour rattraper les images lazy + iframes qui se chargent
+            setTimeout(function () { try { AOS.refresh(); } catch (e) {} }, 1000);
+          } catch (e) {}
         }
         // Tentative immédiate (cas local: script déjà chargé)
         doInit();

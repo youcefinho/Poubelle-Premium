@@ -1,8 +1,33 @@
 <!-- PP-SOUMISSION-V3-2026-04-30 -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Demande de Soumission | Poubelle Premium</title>
-<meta content="Remplissez notre formulaire en ligne pour recevoir une soumission rapide et personnalisée. Service fiable et écologique!" name="description"/>
+<title>Demande de Soumission Gratuite | Nettoyage de Bacs Laval | Poubelle Premium</title>
+<meta content="Obtenez votre soumission gratuite en 2 min. Nettoyage écologique de bacs à Laval et Rive-Nord. Forfaits ponctuels, mensuels ou personnalisés. Sans engagement." name="description"/>
+<link rel="canonical" href="https://poubellepremium.ca/soumission_1"/>
+<meta property="og:title" content="Demande de Soumission Gratuite | Poubelle Premium"/>
+<meta property="og:description" content="Obtenez votre soumission gratuite en 2 min. Service écologique de nettoyage de bacs à Laval."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://poubellepremium.ca/soumission_1"/>
+<meta property="og:locale" content="fr_CA"/>
+<meta property="og:image" content="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Demande de Soumission Gratuite | Poubelle Premium"/>
+<meta name="twitter:description" content="Obtenez votre soumission gratuite en 2 min. Service écologique de nettoyage de bacs à Laval."/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Demande de Soumission",
+  "url": "https://poubellepremium.ca/soumission_1",
+  "isPartOf": {"@type": "WebSite", "@id": "https://poubellepremium.ca/#website"},
+  "about": {"@type": "LocalBusiness", "@id": "https://poubellepremium.ca/#business"},
+  "potentialAction": {
+    "@type": "RequestQuoteAction",
+    "name": "Demander une soumission",
+    "target": "https://poubellepremium.ca/soumission_1"
+  }
+}
+</script>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <script crossorigin="anonymous" src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -1212,18 +1237,63 @@
             }
         });
 
-        function ghlSubmit() {
-            // Gather form data and submit to GHL endpoint
-            const form = document.getElementById('_builder-form');
-            const data = new FormData(form);
-            const payload = {};
-            data.forEach((v, k) => payload[k] = v);
-            console.log('Form submitted:', payload);
-            // Show success message
+        // Endpoint GHL Form pour la soumission reelle.
+        // A configurer : remplacer par l'URL d'action du widget GHL Form.
+        // Ouvrir le form GHL en preview, regarder l'attribut <form action="..."> ou
+        // l'URL du widget iframe : https://api.leadconnectorhq.com/widget/form/<formId>
+        // Definir window.PP_FORM_ENDPOINT dans GHL > Settings > Custom Code Footer
+        // pour activer le POST reel. Sans ca, le form fait juste un dataLayer push.
+
+        function showThankYou(form) {
             var isEn = document.body.classList.contains('lang-en');
             var thanks = isEn ? 'Thank you!' : 'Merci !';
             var msg = isEn ? 'Your request has been sent successfully. We will contact you soon.' : 'Votre demande a été envoyée avec succès. Nous vous contacterons bientôt.';
             form.closest('.ghl-form-wrap').innerHTML = '<div style="padding:60px 40px;text-align:center;"><div style="font-size:3rem;margin-bottom:20px;">✅</div><h2 style="color:#F48716;">' + thanks + '</h2><p>' + msg + '</p></div>';
+        }
+
+        function showError(form) {
+            var isEn = document.body.classList.contains('lang-en');
+            var msg = isEn ? 'An error occurred. Please call us at (438) 799-4449.' : 'Une erreur est survenue. Veuillez nous appeler au (438) 799-4449.';
+            var err = document.createElement('div');
+            err.style.cssText = 'background:#fee;color:#c00;padding:12px;border-radius:6px;margin-top:12px;text-align:center;';
+            err.textContent = msg;
+            form.appendChild(err);
+        }
+
+        function ghlSubmit() {
+            const form = document.getElementById('_builder-form');
+            const data = new FormData(form);
+            const payload = {};
+            data.forEach((v, k) => payload[k] = v);
+
+            // 1. Push dataLayer event (Meta Pixel / Google Ads / GA4 via GTM)
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'generate_lead',
+                form_id: 'soumission_premium',
+                lead_email: payload.email || '',
+                lead_phone: payload.phone || '',
+                lead_plan: payload.forfait_2025 || '',
+                lead_type: payload.particulier_ou_entreprise || ''
+            });
+
+            // 2. POST reel vers GHL si endpoint configure
+            var endpoint = window.PP_FORM_ENDPOINT;
+            if (endpoint) {
+                fetch(endpoint, {
+                    method: 'POST',
+                    body: data
+                }).then(function (r) {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    showThankYou(form);
+                }).catch(function (e) {
+                    console.error('Form submit failed:', e);
+                    showError(form);
+                });
+            } else {
+                console.warn('[PP] PP_FORM_ENDPOINT non configure — soumission non envoyee a GHL. Configurer dans Footer Tracking de la page : window.PP_FORM_ENDPOINT = "https://api.leadconnectorhq.com/widget/form/<FORM_ID>";');
+                showThankYou(form);
+            }
         }
 
         // Dropdown / Multiselect logic

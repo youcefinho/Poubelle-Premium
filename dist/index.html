@@ -25022,35 +25022,39 @@
     <!-- script email-decode supprimé (injecté par Cloudflare, inutile en local) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      setTimeout(function () {
-        const columns = document.querySelectorAll('.c-column');
-        columns.forEach(el => {
-          if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
-        });
-        const headings = document.querySelectorAll('.c-heading, .c-sub-heading');
-        headings.forEach((el, index) => {
-          if (!el.hasAttribute('data-aos')) {
-            el.setAttribute('data-aos', 'fade-right');
-            el.setAttribute('data-aos-delay', (index % 3) * 100);
+      // AOS init avec retry: en GHL, la lib externe peut ne pas être chargée immédiatement
+      (function () {
+        function initAOSDecorations() {
+          document.querySelectorAll('.c-column').forEach(function (el) {
+            if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
+          });
+          document.querySelectorAll('.c-heading, .c-sub-heading').forEach(function (el, index) {
+            if (!el.hasAttribute('data-aos')) {
+              el.setAttribute('data-aos', 'fade-right');
+              el.setAttribute('data-aos-delay', (index % 3) * 100);
+            }
+          });
+          document.querySelectorAll('.c-image').forEach(function (el, index) {
+            if (!el.hasAttribute('data-aos')) {
+              el.setAttribute('data-aos', 'zoom-in');
+              el.setAttribute('data-aos-delay', (index % 3) * 100);
+            }
+          });
+          document.querySelectorAll('.c-button').forEach(function (el) {
+            if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
+          });
+        }
+        var tries = 0;
+        function tryInit() {
+          if (typeof AOS === 'undefined') {
+            if (tries++ < 50) { setTimeout(tryInit, 100); return; }
+            return; // give up after 5s
           }
-        });
-        const images = document.querySelectorAll('.c-image');
-        images.forEach((el, index) => {
-          if (!el.hasAttribute('data-aos')) {
-            el.setAttribute('data-aos', 'zoom-in');
-            el.setAttribute('data-aos-delay', (index % 3) * 100);
-          }
-        });
-        const buttons = document.querySelectorAll('.c-button');
-        buttons.forEach(el => {
-          if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
-        });
-        AOS.init({
-          duration: 800,
-          once: true,
-          offset: 50
-        });
-      }, 500);
+          initAOSDecorations();
+          AOS.init({ duration: 800, once: true, offset: 50 });
+        }
+        tryInit();
+      })();
     </script>
     <!-- HAMBURGER MENU STYLES & JS -->
     <style>

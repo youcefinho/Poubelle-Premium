@@ -1,0 +1,153 @@
+<!-- ============================================================
+   PP-SOUMISSION-AVIS-FOOTER
+   A coller dans un 2e bloc Custom Code (HTML) ajoute SOUS le bloc
+   principal de la page Soumission_1, dans le Page Builder GHL.
+   Raison : sortir la section Avis et le footer du Custom Code
+   principal evite que GHL natif les contraigne avec son layout.
+   ============================================================ -->
+<style>
+.pp-avis-section {
+    background-color: #f9f9f9;
+    padding: 80px 0 20px 0;
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 10;
+    overflow: visible;
+}
+.pp-avis-inner {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.avis-title-premium-2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.avis-title-premium-2 h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding-bottom: 15px;
+}
+.avis-title-premium-2 h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #F48716;
+    border-radius: 2px;
+}
+.ghl-review-wrapper-2 {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+.pp-footer {
+    background: #fff;
+    color: #1a202c;
+    padding: 80px 0 40px;
+    border-top: 1px solid #e2e8f0;
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 10;
+}
+.pp-footer .container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.pp-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+.pp-footer h3 {
+    color: #F48716;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+.pp-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.pp-footer li {
+    margin-bottom: 12px;
+    color: #4a5568;
+}
+.pp-footer a {
+    color: #4a5568;
+    text-decoration: none;
+}
+.pp-footer a:hover {
+    color: #F48716;
+}
+.pp-footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    color: #718096;
+}
+@media (max-width: 767px) {
+    .avis-title-premium-2 h2 { font-size: 1.8rem; }
+}
+</style>
+
+<section class="pp-avis-section" id="section-AvisClients2">
+    <div class="pp-avis-inner">
+        <div class="avis-title-premium-2">
+            <h2><span class="fr-text">Avis de nos clients</span><span class="en-text">Customer reviews</span></h2>
+        </div>
+        <div class="ghl-review-wrapper-2">
+            <iframe frameborder="0" height="460" id="msgsndr_reviews" scrolling="no"
+                src="https://backend.leadconnectorhq.com/appengine/reviews/get_widget/Q4K7xsLSm5SH7e2GyuSi"
+                style="min-width:100%; width:100%; height:350px; overflow:hidden;"></iframe>
+        </div>
+    </div>
+</section>
+
+<footer class="pp-footer">
+    <div class="container">
+        <div class="pp-footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img alt="Logo Footer"
+                        src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png"
+                        style="height:90px; margin-bottom:20px;" />
+                </div>
+                <p><span class="fr-text">Votre partenaire de confiance pour un environnement sain et sans odeurs.</span><span class="en-text">Your trusted partner for a healthy, odor-free environment.</span></p>
+            </div>
+            <div class="footer-col">
+                <h3><span class="fr-text">Contact</span><span class="en-text">Contact</span></h3>
+                <ul>
+                    <li><a href="tel:+14387994449">(438) 799-4449</a></li>
+                    <li><a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></li>
+                    <li><span class="fr-text">Laval et Rive-Nord</span><span class="en-text">Laval and North Shore</span></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3><span class="fr-text">Navigation</span><span class="en-text">Navigation</span></h3>
+                <ul>
+                    <li><a href="/accueil_index"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+                    <li><a href="/accueil_index#section-jIShhaMz_f"><span class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
+                    <li><a href="/accueil_index#section-Q-QVu_CWVt"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+                    <li><a href="/soumission_1"><span class="fr-text">Soumission</span><span class="en-text">Quote</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pp-footer-bottom">
+            <p><span class="fr-text">© 2024 Poubelle Premium. Tous droits réservés.</span><span class="en-text">© 2024 Poubelle Premium. All rights reserved.</span></p>
+        </div>
+    </div>
+</footer>

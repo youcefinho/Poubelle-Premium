@@ -834,50 +834,11 @@
 </div>
 </div>
 </section>
-<!-- Section Avis clients (Déplacée après le formulaire) -->
-<!-- IMPORTANT : ne pas utiliser les classes GHL natives (.fullSection, .c-section, .c-wrapper) ici, GHL applique son propre CSS/JS dessus et peut casser le rendu -->
-<div class="pp-avis-section" id="section-AvisClients2" style="display:block !important; width:100%; clear:both; padding:80px 0 20px 0; background:#f9f9f9; position:relative; z-index:10;">
-<div class="pp-avis-inner" style="max-width:1170px; margin:0 auto; padding:0 20px;">
-<div class="avis-title-premium-2">
-<h2><span class="fr-text">Avis de nos clients</span><span class="en-text">Customer reviews</span></h2>
-</div>
-<div class="ghl-review-wrapper-2">
-<iframe frameborder="0" height="460" id="msgsndr_reviews" scrolling="no" src="https://backend.leadconnectorhq.com/appengine/reviews/get_widget/Q4K7xsLSm5SH7e2GyuSi" style="min-width:100%; width:100%; height:350px; overflow:hidden;"></iframe>
-</div>
-</div>
-</div>
-<footer class="footer" style="background: var(--white); color: #1a202c; padding: 80px 0 40px; border-top: 1px solid #e2e8f0;">
-<div class="container">
-<div class="footer-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:40px;">
-<div class="footer-col">
-<div class="footer-logo">
-<img alt="Logo Footer" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" style="height:90px; margin-bottom:20px;"/>
-</div>
-<p style="color: #4a5568;"><span class="fr-text">Votre partenaire de confiance pour un environnement sain et sans odeurs.</span><span class="en-text">Your trusted partner for a healthy, odor-free environment.</span></p>
-</div>
-<div class="footer-col">
-<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;"><span class="fr-text">Contact</span><span class="en-text">Contact</span></h3>
-<ul style="list-style:none; padding:0;">
-<li style="margin-bottom:12px;"><a href="tel:+14387994449" style="color:#4a5568; text-decoration:none;">(438) 799-4449</a></li>
-<li style="margin-bottom:12px;"><a href="mailto:info@poubellepremium.ca" style="color:#4a5568; text-decoration:none;">info@poubellepremium.ca</a></li>
-<li style="color:#4a5568;"><span class="fr-text">Laval et Rive-Nord</span><span class="en-text">Laval and North Shore</span></li>
-</ul>
-</div>
-<div class="footer-col">
-<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;"><span class="fr-text">Navigation</span><span class="en-text">Navigation</span></h3>
-<ul style="list-style:none; padding:0;">
-<li style="margin-bottom:12px;"><a href="/accueil_index" style="color:#4a5568; text-decoration:none;"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
-<li style="margin-bottom:12px;"><a href="/accueil_index#section-jIShhaMz_f" style="color:#4a5568; text-decoration:none;"><span class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
-<li style="margin-bottom:12px;"><a href="/accueil_index#section-Q-QVu_CWVt" style="color:#4a5568; text-decoration:none;"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
-<li style="margin-bottom:12px;"><a href="/soumission_1" style="color:#4a5568; text-decoration:none;"><span class="fr-text">Soumission</span><span class="en-text">Quote</span></a></li>
-</ul>
-</div>
-</div>
-<div style="text-align:center; margin-top:50px; padding-top:20px; border-top:1px solid #e2e8f0; color:#718096;">
-<p><span class="fr-text">© 2024 Poubelle Premium. Tous droits réservés.</span><span class="en-text">© 2024 Poubelle Premium. All rights reserved.</span></p>
-</div>
-</div>
-</footer>
+<!-- Section Avis + Footer : DEPLACES dans un 2e bloc Custom Code GHL.
+     Voir _soumission-avis-footer.html dans ghl-ready/.
+     Raison : GHL natif contraignait le rendu quand tout etait dans
+     le meme Custom Code Block (la section Avis disparaissait sous l'iframe form).
+     En les sortant dans un 2e bloc, GHL leur donne leur propre section autonome. -->
 <!-- form_embed.js retire : il auto-resize l'iframe et ecrasait la section Avis. Hauteur fixe 1300px ci-dessus. -->
 <script>
         (function () {

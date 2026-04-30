@@ -755,13 +755,13 @@
 <div class="container">
 <div class="hero-grid">
 <div class="hero-content">
-<h1><strong>Mettons-nous au travail</strong></h1>
-<p>Gardez votre environnement propre !</p>
+<h1><strong><span class="fr-text">Mettons-nous au travail</span><span class="en-text">Let's get to work</span></strong></h1>
+<p><span class="fr-text">Gardez votre environnement propre !</span><span class="en-text">Keep your environment clean!</span></p>
 <ul class="hero-list">
-<li>Bacs de poubelle</li>
-<li>Bacs de recyclage</li>
-<li>Bacs de compost</li>
-<li>Conteneurs sur roues</li>
+<li><span class="fr-text">Bacs de poubelle</span><span class="en-text">Trash bins</span></li>
+<li><span class="fr-text">Bacs de recyclage</span><span class="en-text">Recycling bins</span></li>
+<li><span class="fr-text">Bacs de compost</span><span class="en-text">Compost bins</span></li>
+<li><span class="fr-text">Conteneurs sur roues</span><span class="en-text">Wheeled containers</span></li>
 </ul>
 </div>
 <div class="form-box">
@@ -773,45 +773,43 @@
 <div class="ghl-page-current slide-no-1 form-builder--wrap-questions ghl-question">
 <div class="row fields-container">
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="first_name">Prénom
+<label class="label-alignment field-label" for="first_name"><span class="fr-text">Prénom</span><span class="en-text">First name</span>
                                                 <span>*</span></label>
-<div class="flex-col"><input class="form-control" data-required="true" id="first_name" name="first_name" placeholder="Prénom" type="text"/></div>
-<div class="error">Prénom est obligatoire</div>
+<div class="flex-col"><input class="form-control" data-required="true" id="first_name" name="first_name" placeholder="Prénom" data-fr-placeholder="Prénom" data-en-placeholder="First name" type="text"/></div>
+<div class="error"><span class="fr-text">Prénom est obligatoire</span><span class="en-text">First name is required</span></div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="last_name">Nom
+<label class="label-alignment field-label" for="last_name"><span class="fr-text">Nom</span><span class="en-text">Last name</span>
                                                 <span>*</span></label>
-<div class="flex-col"><input class="form-control" data-required="true" id="last_name" name="last_name" placeholder="Nom" type="text"/></div>
-<div class="error">Nom est obligatoire</div>
+<div class="flex-col"><input class="form-control" data-required="true" id="last_name" name="last_name" placeholder="Nom" data-fr-placeholder="Nom" data-en-placeholder="Last name" type="text"/></div>
+<div class="error"><span class="fr-text">Nom est obligatoire</span><span class="en-text">Last name is required</span></div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="address">Adresse
+<label class="label-alignment field-label" for="address"><span class="fr-text">Adresse</span><span class="en-text">Address</span>
                                                 <span>*</span></label>
-<div class="flex-col"><input class="form-control" data-required="true" id="address" name="address" placeholder="Adresse" type="text"/></div>
+<div class="flex-col"><input class="form-control" data-required="true" id="address" name="address" placeholder="Adresse" data-fr-placeholder="Adresse" data-en-placeholder="Address" type="text"/></div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="city">Ville</label>
-<div class="flex-col"><input class="form-control" id="city" name="city" placeholder="Ville" type="text"/></div>
+<label class="label-alignment field-label" for="city"><span class="fr-text">Ville</span><span class="en-text">City</span></label>
+<div class="flex-col"><input class="form-control" id="city" name="city" placeholder="Ville" data-fr-placeholder="Ville" data-en-placeholder="City" type="text"/></div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="postal-select">Code postal
+<label class="label-alignment field-label" for="postal-select"><span class="fr-text">Code postal</span><span class="en-text">Postal code</span>
                                                 <span>*</span></label>
 <div class="flex-col">
 <div class="multiselect" id="postal-multiselect">
 <div class="multiselect__select"></div>
 <div class="multiselect__tags" onclick="toggleDropdown('postal')">
-<input autocomplete="off" class="multiselect__input" id="postal-input" name="scKMvREIXcSDhf8ZPwMD" onfocus="showDropdown('postal')" oninput="filterOptions(this, 'postal-list')" placeholder="Veuillez sélectionner les 3 premiers caractères" type="text"/>
-<span class="multiselect__placeholder" id="postal-placeholder">Veuillez sélectionner les 3
-                                                            premiers</span>
+<input autocomplete="off" class="multiselect__input" id="postal-input" name="scKMvREIXcSDhf8ZPwMD" onfocus="showDropdown('postal')" oninput="filterOptions(this, 'postal-list')" placeholder="Veuillez sélectionner les 3 premiers caractères" data-fr-placeholder="Veuillez sélectionner les 3 premiers caractères" data-en-placeholder="Please select the first 3 characters" type="text"/>
+<span class="multiselect__placeholder" id="postal-placeholder"><span class="fr-text">Veuillez sélectionner les 3 premiers</span><span class="en-text">Please select the first 3</span></span>
 </div>
 <div class="multiselect__content-wrapper" id="postal-dropdown">
 <ul class="multiselect__content" id="postal-list">
-<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'Mon code postal n\'est pas dans la liste')">Mon
-                                                                    code postal n'est pas dans la liste</span></li>
+<li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'Mon code postal n\'est pas dans la liste')"><span class="fr-text">Mon code postal n'est pas dans la liste</span><span class="en-text">My postal code is not in the list</span></span></li>
 <li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7A')">H7A</span>
 </li>
 <li class="multiselect__element"><span class="multiselect__option" onclick="selectOption('postal', 'H7B')">H7B</span>
@@ -891,16 +889,16 @@
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="email">Courriel
+<label class="label-alignment field-label" for="email"><span class="fr-text">Courriel</span><span class="en-text">Email</span>
                                                 <span>*</span></label>
-<div class="flex-col"><input class="form-control" data-required="true" id="email" name="email" placeholder="Courriel" type="email"/>
+<div class="flex-col"><input class="form-control" data-required="true" id="email" name="email" placeholder="Courriel" data-fr-placeholder="Courriel" data-en-placeholder="Email" type="email"/>
 </div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label" for="phone">Téléphone
+<label class="label-alignment field-label" for="phone"><span class="fr-text">Téléphone</span><span class="en-text">Phone</span>
                                                 <span>*</span></label>
-<div class="flex-col"><input class="form-control" data-required="true" id="phone" name="phone" placeholder="Téléphone" type="tel"/></div>
+<div class="flex-col"><input class="form-control" data-required="true" id="phone" name="phone" placeholder="Téléphone" data-fr-placeholder="Téléphone" data-en-placeholder="Phone" type="tel"/></div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
@@ -908,12 +906,7 @@
 <div class="checkbox-container">
 <input data-required="true" id="terms_and_conditions" name="terms_and_conditions" type="checkbox" value="terms_and_conditions"/>
 <label for="terms_and_conditions" style="margin-left:10px;"><span class="terms-text-container" style="color:inherit;">
-<p>J'accepte de recevoir des notifications SMS, des alertes
-                                                                et des communications marketing occasionnelles de
-                                                                Poubelle Premium. La fréquence des messages peut varier.
-                                                                Des frais de messagerie et de données peuvent
-                                                                s'appliquer. Vous pouvez répondre STOP à tout moment
-                                                                pour vous désinscrire.</p>
+<p><span class="fr-text">J'accepte de recevoir des notifications SMS, des alertes et des communications marketing occasionnelles de Poubelle Premium. La fréquence des messages peut varier. Des frais de messagerie et de données peuvent s'appliquer. Vous pouvez répondre STOP à tout moment pour vous désinscrire.</span><span class="en-text">I agree to receive SMS notifications, alerts and occasional marketing communications from Poubelle Premium. Message frequency may vary. Message and data rates may apply. You can reply STOP at any time to unsubscribe.</span></p>
 </span></label>
 </div>
 </div>
@@ -925,32 +918,27 @@
 <div class="slide-no-2 form-builder--wrap-questions ghl-question">
 <div class="row fields-container">
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label">Forfait 2025</label>
+<label class="label-alignment field-label"><span class="fr-text">Forfait 2025</span><span class="en-text">2025 plan</span></label>
 <div class="flex-col">
 <div class="option-radio">
-<div class="standard-radio-container"><input id="forfait_ponctuel" name="forfait_2025" type="radio" value="PONCTUEL (Un seul nettoyage)"/><label for="forfait_ponctuel">PONCTUEL
-                                                            (Un seul nettoyage)</label></div>
+<div class="standard-radio-container"><input id="forfait_ponctuel" name="forfait_2025" type="radio" value="PONCTUEL (Un seul nettoyage)"/><label for="forfait_ponctuel"><span class="fr-text">PONCTUEL (Un seul nettoyage)</span><span class="en-text">ONE-TIME (Single cleaning)</span></label></div>
 </div>
 <div class="option-radio">
-<div class="standard-radio-container"><input id="forfait_bimestriel" name="forfait_2025" type="radio" value="BIMESTRIEL (1 fois aux 2 mois)"/><label for="forfait_bimestriel">BIMESTRIEL (1 fois aux 2
-                                                            mois)</label></div>
+<div class="standard-radio-container"><input id="forfait_bimestriel" name="forfait_2025" type="radio" value="BIMESTRIEL (1 fois aux 2 mois)"/><label for="forfait_bimestriel"><span class="fr-text">BIMESTRIEL (1 fois aux 2 mois)</span><span class="en-text">BIMONTHLY (Once every 2 months)</span></label></div>
 </div>
 <div class="option-radio">
-<div class="standard-radio-container"><input id="forfait_mensuel" name="forfait_2025" type="radio" value="MENSUEL (Forfait le plus populaire 🔥)"/><label for="forfait_mensuel">MENSUEL
-                                                            (Forfait le plus populaire 🔥)</label></div>
+<div class="standard-radio-container"><input id="forfait_mensuel" name="forfait_2025" type="radio" value="MENSUEL (Forfait le plus populaire 🔥)"/><label for="forfait_mensuel"><span class="fr-text">MENSUEL (Forfait le plus populaire 🔥)</span><span class="en-text">MONTHLY (Most popular plan 🔥)</span></label></div>
 </div>
 <div class="option-radio">
-<div class="standard-radio-container"><input id="forfait_bimensuel" name="forfait_2025" type="radio" value="BIMENSUEL (2 fois par mois)"/><label for="forfait_bimensuel">BIMENSUEL
-                                                            (2 fois par mois)</label></div>
+<div class="standard-radio-container"><input id="forfait_bimensuel" name="forfait_2025" type="radio" value="BIMENSUEL (2 fois par mois)"/><label for="forfait_bimensuel"><span class="fr-text">BIMENSUEL (2 fois par mois)</span><span class="en-text">SEMI-MONTHLY (Twice a month)</span></label></div>
 </div>
 <div class="option-radio">
-<div class="standard-radio-container"><input id="forfait_perso" name="forfait_2025" type="radio" value="PERSONNALISÉ"/><label for="forfait_perso">PERSONNALISÉ</label></div>
+<div class="standard-radio-container"><input id="forfait_perso" name="forfait_2025" type="radio" value="PERSONNALISÉ"/><label for="forfait_perso"><span class="fr-text">PERSONNALISÉ</span><span class="en-text">CUSTOM</span></label></div>
 </div>
 <!-- Champ "personnalisé" affiché uniquement si PERSONNALISÉ est coché -->
 <div id="forfait-perso-wrap" class="col-12 form-field-wrapper" style="display:none;margin-top:14px;">
-<label class="label-alignment field-label" for="O6h88hnjwJPzxjzLbQjx">Veuillez préciser votre forfait personnalisé
-                                                (fréquence) <span>*</span></label>
-<div class="flex-col"><input class="form-control" id="O6h88hnjwJPzxjzLbQjx" name="O6h88hnjwJPzxjzLbQjx" placeholder="Ex: Poubelle et recyclage une fois par mois et compost 2 fois par mois" type="text"/></div>
+<label class="label-alignment field-label" for="O6h88hnjwJPzxjzLbQjx"><span class="fr-text">Veuillez préciser votre forfait personnalisé (fréquence)</span><span class="en-text">Please specify your custom plan (frequency)</span> <span>*</span></label>
+<div class="flex-col"><input class="form-control" id="O6h88hnjwJPzxjzLbQjx" name="O6h88hnjwJPzxjzLbQjx" placeholder="Ex: Poubelle et recyclage une fois par mois et compost 2 fois par mois" data-fr-placeholder="Ex: Poubelle et recyclage une fois par mois et compost 2 fois par mois" data-en-placeholder="Ex: Trash and recycling once a month and compost twice a month" type="text"/></div>
 </div>
 </div>
 </div>
@@ -960,27 +948,25 @@
 <div class="slide-no-3 form-builder--wrap-questions ghl-question">
 <div class="row fields-container">
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label">Particulier ou entreprise
+<label class="label-alignment field-label"><span class="fr-text">Particulier ou entreprise</span><span class="en-text">Individual or business</span>
                                                 <span>*</span></label>
 <div class="flex-col">
 <div class="option-radio">
-<div class="standard-radio-container"><input data-required="true" id="particulier" name="particulier_ou_entreprise" type="radio" value="Particulier"/><label for="particulier">Particulier</label></div>
+<div class="standard-radio-container"><input data-required="true" id="particulier" name="particulier_ou_entreprise" type="radio" value="Particulier"/><label for="particulier"><span class="fr-text">Particulier</span><span class="en-text">Individual</span></label></div>
 </div>
 <div class="option-radio">
-<div class="standard-radio-container"><input data-required="true" id="entreprise" name="particulier_ou_entreprise" type="radio" value="Entreprise, syndicat de copropriété, etc."/><label for="entreprise">Entreprise,
-                                                            syndicat de copropriété, etc.</label></div>
+<div class="standard-radio-container"><input data-required="true" id="entreprise" name="particulier_ou_entreprise" type="radio" value="Entreprise, syndicat de copropriété, etc."/><label for="entreprise"><span class="fr-text">Entreprise, syndicat de copropriété, etc.</span><span class="en-text">Business, condo association, etc.</span></label></div>
 </div>
 </div>
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label">Nombre de bac(s) de poubelle à
-                                                nettoyer <span>*</span></label>
+<label class="label-alignment field-label"><span class="fr-text">Nombre de bac(s) de poubelle à nettoyer</span><span class="en-text">Number of trash bin(s) to clean</span> <span>*</span></label>
 <div class="flex-col">
 <div class="multiselect" id="poubelle-multiselect">
 <div class="multiselect__select"></div>
 <div class="multiselect__tags" onclick="toggleDropdown('poubelle')">
-<input autocomplete="off" class="multiselect__input" id="poubelle-input" name="JXBNnl6lF5Ta1uEy4LWN" onfocus="showDropdown('poubelle')" oninput="filterOptions(this, 'poubelle-list')" placeholder="Choisir" type="text"/>
+<input autocomplete="off" class="multiselect__input" id="poubelle-input" name="JXBNnl6lF5Ta1uEy4LWN" onfocus="showDropdown('poubelle')" oninput="filterOptions(this, 'poubelle-list')" placeholder="Choisir" data-fr-placeholder="Choisir" data-en-placeholder="Select" type="text"/>
 </div>
 <div class="multiselect__content-wrapper" id="poubelle-dropdown">
 <ul class="multiselect__content" id="poubelle-list">
@@ -1013,13 +999,12 @@
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label">Nombre de bac(s) de recyclage à
-                                                nettoyer <span>*</span></label>
+<label class="label-alignment field-label"><span class="fr-text">Nombre de bac(s) de recyclage à nettoyer</span><span class="en-text">Number of recycling bin(s) to clean</span> <span>*</span></label>
 <div class="flex-col">
 <div class="multiselect" id="recyclage-multiselect">
 <div class="multiselect__select"></div>
 <div class="multiselect__tags" onclick="toggleDropdown('recyclage')">
-<input autocomplete="off" class="multiselect__input" id="recyclage-input" name="0aAPPOlk1LQSk6hNIXn1" onfocus="showDropdown('recyclage')" oninput="filterOptions(this, 'recyclage-list')" placeholder="Choisir" type="text"/>
+<input autocomplete="off" class="multiselect__input" id="recyclage-input" name="0aAPPOlk1LQSk6hNIXn1" onfocus="showDropdown('recyclage')" oninput="filterOptions(this, 'recyclage-list')" placeholder="Choisir" data-fr-placeholder="Choisir" data-en-placeholder="Select" type="text"/>
 </div>
 <div class="multiselect__content-wrapper" id="recyclage-dropdown">
 <ul class="multiselect__content" id="recyclage-list">
@@ -1052,13 +1037,12 @@
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label">Nombre de bac(s) de compost à
-                                                nettoyer <span>*</span></label>
+<label class="label-alignment field-label"><span class="fr-text">Nombre de bac(s) de compost à nettoyer</span><span class="en-text">Number of compost bin(s) to clean</span> <span>*</span></label>
 <div class="flex-col">
 <div class="multiselect" id="compost-multiselect">
 <div class="multiselect__select"></div>
 <div class="multiselect__tags" onclick="toggleDropdown('compost')">
-<input autocomplete="off" class="multiselect__input" id="compost-input" name="nCfAaEZdVxku8RkgwBKk" onfocus="showDropdown('compost')" oninput="filterOptions(this, 'compost-list')" placeholder="Choisir" type="text"/>
+<input autocomplete="off" class="multiselect__input" id="compost-input" name="nCfAaEZdVxku8RkgwBKk" onfocus="showDropdown('compost')" oninput="filterOptions(this, 'compost-list')" placeholder="Choisir" data-fr-placeholder="Choisir" data-en-placeholder="Select" type="text"/>
 </div>
 <div class="multiselect__content-wrapper" id="compost-dropdown">
 <ul class="multiselect__content" id="compost-list">
@@ -1081,16 +1065,14 @@
 <div class="field-divider"></div>
 </div>
 <div class="col-12 form-field-wrapper">
-<label class="label-alignment field-label">Comment voulez-vous être contacté
+<label class="label-alignment field-label"><span class="fr-text">Comment voulez-vous être contacté</span><span class="en-text">How would you like to be contacted</span>
                                                 <span>*</span></label>
 <div class="flex-col">
 <div class="option-radio">
-<div class="standard-radio-container"><input data-required="true" id="contact_appel" name="comment_voulez_vous_etre_contacte" type="radio" value="Par appel téléphonique"/><label for="contact_appel">Par appel
-                                                            téléphonique</label></div>
+<div class="standard-radio-container"><input data-required="true" id="contact_appel" name="comment_voulez_vous_etre_contacte" type="radio" value="Par appel téléphonique"/><label for="contact_appel"><span class="fr-text">Par appel téléphonique</span><span class="en-text">By phone call</span></label></div>
 </div>
 <div class="option-radio">
-<div class="standard-radio-container"><input data-required="true" id="contact_texto" name="comment_voulez_vous_etre_contacte" type="radio" value="Par texto"/><label for="contact_texto">Par
-                                                            texto</label></div>
+<div class="standard-radio-container"><input data-required="true" id="contact_texto" name="comment_voulez_vous_etre_contacte" type="radio" value="Par texto"/><label for="contact_texto"><span class="fr-text">Par texto</span><span class="en-text">By text</span></label></div>
 </div>
 </div>
 </div>
@@ -1102,11 +1084,11 @@
 <div class="ghl-footer" id="form-footer">
 <div class="ghl-footer-buttons">
 <div class="ghl-btn-placeholder" id="btn-back-wrap" style="display:none;">
-<button class="ghl-btn ghl-btn-back" id="btn-back" onclick="ghlPrev()" type="button">◀ Précédent</button>
+<button class="ghl-btn ghl-btn-back" id="btn-back" onclick="ghlPrev()" type="button">◀ <span class="fr-text">Précédent</span><span class="en-text">Previous</span></button>
 </div>
 <div class="ghl-btn-placeholder" id="progress-spacer" style="flex:1;"></div>
-<button class="ghl-btn ghl-btn-next" id="btn-next" onclick="ghlNext()" type="button">Suivant ▶</button>
-<button class="ghl-btn ghl-btn-submit" id="btn-submit" onclick="ghlSubmit()" style="display:none;" type="button">Envoyer ✓</button>
+<button class="ghl-btn ghl-btn-next" id="btn-next" onclick="ghlNext()" type="button"><span class="fr-text">Suivant</span><span class="en-text">Next</span> ▶</button>
+<button class="ghl-btn ghl-btn-submit" id="btn-submit" onclick="ghlSubmit()" style="display:none;" type="button"><span class="fr-text">Envoyer</span><span class="en-text">Submit</span> ✓</button>
 </div>
 </div>
 </div>
@@ -1118,7 +1100,7 @@
 <div class="fullSection c-section section-AvisClients2" id="section-AvisClients2">
 <div class="inner">
 <div class="avis-title-premium-2">
-<h2>Avis de nos clients</h2>
+<h2><span class="fr-text">Avis de nos clients</span><span class="en-text">Customer reviews</span></h2>
 </div>
 <div class="ghl-review-wrapper-2">
 <iframe frameborder="0" height="460" id="msgsndr_reviews" scrolling="no" src="https://backend.leadconnectorhq.com/appengine/reviews/get_widget/Q4K7xsLSm5SH7e2GyuSi" style="min-width:100%; width:100%; height:350px; overflow:hidden;"></iframe>
@@ -1132,29 +1114,28 @@
 <div class="footer-logo">
 <img alt="Logo Footer" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" style="height:90px; margin-bottom:20px;"/>
 </div>
-<p style="color: #4a5568;">Votre partenaire de confiance pour un environnement sain et sans odeurs.
-                    </p>
+<p style="color: #4a5568;"><span class="fr-text">Votre partenaire de confiance pour un environnement sain et sans odeurs.</span><span class="en-text">Your trusted partner for a healthy, odor-free environment.</span></p>
 </div>
 <div class="footer-col">
-<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;">Contact</h3>
+<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;"><span class="fr-text">Contact</span><span class="en-text">Contact</span></h3>
 <ul style="list-style:none; padding:0;">
 <li style="margin-bottom:12px;"><a href="tel:+14387994449" style="color:#4a5568; text-decoration:none;">(438) 799-4449</a></li>
 <li style="margin-bottom:12px;"><a href="mailto:info@poubellepremium.ca" style="color:#4a5568; text-decoration:none;">info@poubellepremium.ca</a></li>
-<li style="color:#4a5568;">Laval et Rive-Nord</li>
+<li style="color:#4a5568;"><span class="fr-text">Laval et Rive-Nord</span><span class="en-text">Laval and North Shore</span></li>
 </ul>
 </div>
 <div class="footer-col">
-<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;">Navigation</h3>
+<h3 style="color:var(--primary); font-size:1.4rem; margin-bottom:25px;"><span class="fr-text">Navigation</span><span class="en-text">Navigation</span></h3>
 <ul style="list-style:none; padding:0;">
-<li style="margin-bottom:12px;"><a href="/accueil_index" style="color:#4a5568; text-decoration:none;">Accueil</a></li>
-<li style="margin-bottom:12px;"><a href="/accueil_index#section-jIShhaMz_f" style="color:#4a5568; text-decoration:none;">À Propos</a></li>
-<li style="margin-bottom:12px;"><a href="/accueil_index#section-Q-QVu_CWVt" style="color:#4a5568; text-decoration:none;">Services</a></li>
-<li style="margin-bottom:12px;"><a href="/soumission_1" style="color:#4a5568; text-decoration:none;">Soumission</a></li>
+<li style="margin-bottom:12px;"><a href="/accueil_index" style="color:#4a5568; text-decoration:none;"><span class="fr-text">Accueil</span><span class="en-text">Home</span></a></li>
+<li style="margin-bottom:12px;"><a href="/accueil_index#section-jIShhaMz_f" style="color:#4a5568; text-decoration:none;"><span class="fr-text">À Propos</span><span class="en-text">About</span></a></li>
+<li style="margin-bottom:12px;"><a href="/accueil_index#section-Q-QVu_CWVt" style="color:#4a5568; text-decoration:none;"><span class="fr-text">Services</span><span class="en-text">Services</span></a></li>
+<li style="margin-bottom:12px;"><a href="/soumission_1" style="color:#4a5568; text-decoration:none;"><span class="fr-text">Soumission</span><span class="en-text">Quote</span></a></li>
 </ul>
 </div>
 </div>
 <div style="text-align:center; margin-top:50px; padding-top:20px; border-top:1px solid #e2e8f0; color:#718096;">
-<p>© 2024 Poubelle Premium. Tous droits réservés.</p>
+<p><span class="fr-text">© 2024 Poubelle Premium. Tous droits réservés.</span><span class="en-text">© 2024 Poubelle Premium. All rights reserved.</span></p>
 </div>
 </div>
 </footer>
@@ -1239,7 +1220,10 @@
             data.forEach((v, k) => payload[k] = v);
             console.log('Form submitted:', payload);
             // Show success message
-            form.closest('.ghl-form-wrap').innerHTML = '<div style="padding:60px 40px;text-align:center;"><div style="font-size:3rem;margin-bottom:20px;">✅</div><h2 style="color:#F48716;">Merci !</h2><p>Votre demande a été envoyée avec succès. Nous vous contacterons bientôt.</p></div>';
+            var isEn = document.body.classList.contains('lang-en');
+            var thanks = isEn ? 'Thank you!' : 'Merci !';
+            var msg = isEn ? 'Your request has been sent successfully. We will contact you soon.' : 'Votre demande a été envoyée avec succès. Nous vous contacterons bientôt.';
+            form.closest('.ghl-form-wrap').innerHTML = '<div style="padding:60px 40px;text-align:center;"><div style="font-size:3rem;margin-bottom:20px;">✅</div><h2 style="color:#F48716;">' + thanks + '</h2><p>' + msg + '</p></div>';
         }
 
         // Dropdown / Multiselect logic
@@ -1305,6 +1289,10 @@
             document.body.classList.add('lang-' + lang);
             document.querySelectorAll('[data-lang]').forEach(function (btn) {
                 btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            document.querySelectorAll('[data-fr-placeholder]').forEach(function (el) {
+                var ph = el.getAttribute('data-' + lang + '-placeholder');
+                if (ph) el.setAttribute('placeholder', ph);
             });
             document.documentElement.lang = lang;
             try { localStorage.setItem('pp_lang', lang); } catch (e) { }

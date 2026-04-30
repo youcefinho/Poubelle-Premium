@@ -30,7 +30,7 @@
 </script>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com/" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<script crossorigin="anonymous" src="https://kit.fontawesome.com/a076d05399.js"></script>
+<!-- FontAwesome retire : plantait en CORS sur poubellepremium.ca et n'est utilise nulle part dans le code de cette page. -->
 <style>
         /* ===== FIX GHL Custom Code: header pleine largeur + anti-flash 2-langues ===== */
         header.header-nav, .header-nav {
@@ -482,6 +482,11 @@
             visibility: visible !important;
             position: relative !important;
             z-index: 10 !important;
+        }
+        /* Force tous les conteneurs GHL parents a laisser deborder le contenu */
+        body, html, .c-section, .c-wrapper, .fullSection, [class*="section-"], [class*="row-"], [class*="col-"] {
+            overflow: visible !important;
+            max-height: none !important;
         }
 
         .avis-title-premium-2 {

@@ -51,5 +51,20 @@
     var swIv = setInterval(function () {
       if (initReviewsSwiper() || swTries++ > 30) clearInterval(swIv);
     }, 100);
+
+    function patchOldLinks() {
+      document.querySelectorAll('a[href]').forEach(function (a) {
+        var h = a.getAttribute('href') || '';
+        if (h === '/' || h === '/index' || h.indexOf('Nettoyage de Bacs') !== -1) {
+          a.setAttribute('href', '/accueil_index');
+        } else if (h.indexOf('#section-') === 0) {
+          a.setAttribute('href', '/accueil_index' + h);
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', patchOldLinks);
+    else patchOldLinks();
+    setTimeout(patchOldLinks, 1000);
+    setTimeout(patchOldLinks, 3000);
   })();
 </script>

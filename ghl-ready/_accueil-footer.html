@@ -154,5 +154,23 @@
     var swIv = setInterval(function () {
       if (initSwiper() || swTries++ > 30) clearInterval(swIv);
     }, 100);
+
+    function smartScrollServices() {
+      var h = location.hash;
+      if (h !== '#section-Q-QVu_CWVt' && h !== '#section-dOhNthRMRr' && h !== '#services-section') return;
+      var sections = document.querySelectorAll('.services-section-premium');
+      var visible = null;
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].offsetParent !== null) { visible = sections[i]; break; }
+      }
+      if (!visible) return;
+      setTimeout(function () {
+        var headerH = (document.querySelector('.header-nav') || {}).offsetHeight || 80;
+        var top = visible.getBoundingClientRect().top + window.pageYOffset - headerH - 20;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }, 200);
+    }
+    window.addEventListener('hashchange', smartScrollServices);
+    if (location.hash) setTimeout(smartScrollServices, 400);
   })();
 </script>

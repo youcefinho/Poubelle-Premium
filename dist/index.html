@@ -18,6 +18,26 @@
       box-sizing: border-box !important;
     }
 
+    /* ===== FIX: Header sticky pleine largeur même en scroll ===== */
+    header.header-nav,
+    .header-nav {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      margin-left: calc(-50vw + 50%) !important;
+      margin-right: calc(-50vw + 50%) !important;
+      box-sizing: border-box !important;
+    }
+
+    /* ===== FIX: FAQ headings cliquables (cursor + pointer-events) ===== */
+    .hl-faq-child-heading {
+      cursor: pointer !important;
+      pointer-events: auto !important;
+      user-select: none;
+    }
+    .hl-faq-child-heading * {
+      pointer-events: none;
+    }
+
     /* ===== FIX: FAQ accordéon - transition panel ===== */
     .hl-faq-child-panel {
       overflow: hidden !important;
@@ -11911,16 +11931,13 @@
       }
     }
 
+    /* CSS Font Awesome cassé (guillemets non fermés) — neutralisé.
+       L'icône chevron est gérée par le JS via classList + rotate. */
     #faq-prJsTUHYq9iv .hl-faq-child-heading .hl-faq-child-heading-icon:before,
-    #faq-tqaImqVGd0 .hl-faq-child-heading .hl-faq-child-heading-icon:before {
-      content: "é !important;
- font-family: "Font Awesome 5 Free"
-    }
-
+    #faq-tqaImqVGd0 .hl-faq-child-heading .hl-faq-child-heading-icon:before,
     #faq-prJsTUHYq9iv .hl-faq-child-heading.active .hl-faq-child-heading-icon:before,
     #faq-tqaImqVGd0 .hl-faq-child-heading.active .hl-faq-child-heading-icon:before {
-      content: "é !important;
- font-family: "Font Awesome 5 Free"
+      content: "";
     }
 
     #faq-tqaImqVGd0 .expand-collapse-all-button {
@@ -21975,7 +21992,7 @@
                             data-animation-class="" style="">
                             <div>
                               <p><span class="fr-text">Nous nous adaptons à votre horaire de collecte pour un nettoyage sans
-                                  tracas.</span><span class="en-text">We adapt to your schedule for hassle-free
+                                  tracas.</span><span class="en-text">We adapt to your collection schedule for hassle-free
                                   cleaning.</span></p>
                             </div>
                           </div>
@@ -22276,7 +22293,7 @@
                             data-animation-class="" style="">
                             <div>
                               <p><span class="fr-text">Nous nous adaptons à votre horaire de collecte pour un nettoyage sans
-                                  tracas.</span><span class="en-text">We adapt to your schedule for hassle-free
+                                  tracas.</span><span class="en-text">We adapt to your collection schedule for hassle-free
                                   cleaning.</span></p>
                             </div>
                           </div>
@@ -23740,7 +23757,7 @@
                     professional team and free yourself from this chore.</span></p>
                 <p><span class="fr-text">Contactez-nous dès aujourd'hui pour réserver votre nettoyage et demander
                     une
-                    soumission gratuite.</span><span class="en-text">Contact us today to book your cleaning or
+                    soumission gratuite.</span><span class="en-text">Contact us today to book your cleaning and
                     request
                     a free quote.</span></p>
                 <div class="c-button c-wrapper button-XfFhtrJjXlX" id="button-XfFhtrJjXlX"
@@ -23994,7 +24011,7 @@
           <span class="etapes-premium-eyebrow"><span class="fr-text">Notre processus</span><span class="en-text">Our
               process</span></span>
           <h2 class="etapes-premium-title"><span class="fr-text">Étapes de <span>nettoyage</span></span><span
-              class="en-text">Cleaning <span>Steps</span></span></h2>
+              class="en-text">Cleaning <span>steps</span></span></h2>
         </div>
         <div class="etapes-premium-grid">
           <!-- Etape 1 -->
@@ -24652,61 +24669,58 @@
     <!--]-->
     <!--]--><!--]-->
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const faqItems = document.querySelectorAll('.hl-faq-child');
-        faqItems.forEach(item => {
-          const heading = item.querySelector('.hl-faq-child-heading');
-          const panel = item.querySelector('.hl-faq-child-panel');
-          const icon = item.querySelector('.hl-faq-child-heading-icon');
-          // Initial setup for the icons
-          if (icon) {
-            icon.classList.add('fa-chevron-down');
+      // FAQ accordion — event delegation (robuste face à un DOM manipulé tardivement)
+      (function () {
+        function closeItem(item) {
+          item.classList.remove('active');
+          const p = item.querySelector('.hl-faq-child-panel');
+          const ic = item.querySelector('.hl-faq-child-heading-icon');
+          if (p) {
+            p.style.height = '0';
+            p.style.padding = '0 20px';
+            p.style.opacity = '0';
+            p.style.marginBottom = '0';
           }
-          heading.addEventListener('click', function () {
-            const isActive = item.classList.contains('active');
-            // Close all other items for a clean accordion experience
-            faqItems.forEach(otherItem => {
-              if (otherItem !== item) {
-                otherItem.classList.remove('active');
-                const otherPanel = otherItem.querySelector('.hl-faq-child-panel');
-                const otherIcon = otherItem.querySelector('.hl-faq-child-heading-icon');
-                if (otherPanel) {
-                  otherPanel.style.height = '0';
-                  otherPanel.style.padding = '0 20px';
-                  otherPanel.style.opacity = '0';
-                  otherPanel.style.marginBottom = '0';
-                }
-                if (otherIcon) {
-                  otherIcon.style.transform = 'rotate(0deg)';
-                }
-              }
-            });
-            // Toggle the clicked item
-            if (isActive) {
-              item.classList.remove('active');
-              panel.style.height = '0';
-              panel.style.padding = '0 20px';
-              panel.style.opacity = '0';
-              panel.style.marginBottom = '0';
-              if (icon) icon.style.transform = 'rotate(0deg)';
-            } else {
-              item.classList.add('active');
-              // Temporarily set height to auto to get the scrollHeight
-              panel.style.height = 'auto';
-              panel.style.padding = '10px 20px 25px 20px';
-              panel.style.opacity = '1';
-              panel.style.marginBottom = '10px';
-              const targetHeight = panel.scrollHeight + 'px';
-              // Set it back to 0 then to targetHeight for transition
-              panel.style.height = '0';
-              setTimeout(() => {
-                panel.style.height = targetHeight;
-              }, 10);
-              if (icon) icon.style.transform = 'rotate(180deg)';
-            }
+          if (ic) ic.style.transform = 'rotate(0deg)';
+        }
+
+        function openItem(item) {
+          item.classList.add('active');
+          const p = item.querySelector('.hl-faq-child-panel');
+          const ic = item.querySelector('.hl-faq-child-heading-icon');
+          if (p) {
+            p.style.padding = '10px 20px 25px 20px';
+            p.style.opacity = '1';
+            p.style.marginBottom = '10px';
+            p.style.height = 'auto';
+            const targetH = p.scrollHeight + 'px';
+            p.style.height = '0';
+            setTimeout(function () { p.style.height = targetH; }, 10);
+          }
+          if (ic) ic.style.transform = 'rotate(180deg)';
+        }
+
+        document.addEventListener('click', function (e) {
+          const heading = e.target.closest('.hl-faq-child-heading');
+          if (!heading) return;
+          const item = heading.closest('.hl-faq-child');
+          if (!item) return;
+          const wasActive = item.classList.contains('active');
+          // Ferme tous les autres
+          document.querySelectorAll('.hl-faq-child.active').forEach(function (other) {
+            if (other !== item) closeItem(other);
+          });
+          if (wasActive) closeItem(item);
+          else openItem(item);
+        });
+
+        // Init icônes (chevron-down + curseur visible)
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.hl-faq-child-heading-icon').forEach(function (ic) {
+            ic.classList.add('fa-chevron-down');
           });
         });
-      });
+      })();
     </script>
     <div id="teleports"></div>
     <!-- script email-decode supprimé (injecté par Cloudflare, inutile en local) -->

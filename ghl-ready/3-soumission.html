@@ -464,10 +464,24 @@
             border-radius: 0 0 8px 0;
         }
 
-        /* GHL Avis Section (First Section) */
+        /* GHL Avis Section (First Section) — force visible (GHL natif peut tenter de la cacher) */
         #section-AvisClients2 {
-            background-color: #f9f9f9;
-            padding: 80px 0 20px 0;
+            background-color: #f9f9f9 !important;
+            padding: 80px 0 20px 0 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 10 !important;
+            height: auto !important;
+            min-height: 400px !important;
+            overflow: visible !important;
+        }
+        body .footer {
+            display: block !important;
+            visibility: visible !important;
+            position: relative !important;
+            z-index: 10 !important;
         }
 
         .avis-title-premium-2 {

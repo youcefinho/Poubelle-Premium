@@ -19803,10 +19803,6 @@
       #pp-mobile-header {
         display: flex !important;
       }
-
-      body {
-        padding-top: 71px !important;
-      }
     }
   </style>
   <style id="modern-btn-style">
@@ -20072,7 +20068,7 @@
         <button class="lang-btn" data-lang="en" onclick="if(window.switchLang) window.switchLang('en')"
           style="padding:0 4px;">EN</button>
       </div>
-      <button aria-label="Ouvrir le menu" id="pp-hamburger-btn">
+      <button aria-label="Ouvrir le menu" id="pp-hamburger-btn" onclick="this.classList.toggle(&quot;open&quot;);document.getElementById(&quot;pp-mobile-nav&quot;).classList.toggle(&quot;open&quot;);">
         <span></span>
         <span></span>
         <span></span>

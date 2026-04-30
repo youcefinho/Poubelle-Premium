@@ -19601,10 +19601,18 @@
       background: #fff;
       border-bottom: 2px solid #F48716;
       padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 9999;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    /* Compense le header fixe pour que le contenu ne soit pas cache dessous */
+    body { padding-top: 92px; }
+    @media (max-width: 767px) {
+      body { padding-top: 71px !important; }
     }
 
     .container-header {
@@ -20133,7 +20141,7 @@
                                 <div class="image-container noBorder radius0 none" style="cursor:pointer;">
                                   <div>
                                     <a aria-label="https://poubellepremium.ca/" data-animation-class=""
-                                      href="https://poubellepremium.ca/" style="" target="_self">
+                                      href="/accueil_index" style="" target="_self">
                                       <picture class="hl-image-picture" style="display:block;">
                                         <source media="(max-width:900px) and (min-width: 768px)"
                                           srcset="https://images.leadconnectorhq.com/image/f_webp/q_80/r_900/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
@@ -20492,7 +20500,7 @@
                                 <div class="image-container noBorder radius0 none" style="cursor:pointer;">
                                   <div>
                                     <a aria-label="https://poubellepremium.ca/" data-animation-class=""
-                                      href="https://poubellepremium.ca/" style="" target="_self">
+                                      href="/accueil_index" style="" target="_self">
                                       <picture class="hl-image-picture" style="display:block;">
                                         <source media="(max-width:900px) and (min-width: 768px)"
                                           srcset="https://images.leadconnectorhq.com/image/f_webp/q_80/r_900/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
@@ -21361,11 +21369,8 @@
                       mind.</span>
                   </h2>
                   <p class="pp-hero-sub">
-                    <span class="fr-text">Poubelle Premium nettoie vos bacs à très haute pression. Optez pour le service
-                      leader à Laval — un nettoyage 100% écologique avec eau recyclée, éliminant 99% des
-                      bactéries.</span>
-                    <span class="en-text">Poubelle Premium deep-cleans your bins with high pressure after every
-                      collection. Choose the leading service in Laval — fast, eco-friendly, and bacteria-free.</span>
+                    <span class="fr-text">Poubelle Premium nettoie vos bacs à très haute pression. Service écologique à Laval qui collecte intégralement les eaux usées et élimine 99% des bactéries.</span>
+                    <span class="en-text">Poubelle Premium cleans your bins at very high pressure. Eco-friendly service in Laval that fully collects wastewater and eliminates 99% of bacteria.</span>
                   </p>
                   <div class="pp-hero-cta-group">
                     <a class="pp-hero-cta modern-btn" href="/soumission_1">
@@ -22168,9 +22173,7 @@
                           <div class="paragraph-UfOJeL0lgz text-output cparagraph-UfOJeL0lgz noBorder radius0 none"
                             data-animation-class="" style="">
                             <div>
-                              <p><span class="fr-text">Un service de qualité à un tarif accessible, sans
-                                  compromis.</span><span class="en-text">Quality service at an affordable price, without
-                                  compromise.</span></p>
+                              <p><span class="fr-text">Un service de qualité à un tarif accessible.</span><span class="en-text">Quality service at an affordable price.</span></p>
                             </div>
                           </div>
                           <!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- -->
@@ -22475,9 +22478,7 @@
                           <div class="paragraph-8cD1F0RlP0 text-output cparagraph-8cD1F0RlP0 noBorder radius0 none"
                             data-animation-class="" style="">
                             <div>
-                              <p><span class="fr-text">Un service de qualité à un tarif accessible, sans
-                                  compromis.</span><span class="en-text">Quality service at an affordable price, without
-                                  compromise.</span></p>
+                              <p><span class="fr-text">Un service de qualité à un tarif accessible.</span><span class="en-text">Quality service at an affordable price.</span></p>
                             </div>
                           </div>
                           <!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- -->
@@ -23938,7 +23939,7 @@
       </div>
       <!--]--><!--[-->
       <!--]--><!--[-->
-      <!-- NOUVELLE SECTION ÉTAPES DE NETTOYAGE PREMIUM -->
+      <!-- NOUVELLE SECTION Étapes de nettoyage PREMIUM -->
       <div class="fullSection none noBorder radius0 none c-section c-wrapper" id="section-EtapesPremium">
         <div class="inner">
           <style>
@@ -24176,7 +24177,7 @@
               <div class="etape-step-wrapper">
                 <div class="etape-step-num">1</div>
                 <div class="etape-premium-card">
-                  <h3><span class="fr-text">Collecte terminée</span><span class="en-text">Rapid collection</span></h3>
+                  <h3><span class="fr-text">Collecte terminée</span><span class="en-text">Collection complete</span></h3>
                   <p><span class="fr-text">Notre équipe intervient rapidement juste après la collecte municipale, vidant
                       temporairement les résidus pour un nettoyage vraiment optimal.</span><span class="en-text">Our
                       team
@@ -24682,11 +24683,11 @@
                       <div class="hl-faq-child-panel" style="height:0;padding:0;opacity:0;">
                         <span class="hl-faq-child-item-text item-text">
                           <p><span class="fr-text">Pour réserver nos services ou obtenir un devis, vous pouvez nous
-                              contacter par téléphone, par email ou en remplissant le formulaire de contact sur notre
+                              contacter par téléphone, par email et en remplissant le formulaire de contact sur notre
                               site
                               web. Notre équipe sera ravie de vous répondre au plus vite !</span><span
                               class="en-text">To
-                              book or get a quote, contact us by phone, email or via the contact form. Our team will
+                              book or get a quote, contact us by phone, email and via the contact form. Our team will
                               respond as quickly as possible!</span></p>
                         </span>
                       </div>

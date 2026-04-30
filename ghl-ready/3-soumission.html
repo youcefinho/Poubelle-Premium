@@ -1299,11 +1299,15 @@
         };
 
         (function () {
+            // Forcer une langue par défaut (FR) ou restaurer la préférence sauvegardée
             var f = function () {
+                var lang = 'fr';
                 try {
                     var saved = localStorage.getItem('pp_lang');
-                    if (saved && saved !== 'fr') window.switchLang(saved);
+                    if (saved === 'en') lang = 'en';
                 } catch (e) { }
+                if (typeof window.switchLang === 'function') window.switchLang(lang);
+                else document.body.classList.add('lang-' + lang);
             };
             if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
             else f();

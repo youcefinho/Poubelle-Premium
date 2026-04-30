@@ -25066,13 +25066,17 @@
           // Sauvegarder la préférence
           try { localStorage.setItem('pp_lang', lang); } catch (e) { }
         };
-        // Au chargement, restaurer la préférence sauvegardée — robuste à un DOM déjà prêt
+        // Au chargement, forcer une langue par défaut (FR) ou restaurer la préférence sauvegardée
+        // Sans ça, en GHL le <body> n'a aucune classe lang-* et les 2 langues s'affichent en même temps
         (function(){
           var f = function () {
+            var lang = 'fr';
             try {
               var saved = localStorage.getItem('pp_lang');
-              if (saved && saved !== 'fr') window.switchLang(saved);
+              if (saved === 'en') lang = 'en';
             } catch (e) { }
+            if (typeof window.switchLang === 'function') window.switchLang(lang);
+            else document.body.classList.add('lang-' + lang);
           };
           if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f);
           else f();

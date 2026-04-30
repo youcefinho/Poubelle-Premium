@@ -9,6 +9,23 @@
   <link crossorigin="anonymous" href="https://fonts.gstatic.com/" rel="preconnect" />
   <script src="https://apisystem.tech/js/reviews_widget.js"></script>
   <style>
+    /* ===== FIX: Hero plein écran - bypass conteneurs GHL max-width 1170px ===== */
+    #pp-hero {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      margin-left: calc(-50vw + 50%) !important;
+      margin-right: calc(-50vw + 50%) !important;
+      box-sizing: border-box !important;
+    }
+
+    /* ===== FIX: FAQ accordéon - transition panel ===== */
+    .hl-faq-child-panel {
+      overflow: hidden !important;
+      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.3s ease !important;
+    }
+
     :root {
       --primary: #37ca37;
       --secondary: #188bf6;

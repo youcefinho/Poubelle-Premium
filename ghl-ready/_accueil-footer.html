@@ -1,62 +1,11 @@
 <script>
   (function () {
-    function decorate() {
-      document.querySelectorAll('.c-column').forEach(function (el) {
-        if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
-      });
-      document.querySelectorAll('.c-heading, .c-sub-heading').forEach(function (el, i) {
-        if (!el.hasAttribute('data-aos')) {
-          el.setAttribute('data-aos', 'fade-right');
-          el.setAttribute('data-aos-delay', (i % 3) * 100);
-        }
-      });
-      document.querySelectorAll('.c-image').forEach(function (el, i) {
-        if (!el.hasAttribute('data-aos')) {
-          el.setAttribute('data-aos', 'zoom-in');
-          el.setAttribute('data-aos-delay', (i % 3) * 100);
-        }
-      });
-      document.querySelectorAll('.c-button').forEach(function (el) {
-        if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
-      });
-    }
-    var aosOk = false;
-    function initAos() {
-      if (aosOk || typeof AOS === 'undefined') return;
-      decorate();
-      try { AOS.init({ duration: 800, once: true, offset: 50 }); aosOk = true; } catch (e) { }
-    }
-    var aosTries = 0;
-    var aosIv = setInterval(function () {
-      initAos();
-      if (aosOk || aosTries++ > 30) clearInterval(aosIv);
-    }, 100);
-    setTimeout(function () {
-      if (aosOk) return;
-      document.querySelectorAll('[data-aos]').forEach(function (el) {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-        el.style.visibility = 'visible';
-        el.classList.add('aos-animate');
-      });
-    }, 3000);
-
-    function ppCount(id, end, dur) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      var s = null;
-      function step(ts) {
-        if (!s) s = ts;
-        var p = Math.min((ts - s) / dur, 1);
-        var e = 1 - Math.pow(1 - p, 3);
-        el.textContent = '+' + Math.floor(e * end).toLocaleString('fr-CA');
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-    function runCounter() { try { ppCount('pp-bacs', 2450, 2200); } catch (e) { } }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runCounter);
-    else runCounter();
+    // AOS init et ppCount sont desormais geres directement dans 1-accueil.html
+    // avec IntersectionObserver et AOS.refresh sur load/resize. On ne les
+    // duplique plus ici pour eviter qu'ils s'executent en double et cassent
+    // l'animation (ancien comportement : le footer lancait l'animation avant
+    // que l'element soit visible -> compteur finit instantanement -> rien
+    // a animer pour l'IntersectionObserver du HTML).
 
     function initFaq() {
       var items = document.querySelectorAll('.hl-faq-child');

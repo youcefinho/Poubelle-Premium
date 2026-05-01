@@ -85,5 +85,56 @@
       if (href.indexOf('Poubelle+Premium') < 0 && href.indexOf('ludocid') < 0 && href.indexOf('0xaf3ef64ce9c08449') < 0 && href.indexOf('11tjz8j7cs') < 0) return;
       setTimeout(function () { window.location.href = '/retour'; }, 250);
     });
+
+    // Auto-scroll en haut du sondage Soumission au changement d'etape
+    // (demande cliente : chaque "Suivant" doit ramener la vue en haut du form)
+    var SURVEY_ID = 'VvEwIFqbMCj3t1kUnB6g';
+    var lastIframeHeight = 0;
+    var scrollTimer = null;
+    function scrollToSurvey() {
+      var iframe = document.getElementById(SURVEY_ID);
+      if (!iframe) return;
+      var headerH = (document.querySelector('.header-nav') || document.querySelector('#pp-mobile-header') || {}).offsetHeight || 80;
+      var rect = iframe.getBoundingClientRect();
+      var top = rect.top + window.pageYOffset - headerH - 20;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+    function debouncedScroll() {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(scrollToSurvey, 150);
+    }
+    // Detection 1 : message GHL form_embed.js (pageChange / nextPage / etc.)
+    window.addEventListener('message', function (e) {
+      if (!e.data) return;
+      var d = e.data;
+      var isPageChange = false;
+      if (typeof d === 'object') {
+        if (d.event === 'pageChange' || d.type === 'pageChange') isPageChange = true;
+        if (d.event === 'survey:nextPage' || d.event === 'survey:prevPage') isPageChange = true;
+        if (d.action === 'pageChange' || d.action === 'next' || d.action === 'previous') isPageChange = true;
+        // Form_embed envoie aussi des resize events. Si la hauteur change drastiquement (>50px), c'est un changement d'etape.
+        if (typeof d.height === 'number' && Math.abs(d.height - lastIframeHeight) > 50) {
+          if (lastIframeHeight > 0) isPageChange = true;
+          lastIframeHeight = d.height;
+        }
+      } else if (typeof d === 'string' && (d.indexOf('page') >= 0 || d.indexOf('step') >= 0)) {
+        isPageChange = true;
+      }
+      if (isPageChange) debouncedScroll();
+    });
+    // Detection 2 (fallback) : MutationObserver sur la hauteur de l'iframe
+    setTimeout(function () {
+      var iframe = document.getElementById(SURVEY_ID);
+      if (!iframe || typeof MutationObserver === 'undefined') return;
+      var obs = new MutationObserver(function (mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          if (mutations[i].attributeName === 'style' || mutations[i].attributeName === 'height') {
+            debouncedScroll();
+            return;
+          }
+        }
+      });
+      obs.observe(iframe, { attributes: true, attributeFilter: ['style', 'height'] });
+    }, 500);
   })();
 </script>

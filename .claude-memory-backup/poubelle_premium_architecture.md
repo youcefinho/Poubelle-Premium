@@ -50,9 +50,17 @@ Tous les CTA Google reviews (etoiles Avis, badge dashboard Accueil, hero `5/5 14
 - Style applique via JS `style.cssText` avec `!important` au clic sur le bouton (pas via CSS) — necessaire sur Avis car Tailwind ecrase la specificite
 - 1 seul listener par page, pas d'inline `onclick`
 
-### Form GHL
-- Iframe natif `https://api.leadconnectorhq.com/widget/form/T4YujbkmtyJpE1tkejGE`
-- Wrapper avec `height` fixe + `overflow:hidden` (sinon GHL form_embed.js auto-resize ecrase la section apres)
+### Form GHL (Soumission = Sondage multi-step depuis 2026-05-01)
+- Iframe natif **Sondage** : `https://api.leadconnectorhq.com/widget/survey/VvEwIFqbMCj3t1kUnB6g`
+  (anciennement Form `T4YujbkmtyJpE1tkejGE` migre vers Sondage pour avoir le multi-step natif)
+- Wrapper `.ghl-form-wrap` avec `overflow:hidden` (sans hauteur fixe, form_embed.js auto-resize)
+- `form_embed.js` charge directement apres l'iframe (necessaire pour les boutons Suivant/Precedent)
+- Auto-scroll : `_soumission-footer.html` ecoute les events postMessage + MutationObserver sur height pour scroller au top du sondage a chaque changement d'etape
+- CSS interne du sondage : `_form-soumission-ghl.css` (a coller dans Sites > Sondages > Modifier > Avance)
+
+### Form Retour (separe)
+- Iframe natif Form `https://api.leadconnectorhq.com/widget/form/g5pvDJWBSQmPuMQ9hvTu` (3 champs, 1 etape)
+- CSS interne : `_form-retour-ghl.css`
 
 ### Traduction FR/EN
 - Span `.fr-text` / `.en-text` partout (et `.fr-block` / `.en-block` pour block elements)

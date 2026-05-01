@@ -1,9 +1,9 @@
 /* ============================================================
-   CSS personnalise pour le form natif GHL "Soumission"
-   (formId: T4YujbkmtyJpE1tkejGE)
+   CSS personnalise pour le SONDAGE natif GHL "Soumission"
+   (surveyId: VvEwIFqbMCj3t1kUnB6g)
 
    OU LE COLLER :
-   Sites > Formulaires > "Soumission" > Modifier
+   Sites > Sondages > "Soumission" > Modifier
    > onglet Avance > section CSS PERSONNALISE
 
    Ce CSS s'applique a l'INTERIEUR de l'iframe GHL (le HTML parent
@@ -11,8 +11,8 @@
    labels, checkboxes, radios, selects, bouton submit pour matcher
    le look Poubelle Premium (Poppins + orange #F48716 + bouton pill).
 
-   Note : le form actuel est en 1 seule etape (pas 4 comme l'original)
-   donc pas de styles specifiques pour les boutons "Suivant/Precedent".
+   Sondage multi-step : ce CSS style aussi les boutons Suivant/Precedent,
+   la barre de progression et les indicateurs d'etape.
    ============================================================ */
 
 /* Reset wrapper du form */
@@ -295,4 +295,88 @@ button[type="submit"]:active,
   font-family: 'Poppins', sans-serif !important;
   font-size: 1rem !important;
   font-weight: 600 !important;
+}
+
+/* ============================================================
+   SPECIFIQUE SONDAGE MULTI-STEP
+   ============================================================ */
+
+/* Barre de progression (si presente sur le sondage) */
+.survey-progress,
+.progress-bar-wrapper,
+.ghl-progress {
+  background: #E2E8F0 !important;
+  border-radius: 50px !important;
+  height: 6px !important;
+  overflow: hidden !important;
+  margin-bottom: 24px !important;
+}
+
+.progress-bar,
+.ghl-progress-fill,
+.survey-progress-fill {
+  background: linear-gradient(90deg, #F48716, #FE8800) !important;
+  height: 100% !important;
+  border-radius: 50px !important;
+  transition: width 0.4s ease !important;
+}
+
+/* Indicateur d'etape "Etape X de Y" */
+.survey-step-counter,
+.step-indicator,
+.ghl-step-counter,
+.page-counter {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: #F48716 !important;
+  text-align: center !important;
+  margin-bottom: 12px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+/* Wrapper d'une page de sondage : transition fluide */
+.ghl-page-current,
+.survey-page-active,
+.survey-page {
+  animation: ppFadeInUp 0.35s ease !important;
+}
+
+@keyframes ppFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Layout 2 boutons (Precedent / Suivant) cote a cote */
+.ghl-footer-buttons {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  padding: 16px 0 !important;
+}
+
+.ghl-btn-back,
+.ghl-btn-prev {
+  flex: 0 0 auto !important;
+  min-width: 100px !important;
+  width: auto !important;
+}
+
+.ghl-btn-next,
+.ghl-btn-submit {
+  flex: 1 1 auto !important;
+}
+
+/* Si seul le bouton Suivant est present (etape 1) -> full width */
+.ghl-footer-buttons:has(.ghl-btn-next):not(:has(.ghl-btn-prev)) .ghl-btn-next {
+  width: 100% !important;
 }

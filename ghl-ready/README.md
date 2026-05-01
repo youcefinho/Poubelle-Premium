@@ -23,7 +23,7 @@ Chaque page GHL reçoit **4 collages** :
 
 | Form GHL                | Fichier                       | Où le coller                                                                |
 |-------------------------|-------------------------------|-----------------------------------------------------------------------------|
-| Formulaire Retour (`veu1ZjRl4uyHSZBQUNWJ`) | `_form-retour-ghl.css` | Sites → Formulaires → ouvrir le form → Paramètres → CSS personnalisé |
+| Form 9 / Retour (`g5pvDJWBSQmPuMQ9hvTu`) | `_form-retour-ghl.css` | Sites → Formulaires → ouvrir le form → Paramètres → CSS personnalisé |
 
 ---
 

@@ -391,6 +391,85 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   }
 }
 
+/* Migrate from <style> bloc 7 (P0-5b Phase 2 - 2026-05-01) - bg-section-mU6vM1BdURA + banners GHL natives */
+@media (max-width: 480px) {
+  .bg-section-mU6vM1BdURA {
+    background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_768/u_https://assets.cdn.filesafe.space/261NR6UbTIy1d8K0aAJn/media/66612ff9c6bcc86aa9e8cbbb.png);
+    opacity: 1;
+  }
+}
+@media (min-width: 481px) and (max-width: 1024px) {
+  .bg-section-mU6vM1BdURA {
+    background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_900/u_https://assets.cdn.filesafe.space/261NR6UbTIy1d8K0aAJn/media/66612ff9c6bcc86aa9e8cbbb.png);
+    opacity: 1;
+  }
+}
+@media (min-width: 1025px) {
+  .bg-section-mU6vM1BdURA {
+    background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/261NR6UbTIy1d8K0aAJn/media/66612ff9c6bcc86aa9e8cbbb.png);
+    opacity: 1;
+  }
+  .bottom-banner .banner-actions-container,
+  .top-banner .banner-actions-container {
+    gap: 10px;
+  }
+}
+.bottom-banner {
+  bottom: 0;
+  position: fixed;
+}
+.bottom-banner .banner-text-container,
+.top-banner .banner-text-container {
+  max-width: 70%;
+}
+.bottom-banner .banner-actions-container,
+.top-banner .banner-actions-container {
+  flex-grow: 1;
+  gap: 14px;
+}
+.position-left .banner-actions-container,
+.position-right .banner-actions-container {
+  justify-content: space-between !important;
+}
+.position-left .button,
+.position-right .button {
+  flex-grow: 1;
+}
+.top-banner {
+  position: fixed;
+  top: 0;
+}
+.popup-banner {
+  align-items: unset !important;
+  flex-direction: column;
+  position: fixed;
+}
+.popup-banner .banner-actions-container {
+  flex-grow: 1;
+  gap: 10px;
+  width: 100% !important;
+}
+.position-left {
+  bottom: 20px;
+  left: 20px;
+  max-width: 450px;
+}
+.position-right {
+  bottom: 20px;
+  max-width: 450px;
+  right: 20px;
+}
+.position-center {
+  bottom: 20px;
+  left: 50%;
+  right: unset;
+  transform: translate(-50%);
+  width: 90%;
+}
+.position-center .button {
+  flex-grow: unset !important;
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

@@ -21471,8 +21471,10 @@
                 (function () {
                   function ppCount(id, end, dur) { var el = document.getElementById(id); if (!el) return; var s = null; function step(ts) { if (!s) s = ts; var p = Math.min((ts - s) / dur, 1); var e = 1 - Math.pow(1 - p, 3); el.textContent = "+" + Math.floor(e * end).toLocaleString('fr-CA'); if (p < 1) requestAnimationFrame(step); } requestAnimationFrame(step); }
                   function ppRunCounter(){
+                    if (window._ppCountInitDone) return;
                     var el = document.getElementById('pp-bacs');
                     if (!el) return;
+                    window._ppCountInitDone = true;
                     // Demarre l'animation seulement quand l'element devient visible (mieux sur mobile + header fixe)
                     if ('IntersectionObserver' in window) {
                       var triggered = false;
@@ -25232,6 +25234,7 @@
           try {
             AOS.init({ duration: 800, once: true, offset: 50, disable: false });
             aosOk = true;
+            window._ppAosInitDone = true;
             // Force un refresh apres load complet et au resize (mobile + header fixe peuvent perturber les calculs initiaux)
             window.addEventListener('load', function () { try { AOS.refresh(); } catch (e) {} });
             window.addEventListener('resize', function () { try { AOS.refresh(); } catch (e) {} });

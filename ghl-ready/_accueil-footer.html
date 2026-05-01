@@ -1,11 +1,109 @@
 <script>
   (function () {
-    // AOS init et ppCount sont desormais geres directement dans 1-accueil.html
-    // avec IntersectionObserver et AOS.refresh sur load/resize. On ne les
-    // duplique plus ici pour eviter qu'ils s'executent en double et cassent
-    // l'animation (ancien comportement : le footer lancait l'animation avant
-    // que l'element soit visible -> compteur finit instantanement -> rien
-    // a animer pour l'IntersectionObserver du HTML).
+    // AOS init + ppCount avec guard anti-doublon. Si le HTML body a deja
+    // initialise (window._ppAosInitDone = true), ce bloc ne fait rien.
+    // Sinon il prend le relais (cas: user a recolle le footer mais pas le HTML).
+
+    function initAOSOnce() {
+      if (window._ppAosInitDone) return;
+      function decorate() {
+        document.querySelectorAll('.c-column').forEach(function (el) {
+          if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
+        });
+        document.querySelectorAll('.c-heading, .c-sub-heading').forEach(function (el, index) {
+          if (!el.hasAttribute('data-aos')) {
+            el.setAttribute('data-aos', 'fade-right');
+            el.setAttribute('data-aos-delay', (index % 3) * 100);
+          }
+        });
+        document.querySelectorAll('.c-image').forEach(function (el, index) {
+          if (!el.hasAttribute('data-aos')) {
+            el.setAttribute('data-aos', 'zoom-in');
+            el.setAttribute('data-aos-delay', (index % 3) * 100);
+          }
+        });
+        document.querySelectorAll('.c-button').forEach(function (el) {
+          if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
+        });
+      }
+      function tryInit() {
+        if (window._ppAosInitDone) return true;
+        if (typeof AOS === 'undefined') return false;
+        try {
+          decorate();
+          AOS.init({ duration: 800, once: true, offset: 50, disable: false });
+          window._ppAosInitDone = true;
+          window.addEventListener('load', function () { try { AOS.refresh(); } catch (e) {} });
+          window.addEventListener('resize', function () { try { AOS.refresh(); } catch (e) {} });
+          setTimeout(function () { try { AOS.refresh(); } catch (e) {} }, 1000);
+          return true;
+        } catch (e) { return false; }
+      }
+      if (tryInit()) return;
+      if (typeof AOS === 'undefined') {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js';
+        s.onload = tryInit;
+        document.head.appendChild(s);
+        if (!document.querySelector('link[href*="aos@2.3.1"]')) {
+          var l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = 'https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css';
+          document.head.appendChild(l);
+        }
+      }
+      var poll = 0;
+      var iv = setInterval(function () {
+        if (tryInit() || poll++ > 30) clearInterval(iv);
+      }, 100);
+      setTimeout(function () {
+        if (window._ppAosInitDone) return;
+        document.querySelectorAll('[data-aos]').forEach(function (el) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          el.style.visibility = 'visible';
+          el.classList.add('aos-animate');
+        });
+      }, 3000);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAOSOnce);
+    else initAOSOnce();
+
+    function initCountOnce() {
+      if (window._ppCountInitDone) return;
+      window._ppCountInitDone = true;
+      var el = document.getElementById('pp-bacs');
+      if (!el) { window._ppCountInitDone = false; return; }
+      function ppCount(end, dur) {
+        var s = null;
+        function step(ts) {
+          if (!s) s = ts;
+          var p = Math.min((ts - s) / dur, 1);
+          var e = 1 - Math.pow(1 - p, 3);
+          el.textContent = '+' + Math.floor(e * end).toLocaleString('fr-CA');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      if ('IntersectionObserver' in window) {
+        var fired = false;
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting && !fired) {
+              fired = true;
+              try { ppCount(2450, 2200); } catch (err) {}
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        obs.observe(el);
+      } else {
+        try { ppCount(2450, 2200); } catch (err) {}
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCountOnce);
+    else initCountOnce();
+    setTimeout(initCountOnce, 1500);
 
     function initFaq() {
       var items = document.querySelectorAll('.hl-faq-child');

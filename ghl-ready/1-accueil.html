@@ -24379,6 +24379,41 @@
           padding: 0 42px;
         }
       }
+
+      /* ---- FALLBACK: si Swiper.js ne charge pas (GHL strip CDN, blocage), on garde une grille visible ---- */
+      .ss-swiper-outer .swiper:not(.swiper-initialized) {
+        overflow: visible !important;
+      }
+      .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-wrapper {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 24px !important;
+        transform: none !important;
+        width: 100% !important;
+      }
+      .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-slide {
+        width: auto !important;
+        height: auto !important;
+        flex-shrink: 1 !important;
+      }
+      .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-button-prev,
+      .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-button-next,
+      .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-pagination {
+        display: none !important;
+      }
+      @media (max-width: 1024px) {
+        .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-wrapper {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+      @media (max-width: 640px) {
+        .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-wrapper {
+          grid-template-columns: 1fr !important;
+        }
+        .ss-swiper-outer:has(.swiper:not(.swiper-initialized)) {
+          padding: 0 16px;
+        }
+      }
     </style>
 
     <div

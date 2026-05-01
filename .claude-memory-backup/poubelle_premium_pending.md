@@ -49,4 +49,6 @@ Consequence : les 2 demandes audit deviennent non-applicables :
 
 CSS de styling du form natif : `ghl-ready/_form-soumission-ghl.css` (a coller dans GHL Sites > Formulaires > Soumission > Avance > CSS personnalise).
 
+**Si la cliente revient un jour vouloir multi-step :** lui dire de recreer le form en tant que **Sondage (Survey)** dans GHL : `Sites > Sondages > + Creer un sondage`. Les Sondages GHL supportent natif le multi-step et la logique conditionnelle (souvent meme sur plan basic). Le widget d'embed est similaire (iframe + form_embed.js), donc swap rapide dans `3-soumission.html`. CSS `_form-soumission-ghl.css` devrait fonctionner aussi. Confusion frequente : Forms (basic = 1 page) vs Surveys (multi-step natif).
+
 **How to apply:** Quand Rochdi revient, demander : "tu veux attaquer l'audit cleanup ou le marketing pipeline ou autre chose ?". Lui rappeler que tout marche et que le cleanup est risque sans validation ligne par ligne.

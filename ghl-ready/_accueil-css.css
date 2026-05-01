@@ -45,12 +45,6 @@ header.header-nav,
   box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
 }
 
-html.pp-no-aos [data-aos] {
-  opacity: 1 !important;
-  transform: none !important;
-  visibility: visible !important;
-}
-
 /* Animations custom (bypass AOS car GHL surcharge .c-column avec opacity:1 !important) */
 .pp-anim {
   opacity: 0 !important;

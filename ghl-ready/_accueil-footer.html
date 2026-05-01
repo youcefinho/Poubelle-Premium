@@ -1,16 +1,11 @@
 <script>
   (function () {
-    // AOS init + ppCount avec guard anti-doublon. Si le HTML body a deja
-    // initialise (window._ppAosInitDone = true), ce bloc ne fait rien.
-    // Sinon il prend le relais (cas: user a recolle le footer mais pas le HTML).
-
     // Animations custom : on bypass AOS car GHL surcharge .c-column avec
     // opacity:1 !important. On utilise IntersectionObserver + classes pp-anim
     // dont la CSS est dans _accueil-css.css (forcee avec !important).
     function initPPAnim() {
       if (window._ppAnimInitDone) return;
       window._ppAnimInitDone = true;
-      window._ppAosInitDone = true;
       var HDR_SEL = 'header, .header-nav, #pp-mobile-header, #pp-mobile-nav, .unihdr';
       function touchesHeader(el) {
         return !!el.closest(HDR_SEL) || !!el.querySelector(HDR_SEL);

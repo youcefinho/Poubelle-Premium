@@ -24437,381 +24437,463 @@
     </section>
     <!-- ===== FIN SECTION AVIS CLIENTS ===== -->
 
-    <!-- ===== SECTION NOTRE BLOGUE (style cards comme la page /blog-poubelle-premium/) ===== -->
-    <style>
-      .pp-blog-section {
-        background-color: #fff;
-        padding: 80px 20px 80px 20px;
-        width: 100%;
-        position: relative;
-        z-index: 10;
-      }
-      .pp-blog-inner {
-        max-width: 1170px;
-        margin: 0 auto;
-      }
-      .pp-blog-header {
-        text-align: center;
-        margin-bottom: 50px;
-      }
-      .pp-blog-eyebrow {
-        display: inline-block;
-        background: rgba(244, 135, 22, 0.1);
-        color: #F48716;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 0.85rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        padding: 8px 20px;
-        border-radius: 50px;
-        margin-bottom: 18px;
-      }
-      .pp-blog-eyebrow::before {
-        content: '•';
-        margin-right: 6px;
-        color: #F48716;
-      }
-      .pp-blog-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: clamp(1.75rem, 4vw, 2.75rem);
-        font-weight: 800;
-        color: #F48716;
-        margin: 0 0 12px 0;
-        line-height: 1.2;
-      }
-      .pp-blog-divider {
-        width: 80px;
-        height: 4px;
-        background-color: #F48716;
-        border-radius: 2px;
-        margin: 0 auto 22px auto;
-      }
-      .pp-blog-subtitle {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.05rem;
-        color: #4a5568;
-        max-width: 640px;
-        margin: 0 auto;
-        line-height: 1.6;
-      }
-      .pp-blog-grid {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 24px;
-        margin-bottom: 40px;
-      }
-      .pp-blog-grid-right {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-      }
-      .pp-blog-card {
-        background: #fff;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-        text-decoration: none;
-        color: inherit;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .pp-blog-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-      }
-      .pp-blog-image {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        overflow: hidden;
-        background: #e2e8f0;
-      }
-      .pp-blog-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
-      .pp-blog-card:hover .pp-blog-image img {
-        transform: scale(1.05);
-      }
-      .pp-blog-badge-featured {
-        position: absolute;
-        top: 16px;
-        left: 16px;
-        background: #F48716;
-        color: #fff;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 0.78rem;
-        padding: 6px 14px;
-        border-radius: 50px;
-        letter-spacing: 0.5px;
-      }
-      .pp-blog-time {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        background: rgba(255, 255, 255, 0.95);
-        color: #0B1B36;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        font-size: 0.78rem;
-        padding: 5px 12px;
-        border-radius: 50px;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-      }
-      .pp-blog-time svg {
-        width: 12px;
-        height: 12px;
-      }
-      .pp-blog-content {
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        flex: 1;
-      }
-      .pp-blog-meta {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.8rem;
-      }
-      .pp-blog-cat {
-        color: #F48716;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-      }
-      .pp-blog-meta-sep {
-        width: 4px;
-        height: 4px;
-        background: #cbd5e0;
-        border-radius: 50%;
-        display: inline-block;
-      }
-      .pp-blog-date {
-        color: #4a5568;
-        font-weight: 500;
-      }
-      .pp-blog-card-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-        font-weight: 700;
-        color: #0B1B36;
-        margin: 0;
-        line-height: 1.35;
-      }
-      .pp-blog-featured .pp-blog-card-title {
-        font-size: clamp(1.2rem, 2vw, 1.5rem);
-      }
-      .pp-blog-desc {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.92rem;
-        color: #4a5568;
-        margin: 0;
-        line-height: 1.6;
-      }
-      .pp-blog-readmore {
-        margin-top: auto;
-        color: #F48716;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 0.92rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: gap 0.3s ease;
-      }
-      .pp-blog-card:hover .pp-blog-readmore {
-        gap: 10px;
-      }
-      .pp-blog-cta-wrap {
-        text-align: center;
-        margin-top: 16px;
-      }
-      .pp-blog-cta {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background: linear-gradient(90deg, #F48716, #FE8800);
-        color: #fff !important;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
-        padding: 16px 36px;
-        border-radius: 50px;
-        text-decoration: none;
-        box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35);
-        transition: all 0.3s ease;
-        letter-spacing: 0.3px;
-      }
-      .pp-blog-cta:hover {
-        background: linear-gradient(90deg, #E27900, #F48716);
-        box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5);
-        transform: translateY(-2px);
-        color: #fff !important;
-      }
-      .pp-blog-cta svg {
-        width: 18px;
-        height: 18px;
-        transition: transform 0.3s ease;
-      }
-      .pp-blog-cta:hover svg {
-        transform: translateX(4px);
-      }
-      @media (max-width: 900px) {
-        .pp-blog-grid {
-          grid-template-columns: 1fr;
+    <!-- ===== SECTION BLOG PREMIUM (5 articles, restauree depuis le HTML original) ===== -->
+    <div class="fullSection noBorder radius0 none c-section c-wrapper section-G7yHqojnLV" id="section-G7yHqojnLV" style="">
+      <style>
+        #section-G7yHqojnLV {
+          background: linear-gradient(135deg, #f8faff 0%, #eef4fb 50%, #f5f0e8 100%);
+          padding: 20px 20px 80px 20px;
+          position: relative;
+          overflow: hidden;
         }
-      }
-      @media (max-width: 767px) {
-        .pp-blog-section {
-          padding: 60px 16px;
+        #section-G7yHqojnLV::before {
+          content: '';
+          position: absolute;
+          top: -100px;
+          right: -100px;
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(254, 136, 0, 0.07) 0%, transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
         }
-        .pp-blog-content {
-          padding: 18px;
+        #section-G7yHqojnLV::after {
+          content: '';
+          position: absolute;
+          bottom: -80px;
+          left: -80px;
+          width: 350px;
+          height: 350px;
+          background: radial-gradient(circle, rgba(11, 27, 54, 0.05) 0%, transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
         }
-      }
-    </style>
-    <section class="pp-blog-section" id="section-BlogueAccueil">
-      <div class="pp-blog-inner">
-        <div class="pp-blog-header">
-          <span class="pp-blog-eyebrow">
-            <span class="fr-text">Notre blogue</span><span class="en-text">Our blog</span>
-          </span>
-          <h2 class="pp-blog-title">
-            <span class="fr-text">Derniers articles de Poubelle Premium</span>
-            <span class="en-text">Latest articles from Poubelle Premium</span>
-          </h2>
-          <div class="pp-blog-divider"></div>
-          <p class="pp-blog-subtitle">
-            <span class="fr-text">Conseils d'experts, astuces pratiques et nouveautés pour garder vos bacs propres et votre environnement sain.</span>
-            <span class="en-text">Expert tips, practical advice and news to keep your bins clean and your environment healthy.</span>
-          </p>
+        .blog-premium-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+        .blog-premium-header {
+          text-align: center;
+          margin-bottom: 56px;
+        }
+        .blog-premium-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(254, 136, 0, 0.1);
+          border: 1px solid rgba(254, 136, 0, 0.25);
+          border-radius: 50px;
+          padding: 6px 18px;
+          margin-bottom: 18px;
+          color: #FE8800;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          font-family: 'Poppins', sans-serif;
+        }
+        .blog-premium-eyebrow::before {
+          content: '';
+          width: 6px;
+          height: 6px;
+          background: #FE8800;
+          border-radius: 50%;
+          display: inline-block;
+        }
+        .blog-premium-title {
+          font-size: clamp(28px, 4vw, 42px);
+          font-weight: 800;
+          color: #0B1B36;
+          line-height: 1.2;
+          font-family: 'Poppins', sans-serif;
+          margin: 0 0 14px;
+        }
+        .blog-premium-title span {
+          color: #FE8800;
+        }
+        .blog-premium-subtitle {
+          font-size: 16px;
+          color: #556c79;
+          max-width: 520px;
+          margin: 0 auto;
+          line-height: 1.6;
+          font-family: 'Poppins', sans-serif;
+        }
+        .blog-premium-divider {
+          width: 60px;
+          height: 3px;
+          background: linear-gradient(90deg, #FE8800, #F48716);
+          border-radius: 2px;
+          margin: 0 auto 20px;
+        }
+        .blog-premium-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+          margin-bottom: 48px;
+        }
+        @media (max-width: 900px) {
+          .blog-premium-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+        }
+        @media (max-width: 600px) {
+          .blog-premium-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+          #section-G7yHqojnLV {
+            padding: 50px 16px;
+          }
+        }
+        .blog-premium-card {
+          background: #fff;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 4px 24px rgba(11, 27, 54, 0.08);
+          transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease;
+          display: flex;
+          flex-direction: column;
+          text-decoration: none;
+          border: 1px solid rgba(11, 27, 54, 0.06);
+          position: relative;
+        }
+        .blog-premium-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 60px rgba(11, 27, 54, 0.15);
+          border-color: rgba(254, 136, 0, 0.2);
+        }
+        .blog-premium-card-featured {
+          grid-column: span 2;
+        }
+        @media (max-width: 900px) {
+          .blog-premium-card-featured {
+            grid-column: span 2;
+          }
+        }
+        @media (max-width: 600px) {
+          .blog-premium-card-featured {
+            grid-column: span 1;
+          }
+        }
+        .blog-premium-img-wrap {
+          position: relative;
+          overflow: hidden;
+          aspect-ratio: 16/9;
+        }
+        .blog-premium-card-featured .blog-premium-img-wrap {
+          aspect-ratio: 16/8;
+        }
+        .blog-premium-img-wrap img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+          display: block;
+        }
+        .blog-premium-card:hover .blog-premium-img-wrap img {
+          transform: scale(1.06);
+        }
+        .blog-premium-img-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(11, 27, 54, 0.3) 0%, transparent 60%);
+          opacity: 0;
+          transition: opacity 0.35s ease;
+        }
+        .blog-premium-card:hover .blog-premium-img-overlay {
+          opacity: 1;
+        }
+        .blog-premium-badge {
+          position: absolute;
+          top: 14px;
+          left: 14px;
+          background: #FE8800;
+          color: #fff;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          padding: 5px 12px;
+          border-radius: 50px;
+          font-family: 'Poppins', sans-serif;
+        }
+        .blog-premium-read-badge {
+          position: absolute;
+          top: 14px;
+          right: 14px;
+          background: rgba(255, 255, 255, 0.92);
+          backdrop-filter: blur(8px);
+          color: #0B1B36;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 5px 10px;
+          border-radius: 50px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-family: 'Poppins', sans-serif;
+        }
+        .blog-premium-read-badge svg {
+          width: 12px;
+          height: 12px;
+          opacity: 0.6;
+        }
+        .blog-premium-body {
+          padding: 24px 28px 28px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+        .blog-premium-meta {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 12px;
+        }
+        .blog-premium-date {
+          font-size: 12px;
+          color: #6b7280;
+          font-family: 'Poppins', sans-serif;
+        }
+        .blog-premium-separator {
+          width: 3px;
+          height: 3px;
+          background: #d1d5db;
+          border-radius: 50%;
+          display: inline-block;
+        }
+        .blog-premium-cat {
+          font-size: 11px;
+          font-weight: 600;
+          color: #FE8800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          font-family: 'Poppins', sans-serif;
+        }
+        .blog-premium-card-title {
+          font-size: 17px;
+          font-weight: 700;
+          color: #0B1B36;
+          line-height: 1.45;
+          margin: 0 0 12px;
+          font-family: 'Poppins', sans-serif;
+          transition: color 0.25s;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .blog-premium-card-featured .blog-premium-card-title {
+          font-size: 21px;
+          -webkit-line-clamp: 2;
+          line-clamp: 2;
+        }
+        .blog-premium-card:hover .blog-premium-card-title {
+          color: #FE8800;
+        }
+        .blog-premium-excerpt {
+          font-size: 14px;
+          color: #6b7280;
+          line-height: 1.65;
+          font-family: 'Poppins', sans-serif;
+          flex: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin-bottom: 20px;
+        }
+        .blog-premium-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 13px;
+          font-weight: 700;
+          color: #FE8800;
+          text-decoration: none;
+          font-family: 'Poppins', sans-serif;
+          transition: gap 0.25s ease;
+        }
+        .blog-premium-cta:hover {
+          gap: 10px;
+        }
+        .blog-premium-cta svg {
+          width: 16px;
+          height: 16px;
+          transition: transform 0.25s ease;
+          flex-shrink: 0;
+        }
+        .blog-premium-cta:hover svg {
+          transform: translateX(3px);
+        }
+        .blog-premium-footer {
+          text-align: center;
+        }
+        .blog-premium-footer-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #0B1B36;
+          color: #fff;
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 700;
+          padding: 14px 36px;
+          border-radius: 50px;
+          font-family: 'Poppins', sans-serif;
+          transition: all 0.3s ease;
+          box-shadow: 0 6px 24px rgba(11, 27, 54, 0.25);
+        }
+        .blog-premium-footer-btn:hover {
+          background: #FE8800;
+          box-shadow: 0 8px 30px rgba(254, 136, 0, 0.4);
+          transform: translateY(-2px);
+        }
+        .blog-premium-footer-btn svg {
+          width: 18px;
+          height: 18px;
+        }
+      </style>
+      <div class="blog-premium-container">
+        <div class="blog-premium-header">
+          <div class="blog-premium-eyebrow"><span class="fr-text">Notre blogue</span><span class="en-text">Our blog</span></div>
+          <h2 class="blog-premium-title"><span class="fr-text">Derniers articles de </span><span class="en-text">Latest articles from </span><span>Poubelle Premium</span></h2>
+          <div class="blog-premium-divider"></div>
+          <p class="blog-premium-subtitle"><span class="fr-text">Conseils d'experts, astuces pratiques et nouveautés pour garder vos bacs propres et votre environnement sain.</span><span class="en-text">Expert tips, practical advice and news to keep your bins clean and your environment healthy.</span></p>
         </div>
-
-        <div class="pp-blog-grid">
-          <a class="pp-blog-card pp-blog-featured" href="/blog-poubelle-premium/">
-            <div class="pp-blog-image">
-              <img alt="Bac sale et propre" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/bdaee030-ecf3-4aa5-8a6e-b6b2b925f84f.png" />
-              <span class="pp-blog-badge-featured fr-text">À LA UNE</span>
-              <span class="pp-blog-badge-featured en-text">FEATURED</span>
-              <span class="pp-blog-time">
+        <div class="blog-premium-grid">
+          <a aria-label="Pourquoi le nettoyage de vos bacs est essentiel pour la santé de votre famille" class="blog-premium-card blog-premium-card-featured" href="https://poubellepremium.ca/post/pourquoi-le-nettoyage-de-vos-bacs-est-essentiel-pour-la-sante-de-votre-famille">
+            <div class="blog-premium-img-wrap">
+              <img alt="Pourquoi le nettoyage de vos bacs est essentiel pour la santé de votre famille" loading="lazy" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_800/u_https://storage.googleapis.com/msgsndr/Q4K7xsLSm5SH7e2GyuSi/media/67ea8634ead8ba3db085243e.jpeg" />
+              <div class="blog-premium-img-overlay"></div>
+              <span class="blog-premium-badge"><span class="fr-text">À la une</span><span class="en-text">Featured</span></span>
+              <span class="blog-premium-read-badge">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 10 min
               </span>
             </div>
-            <div class="pp-blog-content">
-              <div class="pp-blog-meta">
-                <span class="pp-blog-cat fr-text">Nettoyage de bacs</span>
-                <span class="pp-blog-cat en-text">Bin cleaning</span>
-                <span class="pp-blog-meta-sep"></span>
-                <span class="pp-blog-date">05 juin 2025</span>
+            <div class="blog-premium-body">
+              <div class="blog-premium-meta">
+                <span class="blog-premium-cat"><span class="fr-text">Nettoyage de bacs</span><span class="en-text">Bin cleaning</span></span>
+                <span class="blog-premium-separator"></span>
+                <span class="blog-premium-date">05 juin 2025</span>
               </div>
-              <h3 class="pp-blog-card-title">
-                <span class="fr-text">Pourquoi le nettoyage de vos bacs est essentiel pour la santé de votre famille</span>
-                <span class="en-text">Why cleaning your bins is essential for your family's health</span>
-              </h3>
-              <p class="pp-blog-desc">
-                <span class="fr-text">Un bac mal entretenu peut devenir un foyer à bactéries et nuire à la santé de vos proches. Voici pourquoi un nettoyage régulier est crucial pour un environnement propre et sain.</span>
-                <span class="en-text">A poorly maintained bin can become a breeding ground for bacteria and harm your loved ones' health. Here's why regular cleaning is crucial.</span>
-              </p>
-              <span class="pp-blog-readmore">
+              <h3 class="blog-premium-card-title"><span class="fr-text">Pourquoi le nettoyage de vos bacs est essentiel pour la santé de votre famille</span><span class="en-text">Why cleaning your bins is essential for your family's health</span></h3>
+              <p class="blog-premium-excerpt"><span class="fr-text">Un bac mal entretenu peut devenir un foyer à bactéries et nuire à la santé de vos proches. Voici pourquoi un nettoyage régulier est crucial pour un environnement propre et sain.</span><span class="en-text">A poorly maintained bin can become a bacterial breeding ground. Here's why regular cleaning is crucial for a clean and healthy environment.</span></p>
+              <span class="blog-premium-cta">
                 <span class="fr-text">Lire l'article</span><span class="en-text">Read article</span>
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
               </span>
             </div>
           </a>
-
-          <div class="pp-blog-grid-right">
-            <a class="pp-blog-card" href="/blog-poubelle-premium/">
-              <div class="pp-blog-image">
-                <img alt="Bac de recyclage" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/bdaee030-ecf3-4aa5-8a6e-b6b2b925f84f.png" />
-                <span class="pp-blog-time">
-                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  8 min
-                </span>
+          <a aria-label="À quelle fréquence faut-il faire nettoyer ses bacs?" class="blog-premium-card" href="https://poubellepremium.ca/post/a-quelle-frequence-faut-il-faire-nettoyer-ses-bacs-nos-recommandations-par-saison">
+            <div class="blog-premium-img-wrap">
+              <img alt="À quelle fréquence faut-il faire nettoyer ses bacs?" loading="lazy" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_640/u_https://storage.googleapis.com/msgsndr/Q4K7xsLSm5SH7e2GyuSi/media/67e9c792c5f22aa483b0345a.jpeg" />
+              <div class="blog-premium-img-overlay"></div>
+              <span class="blog-premium-read-badge">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                8 min
+              </span>
+            </div>
+            <div class="blog-premium-body">
+              <div class="blog-premium-meta">
+                <span class="blog-premium-cat"><span class="fr-text">Nettoyage de bacs</span><span class="en-text">Bin cleaning</span></span>
+                <span class="blog-premium-separator"></span>
+                <span class="blog-premium-date">02 juin 2025</span>
               </div>
-              <div class="pp-blog-content">
-                <div class="pp-blog-meta">
-                  <span class="pp-blog-cat fr-text">Nettoyage de bacs</span>
-                  <span class="pp-blog-cat en-text">Bin cleaning</span>
-                  <span class="pp-blog-meta-sep"></span>
-                  <span class="pp-blog-date">02 juin 2025</span>
-                </div>
-                <h3 class="pp-blog-card-title">
-                  <span class="fr-text">À quelle fréquence faut-il faire nettoyer ses bacs ? Nos recommandations par saison</span>
-                  <span class="en-text">How often should you clean your bins? Our seasonal recommendations</span>
-                </h3>
+              <h3 class="blog-premium-card-title"><span class="fr-text">À quelle fréquence faut-il faire nettoyer ses bacs ? Nos recommandations par saison</span><span class="en-text">How often should bins be cleaned? Our seasonal recommendations</span></h3>
+              <p class="blog-premium-excerpt"><span class="fr-text">Découvrez nos conseils pour adapter la fréquence de nettoyage selon les saisons, et évitez les mauvaises surprises liées aux odeurs et aux insectes.</span><span class="en-text">Discover our tips for adapting cleaning frequency by season, and avoid unpleasant surprises related to odors and insects.</span></p>
+              <span class="blog-premium-cta">
+                <span class="fr-text">Lire l'article</span><span class="en-text">Read article</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+              </span>
+            </div>
+          </a>
+          <a aria-label="Les risques de ne pas entretenir vos bacs extérieurs" class="blog-premium-card" href="https://poubellepremium.ca/post/les-risques-de-ne-pas-entretenir-vos-bacs-exterieurs-bacteries-mouches-et-mauvaises-odeurs">
+            <div class="blog-premium-img-wrap">
+              <img alt="Les risques de ne pas entretenir vos bacs extérieurs" loading="lazy" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_640/u_https://storage.googleapis.com/msgsndr/Q4K7xsLSm5SH7e2GyuSi/media/67e9c7921870f45344490fd2.jpeg" />
+              <div class="blog-premium-img-overlay"></div>
+              <span class="blog-premium-read-badge">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                10 min
+              </span>
+            </div>
+            <div class="blog-premium-body">
+              <div class="blog-premium-meta">
+                <span class="blog-premium-cat"><span class="fr-text">Nettoyage de bacs</span><span class="en-text">Bin cleaning</span></span>
+                <span class="blog-premium-separator"></span>
+                <span class="blog-premium-date">31 mai 2025</span>
               </div>
-            </a>
-
-            <a class="pp-blog-card" href="/blog-poubelle-premium/">
-              <div class="pp-blog-image">
-                <img alt="Bacs alignés" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/b4d29bb5-f948-4267-b7f9-e10c13637622.png" />
-                <span class="pp-blog-time">
-                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  6 min
-                </span>
+              <h3 class="blog-premium-card-title"><span class="fr-text">Les risques de ne pas entretenir vos bacs extérieurs : bactéries, mouches et mauvaises odeurs</span><span class="en-text">The risks of not maintaining your outdoor bins: bacteria, flies and bad odors</span></h3>
+              <p class="blog-premium-excerpt"><span class="fr-text">Poubelles sales = bactéries, mouches et odeurs ! Ces dangers cachés menacent votre santé familiale. Sans nettoyage professionnel régulier, vos bacs deviennent des foyers d'infection.</span><span class="en-text">Dirty bins = bacteria, flies and odors! These hidden dangers threaten your family's health. Without regular professional cleaning, your bins become sources of infection.</span></p>
+              <span class="blog-premium-cta">
+                <span class="fr-text">Lire l'article</span><span class="en-text">Read article</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+              </span>
+            </div>
+          </a>
+          <a aria-label="Comment enlever les odeurs dans vos bacs" class="blog-premium-card" href="https://poubellepremium.ca/post/comment-enlever-les-odeurs-dans-vos-bacs-entre-chaque-nettoyage-professionnel">
+            <div class="blog-premium-img-wrap">
+              <img alt="Comment enlever les odeurs dans vos bacs" loading="lazy" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_640/u_https://storage.googleapis.com/msgsndr/Q4K7xsLSm5SH7e2GyuSi/media/6812f3624d0d3dc73c8f5f37.png" />
+              <div class="blog-premium-img-overlay"></div>
+              <span class="blog-premium-read-badge">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                6 min
+              </span>
+            </div>
+            <div class="blog-premium-body">
+              <div class="blog-premium-meta">
+                <span class="blog-premium-cat"><span class="fr-text">Nettoyage de bacs</span><span class="en-text">Bin cleaning</span></span>
+                <span class="blog-premium-separator"></span>
+                <span class="blog-premium-date">02 mai 2025</span>
               </div>
-              <div class="pp-blog-content">
-                <div class="pp-blog-meta">
-                  <span class="pp-blog-cat fr-text">Conseils</span>
-                  <span class="pp-blog-cat en-text">Tips</span>
-                  <span class="pp-blog-meta-sep"></span>
-                  <span class="pp-blog-date">25 mai 2025</span>
-                </div>
-                <h3 class="pp-blog-card-title">
-                  <span class="fr-text">Comment éviter les mauvaises odeurs de vos bacs en été</span>
-                  <span class="en-text">How to avoid bad bin odors in summer</span>
-                </h3>
+              <h3 class="blog-premium-card-title"><span class="fr-text">Comment enlever les odeurs dans vos bacs entre chaque nettoyage professionnel</span><span class="en-text">How to remove odors from your bins between professional cleanings</span></h3>
+              <p class="blog-premium-excerpt">Entre deux nettoyages, vos bacs peuvent vite redevenir une source d'odeurs désagréables. Voici nos meilleurs conseils pour les garder propres et sans mauvaises surprises, même en plein été.</p>
+              <span class="blog-premium-cta">
+                <span class="fr-text">Lire l'article</span><span class="en-text">Read article</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+              </span>
+            </div>
+          </a>
+          <a aria-label="Poubelle Premium : la meilleure façon de nettoyer vos bacs!" class="blog-premium-card" href="https://poubellepremium.ca/post/poubelle-premium--la-solution-pour-nettoyer-vos-bacs">
+            <div class="blog-premium-img-wrap">
+              <img alt="Poubelle Premium : la meilleure façon de nettoyer vos bacs!" loading="lazy" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_640/u_https://storage.googleapis.com/msgsndr/Q4K7xsLSm5SH7e2GyuSi/media/67ea8c5c1870f430f54b2037.jpeg" />
+              <div class="blog-premium-img-overlay"></div>
+              <span class="blog-premium-read-badge">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                4 min
+              </span>
+            </div>
+            <div class="blog-premium-body">
+              <div class="blog-premium-meta">
+                <span class="blog-premium-cat"><span class="fr-text">Nettoyage de bacs</span><span class="en-text">Bin cleaning</span></span>
+                <span class="blog-premium-separator"></span>
+                <span class="blog-premium-date">01 avril 2025</span>
               </div>
-            </a>
-
-            <a class="pp-blog-card" href="/blog-poubelle-premium/">
-              <div class="pp-blog-image">
-                <img alt="Service écologique" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/bdaee030-ecf3-4aa5-8a6e-b6b2b925f84f.png" />
-                <span class="pp-blog-time">
-                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  4 min
-                </span>
-              </div>
-              <div class="pp-blog-content">
-                <div class="pp-blog-meta">
-                  <span class="pp-blog-cat fr-text">Écologie</span>
-                  <span class="pp-blog-cat en-text">Ecology</span>
-                  <span class="pp-blog-meta-sep"></span>
-                  <span class="pp-blog-date">18 mai 2025</span>
-                </div>
-                <h3 class="pp-blog-card-title">
-                  <span class="fr-text">L'impact écologique du nettoyage professionnel des bacs</span>
-                  <span class="en-text">The ecological impact of professional bin cleaning</span>
-                </h3>
-              </div>
-            </a>
-          </div>
+              <h3 class="blog-premium-card-title">Poubelle Premium : la meilleure façon de nettoyer vos bacs !</h3>
+              <p class="blog-premium-excerpt"><span class="fr-text">Poubelle Premium vous propose un service de nettoyage éco-responsable pour garder vos bacs à ordures propres et sans odeur. Optez pour une gestion des déchets plus économique et écologique.</span><span class="en-text">Poubelle Premium offers an eco-responsible cleaning service to keep your waste bins clean and odor-free. Opt for more economical and ecological waste management.</span></p>
+              <span class="blog-premium-cta">
+                <span class="fr-text">Lire l'article</span><span class="en-text">Read article</span>
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+              </span>
+            </div>
+          </a>
         </div>
-
-        <div class="pp-blog-cta-wrap">
-          <a class="pp-blog-cta" href="/blog-poubelle-premium/">
-            <span class="fr-text">Voir tous les articles</span>
-            <span class="en-text">See all articles</span>
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
+        <div class="blog-premium-footer">
+          <a aria-label="Voir tous les articles du blogue" class="blog-premium-footer-btn" href="/blog-poubelle-premium/">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+            <span class="fr-text">Voir tous les articles</span><span class="en-text">View all articles</span>
           </a>
         </div>
       </div>
-    </section>
-    <!-- ===== FIN SECTION NOTRE BLOGUE ===== -->
+    </div>
+    <!-- ===== FIN SECTION BLOG PREMIUM ===== -->
 
     <!--]--><!--[-->
     <div class="fullSection none noBorder radius0 none c-section c-wrapper section-eNgJo7g04tC" id="section-eNgJo7g04tC"

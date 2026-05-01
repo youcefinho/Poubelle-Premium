@@ -163,8 +163,11 @@ header.header-nav .pp-anim,
 }
 
 /* === Retirer la décoration "carte/noms de villes" en filigrane derrière "Glissez-moi" et la map === */
+/* Bloc <style> 5 inline retire le 2026-05-01 (P0-5b Phase 2), regles fusionnees ici */
 .bg-section-loKB4HoZ-r {
+  background: none !important;
   background-image: none !important;
+  opacity: 0 !important;
   display: none !important;
 }
 #section-loKB4HoZ-r {

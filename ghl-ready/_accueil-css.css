@@ -371,6 +371,26 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   }
 }
 
+/* Migrate from <style> bloc 6 (P0-5b Phase 2 - 2026-05-01) - bg-section-W5jyXHou4Kb responsive bg images */
+@media (max-width: 480px) {
+  .bg-section-W5jyXHou4Kb {
+    background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_768/u_https://assets.cdn.filesafe.space/261NR6UbTIy1d8K0aAJn/media/66612ff9c6bcc86aa9e8cbbb.png);
+    opacity: 1;
+  }
+}
+@media (min-width: 481px) and (max-width: 1024px) {
+  .bg-section-W5jyXHou4Kb {
+    background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_900/u_https://assets.cdn.filesafe.space/261NR6UbTIy1d8K0aAJn/media/66612ff9c6bcc86aa9e8cbbb.png);
+    opacity: 1;
+  }
+}
+@media (min-width: 1025px) {
+  .bg-section-W5jyXHou4Kb {
+    background: url(https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/261NR6UbTIy1d8K0aAJn/media/66612ff9c6bcc86aa9e8cbbb.png);
+    opacity: 1;
+  }
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

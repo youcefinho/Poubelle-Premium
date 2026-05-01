@@ -72,5 +72,33 @@
     else patchOldLinks();
     setTimeout(patchOldLinks, 1000);
     setTimeout(patchOldLinks, 3000);
+
+    // ===== META PIXEL CONVERSION TRACKING =====
+    // CompleteRegistration = form Retour GHL submit (g5pvDJWBSQmPuMQ9hvTu)
+    var ppRegFired = false;
+    window.addEventListener('message', function (e) {
+      if (!e.data || ppRegFired || typeof fbq !== 'function') return;
+      var d = e.data;
+      var t = '';
+      if (typeof d === 'object' && d) {
+        t = String(d.type || d.event || d.action || d.name || d.eventName || '');
+      } else if (typeof d === 'string') {
+        t = d;
+      }
+      if (/form[:_-]?(submit|complete|done|success)|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
+        fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews' });
+        ppRegFired = true;
+      }
+    });
+    // Contact = click sur lien tel:
+    var ppContactFired = false;
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+      if (a && !ppContactFired && typeof fbq === 'function') {
+        fbq('track', 'Contact', { content_name: 'Click telephone Retour' });
+        ppContactFired = true;
+        setTimeout(function () { ppContactFired = false; }, 5000);
+      }
+    });
   })();
 </script>

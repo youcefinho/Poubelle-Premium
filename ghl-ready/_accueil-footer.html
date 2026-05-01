@@ -248,5 +248,17 @@
       if (href.indexOf('Poubelle+Premium') < 0 && href.indexOf('ludocid') < 0 && href.indexOf('0xaf3ef64ce9c08449') < 0 && href.indexOf('11tjz8j7cs') < 0) return;
       setTimeout(function () { window.location.href = '/retour'; }, 250);
     });
+
+    // ===== META PIXEL CONVERSION TRACKING =====
+    // Contact = click sur lien tel: (anti-doublon via flag pour eviter spam si user clique 2x)
+    var ppContactFired = false;
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+      if (a && !ppContactFired && typeof fbq === 'function') {
+        fbq('track', 'Contact', { content_name: 'Click telephone Accueil' });
+        ppContactFired = true;
+        setTimeout(function () { ppContactFired = false; }, 5000); // re-armer apres 5s
+      }
+    });
   })();
 </script>

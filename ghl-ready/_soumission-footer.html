@@ -136,5 +136,36 @@
       });
       obs.observe(iframe, { attributes: true, attributeFilter: ['style', 'height'] });
     }, 500);
+
+    // ===== META PIXEL CONVERSION TRACKING =====
+    // Lead = sondage GHL completed (detecte via postMessage du form_embed.js)
+    var ppLeadFired = false;
+    window.addEventListener('message', function (e) {
+      if (!e.data || ppLeadFired || typeof fbq !== 'function') return;
+      var d = e.data;
+      var t = '';
+      if (typeof d === 'object' && d) {
+        t = String(d.type || d.event || d.action || d.name || '');
+        // GHL envoie aussi parfois { eventName: 'form_submit_success' } ou similaires
+        if (!t && d.eventName) t = String(d.eventName);
+      } else if (typeof d === 'string') {
+        t = d;
+      }
+      // Patterns GHL connus pour submit/completion
+      if (/survey[:_-]?(complete|submit|finish|done|end)|form[:_-]?submit|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
+        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' });
+        ppLeadFired = true;
+      }
+    });
+    // Contact = click sur lien tel:
+    var ppContactFired = false;
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+      if (a && !ppContactFired && typeof fbq === 'function') {
+        fbq('track', 'Contact', { content_name: 'Click telephone Soumission' });
+        ppContactFired = true;
+        setTimeout(function () { ppContactFired = false; }, 5000);
+      }
+    });
   })();
 </script>

@@ -25,6 +25,7 @@ Chaque page GHL reçoit **4 collages** :
 |-------------------------|-------------------------------|-----------------------------------------------------------------------------|
 | Form 9 / Retour (`g5pvDJWBSQmPuMQ9hvTu`) | `_form-retour-ghl.css` | Sites → Formulaires → ouvrir le form → Paramètres → CSS personnalisé |
 | Soumission Sondage (`VvEwIFqbMCj3t1kUnB6g`) | `_form-soumission-ghl.css` | Sites → Sondages → ouvrir le sondage → Modifier → Avancé → CSS personnalisé |
+| Soumission Sondage — pied de page | `_form-soumission-ghl-footer.html` | Sites → Sondages → ouvrir le sondage → Modifier → Avancé → Modifier le pied de page |
 
 ---
 

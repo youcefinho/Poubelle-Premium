@@ -64,6 +64,17 @@ html.pp-no-aos [data-aos] {
   opacity: 1 !important;
   transform: none !important;
 }
+/* Securite : annule pp-anim sur header (transform sur position:fixed = casse le fixed) */
+header.header-nav .pp-anim,
+.header-nav .pp-anim,
+#pp-mobile-header .pp-anim,
+#pp-mobile-nav .pp-anim,
+.unihdr .pp-anim,
+.unihdr.pp-anim {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 
 #pp-bacs {
   white-space: nowrap;

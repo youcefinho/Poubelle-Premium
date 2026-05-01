@@ -11,11 +11,16 @@
       if (window._ppAnimInitDone) return;
       window._ppAnimInitDone = true;
       window._ppAosInitDone = true;
+      function isInHeader(el) {
+        return !!el.closest('header, .header-nav, #pp-mobile-header, #pp-mobile-nav, .unihdr');
+      }
       function tag(sel, type, stagger) {
-        document.querySelectorAll(sel).forEach(function (el, i) {
+        var idx = 0;
+        document.querySelectorAll(sel).forEach(function (el) {
           if (el.classList.contains('pp-anim')) return;
+          if (isInHeader(el)) return;
           el.classList.add('pp-anim', 'pp-anim-' + type);
-          if (stagger) el.style.transitionDelay = ((i % 4) * 80) + 'ms';
+          if (stagger) el.style.transitionDelay = ((idx++ % 4) * 80) + 'ms';
         });
       }
       tag('.c-column', 'up', false);

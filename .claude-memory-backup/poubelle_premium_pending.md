@@ -40,9 +40,13 @@ Avis / Soumission / Retour : **deja propres, rien a retirer**. Pas d'AOS, pas de
 - **Footer "Liens utiles"** verification — la cliente voulait verifier
 - **Duplicate "Nos services" en noir** a retirer — la cliente voulait verifier
 
-## 4. Limitations GHL Forms basic plan (deferred)
-La cliente est sur Forms basic plan, donc impossibles sans upgrade :
-- Auto-scroll en haut du form sur "Suivant"
-- Logique conditionnelle pour le champ "Forfait personnalise"
+## 4. Limitations GHL Forms basic plan (RESOLU 2026-05-01)
+**Decision finale** : la cliente a recree le form Soumission en **1 seule etape** (au lieu de 4 originalement) pour contourner les 2 limitations basic plan.
+
+Consequence : les 2 demandes audit deviennent non-applicables :
+- ~~Auto-scroll entre etapes~~ : plus de "Suivant", donc rien a faire
+- ~~Logique conditionnelle "Forfait personnalise"~~ : tout sur une page, visible directement
+
+CSS de styling du form natif : `ghl-ready/_form-soumission-ghl.css` (a coller dans GHL Sites > Formulaires > Soumission > Avance > CSS personnalise).
 
 **How to apply:** Quand Rochdi revient, demander : "tu veux attaquer l'audit cleanup ou le marketing pipeline ou autre chose ?". Lui rappeler que tout marche et que le cleanup est risque sans validation ligne par ligne.

@@ -232,8 +232,10 @@
       }
     }, true);
     window.addEventListener('blur', function () {
-      if (Date.now() - lastIframeClick < 3000 &&
-          document.activeElement && document.activeElement.tagName === 'IFRAME') {
+      var ae = document.activeElement;
+      var isReviewIframe = ae && (ae.id === 'msgsndr_reviews' ||
+        (ae.tagName === 'IFRAME' && ae.src && ae.src.indexOf('leadconnectorhq.com/appengine/reviews') >= 0));
+      if (isReviewIframe || (Date.now() - lastIframeClick < 3000 && ae && ae.tagName === 'IFRAME')) {
         setTimeout(function () { window.location.href = '/retour'; }, 600);
       }
     });

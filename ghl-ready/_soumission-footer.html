@@ -63,8 +63,14 @@
       }
     }, true);
     window.addEventListener('blur', function () {
-      if (Date.now() - lastIframeClick < 3000 &&
-          document.activeElement && document.activeElement.tagName === 'IFRAME') {
+      // Cas 1 : on a detecte un mousedown sur l'iframe (browser permissif)
+      // Cas 2 : l'iframe msgsndr_reviews est l'element actif au moment du blur
+      //   (cross-origin iframe : le mousedown ne fire pas mais focus passe a l'iframe
+      //   quand l'user clique dedans avant que window.open ouvre Google)
+      var ae = document.activeElement;
+      var isReviewIframe = ae && (ae.id === 'msgsndr_reviews' ||
+        (ae.tagName === 'IFRAME' && ae.src && ae.src.indexOf('leadconnectorhq.com/appengine/reviews') >= 0));
+      if (isReviewIframe || (Date.now() - lastIframeClick < 3000 && ae && ae.tagName === 'IFRAME')) {
         setTimeout(function () { window.location.href = '/retour'; }, 600);
       }
     });

@@ -179,30 +179,7 @@
     ]
   }
   </script>
-  <style>
-    /* ===== FIX GHL Custom Code: hero + header pleine largeur =====
-       Sort le contenu des conteneurs GHL .col / .row à max-width 1170px */
-    #pp-hero, header.header-nav, .header-nav {
-      width: 100vw !important;
-      max-width: 100vw !important;
-      margin-left: calc(-50vw + 50%) !important;
-      margin-right: calc(-50vw + 50%) !important;
-      box-sizing: border-box !important;
-    }
-    /* FAQ headings cliquables (cursor + pointer-events robustes) */
-    .hl-faq-child-heading {
-      cursor: pointer !important;
-      pointer-events: auto !important;
-      user-select: none;
-    }
-    .hl-faq-child-heading * {
-      pointer-events: none;
-    }
-    /* Anti-flash 2-langues au load: l'EN reste caché tant que JS n'a pas switché */
-    .en-text, .en-block { display: none; }
-    .fr-text { display: inline; }
-    .fr-block { display: block; }
-  </style>
+  <!-- Bloc <style> retire P0-5b : regles dupliquees dans _accueil-css.css (header full-width, FAQ cursor, anti-flash FR/EN) -->
   <style>
     :root {
       --primary: #37ca37;

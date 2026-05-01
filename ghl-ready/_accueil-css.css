@@ -847,6 +847,144 @@ div#comparison figure div {
   background: #f48716;
 }
 
+/* Migrate from <style> bloc 20 (P0-5b Phase 2 - 2026-05-01) - secondary services slider + .ss-card + swiper nav */
+.secondary-services-section {
+  padding: 80px 0 !important;
+  background: #f9f9f9 !important;
+}
+.ss-swiper-outer {
+  position: relative;
+  padding: 0 50px;
+}
+.ss-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(244, 135, 22, 0.18);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(11, 27, 54, 0.10);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+.ss-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(11, 27, 54, 0.18);
+}
+.ss-card-img {
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+  display: block;
+}
+.ss-card-svg-wrap {
+  width: 100%;
+  height: 185px;
+  background: linear-gradient(135deg, #0B1B36, #1a3a6a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ss-card-body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ss-card-eyebrow {
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F48716;
+}
+.ss-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0B1B36;
+  margin: 0;
+  line-height: 1.25;
+}
+.ss-swiper-outer .swiper-button-prev,
+.ss-swiper-outer .swiper-button-next {
+  width: 42px !important;
+  height: 42px !important;
+  background: #F48716;
+  border-radius: 50%;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(244, 135, 22, 0.45);
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 0.25s;
+}
+.ss-swiper-outer .swiper-button-prev::after,
+.ss-swiper-outer .swiper-button-next::after {
+  font-size: 15px !important;
+  font-weight: 900;
+}
+.ss-swiper-outer .swiper-button-prev:hover,
+.ss-swiper-outer .swiper-button-next:hover {
+  background: #0B1B36;
+}
+.ss-swiper-outer .swiper-button-prev { left: 0; }
+.ss-swiper-outer .swiper-button-next { right: 0; }
+.ss-swiper-outer .swiper-pagination {
+  position: relative;
+  margin-top: 30px;
+}
+.ss-swiper-outer .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #cbd5e0;
+  opacity: 1;
+}
+.ss-swiper-outer .swiper-pagination-bullet-active {
+  background: #F48716;
+  width: 28px;
+  border-radius: 5px;
+}
+@media (max-width: 640px) {
+  .ss-swiper-outer { padding: 0 42px; }
+}
+/* Fallback si Swiper ne charge pas */
+.ss-swiper-outer .swiper:not(.swiper-initialized) {
+  overflow: visible !important;
+}
+.ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  transform: none !important;
+  width: 100% !important;
+}
+.ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-slide {
+  width: auto !important;
+  height: auto !important;
+  flex-shrink: 1 !important;
+}
+.ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-button-prev,
+.ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-button-next,
+.ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-pagination {
+  display: none !important;
+}
+@media (max-width: 1024px) {
+  .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 640px) {
+  .ss-swiper-outer .swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+  .ss-swiper-outer:has(.swiper:not(.swiper-initialized)) {
+    padding: 0 16px;
+  }
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

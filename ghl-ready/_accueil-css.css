@@ -51,6 +51,20 @@ html.pp-no-aos [data-aos] {
   visibility: visible !important;
 }
 
+/* Animations custom (bypass AOS car GHL surcharge .c-column avec opacity:1 !important) */
+.pp-anim {
+  opacity: 0 !important;
+  transition: opacity 0.8s ease, transform 0.8s ease !important;
+  will-change: opacity, transform;
+}
+.pp-anim-up { transform: translateY(40px) !important; }
+.pp-anim-right { transform: translateX(-40px) !important; }
+.pp-anim-zoom { transform: scale(0.85) !important; }
+.pp-anim.pp-in {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 #pp-bacs {
   white-space: nowrap;
 }

@@ -4,70 +4,50 @@
     // initialise (window._ppAosInitDone = true), ce bloc ne fait rien.
     // Sinon il prend le relais (cas: user a recolle le footer mais pas le HTML).
 
-    function initAOSOnce() {
-      if (window._ppAosInitDone) return;
-      function decorate() {
-        document.querySelectorAll('.c-column').forEach(function (el) {
-          if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
-        });
-        document.querySelectorAll('.c-heading, .c-sub-heading').forEach(function (el, index) {
-          if (!el.hasAttribute('data-aos')) {
-            el.setAttribute('data-aos', 'fade-right');
-            el.setAttribute('data-aos-delay', (index % 3) * 100);
-          }
-        });
-        document.querySelectorAll('.c-image').forEach(function (el, index) {
-          if (!el.hasAttribute('data-aos')) {
-            el.setAttribute('data-aos', 'zoom-in');
-            el.setAttribute('data-aos-delay', (index % 3) * 100);
-          }
-        });
-        document.querySelectorAll('.c-button').forEach(function (el) {
-          if (!el.hasAttribute('data-aos')) el.setAttribute('data-aos', 'fade-up');
+    // Animations custom : on bypass AOS car GHL surcharge .c-column avec
+    // opacity:1 !important. On utilise IntersectionObserver + classes pp-anim
+    // dont la CSS est dans _accueil-css.css (forcee avec !important).
+    function initPPAnim() {
+      if (window._ppAnimInitDone) return;
+      window._ppAnimInitDone = true;
+      window._ppAosInitDone = true;
+      function tag(sel, type, stagger) {
+        document.querySelectorAll(sel).forEach(function (el, i) {
+          if (el.classList.contains('pp-anim')) return;
+          el.classList.add('pp-anim', 'pp-anim-' + type);
+          if (stagger) el.style.transitionDelay = ((i % 4) * 80) + 'ms';
         });
       }
-      function tryInit() {
-        if (window._ppAosInitDone) return true;
-        if (typeof AOS === 'undefined') return false;
-        try {
-          decorate();
-          AOS.init({ duration: 800, once: true, offset: 50, disable: false });
-          window._ppAosInitDone = true;
-          window.addEventListener('load', function () { try { AOS.refresh(); } catch (e) {} });
-          window.addEventListener('resize', function () { try { AOS.refresh(); } catch (e) {} });
-          setTimeout(function () { try { AOS.refresh(); } catch (e) {} }, 1000);
-          return true;
-        } catch (e) { return false; }
+      tag('.c-column', 'up', false);
+      tag('.c-heading, .c-sub-heading', 'right', true);
+      tag('.c-image', 'zoom', true);
+      tag('.c-button', 'up', false);
+      var els = document.querySelectorAll('.pp-anim');
+      if (!els.length) return;
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('pp-in');
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        els.forEach(function (el) { obs.observe(el); });
+      } else {
+        els.forEach(function (el) { el.classList.add('pp-in'); });
       }
-      if (tryInit()) return;
-      if (typeof AOS === 'undefined') {
-        var s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js';
-        s.onload = tryInit;
-        document.head.appendChild(s);
-        if (!document.querySelector('link[href*="aos@2.3.1"]')) {
-          var l = document.createElement('link');
-          l.rel = 'stylesheet';
-          l.href = 'https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css';
-          document.head.appendChild(l);
-        }
-      }
-      var poll = 0;
-      var iv = setInterval(function () {
-        if (tryInit() || poll++ > 30) clearInterval(iv);
-      }, 100);
+      // Filet 3s : si un element n'est jamais devenu visible (ex: positionnement
+      // bizarre GHL), on le force a apparaitre quand meme.
       setTimeout(function () {
-        if (window._ppAosInitDone) return;
-        document.querySelectorAll('[data-aos]').forEach(function (el) {
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-          el.style.visibility = 'visible';
-          el.classList.add('aos-animate');
+        document.querySelectorAll('.pp-anim:not(.pp-in)').forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight) el.classList.add('pp-in');
         });
       }, 3000);
     }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAOSOnce);
-    else initAOSOnce();
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPPAnim);
+    else initPPAnim();
 
     function initCountOnce() {
       if (window._ppCountInitDone) return;

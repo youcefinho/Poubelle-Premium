@@ -124,6 +124,61 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": "https://poubellepremium.ca/#service-residentiel",
+        "name": "Nettoyage de bacs résidentiel",
+        "serviceType": "Nettoyage de bacs résidentiels",
+        "provider": { "@id": "https://poubellepremium.ca/#business" },
+        "areaServed": [
+          { "@type": "City", "name": "Laval" },
+          { "@type": "AdministrativeArea", "name": "Rive-Nord de Montréal" }
+        ],
+        "description": "Service de nettoyage à très haute pression de bacs à ordures, recyclage et compost pour particuliers à Laval et Rive-Nord. 100% écologique, collecte des eaux usées."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://poubellepremium.ca/#service-commercial",
+        "name": "Nettoyage de bacs commercial",
+        "serviceType": "Nettoyage de bacs pour entreprises",
+        "provider": { "@id": "https://poubellepremium.ca/#business" },
+        "areaServed": [
+          { "@type": "City", "name": "Laval" },
+          { "@type": "AdministrativeArea", "name": "Rive-Nord de Montréal" }
+        ],
+        "description": "Service B2B de nettoyage de bacs et conteneurs pour cafés, restaurants, garderies et entreprises de la Rive-Nord. Tarifs avantageux pour sociétés."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://poubellepremium.ca/#service-desinfection",
+        "name": "Désinfection de bacs",
+        "serviceType": "Désinfection écologique",
+        "provider": { "@id": "https://poubellepremium.ca/#business" },
+        "areaServed": [
+          { "@type": "City", "name": "Laval" },
+          { "@type": "AdministrativeArea", "name": "Rive-Nord de Montréal" }
+        ],
+        "description": "Désinfection complète des bacs avec produits 100% écologiques québécois. Élimine les bactéries, mauvaises odeurs et risques d'infestation (mouches, vers blancs, rongeurs)."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://poubellepremium.ca/#service-forfait",
+        "name": "Forfait abonnement nettoyage de bacs",
+        "serviceType": "Abonnement régulier",
+        "provider": { "@id": "https://poubellepremium.ca/#business" },
+        "areaServed": [
+          { "@type": "City", "name": "Laval" },
+          { "@type": "AdministrativeArea", "name": "Rive-Nord de Montréal" }
+        ],
+        "description": "Abonnement nettoyage régulier (mensuel ou bimensuel) synchronisé avec votre horaire de collecte municipale. Service ponctuel également disponible."
+      }
+    ]
+  }
+  </script>
   <style>
     /* ===== FIX GHL Custom Code: hero + header pleine largeur =====
        Sort le contenu des conteneurs GHL .col / .row à max-width 1170px */

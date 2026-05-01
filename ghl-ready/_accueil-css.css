@@ -552,6 +552,88 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   .avis-title-premium-2 h2 { font-size: 1.8rem; }
 }
 
+/* Migrate from <style> bloc 18 (P0-5b Phase 2 - 2026-05-01) - service-card-premium-new */
+.service-card-premium-new {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px !important;
+  background: #0B1B36 !important;
+  min-height: 280px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15) !important;
+  width: 100% !important;
+  cursor: pointer;
+}
+.service-card-premium-new:hover {
+  transform: translateY(-10px);
+  border-color: #F48716 !important;
+  box-shadow: 0 25px 60px rgba(244, 135, 22, 0.2) !important;
+}
+.service-card-premium-new .service-bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: none;
+  width: 55%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.4;
+  transition: all 0.7s ease-in-out;
+  z-index: 0;
+  pointer-events: none;
+  filter: saturate(0.7);
+  border-radius: 0 18px 18px 0;
+}
+.service-card-premium-new:hover .service-bg-img {
+  opacity: 0.55;
+  filter: saturate(1);
+}
+.service-card-premium-new .service-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #0B1B36 35%, rgba(11, 27, 54, 0.8) 60%, transparent 100%);
+  z-index: 1;
+}
+.service-card-premium-new .service-content {
+  position: relative;
+  z-index: 2;
+  padding: 45px;
+  text-align: left;
+  max-width: 70%;
+}
+.service-card-premium-new .service-label {
+  color: #F48716 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 1rem !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 20px !important;
+  display: block !important;
+}
+.service-card-premium-new .service-title {
+  color: #ffffff !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 1.8rem !important;
+  line-height: 1.1 !important;
+  text-transform: uppercase !important;
+  margin: 0 !important;
+  letter-spacing: 1px !important;
+}
+.service-card-premium-new .service-title span {
+  display: block;
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

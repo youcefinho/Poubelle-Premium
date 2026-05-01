@@ -11,14 +11,17 @@
       if (window._ppAnimInitDone) return;
       window._ppAnimInitDone = true;
       window._ppAosInitDone = true;
-      function isInHeader(el) {
-        return !!el.closest('header, .header-nav, #pp-mobile-header, #pp-mobile-nav, .unihdr');
+      var HDR_SEL = 'header, .header-nav, #pp-mobile-header, #pp-mobile-nav, .unihdr';
+      function touchesHeader(el) {
+        // Skip si l'element EST dans un header OU CONTIENT un header
+        // (transform sur un ancetre du header.fixed casse le containing block)
+        return !!el.closest(HDR_SEL) || !!el.querySelector(HDR_SEL);
       }
       function tag(sel, type, stagger) {
         var idx = 0;
         document.querySelectorAll(sel).forEach(function (el) {
           if (el.classList.contains('pp-anim')) return;
-          if (isInHeader(el)) return;
+          if (touchesHeader(el)) return;
           el.classList.add('pp-anim', 'pp-anim-' + type);
           if (stagger) el.style.transitionDelay = ((idx++ % 4) * 80) + 'ms';
         });

@@ -74,7 +74,19 @@
     setTimeout(patchOldLinks, 3000);
 
     // ===== META PIXEL CONVERSION TRACKING =====
-    // CompleteRegistration = form Retour GHL submit (g5pvDJWBSQmPuMQ9hvTu)
+    // CompleteRegistration = Thank You URL detection (Plan B fiable, voir GHL Form Settings -> On Submit Redirect URL : /retour?lead=ok)
+    if (typeof fbq === 'function') {
+      var qs = window.location.search || '';
+      if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
+        fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews' });
+        // Nettoyer l'URL (evite re-fire au refresh ou au partage du lien)
+        try {
+          var clean = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, document.title, clean);
+        } catch (e) { }
+      }
+    }
+    // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
     var ppRegFired = false;
     window.addEventListener('message', function (e) {
       if (!e.data || ppRegFired || typeof fbq !== 'function') return;
@@ -86,7 +98,7 @@
         t = d;
       }
       if (/form[:_-]?(submit|complete|done|success)|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
-        fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews' });
+        fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews (postMessage fallback)' });
         ppRegFired = true;
       }
     });

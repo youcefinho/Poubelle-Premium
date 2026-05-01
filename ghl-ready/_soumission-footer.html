@@ -138,7 +138,19 @@
     }, 500);
 
     // ===== META PIXEL CONVERSION TRACKING =====
-    // Lead = sondage GHL completed (detecte via postMessage du form_embed.js)
+    // Lead = Thank You URL detection (Plan B fiable, voir GHL Survey Settings -> On Submit Redirect URL : /soumission_1?lead=ok)
+    if (typeof fbq === 'function') {
+      var qs = window.location.search || '';
+      if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
+        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' });
+        // Nettoyer l'URL (evite re-fire au refresh ou au partage du lien)
+        try {
+          var clean = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, document.title, clean);
+        } catch (e) { }
+      }
+    }
+    // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
     var ppLeadFired = false;
     window.addEventListener('message', function (e) {
       if (!e.data || ppLeadFired || typeof fbq !== 'function') return;
@@ -146,14 +158,12 @@
       var t = '';
       if (typeof d === 'object' && d) {
         t = String(d.type || d.event || d.action || d.name || '');
-        // GHL envoie aussi parfois { eventName: 'form_submit_success' } ou similaires
         if (!t && d.eventName) t = String(d.eventName);
       } else if (typeof d === 'string') {
         t = d;
       }
-      // Patterns GHL connus pour submit/completion
       if (/survey[:_-]?(complete|submit|finish|done|end)|form[:_-]?submit|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
-        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' });
+        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL (postMessage fallback)', content_category: 'devis' });
         ppLeadFired = true;
       }
     });

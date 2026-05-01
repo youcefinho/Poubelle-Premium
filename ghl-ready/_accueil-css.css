@@ -327,3 +327,18 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   width: -moz-max-content;
   width: max-content;
 }
+
+/* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
+#row-prvoIqDC_9C,
+#row-GiQh0KjOAgx,
+#row-vllu8z3CvVh,
+#row-xaAyAKxX2e2,
+#section-PdW-3TZZYO,
+#section-FJKnMjEsCr,
+#section-fQPiNuCNFUj,
+#section-jIShhaMz_f {
+  display: none !important;
+}
+.hero-google-badge {
+  display: none !important;
+}

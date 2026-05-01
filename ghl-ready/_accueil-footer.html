@@ -13,15 +13,21 @@
       window._ppAosInitDone = true;
       var HDR_SEL = 'header, .header-nav, #pp-mobile-header, #pp-mobile-nav, .unihdr';
       function touchesHeader(el) {
-        // Skip si l'element EST dans un header OU CONTIENT un header
-        // (transform sur un ancetre du header.fixed casse le containing block)
         return !!el.closest(HDR_SEL) || !!el.querySelector(HDR_SEL);
+      }
+      function isAlreadyVisible(el) {
+        // Element deja a l'ecran au load -> on le tag PAS (evite flash blanc 1-2s
+        // pendant que IntersectionObserver met a jour). Marge 50px pour tolerance.
+        var r = el.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        return r.top < vh - 50 && r.bottom > 0;
       }
       function tag(sel, type, stagger) {
         var idx = 0;
         document.querySelectorAll(sel).forEach(function (el) {
           if (el.classList.contains('pp-anim')) return;
           if (touchesHeader(el)) return;
+          if (isAlreadyVisible(el)) return;
           el.classList.add('pp-anim', 'pp-anim-' + type);
           if (stagger) el.style.transitionDelay = ((idx++ % 4) * 80) + 'ms';
         });
@@ -45,8 +51,7 @@
       } else {
         els.forEach(function (el) { el.classList.add('pp-in'); });
       }
-      // Filet 3s : si un element n'est jamais devenu visible (ex: positionnement
-      // bizarre GHL), on le force a apparaitre quand meme.
+      // Filet 3s pour stragglers
       setTimeout(function () {
         document.querySelectorAll('.pp-anim:not(.pp-in)').forEach(function (el) {
           var r = el.getBoundingClientRect();

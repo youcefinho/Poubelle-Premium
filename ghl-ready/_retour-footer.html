@@ -76,10 +76,12 @@
     // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
     // CompleteRegistration = Thank You URL detection (Plan B fiable, voir GHL Form Settings -> On Submit Redirect URL : /retour?lead=ok)
     // GHL ne permet pas Show message + Redirect URL en meme temps -> on affiche un overlay merci custom quand ?lead=ok detecte.
+    var ppRegFired = false;
     var qs = window.location.search || '';
     if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
       if (typeof fbq === 'function') {
         fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews' });
+        ppRegFired = true; // bloque le postMessage fallback pour eviter un double-tracking
       }
       // Overlay merci (FR/EN selon lang du body) - reste affiche jusqu'au click sur Fermer
       function showThankYouOverlay() {
@@ -123,7 +125,7 @@
       } catch (e) { }
     }
     // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
-    var ppRegFired = false;
+    // ppRegFired declare plus haut (Plan B le set a true s'il fire en premier).
     window.addEventListener('message', function (e) {
       if (!e.data || ppRegFired || typeof fbq !== 'function') return;
       var d = e.data;

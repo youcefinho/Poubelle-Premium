@@ -140,10 +140,12 @@
     // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
     // Lead = Thank You URL detection (Plan B fiable, voir GHL Survey Settings -> On Submit Redirect URL : /soumission_1?lead=ok)
     // GHL ne permet pas Show message + Redirect URL en meme temps -> overlay merci custom quand ?lead=ok detecte.
+    var ppLeadFired = false;
     var qs = window.location.search || '';
     if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' });
+        ppLeadFired = true; // bloque le postMessage fallback pour eviter un double-tracking
       }
       function showThankYouOverlay() {
         if (document.getElementById('pp-thank-you-overlay')) return;
@@ -185,7 +187,7 @@
       } catch (e) { }
     }
     // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
-    var ppLeadFired = false;
+    // ppLeadFired declare plus haut (Plan B le set a true s'il fire en premier).
     window.addEventListener('message', function (e) {
       if (!e.data || ppLeadFired || typeof fbq !== 'function') return;
       var d = e.data;

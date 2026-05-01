@@ -640,7 +640,7 @@
                 <span class="fr-text">Devis</span>
                 <span class="en-text">Quote</span>
             </a>
-            <button aria-label="Ouvrir le menu" id="pp-hamburger-btn" onclick="this.classList.toggle(&quot;open&quot;);document.getElementById(&quot;pp-mobile-nav&quot;).classList.toggle(&quot;open&quot;);">
+            <button aria-label="Ouvrir le menu" id="pp-hamburger-btn" type="button">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -648,12 +648,12 @@
         </div>
     </div>
     <nav class="unihdr" id="pp-mobile-nav">
-        <a href="/accueil_index"><span class="fr-text">Accueil</span><span
+        <a href="/accueil_index" style="display:block;padding:14px 10px;font-size:1rem;font-weight:600;color:#212023;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.06);"><span class="fr-text">Accueil</span><span
                 class="en-text">Home</span></a>
-        <a href="/accueil_index#section-Q-QVu_CWVt"><span
+        <a href="/accueil_index#section-Q-QVu_CWVt" style="display:block;padding:14px 10px;font-size:1rem;font-weight:600;color:#212023;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.06);"><span
                 class="fr-text">Services</span><span class="en-text">Services</span></a>
-        <a href="/avis-clients"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a>
-        <a class="pp-mob-cta" href="/soumission_1"><span class="fr-text">Demander un devis gratuit</span><span
+        <a href="/avis-clients" style="display:block;padding:14px 10px;font-size:1rem;font-weight:600;color:#212023;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.06);"><span class="fr-text">Avis clients</span><span class="en-text">Reviews</span></a>
+        <a class="pp-mob-cta" href="/soumission_1" style="display:block;padding:14px 20px;font-size:1rem;font-weight:700;color:#fff;text-decoration:none;background:#F48716;border-radius:50px;text-align:center;margin-top:15px;"><span class="fr-text">Demander un devis gratuit</span><span
                 class="en-text">Request a free quote</span></a>
     </nav>
     <!-- ===== HEADER (SOUMISSION STYLE) DESKTOP ===== -->
@@ -864,23 +864,6 @@
                 nav.classList.toggle('open');
             });
 
-            nav.querySelectorAll('a').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    btn.classList.remove('open');
-                    nav.classList.remove('open');
-                });
-            });
-        })();
-    </script>
-    <script class="unihdr">
-        (function () {
-            const btn = document.getElementById('pp-hamburger-btn');
-            const nav = document.getElementById('pp-mobile-nav');
-            if (!btn || !nav) return;
-            btn.addEventListener('click', function () {
-                btn.classList.toggle('open');
-                nav.classList.toggle('open');
-            });
             nav.querySelectorAll('a').forEach(function (link) {
                 link.addEventListener('click', function () {
                     btn.classList.remove('open');

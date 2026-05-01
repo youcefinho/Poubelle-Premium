@@ -1194,6 +1194,193 @@ div.secondary-services-grid .other-service-card-premium {
   width: 100% !important;
 }
 
+/* Migrate from <style> bloc 24 (P0-5b Phase 2 - 2026-05-01) - .lang-switcher desktop/mobile + hamburger + #pp-mobile-* */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 18px;
+  background: rgba(244, 135, 22, 0.07);
+  border: 1.5px solid rgba(244, 135, 22, 0.28);
+  border-radius: 50px;
+  padding: 5px 10px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.lang-switcher:hover {
+  background: rgba(244, 135, 22, 0.14);
+  border-color: #F48716;
+  box-shadow: 0 2px 10px rgba(244, 135, 22, 0.18);
+}
+.lang-switcher .lang-btn {
+  padding: 3px 9px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  user-select: none;
+}
+.lang-switcher .lang-btn.active {
+  background: #F48716;
+  color: #fff;
+  box-shadow: 0 1px 8px rgba(244, 135, 22, 0.4);
+}
+.lang-switcher .lang-divider {
+  color: rgba(244, 135, 22, 0.35);
+  font-size: 0.72rem;
+  pointer-events: none;
+  font-weight: 400;
+}
+.mob-lang-sw {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(244, 135, 22, 0.07);
+  border: 1.5px solid rgba(244, 135, 22, 0.28);
+  border-radius: 50px;
+  padding: 4px 9px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+.mob-lang-sw .lang-btn {
+  padding: 3px 8px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.mob-lang-sw .lang-btn.active {
+  background: #F48716;
+  color: #fff;
+  box-shadow: 0 1px 6px rgba(244, 135, 22, 0.4);
+}
+.mob-lang-sw .lang-divider {
+  color: rgba(244, 135, 22, 0.35);
+  font-size: 0.72rem;
+  pointer-events: none;
+}
+/* Mobile hamburger header - regle de base, le @media plus haut applique display:flex !important */
+#pp-mobile-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #fff;
+  border-bottom: 2px solid #F48716;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+#pp-mobile-header .pp-mob-logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+#pp-hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+#pp-hamburger-btn span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #F48716;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+#pp-hamburger-btn.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+#pp-hamburger-btn.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+#pp-hamburger-btn.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+#pp-mobile-nav {
+  display: none;
+  position: fixed;
+  top: 74px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  z-index: 9998;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgba(244, 135, 22, 0.2);
+  animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#pp-mobile-nav a {
+  display: block;
+  padding: 14px 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: color 0.2s ease;
+}
+#pp-mobile-nav a:last-child {
+  border-bottom: none;
+}
+#pp-mobile-nav a:hover {
+  color: #F48716;
+}
+#pp-mobile-nav .pp-mob-cta {
+  margin-top: 15px;
+  background: #F48716;
+  color: #fff !important;
+  border-radius: 50px;
+  text-align: center;
+  padding: 14px 20px;
+  font-weight: 700;
+}
+#pp-mobile-nav .pp-mob-cta:hover {
+  background: #d97706;
+  color: #fff !important;
+}
+@media (max-width: 767px) {
+  #pp-mobile-header { display: flex; }
+  #preview-container { margin-top: 74px !important; }
+  #row-TQoC2fUrE1l { display: none !important; }
+}
+@media (min-width: 768px) {
+  #pp-mobile-header { display: none !important; }
+  #pp-mobile-nav { display: none !important; }
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

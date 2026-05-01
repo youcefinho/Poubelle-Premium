@@ -73,18 +73,56 @@
     setTimeout(patchOldLinks, 1000);
     setTimeout(patchOldLinks, 3000);
 
-    // ===== META PIXEL CONVERSION TRACKING =====
+    // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
     // CompleteRegistration = Thank You URL detection (Plan B fiable, voir GHL Form Settings -> On Submit Redirect URL : /retour?lead=ok)
-    if (typeof fbq === 'function') {
-      var qs = window.location.search || '';
-      if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
+    // GHL ne permet pas Show message + Redirect URL en meme temps -> on affiche un overlay merci custom quand ?lead=ok detecte.
+    var qs = window.location.search || '';
+    if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
+      if (typeof fbq === 'function') {
         fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews' });
-        // Nettoyer l'URL (evite re-fire au refresh ou au partage du lien)
-        try {
-          var clean = window.location.pathname + window.location.hash;
-          window.history.replaceState({}, document.title, clean);
-        } catch (e) { }
       }
+      // Overlay merci (FR/EN selon lang du body)
+      function showThankYouOverlay() {
+        if (document.getElementById('pp-thank-you-overlay')) return;
+        var isEn = document.body.classList.contains('lang-en');
+        var overlay = document.createElement('div');
+        overlay.id = 'pp-thank-you-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
+        overlay.innerHTML = '' +
+          '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
+          '<div style="background:#fff;border-radius:18px;max-width:520px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
+          '<div style="font-size:64px;line-height:1;margin-bottom:18px;">&#10004;</div>' +
+          '<h2 style="font-size:26px;font-weight:800;color:#0d3b66;margin:0 0 14px;">' +
+            (isEn ? 'Thank you!' : 'Merci !') +
+          '</h2>' +
+          '<p style="font-size:17px;color:#374151;line-height:1.55;margin:0 0 26px;">' +
+            (isEn
+              ? 'Your feedback has been received. We will reach out shortly.'
+              : 'Votre retour a bien ete recu. Nous vous recontacterons rapidement.') +
+          '</p>' +
+          '<button id="pp-thank-you-close" style="background:#0d3b66;color:#fff;border:0;border-radius:999px;padding:12px 32px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;">' +
+            (isEn ? 'Close' : 'Fermer') +
+          '</button>' +
+          '</div>';
+        document.body.appendChild(overlay);
+        function closeOverlay() {
+          if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        }
+        document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
+        // Auto-close au bout de 7s
+        setTimeout(closeOverlay, 7000);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', showThankYouOverlay);
+      } else {
+        showThankYouOverlay();
+      }
+      // Nettoyer l'URL (evite re-fire au refresh ou au partage du lien)
+      try {
+        var clean = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, clean);
+      } catch (e) { }
     }
     // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
     var ppRegFired = false;

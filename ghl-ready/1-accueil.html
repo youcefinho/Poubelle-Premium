@@ -21137,8 +21137,9 @@
                       </svg>
                       Uncompromising cleaning
                     </span>
-                    <span class="pp-eyebrow-tag green fr-text">100% Écologique</span>
-                    <span class="pp-eyebrow-tag green en-text">100% Eco-friendly</span>
+                    <a href="/blog-poubelle-premium/" class="pp-eyebrow-tag green" style="text-decoration:none; color:inherit; cursor:pointer;">
+                      <span class="fr-text">100% Écologique</span><span class="en-text">100% Eco-friendly</span>
+                    </a>
                   </div>
                   <h2 class="pp-hero-h1">
                     <span class="fr-text">Des bacs <span class="pp-accent-water">étincelants<svg class="pp-sparkle"
@@ -21236,7 +21237,7 @@
                           </div>
                         </a>
                         <!-- 100% Écologique (cliquable vers blog) -->
-                        <a href="https://poubellepremium.ca/blog" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+                        <a href="/blog-poubelle-premium/" style="text-decoration:none; color:inherit; display:block;">
                           <div class="pp-cc-box" style="border: 1px solid #c6f6d5; background: #f0fff4; cursor:pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                             <div
                               style="color: #38a169; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin-bottom: 2px;">
@@ -24435,6 +24436,123 @@
       </div>
     </section>
     <!-- ===== FIN SECTION AVIS CLIENTS ===== -->
+
+    <!-- ===== SECTION NOTRE BLOGUE (pointe vers /blog-poubelle-premium/) ===== -->
+    <style>
+      .pp-blog-section {
+        background-color: #fff;
+        padding: 80px 20px 80px 20px;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+      }
+      .pp-blog-inner {
+        max-width: 1170px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .pp-blog-eyebrow {
+        display: inline-block;
+        background: rgba(244, 135, 22, 0.1);
+        color: #F48716;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 8px 20px;
+        border-radius: 50px;
+        margin-bottom: 18px;
+      }
+      .pp-blog-eyebrow::before {
+        content: '•';
+        margin-right: 6px;
+        color: #F48716;
+      }
+      .pp-blog-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+        font-weight: 800;
+        color: #F48716;
+        margin: 0 0 12px 0;
+        line-height: 1.2;
+      }
+      .pp-blog-divider {
+        width: 80px;
+        height: 4px;
+        background-color: #F48716;
+        border-radius: 2px;
+        margin: 0 auto 22px auto;
+      }
+      .pp-blog-subtitle {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.05rem;
+        color: #4a5568;
+        max-width: 640px;
+        margin: 0 auto 36px auto;
+        line-height: 1.6;
+      }
+      .pp-blog-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: linear-gradient(90deg, #F48716, #FE8800);
+        color: #fff !important;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 16px 36px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35);
+        transition: all 0.3s ease;
+        letter-spacing: 0.3px;
+      }
+      .pp-blog-cta:hover {
+        background: linear-gradient(90deg, #E27900, #F48716);
+        box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5);
+        transform: translateY(-2px);
+        color: #fff !important;
+      }
+      .pp-blog-cta svg {
+        width: 18px;
+        height: 18px;
+        transition: transform 0.3s ease;
+      }
+      .pp-blog-cta:hover svg {
+        transform: translateX(4px);
+      }
+      @media (max-width: 767px) {
+        .pp-blog-section {
+          padding: 60px 16px;
+        }
+      }
+    </style>
+    <section class="pp-blog-section" id="section-BlogueAccueil">
+      <div class="pp-blog-inner">
+        <span class="pp-blog-eyebrow">
+          <span class="fr-text">Notre blogue</span><span class="en-text">Our blog</span>
+        </span>
+        <h2 class="pp-blog-title">
+          <span class="fr-text">Derniers articles de Poubelle Premium</span>
+          <span class="en-text">Latest articles from Poubelle Premium</span>
+        </h2>
+        <div class="pp-blog-divider"></div>
+        <p class="pp-blog-subtitle">
+          <span class="fr-text">Conseils d'experts, astuces pratiques et nouveautés pour garder vos bacs propres et votre environnement sain.</span>
+          <span class="en-text">Expert tips, practical advice and news to keep your bins clean and your environment healthy.</span>
+        </p>
+        <a class="pp-blog-cta" href="/blog-poubelle-premium/">
+          <span class="fr-text">Lire nos articles</span>
+          <span class="en-text">Read our articles</span>
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+    <!-- ===== FIN SECTION NOTRE BLOGUE ===== -->
 
     <!--]--><!--[-->
     <div class="fullSection none noBorder radius0 none c-section c-wrapper section-eNgJo7g04tC" id="section-eNgJo7g04tC"

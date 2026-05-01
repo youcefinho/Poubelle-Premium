@@ -772,6 +772,81 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   }
 }
 
+/* Migrate from <style> bloc 16 (P0-5b Phase 2 - 2026-05-01) - widget #comparison avant/apres + range slider */
+div#comparison {
+  width: 60vw;
+  height: 60vw;
+  max-width: 600px;
+  max-height: 600px;
+  overflow: hidden;
+}
+div#comparison figure {
+  background-image: url(https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/668db6d9d3ca8e69698eee47.png);
+  background-size: cover;
+  position: relative;
+  font-size: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+div#comparison figure>img {
+  position: relative;
+  width: 100%;
+}
+div#comparison figure div {
+  background-image: url(https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/668db6d98e395d58e6d73c62.png);
+  background-size: cover;
+  position: absolute;
+  width: 50%;
+  box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  bottom: 0;
+  height: 100%;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  top: -2rem;
+  left: -2%;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 102%;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range]:focus { outline: none; }
+.ccustom-code-mZx4kPbrSRU input[type=range]:active { outline: none; }
+.ccustom-code-mZx4kPbrSRU input[type=range]::-moz-range-track {
+  -moz-appearance: none;
+  height: 15px;
+  width: 98%;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+  outline: none;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range]::active {
+  border: none;
+  outline: none;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 15px;
+  background: #f48716;
+  border-radius: 0;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range]::-moz-range-thumb {
+  -moz-appearance: none;
+  width: 20px;
+  height: 15px;
+  background: #f48716;
+  border-radius: 0;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range]:focus::-webkit-slider-thumb {
+  background: #f48716;
+}
+.ccustom-code-mZx4kPbrSRU input[type=range]:focus::-moz-range-thumb {
+  background: #f48716;
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

@@ -1,0 +1,6 @@
+- [Poubelle Premium - architecture stable 2026-05-01](poubelle_premium_architecture.md) — Etat des 13 fichiers + conventions critiques (pp-anim, redirect /retour, form GHL, lang FR/EN)
+- [Poubelle Premium - leçons debug GHL](poubelle_premium_lecons_debug.md) — 12 réflexes à appliquer EN PREMIER (balises, funnels doubles, splits Custom Code, AOS bloqué, onclick strippé, iframe cross-origin, Tailwind specificite)
+- [Poubelle Premium - points en attente](poubelle_premium_pending.md) — Audit cleanup en pause + marketing pipeline + items bloqués client
+- [Poubelle Premium - workflow ghl-ready](poubelle_premium_workflow.md) — Ne toucher que ghl-ready/, ignorer dist/ (déploiement GHL uniquement)
+- [Poubelle Premium - setup GHL](poubelle_premium_ghl_setup.md) — 4 pages × 4 emplacements GHL chacune, slug Accueil = /accueil_index (pas /)
+- [Poubelle Premium - autonomie git/npx](poubelle_premium_git_autonomy.md) — Autorisé à commit/push direct sur main et exécuter npx sans demander

@@ -470,6 +470,39 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   flex-grow: unset !important;
 }
 
+/* Migrate from <style id="stat-scale-style"> bloc 12 (P0-5b Phase 2 - 2026-05-01) - smaller stat icons section EoD70u9p-e */
+#section-EoD70u9p-e .img-feature-container {
+  align-items: center !important;
+}
+#section-EoD70u9p-e .img-container {
+  width: 60px !important;
+  flex: 0 0 60px !important;
+  min-width: 60px !important;
+  max-width: 60px !important;
+  margin-right: 15px !important;
+}
+#section-EoD70u9p-e .img-container img {
+  width: 100% !important;
+  height: auto !important;
+}
+#section-EoD70u9p-e .txt-container h2 {
+  font-size: 1.15rem !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0 !important;
+}
+@media (max-width: 768px) {
+  #section-EoD70u9p-e .img-container {
+    width: 45px !important;
+    flex: 0 0 45px !important;
+    min-width: 45px !important;
+    max-width: 45px !important;
+    margin-right: 10px !important;
+  }
+  #section-EoD70u9p-e .txt-container h2 {
+    font-size: 1rem !important;
+  }
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

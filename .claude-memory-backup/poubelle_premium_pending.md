@@ -8,16 +8,23 @@ Le site est **fonctionnellement complet et stable en GHL** au 2026-05-01 (commit
 
 Ce qui reste :
 
-## 1. Audit / cleanup des 13 fichiers (user-demande, en pause)
-User a dit : "je pense ta trop surchargé les fichier sur y a des ligne qui servent a rien apres je veux pas que tu casse ce qu'on a rectifeir". On a mis en pause apres avoir fait fonctionner tout, pour eviter de casser pendant le cleanup.
+## 1. Audit / cleanup des 13 fichiers (TERMINE 2026-05-01)
+**Statut : fait, fichiers propres.** Commits de cleanup : `aba72be` (Accueil only).
 
-**Approche convenue** : audit ligne par ligne, lister ce qui peut etre retire (CSS dupliques, regles redondantes, scripts deprecated), valider chaque suppression avec user avant de couper. **Ne pas y toucher sans accord explicite.**
+Ce qui a ete retire :
+- `_accueil-css.css` : regle `html.pp-no-aos [data-aos]` (classe jamais ajoutee nulle part)
+- `_accueil-footer.html` : commentaire trompeur sur "AOS init" + variable inutilisee `_ppAosInitDone`
 
-Candidats potentiels au cleanup (a valider) :
-- Doubles `<style class="unihdr">` dans `2-avis-clients.html` (lignes 376-596 dupliquent 1-375)
-- Regles `.cbutton-*` dans `_accueil-css.css` ligne 67-159 si plus utilisees
-- Variables `--orange` vs `--orange2` dans Avis (incoherentes)
-- Patterns lang FR/EN dupliques entre fichier inline et `_*-css.css`
+Ce qui a ete VERIFIE et NE peut PAS etre retire (par design GHL ou usage actif) :
+- `cbutton-*` dans `_accueil-css.css` : 32 occurrences dans `1-accueil.html` -> utilisees
+- AOS dans `_accueil-header.html` : 11 `data-aos` actifs dans le HTML -> utilise
+- Duplications `switchLang` / `.fr-text` / `.header-nav` entre les 4 footers/CSS : imposees par GHL (chaque page = ses slots isoles, pas de partage possible)
+- `_avis-css.css` lignes 106-115 (`body.lang-*`) : fix specifique parce que GHL n'ajoute pas `lang` au html sur Avis -> garder
+- Scripts internes dans HTML body (switchLang, hamburger, AOS init lignes 25240+) : morts en GHL (innerHTML strip) mais servent au PREVIEW LOCAL -> garder
+
+Avis / Soumission / Retour : **deja propres, rien a retirer**. Pas d'AOS, pas de cbutton-*, regles CSS specifiques toutes referencees.
+
+**How to apply:** Si user demande encore un cleanup, dire que c'est deja fait. Le seul gain residuel possible (~70kB) serait de supprimer AOS completement de l'Accueil (1 seul `data-aos` actif), mais ca touche au HTML body et casse 1 anim mineure -> pas la peine sauf perf critique.
 
 ## 2. Marketing pipeline (a faire)
 - **Meta Pixel** : creer le pixel sur business.facebook.com, remplacer `YOUR_PIXEL_ID` dans les 4 `_*-header.html` (lignes commentees)

@@ -237,5 +237,16 @@
         setTimeout(function () { window.location.href = '/retour'; }, 600);
       }
     });
+
+    // Click sur n'importe quel lien Google reviews Poubelle Premium -> redirige
+    // (filet pour les CTA dont le onclick inline serait strippe par GHL)
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('google.com') < 0) return;
+      if (href.indexOf('Poubelle+Premium') < 0 && href.indexOf('ludocid') < 0 && href.indexOf('0xaf3ef64ce9c08449') < 0 && href.indexOf('11tjz8j7cs') < 0) return;
+      setTimeout(function () { window.location.href = '/retour'; }, 250);
+    });
   })();
 </script>

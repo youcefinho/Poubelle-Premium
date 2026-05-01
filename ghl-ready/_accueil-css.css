@@ -99,7 +99,8 @@ header.header-nav,
 }
 
 .hl-faq-child-heading {
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
   user-select: none;
 }
 .hl-faq-child-heading * {

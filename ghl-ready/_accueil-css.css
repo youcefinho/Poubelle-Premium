@@ -634,6 +634,144 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   display: block;
 }
 
+/* Migrate from <style> bloc 17 (P0-5b Phase 2 - 2026-05-01) - section evolution premium */
+#section-EvolutionPremium {
+  background: #f8f6f1;
+  padding: 80px 20px;
+}
+.evolution-premium-container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.evolution-premium-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.evolution-premium-eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #FE8800;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+}
+.evolution-premium-title {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.15;
+  font-weight: 800;
+  color: #111111;
+  font-family: 'Montserrat', sans-serif;
+}
+.evolution-premium-title span {
+  color: #FE8800;
+}
+.evolution-premium-subtitle {
+  max-width: 760px;
+  margin: 16px auto 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555555;
+  font-family: 'Montserrat', sans-serif;
+}
+.evolution-premium-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+.evolution-card-clean {
+  background: #ffffff;
+  border: 1px solid #e9e4da;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.evolution-card-clean:hover {
+  border-color: rgba(254, 136, 0, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+}
+.evolution-card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+.evolution-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center 35%;
+}
+.evolution-premium-grid > article:nth-child(1) .evolution-card-media img {
+  object-position: center 50%;
+}
+.evo-year-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-family: 'Montserrat', sans-serif;
+}
+.evolution-card-body {
+  padding: 24px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  flex: 1;
+}
+.evolution-card-clean h3 {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #111111;
+}
+.evolution-card-clean p.evo-desc {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555555;
+  font-family: 'Montserrat', sans-serif;
+}
+@media (max-width: 1024px) {
+  .evolution-premium-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  #section-EvolutionPremium {
+    padding: 60px 16px;
+  }
+  .evolution-premium-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .evolution-card-body {
+    padding: 20px 18px 22px;
+  }
+  .evolution-card-clean h3 {
+    font-size: 20px;
+  }
+  .evolution-premium-subtitle {
+    font-size: 15px;
+  }
+}
+
 /* Migrate from <style id="pp-hero-hide"> bloc 14 (P0-5b Phase 2 - 2026-05-01) - hide GHL hero rows + google-badge */
 #row-prvoIqDC_9C,
 #row-GiQh0KjOAgx,

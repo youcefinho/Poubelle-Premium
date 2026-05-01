@@ -1,0 +1,155 @@
+/* ============================================================
+   CSS personnalise pour le form natif GHL "Formulaire Retour"
+   (formId: veu1ZjRl4uyHSZBQUNWJ)
+
+   OU LE COLLER :
+   Sites > Formulaires > "Formulaire Retour" > Parametres / Style
+   > CSS personnalise (ou Custom CSS)
+
+   Ce CSS s'applique a l'INTERIEUR de l'iframe GHL (pas depuis
+   la page parent — l'iframe est cross-origin). Il style les
+   champs, labels, bouton submit pour matcher le look Poubelle
+   Premium (Poppins + orange #F48716 + bouton pill).
+   ============================================================ */
+
+/* Reset wrapper du form */
+body,
+.ghl-form-wrap,
+.ghl-survey-form,
+.form-builder--wrap-questions {
+  background: transparent !important;
+  font-family: 'Poppins', sans-serif !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 16px !important;
+  margin: 0 !important;
+}
+
+/* Champs input (Full Name, Phone, Email) */
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  width: 100% !important;
+  padding: 12px 16px !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  font-size: 0.95rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  background: #fff !important;
+  color: #0B1B36 !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+}
+
+.form-control:focus,
+input:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #F48716 !important;
+  box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
+}
+
+/* Labels au-dessus des champs */
+.field-label,
+label {
+  display: block !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 6px !important;
+  color: #0B1B36 !important;
+  font-family: 'Poppins', sans-serif !important;
+  letter-spacing: 0.2px !important;
+}
+
+/* Asterisque champ requis */
+.label-alignment span,
+.required-mark,
+.required-asterisk {
+  color: #F48716 !important;
+  font-weight: 700 !important;
+}
+
+/* Espacement entre champs */
+.form-field-wrapper,
+.form-builder-field {
+  margin-bottom: 14px !important;
+}
+
+/* Bouton Envoyer */
+button[type="submit"],
+.submit-button,
+.ghl-btn-submit,
+.ghl-btn,
+input[type="submit"] {
+  width: 100% !important;
+  padding: 14px 28px !important;
+  background: linear-gradient(90deg, #F48716, #FE8800) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  font-family: 'Poppins', sans-serif !important;
+  cursor: pointer !important;
+  margin-top: 16px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
+  letter-spacing: 0.5px !important;
+}
+
+button[type="submit"]:hover,
+.submit-button:hover,
+.ghl-btn-submit:hover,
+.ghl-btn:hover,
+input[type="submit"]:hover {
+  background: linear-gradient(90deg, #E27900, #F48716) !important;
+  box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
+  transform: translateY(-2px) !important;
+}
+
+button[type="submit"]:active,
+.submit-button:active,
+.ghl-btn-submit:active {
+  transform: translateY(0) !important;
+}
+
+/* Neutralise le footer orange GHL natif (on a deja le bouton stylise) */
+.ghl-footer {
+  background: transparent !important;
+  border: none !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.ghl-footer-buttons {
+  height: auto !important;
+}
+
+/* Messages d'erreur */
+.error,
+.error-message {
+  color: #e53e3e !important;
+  font-size: 0.8rem !important;
+  margin-top: 4px !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Placeholder texte */
+::placeholder {
+  color: #94A3B8 !important;
+  opacity: 1 !important;
+}
+
+/* Message de succes apres submit */
+.form-success,
+.thank-you-message {
+  text-align: center !important;
+  padding: 24px !important;
+  color: #0B1B36 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}

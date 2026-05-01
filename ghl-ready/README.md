@@ -19,6 +19,12 @@ Chaque page GHL reçoit **4 collages** :
 | Soumission  | `/soumission_1` | `3-soumission.html` + `_soumission-avis-footer.html` (2e bloc) | `_soumission-header.html` | `_soumission-footer.html` | `_soumission-css.css` |
 | Retour      | `/retour`     | `4-retour.html`          | `_retour-header.html`      | `_retour-footer.html`        | `_retour-css.css`     |
 
+## Bonus — CSS pour les forms natifs GHL (à coller dans l'éditeur GHL du form, pas dans la page)
+
+| Form GHL                | Fichier                       | Où le coller                                                                |
+|-------------------------|-------------------------------|-----------------------------------------------------------------------------|
+| Formulaire Retour (`veu1ZjRl4uyHSZBQUNWJ`) | `_form-retour-ghl.css` | Sites → Formulaires → ouvrir le form → Paramètres → CSS personnalisé |
+
 ---
 
 ## Procédure pour 1 page (à répéter 4 fois)

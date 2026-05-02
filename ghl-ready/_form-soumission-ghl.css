@@ -1,92 +1,31 @@
-/* ============================================================
-   POUBELLE PREMIUM - CSS Sondage GHL "Soumission"
-   (surveyId: VvEwIFqbMCj3t1kUnB6g)
+/* CSS Sondage GHL "Soumission" - Coller dans Sondages > Soumission > Avance > CSS personnalise */
+/* Couleurs : #F48716 orange / #FE8800 CTA / #0B1B36 navy / #E2E8F0 border */
 
-   COLLER DANS : Sondages > Soumission > Avance > CSS personnalise
-
-   Base : DOM reel confirme par F12 (Rochdi 2026-05-02).
-   Aucun selecteur speculatif, uniquement les classes vues dans le HTML rendu.
-
-   ELEMENTS CIBLES (confirmes F12) :
-   - Bouton :    <div role="button" class="ghl-btn ghl-footer-next">
-                 <div role="button" class="ghl-btn ghl-footer-back">
-                 <div role="button" class="ghl-btn ghl-footer-submit">
-                 (avec inline style="background-color:#0000001A; border-radius:0 0 8px 0;")
-   - Input :     <input type="text" class="form-control" name="...">
-   - Multiselect :
-                 <div class="multiselect">
-                   <div class="multiselect__select"></div>
-                   <div class="multiselect__tags">
-                     <input class="multiselect__input">
-                   </div>
-                   <div class="multiselect__content-wrapper">
-                     [.multiselect__option ...]
-                   </div>
-                 </div>
-   - Label :     <label class="label-alignment field-label">Texte<span>*</span></label>
-   - Wrapper :   <div class="form-field-wrapper col-12">
-
-   DESIGN SYSTEM :
-   - Orange   : #F48716 (primaire) / #FE8800 (CTA gradient endpoint)
-   - Navy     : #0B1B36 (texte)
-   - Border   : #E2E8F0 (gris clair) / #94A3B8 (placeholder)
-   - Police   : Poppins
-   - Inputs   : 46px hauteur stricte / radius 10px
-   - Boutons  : pill (radius 50px) / 48px hauteur (matche GHL inline)
-   ============================================================ */
-
-
-/* === WRAPPER ============================================== */
-.ghl-form-wrap,
-.ghl-survey-form,
-.form-builder--wrap-questions {
+/* Wrapper */
+.ghl-form-wrap, .ghl-survey-form, .form-builder--wrap-questions {
   background: transparent !important;
   font-family: 'Poppins', sans-serif !important;
   color: #0B1B36 !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 16px !important;
 }
 
-
-/* === LABELS =============================================== */
-.label-alignment .field-label,
-.field-label,
-label {
-  display: block !important;
+/* Labels + asterisque obligatoire */
+label, .field-label {
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
   font-size: 0.9rem !important;
   color: #0B1B36 !important;
   margin-bottom: 6px !important;
-  letter-spacing: 0.2px !important;
+  display: block !important;
 }
+.label-alignment span, .field-label span { color: #F48716 !important; font-weight: 700 !important; }
 
-/* Asterisque obligatoire (le <span>) -> orange */
-.label-alignment span,
-.field-label span {
-  color: #F48716 !important;
-  font-weight: 700 !important;
-  margin-left: 2px !important;
-}
+/* Espacement entre champs */
+.form-field-wrapper, .col-12 { margin-bottom: 18px !important; }
 
-
-/* === ESPACEMENT ENTRE CHAMPS ============================== */
-.form-field-wrapper,
-.col-12 {
-  margin-bottom: 18px !important;
-}
-
-
-/* === INPUTS TEXTE (Nom, Prenom, Email, Tel, Adresse...) === */
-/* Cible explicitement .form-control (classe que GHL utilise sur tous les inputs) */
-.form-control:not(textarea):not(select),
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="date"],
-input[type="url"] {
+/* Inputs + textarea : 46px hauteur + bordure grise par defaut */
+input, .form-control, textarea {
   width: 100% !important;
   height: 46px !important;
   padding: 0 16px !important;
@@ -99,374 +38,103 @@ input[type="url"] {
   box-sizing: border-box !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
+textarea { height: auto !important; min-height: 110px !important; padding: 12px 16px !important; resize: vertical !important; }
 
-textarea {
-  width: 100% !important;
-  min-height: 110px !important;
-  padding: 12px 16px !important;
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  background: #fff !important;
-  color: #0B1B36 !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  resize: vertical !important;
-  box-sizing: border-box !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-/* HOVER inputs -> bordure orange (regle large : tout input + .form-control) */
-input:hover,
-input.form-control:hover,
-.form-control:hover,
-textarea:hover,
-textarea.form-control:hover,
-.multiselect:hover .multiselect__tags,
-.multiselect__tags:hover {
-  border-color: #F48716 !important;
-}
-
-/* FOCUS inputs -> bordure orange + halo (regle large) */
-input:focus,
-input:focus-visible,
-input.form-control:focus,
-input.form-control:focus-visible,
-.form-control:focus,
-.form-control:focus-visible,
-textarea:focus,
-textarea:focus-visible,
-.multiselect--active .multiselect__tags {
+/* Hover + Focus -> bordure orange */
+input:hover, .form-control:hover, textarea:hover, .multiselect:hover .multiselect__tags { border-color: #F48716 !important; }
+input:focus, .form-control:focus, textarea:focus, .multiselect--active .multiselect__tags {
   outline: none !important;
   border-color: #F48716 !important;
   box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
 }
+::placeholder { color: #94A3B8 !important; opacity: 1 !important; }
 
-::placeholder {
-  color: #94A3B8 !important;
-  opacity: 1 !important;
-}
-
-
-/* === MULTISELECT (champs "Nombre de bac(s)" et "Code postal") === */
-/* Une seule bordure visible : sur .multiselect__tags. Tout le reste = transparent. */
-
-.multiselect {
-  position: relative !important;
-  width: 100% !important;
-  height: 46px !important;
-  font-family: 'Poppins', sans-serif !important;
-  box-sizing: border-box !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  display: block !important;
-}
-
-/* Reset TOUS les enfants internes : pas de bordure, pas de background propre.
-   Empeche le double-rectangle orange (Vue scoped CSS GHL aurait pu en mettre). */
-.multiselect__single,
-.multiselect__strong,
-.multiselect__spinner,
-.multiselect__select-pointer,
-.multiselect > div:not(.multiselect__tags):not(.multiselect__select):not(.multiselect__content-wrapper) {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
+/* Multiselect (champs "Nombre de bac(s)" / "Code postal") */
+.multiselect { position: relative !important; height: 46px !important; background: transparent !important; border: none !important; }
 .multiselect__tags {
-  width: 100% !important;
-  height: 46px !important;
+  width: 100% !important; height: 46px !important;
   padding: 0 40px 0 16px !important;
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
+  border: 1.5px solid #E2E8F0 !important; border-radius: 10px !important;
   background: #fff !important;
-  background-color: #fff !important;
-  display: flex !important;
-  align-items: center !important;
-  cursor: pointer !important;
-  box-sizing: border-box !important;
+  display: flex !important; align-items: center !important;
+  cursor: pointer !important; box-sizing: border-box !important;
   transition: border-color 0.2s ease !important;
-  position: relative !important;
 }
-
-.multiselect__placeholder {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  color: #94A3B8 !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  display: inline-block !important;
-  line-height: 1 !important;
-}
-
-.multiselect__single {
-  color: #0B1B36 !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  line-height: 1 !important;
-}
-
-/* L'input INTERNE de recherche a un style inline width:0 -> on le respecte
-   mais on neutralise toute bordure/background residuel. */
-.multiselect__input {
-  border: none !important;
-  outline: none !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  color: #0B1B36 !important;
-  padding: 0 !important;
-  margin: 0 !important;
+.multiselect__placeholder, .multiselect__single, .multiselect__input {
+  margin: 0 !important; padding: 0 !important;
+  border: none !important; background: transparent !important; box-shadow: none !important;
+  font-family: 'Poppins', sans-serif !important; font-size: 0.95rem !important;
   height: auto !important;
 }
+.multiselect__placeholder { color: #94A3B8 !important; }
+.multiselect__single { color: #0B1B36 !important; }
+.multiselect__input:focus { box-shadow: none !important; border: none !important; }
 
-.multiselect__input:focus {
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* Chevron : on cache l'ancien (border CSS triangle gris) et met un SVG orange.
-   Position absolue par rapport au .multiselect (parent positionne) -> ne prend
-   pas de place dans le flow, evite tout decalage/empilement. */
+/* Chevron orange */
 .multiselect__select {
-  position: absolute !important;
-  right: 0 !important;
-  top: 0 !important;
-  width: 40px !important;
-  height: 46px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  border-left: none !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: 18px !important;
-  pointer-events: none !important;
-  transform: none !important;
-  box-shadow: none !important;
-  z-index: 2 !important;
+  position: absolute !important; right: 0 !important; top: 0 !important;
+  width: 40px !important; height: 46px !important;
+  border: none !important; background: transparent !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important; background-position: center !important; background-size: 18px !important;
+  pointer-events: none !important; transform: none !important;
 }
+.multiselect__select::before, .multiselect__select::after { display: none !important; content: none !important; }
 
-.multiselect__select::after,
-.multiselect__select::before {
-  display: none !important;
-  content: none !important;
-  border: none !important;
-  background: transparent !important;
-}
-
-/* Liste des options : cachee par defaut, visible quand .multiselect--active */
+/* Liste options : cachee par defaut, visible si .multiselect--active */
 .multiselect__content-wrapper {
   display: none !important;
-  position: absolute !important;
-  top: 50px !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  background: #fff !important;
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
-  max-height: 240px !important;
-  overflow-y: auto !important;
-  z-index: 100 !important;
+  position: absolute !important; top: 50px !important; left: 0 !important; width: 100% !important;
+  border: 1.5px solid #E2E8F0 !important; border-radius: 10px !important;
+  background: #fff !important; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  max-height: 240px !important; overflow-y: auto !important; z-index: 100 !important;
 }
+.multiselect--active .multiselect__content-wrapper { display: block !important; }
+.multiselect__option { padding: 10px 16px !important; font-size: 0.95rem !important; cursor: pointer !important; color: #0B1B36 !important; }
+.multiselect__option:hover, .multiselect__option--highlight { background: #FFF4E6 !important; color: #F48716 !important; }
+.multiselect__option--selected { background: #FFE8CC !important; color: #F48716 !important; font-weight: 600 !important; }
 
-.multiselect--active .multiselect__content-wrapper,
-.multiselect.is-open .multiselect__content-wrapper {
-  display: block !important;
-}
-
-.multiselect__content {
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.multiselect__option,
-.multiselect__element {
-  padding: 10px 16px !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  color: #0B1B36 !important;
-  cursor: pointer !important;
-  background: #fff !important;
-}
-
-.multiselect__option:hover,
-.multiselect__option--highlight {
-  background: #FFF4E6 !important;
-  color: #F48716 !important;
-}
-
-.multiselect__option--selected {
-  background: #FFE8CC !important;
-  color: #F48716 !important;
-  font-weight: 600 !important;
-}
-
-
-/* === CHECKBOXES & RADIOS ================================== */
-input[type="checkbox"],
-input[type="radio"] {
+/* Checkboxes / radios */
+input[type="checkbox"], input[type="radio"] {
   accent-color: #F48716 !important;
-  width: 18px !important;
-  height: 18px !important;
-  cursor: pointer !important;
-  margin-right: 10px !important;
+  width: 18px !important; height: 18px !important;
+  margin-right: 10px !important; cursor: pointer !important;
 }
+.checkbox-container, .standard-radio-container { display: flex !important; align-items: center !important; gap: 8px !important; padding: 8px 0 !important; }
 
-.checkbox-container,
-.standard-radio-container,
-.terms-and-conditions {
-  display: flex !important;
-  align-items: center !important;
-  padding: 8px 0 !important;
-  gap: 8px !important;
-}
-
-.checkbox-container label,
-.standard-radio-container label,
-.terms-text-container p {
-  margin: 0 !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 0.9rem !important;
-  color: #0B1B36 !important;
-  line-height: 1.5 !important;
-  cursor: pointer !important;
-}
-
-
-/* === BOUTONS GHL =========================================== */
-/* DOM reel : <div role="button" class="ghl-btn ghl-footer-next" aria-label="NEXT"
-              style="background-color:#0000001A; border-radius:0 0 8px 0; height:48px;">
-                <span>NEXT</span><svg>...</svg>
-              </div>
-   !important obligatoire pour battre l'inline style. */
-
-.ghl-btn,
-.ghl-footer-next,
-.ghl-footer-submit {
+/* Boutons GHL : <div role="button" class="ghl-btn ghl-footer-next/back/submit"> */
+/* !important obligatoire pour battre l'inline style="background-color:#0000001A" */
+.ghl-btn, .ghl-footer-next, .ghl-footer-submit {
   background: linear-gradient(90deg, #F48716, #FE8800) !important;
-  background-color: #F48716 !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 50px !important;
-  height: 48px !important;
-  padding: 0 28px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
+  color: #fff !important; border: none !important; border-radius: 50px !important;
+  height: 48px !important; padding: 0 28px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important;
+  font-family: 'Poppins', sans-serif !important; font-size: 1rem !important; font-weight: 700 !important;
   cursor: pointer !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+  transition: all 0.2s ease !important;
 }
-
-.ghl-btn:hover,
-.ghl-footer-next:hover,
-.ghl-footer-submit:hover {
+.ghl-btn:hover, .ghl-footer-next:hover, .ghl-footer-submit:hover {
   background: linear-gradient(90deg, #E27900, #F48716) !important;
-  background-color: #E27900 !important;
   box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
   transform: translateY(-2px) !important;
 }
+.ghl-btn span, .ghl-btn svg { color: #fff !important; stroke: #fff !important; }
 
-/* Texte "NEXT" (span) et icone arrow (svg) -> blanc sur orange */
-.ghl-btn span,
-.ghl-footer-next span,
-.ghl-footer-submit span {
-  color: #fff !important;
-}
-
-.ghl-btn svg,
-.ghl-footer-next svg,
-.ghl-footer-submit svg {
-  stroke: #fff !important;
-  fill: none !important;
-}
-
-/* OVERRIDE : bouton Precedent (.ghl-footer-back) -> outline orange */
-.ghl-footer-back,
-.ghl-btn.ghl-footer-back {
-  background: transparent !important;
-  background-color: transparent !important;
-  color: #F48716 !important;
-  border: 1.5px solid #F48716 !important;
-  box-shadow: none !important;
-}
-
-.ghl-footer-back span {
-  color: #F48716 !important;
-}
-
-.ghl-footer-back svg {
-  stroke: #F48716 !important;
-}
-
-.ghl-footer-back:hover {
-  background: rgba(244, 135, 22, 0.08) !important;
-  background-color: rgba(244, 135, 22, 0.08) !important;
-  transform: translateY(-1px) !important;
-}
-
-
-/* === FOOTER GHL : layout des boutons ====================== */
-.ghl-footer {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  padding: 16px 0 0 !important;
-}
-
-.ghl-footer-buttons {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  gap: 12px !important;
-  width: 100% !important;
-}
-
+/* Bouton Precedent -> outline */
 .ghl-footer-back {
-  flex: 0 0 auto !important;
-  min-width: 110px !important;
+  background: transparent !important;
+  color: #F48716 !important; border: 1.5px solid #F48716 !important; box-shadow: none !important;
 }
+.ghl-footer-back span, .ghl-footer-back svg { color: #F48716 !important; stroke: #F48716 !important; }
+.ghl-footer-back:hover { background: rgba(244, 135, 22, 0.08) !important; }
 
-.ghl-footer-next,
-.ghl-footer-submit {
-  flex: 1 1 auto !important;
-}
+/* Footer layout */
+.ghl-footer { background: transparent !important; border: none !important; padding: 16px 0 0 !important; }
+.ghl-footer-buttons { display: flex !important; justify-content: space-between !important; gap: 12px !important; width: 100% !important; }
+.ghl-footer-back { flex: 0 0 auto !important; min-width: 110px !important; }
+.ghl-footer-next, .ghl-footer-submit { flex: 1 1 auto !important; }
 
-
-/* === ERREURS ============================================== */
-.error,
-.error-message,
-.field-error {
-  color: #e53e3e !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.8rem !important;
-  margin-top: 4px !important;
-}
-
-.form-control.has-error,
-input.has-error,
-.multiselect--error .multiselect__tags {
-  border-color: #e53e3e !important;
-}
+/* Erreurs */
+.error, .error-message { color: #e53e3e !important; font-size: 0.8rem !important; margin-top: 4px !important; }
+.has-error, .multiselect--error .multiselect__tags { border-color: #e53e3e !important; }

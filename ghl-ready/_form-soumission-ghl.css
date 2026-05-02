@@ -147,8 +147,8 @@ textarea:focus,
 }
 
 
-/* === MULTISELECT (champs "Nombre de bac(s) a nettoyer") === */
-/* L'input interne a un style inline width:0 / position:absolute -> on le laisse */
+/* === MULTISELECT (champs "Nombre de bac(s)" et "Code postal") === */
+/* Une seule bordure visible : sur .multiselect__tags. Tout le reste = transparent. */
 
 .multiselect {
   position: relative !important;
@@ -156,6 +156,25 @@ textarea:focus,
   height: 46px !important;
   font-family: 'Poppins', sans-serif !important;
   box-sizing: border-box !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: block !important;
+}
+
+/* Reset TOUS les enfants internes : pas de bordure, pas de background propre.
+   Empeche le double-rectangle orange (Vue scoped CSS GHL aurait pu en mettre). */
+.multiselect__single,
+.multiselect__strong,
+.multiselect__spinner,
+.multiselect__select-pointer,
+.multiselect > div:not(.multiselect__tags):not(.multiselect__select):not(.multiselect__content-wrapper) {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .multiselect__tags {
@@ -165,23 +184,59 @@ textarea:focus,
   border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
   background: #fff !important;
+  background-color: #fff !important;
   display: flex !important;
   align-items: center !important;
   cursor: pointer !important;
   box-sizing: border-box !important;
   transition: border-color 0.2s ease !important;
+  position: relative !important;
 }
 
 .multiselect__placeholder {
   margin: 0 !important;
   padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
   color: #94A3B8 !important;
   font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
   display: inline-block !important;
+  line-height: 1 !important;
 }
 
-/* Chevron : on cache l'ancien (border CSS triangle gris) et met un SVG orange */
+.multiselect__single {
+  color: #0B1B36 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1 !important;
+}
+
+/* L'input INTERNE de recherche a un style inline width:0 -> on le respecte
+   mais on neutralise toute bordure/background residuel. */
+.multiselect__input {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  color: #0B1B36 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: auto !important;
+}
+
+.multiselect__input:focus {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Chevron : on cache l'ancien (border CSS triangle gris) et met un SVG orange.
+   Position absolue par rapport au .multiselect (parent positionne) -> ne prend
+   pas de place dans le flow, evite tout decalage/empilement. */
 .multiselect__select {
   position: absolute !important;
   right: 0 !important;
@@ -189,19 +244,27 @@ textarea:focus,
   width: 40px !important;
   height: 46px !important;
   padding: 0 !important;
+  margin: 0 !important;
   border: none !important;
+  border-left: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: 18px !important;
   pointer-events: none !important;
   transform: none !important;
+  box-shadow: none !important;
+  z-index: 2 !important;
 }
 
 .multiselect__select::after,
 .multiselect__select::before {
   display: none !important;
   content: none !important;
+  border: none !important;
+  background: transparent !important;
 }
 
 /* Liste des options : cachee par defaut, visible quand .multiselect--active */

@@ -77,16 +77,29 @@ input:focus, .form-control:focus, textarea:focus, .multiselect--active .multisel
 .multiselect__single { color: #0B1B36 !important; }
 .multiselect__input:focus { box-shadow: none !important; border: none !important; }
 
-/* Chevron orange */
+/* Chevron orange (pur CSS, pas de SVG inline car GHL bloque les data URI) */
 .multiselect__select {
   position: absolute !important; right: 0 !important; top: 0 !important;
   width: 40px !important; height: 46px !important;
   border: none !important; background: transparent !important;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-  background-repeat: no-repeat !important; background-position: center !important; background-size: 18px !important;
-  pointer-events: none !important; transform: none !important;
+  pointer-events: none !important;
+  transform: none !important;
 }
-.multiselect__select::before, .multiselect__select::after { display: none !important; content: none !important; }
+.multiselect__select::before { display: none !important; content: none !important; }
+.multiselect__select::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 9px !important;
+  height: 9px !important;
+  border-right: 2.5px solid #F48716 !important;
+  border-bottom: 2.5px solid #F48716 !important;
+  border-top: none !important;
+  border-left: none !important;
+  transform: translate(-50%, -70%) rotate(45deg) !important;
+}
 
 /* Liste options : cachee par defaut, visible si .multiselect--active */
 .multiselect__content-wrapper {

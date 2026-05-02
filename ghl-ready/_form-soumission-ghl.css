@@ -6,15 +6,19 @@ label {
   color: #0B1B36 !important;
 }
 
-/* Bordure orange par defaut sur tous les inputs (uniforme avec la marque) */
+/* Bordure grise par defaut sur tous les inputs */
 input:not(.multiselect__input),
 input.form-control,
 input[data-required],
 input[data-required="true"],
 input[required],
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
 select, textarea, textarea.form-control {
-  border: 1.5px solid #F48716 !important;
-  border-color: #F48716 !important;
+  border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
   font-family: 'Poppins', sans-serif !important;
   color: #0B1B36 !important;
@@ -22,15 +26,38 @@ select, textarea, textarea.form-control {
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-/* Hover : halo subtil (bordure deja orange) */
-input:not(.multiselect__input):hover, select:hover, textarea:hover, .multiselect:hover .multiselect__tags {
-  border-color: #FE8800 !important;
-  box-shadow: 0 0 0 2px rgba(244, 135, 22, 0.1) !important;
+/* Hover : bordure orange + halo - selecteurs ultra-larges pour catcher les 4 premiers */
+input:not(.multiselect__input):hover,
+input.form-control:hover,
+input[data-required]:hover,
+input[data-required="true"]:hover,
+input[required]:hover,
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="tel"]:hover,
+select:hover,
+textarea:hover,
+.form-field-wrapper:hover input:not(.multiselect__input),
+.col-12:hover input:not(.multiselect__input),
+.flex-col:hover input:not(.multiselect__input),
+.multiselect:hover .multiselect__tags {
+  border-color: #F48716 !important;
+  box-shadow: 0 0 0 2px rgba(244, 135, 22, 0.15) !important;
 }
 
-/* Focus : halo plus prominent */
-input:not(.multiselect__input):focus, select:focus, textarea:focus, .multiselect--active .multiselect__tags {
-  border-color: #FE8800 !important;
+/* Focus : bordure orange + halo plus prominent */
+input:not(.multiselect__input):focus,
+input.form-control:focus,
+input[data-required]:focus,
+input[data-required="true"]:focus,
+input[required]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus,
+.multiselect--active .multiselect__tags {
+  border-color: #F48716 !important;
   box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.2) !important;
   outline: none !important;
 }
@@ -42,7 +69,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .multiselect__tags {
-  border: 1.5px solid #F48716 !important;
+  border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
   font-family: 'Poppins', sans-serif !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;

@@ -6,216 +6,60 @@
    Sites > Sondages > "Soumission" > Modifier
    > onglet Avance > section CSS PERSONNALISE
 
-   Ce CSS s'applique a l'INTERIEUR de l'iframe GHL (le HTML parent
-   ne peut pas y acceder car cross-origin). Il style les champs,
-   labels, checkboxes, radios, selects, bouton submit pour matcher
-   le look Poubelle Premium (Poppins + orange #F48716 + bouton pill).
+   IMPORTANT : ce CSS est injecte UNIQUEMENT dans l'iframe du sondage
+   GHL (cross-origin). Le HTML parent n'y a pas acces. On peut donc
+   cibler `button`, `input`, `select` directement sans risque de
+   bavure sur des elements exterieurs.
 
-   Sondage multi-step : ce CSS style aussi les boutons Suivant/Precedent,
-   la barre de progression et les indicateurs d'etape.
+   DESIGN SYSTEM Poubelle Premium :
+   - Orange primaire  : #F48716 (icones, borders focus)
+   - Orange CTA       : #FE8800 (gradient endpoint, boutons)
+   - Navy             : #0B1B36 (texte principal)
+   - Gris border      : #E2E8F0
+   - Gris placeholder : #94A3B8
+   - Gris secondaire  : #4A5568
+   - Font             : Poppins, sans-serif
+   - Border-radius    : 10px (inputs) / 50px (boutons pill)
+   - Hauteur inputs   : 46px stricte
    ============================================================ */
 
-/* Reset wrapper du form */
+
+/* ============================================================
+   1. RESET WRAPPER
+   ============================================================ */
 body,
 .ghl-form-wrap,
 .ghl-survey-form,
 .form-builder--wrap-questions {
   background: transparent !important;
   font-family: 'Poppins', sans-serif !important;
+  color: #0B1B36 !important;
   border: none !important;
   box-shadow: none !important;
   padding: 16px !important;
   margin: 0 !important;
 }
 
-/* Champs input texte / email / tel / number / textarea */
-.form-control,
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="url"],
-input[type="date"],
-textarea {
-  width: 100% !important;
-  padding: 12px 16px !important;
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  font-size: 0.95rem !important;
-  font-family: 'Poppins', sans-serif !important;
-  background: #fff !important;
-  color: #0B1B36 !important;
-  transition: all 0.25s ease !important;
-  box-sizing: border-box !important;
-}
 
-textarea {
-  min-height: 100px !important;
-  resize: vertical !important;
-}
-
-.form-control:focus,
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none !important;
-  border-color: #F48716 !important;
-  box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
-}
-
-/* Select / dropdown - hauteur forcee pour eviter bandeaux blancs */
-select,
-.ghl-select {
-  width: 100% !important;
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  padding: 0 44px 0 16px !important;
-  line-height: 46px !important;
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  font-size: 0.95rem !important;
-  font-family: 'Poppins', sans-serif !important;
-  background: #fff !important;
-  color: #0B1B36 !important;
-  transition: all 0.25s ease !important;
-  cursor: pointer !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  box-sizing: border-box !important;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-  background-repeat: no-repeat !important;
-  background-position: right 14px center !important;
-  background-size: 18px !important;
-}
-
-/* Catch-all : tout element ressemblant a un dropdown -> 46px fixe */
-[role="combobox"],
-[role="listbox"]:not(.multiselect__content),
-.dropdown,
-.dropdown-toggle,
-.field-input-container > div:not(label),
-.form-builder-field > select,
-.form-builder-field > .ghl-select,
-.form-field-wrapper > select,
-[class*="dropdown" i]:not([class*="content" i]):not([class*="menu" i]):not([class*="option" i]) {
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Multiselect (souvent utilise par GHL pour les selects custom) */
-/* Reset complet du wrapper pour eviter "bandeaux blancs" / hauteur excessive */
-.multiselect,
-.q-field,
-.q-field--outlined,
-.q-field__control,
-.q-field__inner,
-.q-field__native,
-.dropdown-wrapper,
-.dropdown-container {
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  font-family: 'Poppins', sans-serif !important;
-  box-sizing: border-box !important;
-}
-
-.multiselect__tags {
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  padding: 0 16px !important;
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  font-family: 'Poppins', sans-serif !important;
-  display: flex !important;
-  align-items: center !important;
-  background: #fff !important;
-  box-sizing: border-box !important;
-}
-
-.multiselect__single,
-.multiselect__input {
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 1.4 !important;
-  font-size: 0.95rem !important;
-  color: #0B1B36 !important;
-  background: transparent !important;
-  border: none !important;
-  min-height: auto !important;
-  height: auto !important;
-}
-
-.multiselect__select {
-  height: 100% !important;
-  top: 0 !important;
-}
-
-.multiselect__placeholder {
-  color: #94A3B8 !important;
-  font-size: 0.95rem !important;
-  font-family: 'Poppins', sans-serif !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.multiselect__content-wrapper {
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  margin-top: 4px !important;
-}
-
-.multiselect__option:hover,
-.multiselect__option--highlight {
-  background: #FFF4E6 !important;
-  color: #F48716 !important;
-}
-
-/* GHL utilise parfois Quasar/Vuetify pour les selects -> aplatit la hauteur */
-.q-field__control,
-.q-field__inner {
-  height: 46px !important;
-  min-height: 46px !important;
-  border-radius: 10px !important;
-}
-
-.q-field--outlined .q-field__control:before {
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-}
-
-/* Filet anti-"bandeau blanc" : si un wrapper interne a du padding orphelin */
-.field-input-container,
-.field-input-wrapper,
-.input-wrapper,
-.select-wrapper {
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
-}
-
-/* Labels au-dessus des champs */
+/* ============================================================
+   2. LABELS
+   ============================================================ */
 .field-label,
 label {
   display: block !important;
+  font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
   font-size: 0.9rem !important;
-  margin-bottom: 6px !important;
   color: #0B1B36 !important;
-  font-family: 'Poppins', sans-serif !important;
+  margin-bottom: 6px !important;
   letter-spacing: 0.2px !important;
 }
 
-/* Asterisque champ requis */
+/* Asterisque champ requis -> orange */
 .label-alignment span,
 .required-mark,
-.required-asterisk {
+.required-asterisk,
+label .required {
   color: #F48716 !important;
   font-weight: 700 !important;
 }
@@ -226,13 +70,224 @@ label {
   margin-bottom: 14px !important;
 }
 
-/* Checkboxes */
-input[type="checkbox"] {
+
+/* ============================================================
+   3. INPUTS TEXTE / EMAIL / TEL / NUMBER / DATE
+   ============================================================ */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="url"],
+input[type="date"],
+input[type="search"],
+.form-control {
+  width: 100% !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 0 16px !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #0B1B36 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 46px !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+textarea {
+  width: 100% !important;
+  min-height: 110px !important;
+  padding: 12px 16px !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #0B1B36 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  resize: vertical !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+/* Focus state -> border + halo orange */
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus,
+.multiselect--active .multiselect__tags {
+  outline: none !important;
+  border-color: #F48716 !important;
+  box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
+}
+
+::placeholder {
+  color: #94A3B8 !important;
+  opacity: 1 !important;
+}
+
+
+/* ============================================================
+   4. SELECT / DROPDOWN - HAUTEUR 46px STRICTE
+   Couvre <select> natif + .multiselect (vue-multiselect) +
+   .q-field (Quasar) + autres custom dropdowns GHL.
+   ============================================================ */
+
+/* Select natif */
+select,
+.ghl-select {
+  width: 100% !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 0 44px 0 16px !important;
+  line-height: 46px !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  background-color: #fff !important;
+  color: #0B1B36 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 18px !important;
+  transition: border-color 0.2s ease !important;
+}
+
+/* Vue-multiselect (utilise par GHL pour selects custom) */
+.multiselect,
+.multiselect__tags {
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  box-sizing: border-box !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.multiselect__tags {
+  width: 100% !important;
+  padding: 0 40px 0 16px !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.multiselect__single,
+.multiselect__input {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  color: #0B1B36 !important;
+  line-height: 1 !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+.multiselect__placeholder {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #94A3B8 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+}
+
+.multiselect__select {
+  height: 46px !important;
+  top: 0 !important;
+  right: 8px !important;
+}
+
+/* Dropdown ouvert (liste des options) */
+.multiselect__content-wrapper {
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  margin-top: 4px !important;
+  background: #fff !important;
+}
+
+.multiselect__option {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  color: #0B1B36 !important;
+  padding: 10px 16px !important;
+}
+
+.multiselect__option:hover,
+.multiselect__option--highlight {
+  background: #FFF4E6 !important;
+  color: #F48716 !important;
+}
+
+.multiselect__option--selected {
+  background: #FFE8CC !important;
+  color: #F48716 !important;
+  font-weight: 600 !important;
+}
+
+/* Quasar/Vuetify wrappers (au cas ou GHL change) */
+.q-field,
+.q-field--outlined,
+.q-field__control,
+.q-field__inner {
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  border-radius: 10px !important;
+  box-sizing: border-box !important;
+}
+
+.q-field--outlined .q-field__control:before {
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+}
+
+/* Catch-all dropdowns custom */
+[role="combobox"],
+.dropdown-toggle {
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Filet anti-padding orphelin */
+.field-input-container,
+.field-input-wrapper,
+.input-wrapper,
+.select-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+
+/* ============================================================
+   5. CHECKBOXES & RADIOS
+   ============================================================ */
+input[type="checkbox"],
+input[type="radio"] {
   accent-color: #F48716 !important;
   width: 18px !important;
   height: 18px !important;
   cursor: pointer !important;
-  margin-right: 8px !important;
+  margin-right: 10px !important;
   flex-shrink: 0 !important;
 }
 
@@ -247,23 +302,15 @@ input[type="checkbox"] {
 .checkbox-container label,
 .terms-and-conditions label,
 .terms-text-container p {
+  margin-bottom: 0 !important;
   font-weight: 500 !important;
   font-size: 0.875rem !important;
   color: #4A5568 !important;
-  margin-bottom: 0 !important;
   line-height: 1.5 !important;
 }
 
-/* Radio buttons */
-input[type="radio"] {
-  accent-color: #F48716 !important;
-  width: 18px !important;
-  height: 18px !important;
-  cursor: pointer !important;
-  margin-right: 10px !important;
-}
-
-.standard-radio-container {
+.standard-radio-container,
+.option-radio {
   display: flex !important;
   align-items: center !important;
   padding: 8px 0 !important;
@@ -271,35 +318,19 @@ input[type="radio"] {
 
 .standard-radio-container label,
 .option-radio label {
-  margin-left: 0 !important;
-  margin-bottom: 0 !important;
+  margin: 0 !important;
   cursor: pointer !important;
   font-weight: 500 !important;
   color: #0B1B36 !important;
 }
 
-/* Neutralise le footer GHL natif (on prend le controle visuel) */
-.ghl-footer {
-  background: transparent !important;
-  border: none !important;
-  height: auto !important;
-  display: block !important;
-}
-
-.ghl-footer-buttons {
-  height: auto !important;
-}
 
 /* ============================================================
-   BOUTONS - REGLE UNIQUE GLOBAL
-   Ce CSS est injecte UNIQUEMENT dans l'iframe du sondage GHL,
-   donc on peut cibler `button` directement sans risque de bavure
-   sur des boutons exterieurs au sondage.
-   - Defaut : orange CTA (couvre NEXT, Suivant, Submit, etc.)
-   - Override : outline orange pour Prev/Back (specifite plus haute)
+   6. BOUTONS - REGLE GLOBALE
+   Defaut : tout button = orange CTA.
+   Override : .ghl-btn-prev / .ghl-btn-back / [class*="prev"] = outline.
    ============================================================ */
 
-/* TOUS les boutons du sondage -> orange CTA par defaut */
 button,
 input[type="submit"],
 input[type="button"] {
@@ -314,7 +345,7 @@ input[type="button"] {
   font-weight: 700 !important;
   letter-spacing: 0.5px !important;
   cursor: pointer !important;
-  transition: all 0.3s ease !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
 }
 
@@ -331,6 +362,13 @@ button:active,
 input[type="submit"]:active,
 input[type="button"]:active {
   transform: translateY(0) !important;
+}
+
+button:disabled,
+input[type="submit"]:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
 }
 
 /* OVERRIDE : boutons Prev / Back / Precedent -> outline orange */
@@ -364,43 +402,51 @@ button[class*="back" i]:hover {
   transform: translateY(-1px) !important;
 }
 
-/* Messages d'erreur */
-.error,
-.error-message {
-  color: #e53e3e !important;
-  font-size: 0.8rem !important;
-  margin-top: 4px !important;
-  font-family: 'Poppins', sans-serif !important;
-}
-
-/* Placeholder texte */
-::placeholder {
-  color: #94A3B8 !important;
-  opacity: 1 !important;
-}
-
-/* Diviseur entre sections */
-.field-divider {
-  border-top: 1px solid #E2E8F0 !important;
-  margin: 16px 0 !important;
-}
-
-/* Message de succes apres submit */
-.form-success,
-.thank-you-message {
-  text-align: center !important;
-  padding: 24px !important;
-  color: #0B1B36 !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-}
 
 /* ============================================================
-   SPECIFIQUE SONDAGE MULTI-STEP
+   7. FOOTER GHL (zone des boutons Suivant/Precedent)
    ============================================================ */
+.ghl-footer {
+  background: transparent !important;
+  border: none !important;
+  height: auto !important;
+  padding: 16px 0 0 !important;
+  margin: 0 !important;
+}
 
-/* Barre de progression (si presente sur le sondage) */
+.ghl-footer-buttons {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+
+/* Prev/Back -> taille auto, ne prend pas toute la largeur */
+.ghl-btn-back,
+.ghl-btn-prev {
+  flex: 0 0 auto !important;
+  min-width: 100px !important;
+  width: auto !important;
+}
+
+/* Next/Submit -> remplit l'espace restant */
+.ghl-btn-next,
+.ghl-btn-submit {
+  flex: 1 1 auto !important;
+}
+
+/* Si seul Next present (etape 1) -> full width */
+.ghl-footer-buttons:has(.ghl-btn-next):not(:has(.ghl-btn-prev)) .ghl-btn-next {
+  width: 100% !important;
+}
+
+
+/* ============================================================
+   8. SONDAGE MULTI-STEP : barre de progression + indicateur
+   ============================================================ */
 .survey-progress,
 .progress-bar-wrapper,
 .ghl-progress {
@@ -420,7 +466,6 @@ button[class*="back" i]:hover {
   transition: width 0.4s ease !important;
 }
 
-/* Indicateur d'etape "Etape X de Y" */
 .survey-step-counter,
 .step-indicator,
 .ghl-step-counter,
@@ -435,7 +480,7 @@ button[class*="back" i]:hover {
   text-transform: uppercase !important;
 }
 
-/* Wrapper d'une page de sondage : transition fluide */
+/* Animation d'apparition d'une page de sondage */
 .ghl-page-current,
 .survey-page-active,
 .survey-page {
@@ -453,29 +498,37 @@ button[class*="back" i]:hover {
   }
 }
 
-/* Layout 2 boutons (Precedent / Suivant) cote a cote */
-.ghl-footer-buttons {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  gap: 12px !important;
-  width: 100% !important;
-  padding: 16px 0 !important;
+
+/* ============================================================
+   9. ERREURS, DIVIDERS, MESSAGE SUCCES
+   ============================================================ */
+.error,
+.error-message,
+.field-error {
+  color: #e53e3e !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.8rem !important;
+  margin-top: 4px !important;
 }
 
-.ghl-btn-back,
-.ghl-btn-prev {
-  flex: 0 0 auto !important;
-  min-width: 100px !important;
-  width: auto !important;
+input.has-error,
+input.error,
+select.has-error,
+.multiselect--error .multiselect__tags {
+  border-color: #e53e3e !important;
 }
 
-.ghl-btn-next,
-.ghl-btn-submit {
-  flex: 1 1 auto !important;
+.field-divider {
+  border-top: 1px solid #E2E8F0 !important;
+  margin: 16px 0 !important;
 }
 
-/* Si seul le bouton Suivant est present (etape 1) -> full width */
-.ghl-footer-buttons:has(.ghl-btn-next):not(:has(.ghl-btn-prev)) .ghl-btn-next {
-  width: 100% !important;
+.form-success,
+.thank-you-message {
+  text-align: center !important;
+  padding: 24px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: #0B1B36 !important;
 }

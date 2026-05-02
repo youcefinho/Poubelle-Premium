@@ -86,18 +86,55 @@ select,
 }
 
 /* Multiselect (souvent utilise par GHL pour les selects custom) */
+/* Reset complet du wrapper pour eviter "bandeaux blancs" / hauteur excessive */
+.multiselect,
+.q-field,
+.q-field--outlined,
+.q-field__control,
+.q-field__inner,
+.q-field__native,
+.dropdown-wrapper,
+.dropdown-container {
+  min-height: 46px !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
 .multiselect__tags {
   border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
   padding: 12px 16px !important;
   min-height: 46px !important;
+  max-height: 50px !important;
   font-family: 'Poppins', sans-serif !important;
+  display: flex !important;
+  align-items: center !important;
+  background: #fff !important;
+}
+
+.multiselect__single,
+.multiselect__input {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+  font-size: 0.95rem !important;
+  color: #0B1B36 !important;
+  background: transparent !important;
+  border: none !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+.multiselect__select {
+  height: 100% !important;
+  top: 0 !important;
 }
 
 .multiselect__placeholder {
   color: #94A3B8 !important;
   font-size: 0.95rem !important;
   font-family: 'Poppins', sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .multiselect__content-wrapper {
@@ -110,6 +147,29 @@ select,
 .multiselect__option--highlight {
   background: #FFF4E6 !important;
   color: #F48716 !important;
+}
+
+/* GHL utilise parfois Quasar/Vuetify pour les selects -> aplatit la hauteur */
+.q-field__control,
+.q-field__inner {
+  height: 46px !important;
+  min-height: 46px !important;
+  border-radius: 10px !important;
+}
+
+.q-field--outlined .q-field__control:before {
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+}
+
+/* Filet anti-"bandeau blanc" : si un wrapper interne a du padding orphelin */
+.field-input-container,
+.field-input-wrapper,
+.input-wrapper,
+.select-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
 }
 
 /* Labels au-dessus des champs */
@@ -241,28 +301,71 @@ button[type="submit"]:active,
 }
 
 /* Boutons "Suivant/Precedent" si jamais le form repasse en multi-step */
+/* Sélecteurs élargis pour couvrir toutes les variantes GHL (next/prev/submit/back) */
 .ghl-btn-next,
 .ghl-btn-prev,
-.ghl-btn-back {
+.ghl-btn-back,
+.ghl-survey-next,
+.ghl-survey-prev,
+.btn-next,
+.btn-prev,
+.btn-back,
+button[data-action="next"],
+button[data-action="prev"],
+button[data-action="back"],
+button[data-action="submit"] {
   border-radius: 50px !important;
   padding: 12px 24px !important;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 700 !important;
+  font-size: 1rem !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
+  letter-spacing: 0.5px !important;
 }
 
-.ghl-btn-next {
-  background: #F48716 !important;
+/* Bouton Next/Suivant -> orange CTA */
+.ghl-btn-next,
+.ghl-survey-next,
+.btn-next,
+button[data-action="next"],
+.ghl-footer-buttons button:last-child:not(.ghl-btn-prev):not(.ghl-btn-back):not(.btn-prev):not(.btn-back) {
+  background: linear-gradient(90deg, #F48716, #FE8800) !important;
+  background-color: #F48716 !important;
   color: #fff !important;
   border: none !important;
+  box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
 }
 
+.ghl-btn-next:hover,
+.ghl-survey-next:hover,
+.btn-next:hover,
+button[data-action="next"]:hover {
+  background: linear-gradient(90deg, #E27900, #F48716) !important;
+  box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Bouton Précédent/Back -> outline orange */
 .ghl-btn-prev,
-.ghl-btn-back {
+.ghl-btn-back,
+.ghl-survey-prev,
+.btn-prev,
+.btn-back,
+button[data-action="prev"],
+button[data-action="back"] {
   background: transparent !important;
+  background-color: transparent !important;
   color: #F48716 !important;
   border: 1.5px solid #F48716 !important;
+  box-shadow: none !important;
+}
+
+.ghl-btn-prev:hover,
+.ghl-btn-back:hover,
+button[data-action="prev"]:hover,
+button[data-action="back"]:hover {
+  background: rgba(244, 135, 22, 0.08) !important;
 }
 
 /* Messages d'erreur */

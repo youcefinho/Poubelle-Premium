@@ -21,12 +21,19 @@ label, .field-label {
 }
 .label-alignment span, .field-label span { color: #F48716 !important; font-weight: 700 !important; }
 
-/* Espacement entre champs */
-.form-field-wrapper, .col-12 { margin-bottom: 18px !important; }
+/* Espacement entre champs + force largeur 100% sur tous les wrappers */
+.form-field-wrapper, .col-12 { margin-bottom: 18px !important; width: 100% !important; }
+.flex-col, .field-input-container, .input-wrapper {
+  width: 100% !important;
+  display: block !important;
+  flex: 1 1 100% !important;
+}
 
 /* Inputs + textarea : 46px hauteur + bordure grise par defaut */
 input, .form-control, textarea {
   width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 100% !important;
   height: 46px !important;
   padding: 0 16px !important;
   border: 1.5px solid #E2E8F0 !important;

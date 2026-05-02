@@ -115,26 +115,26 @@ textarea {
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-/* HOVER inputs -> bordure orange */
-.form-control:not(textarea):not(select):hover,
-input[type="text"]:hover,
-input[type="email"]:hover,
-input[type="tel"]:hover,
-input[type="number"]:hover,
-input[type="date"]:hover,
+/* HOVER inputs -> bordure orange (regle large : tout input + .form-control) */
+input:hover,
+input.form-control:hover,
+.form-control:hover,
 textarea:hover,
-.multiselect:hover .multiselect__tags {
+textarea.form-control:hover,
+.multiselect:hover .multiselect__tags,
+.multiselect__tags:hover {
   border-color: #F48716 !important;
 }
 
-/* FOCUS inputs -> bordure orange + halo */
-.form-control:not(textarea):not(select):focus,
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
+/* FOCUS inputs -> bordure orange + halo (regle large) */
+input:focus,
+input:focus-visible,
+input.form-control:focus,
+input.form-control:focus-visible,
+.form-control:focus,
+.form-control:focus-visible,
 textarea:focus,
+textarea:focus-visible,
 .multiselect--active .multiselect__tags {
   outline: none !important;
   border-color: #F48716 !important;

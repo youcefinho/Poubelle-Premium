@@ -126,8 +126,14 @@
     }
     // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
     // ppRegFired declare plus haut (Plan B le set a true s'il fire en premier).
+    // Origin check : on accepte uniquement les messages de domaines GHL connus pour eviter le spoofing.
+    function isTrustedGhlOrigin(origin) {
+      try {
+        return origin && /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
+      } catch (e) { return false; }
+    }
     window.addEventListener('message', function (e) {
-      if (!e.data || ppRegFired || typeof fbq !== 'function') return;
+      if (!e.data || ppRegFired || typeof fbq !== 'function' || !isTrustedGhlOrigin(e.origin)) return;
       var d = e.data;
       var t = '';
       if (typeof d === 'object' && d) {

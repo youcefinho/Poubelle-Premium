@@ -88,11 +88,14 @@
 
     // Auto-scroll en haut du sondage Soumission au changement d'etape
     // (demande cliente : chaque "Suivant" doit ramener la vue en haut du form)
-    var SURVEY_ID = 'VvEwIFqbMCj3t1kUnB6g';
+    // On cherche l'iframe par pattern src (pas d'ID hardcode -> resilient si GHL change l'ID)
+    function findSurveyIframe() {
+      return document.querySelector('iframe[src*="leadconnectorhq.com/widget/survey/"]');
+    }
     var lastIframeHeight = 0;
     var scrollTimer = null;
     function scrollToSurvey() {
-      var iframe = document.getElementById(SURVEY_ID);
+      var iframe = findSurveyIframe();
       if (!iframe) return;
       var headerH = (document.querySelector('.header-nav') || document.querySelector('#pp-mobile-header') || {}).offsetHeight || 80;
       var rect = iframe.getBoundingClientRect();
@@ -104,8 +107,12 @@
       scrollTimer = setTimeout(scrollToSurvey, 150);
     }
     // Detection 1 : message GHL form_embed.js (pageChange / nextPage / etc.)
+    // Origin check : on accepte uniquement les messages de domaines GHL connus pour eviter le spoofing.
+    function isTrustedGhlOrigin(origin) {
+      return origin && /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
+    }
     window.addEventListener('message', function (e) {
-      if (!e.data) return;
+      if (!e.data || !isTrustedGhlOrigin(e.origin)) return;
       var d = e.data;
       var isPageChange = false;
       if (typeof d === 'object') {
@@ -124,7 +131,7 @@
     });
     // Detection 2 (fallback) : MutationObserver sur la hauteur de l'iframe
     setTimeout(function () {
-      var iframe = document.getElementById(SURVEY_ID);
+      var iframe = findSurveyIframe();
       if (!iframe || typeof MutationObserver === 'undefined') return;
       var obs = new MutationObserver(function (mutations) {
         for (var i = 0; i < mutations.length; i++) {
@@ -188,8 +195,9 @@
     }
     // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
     // ppLeadFired declare plus haut (Plan B le set a true s'il fire en premier).
+    // Origin check pour eviter qu'un domaine externe puisse fake un Lead via postMessage.
     window.addEventListener('message', function (e) {
-      if (!e.data || ppLeadFired || typeof fbq !== 'function') return;
+      if (!e.data || ppLeadFired || typeof fbq !== 'function' || !isTrustedGhlOrigin(e.origin)) return;
       var d = e.data;
       var t = '';
       if (typeof d === 'object' && d) {

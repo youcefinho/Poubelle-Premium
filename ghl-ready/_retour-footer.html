@@ -158,3 +158,315 @@
     });
   })();
 </script>
+
+
+<!-- ===== Loi 25 Banner Consent (auto-injecte CSS + DOM + handlers) ===== -->
+<script>
+(function () {
+  'use strict';
+
+  if (window._ppConsentBannerInit) return; // dedupe (au cas ou collé 2x)
+  window._ppConsentBannerInit = true;
+
+  var STORAGE_KEY = 'pp_consent_v1';
+  var STORAGE_DATE_KEY = 'pp_consent_date_v1';
+  var CONSENT_TTL_MS = 12 * 30 * 24 * 60 * 60 * 1000; // 12 mois
+
+  function readConsent() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      var date = parseInt(localStorage.getItem(STORAGE_DATE_KEY) || '0', 10);
+      if (!raw || !date) return null;
+      if (Date.now() - date > CONSENT_TTL_MS) {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_DATE_KEY);
+        return null;
+      }
+      var parsed = JSON.parse(raw);
+      if (typeof parsed !== 'object' || !parsed) return null;
+      return { analytics: !!parsed.analytics, marketing: !!parsed.marketing };
+    } catch (e) { return null; }
+  }
+
+  function writeConsent(consent) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+      localStorage.setItem(STORAGE_DATE_KEY, String(Date.now()));
+    } catch (e) {}
+  }
+
+  function clearConsent() {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(STORAGE_DATE_KEY);
+    } catch (e) {}
+  }
+
+  function applyConsent(consent) {
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        'ad_storage': consent.marketing ? 'granted' : 'denied',
+        'ad_user_data': consent.marketing ? 'granted' : 'denied',
+        'ad_personalization': consent.marketing ? 'granted' : 'denied',
+        'analytics_storage': consent.analytics ? 'granted' : 'denied'
+      });
+    }
+    if (consent.marketing && typeof window.ppLoadMetaPixel === 'function') {
+      try { window.ppLoadMetaPixel(); } catch (e) {}
+    }
+    try {
+      document.dispatchEvent(new CustomEvent('pp:consent-changed', { detail: consent }));
+      if (consent.analytics) document.dispatchEvent(new CustomEvent('pp:consent-analytics-granted'));
+      if (consent.marketing) document.dispatchEvent(new CustomEvent('pp:consent-marketing-granted'));
+    } catch (e) {}
+  }
+
+  function getLang() {
+    try {
+      var saved = localStorage.getItem('pp_lang');
+      if (saved === 'en') return 'en';
+    } catch (e) {}
+    var html = (document.documentElement.lang || '').toLowerCase();
+    if (html.indexOf('en') === 0) return 'en';
+    return 'fr';
+  }
+
+  var TXT = {
+    fr: {
+      title: 'Cookies et vie privee',
+      body: 'Nous utilisons des temoins (cookies) pour ameliorer votre experience et mesurer l\'efficacite de nos publicites. Conformement a la Loi 25 du Quebec, vous pouvez accepter, refuser ou personnaliser vos choix.',
+      learn: 'En savoir plus', learnUrl: '/confidentialite',
+      acceptAll: 'Tout accepter', rejectAll: 'Tout refuser', customize: 'Personnaliser',
+      save: 'Enregistrer mes choix', back: 'Retour',
+      catAnalytics: 'Mesure d\'audience',
+      catAnalyticsDesc: 'Statistiques anonymes de visite. Nous aide a ameliorer le site.',
+      catMarketing: 'Marketing et publicite',
+      catMarketingDesc: 'Mesure l\'efficacite de nos publicites Facebook et Instagram (Meta Pixel).',
+      catEssential: 'Essentiels',
+      catEssentialDesc: 'Necessaires au fonctionnement du site (langue, etc.). Toujours actifs.',
+      manage: 'Gerer mes cookies'
+    },
+    en: {
+      title: 'Cookies and privacy',
+      body: 'We use cookies to improve your experience and measure ad performance. Under Quebec\'s Law 25, you can accept, refuse, or customize your choices.',
+      learn: 'Learn more', learnUrl: '/confidentialite',
+      acceptAll: 'Accept all', rejectAll: 'Reject all', customize: 'Customize',
+      save: 'Save my choices', back: 'Back',
+      catAnalytics: 'Audience measurement',
+      catAnalyticsDesc: 'Anonymous visit statistics. Helps us improve the site.',
+      catMarketing: 'Marketing and advertising',
+      catMarketingDesc: 'Measures performance of our Facebook and Instagram ads (Meta Pixel).',
+      catEssential: 'Essential',
+      catEssentialDesc: 'Required for the site to function (language, etc.). Always active.',
+      manage: 'Manage cookies'
+    }
+  };
+
+  var CSS = [
+    '.pp-consent-overlay{position:fixed;inset:0;background:rgba(11,27,54,.5);z-index:99998;display:none}',
+    '.pp-consent-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:99999;background:#fff;color:#0B1B36;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);font-family:Poppins,system-ui,sans-serif;line-height:1.5;display:none;overflow:hidden;border:1px solid #EEE;font-size:14px}',
+    '@media(min-width:768px){.pp-consent-banner{left:auto;right:24px;bottom:24px;max-width:460px}}',
+    '.pp-consent-banner.is-open{display:block;animation:ppConsentIn .25s ease-out}',
+    '@keyframes ppConsentIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}',
+    '.pp-consent-banner__inner{padding:20px 22px}',
+    '.pp-consent-banner__title{font-size:1.05rem;font-weight:700;margin:0 0 6px;color:#0B1B36;font-family:Poppins,system-ui,sans-serif}',
+    '.pp-consent-banner__body{font-size:.9rem;color:#3a4a66;margin:0 0 12px}',
+    '.pp-consent-banner__body a{color:#F48716;text-decoration:underline;font-weight:600}',
+    '.pp-consent-banner__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}',
+    '.pp-consent-banner__btn{font-family:inherit;font-size:.875rem;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease;flex:1 1 auto;min-width:120px;text-align:center;line-height:1.2}',
+    '.pp-consent-banner__btn--primary{background:#F48716;color:#fff;border-color:#F48716}',
+    '.pp-consent-banner__btn--primary:hover{background:#e07c0d;border-color:#e07c0d;transform:translateY(-1px)}',
+    '.pp-consent-banner__btn--ghost{background:#fff;color:#0B1B36;border-color:#cbd5e0}',
+    '.pp-consent-banner__btn--ghost:hover{background:#f5f5f5;border-color:#0B1B36}',
+    '.pp-consent-banner__cats{margin:14px 0 0;display:none;border-top:1px solid #eee;padding-top:14px}',
+    '.pp-consent-banner.is-customize .pp-consent-banner__cats{display:block}',
+    '.pp-consent-banner.is-customize .pp-consent-banner__quick{display:none}',
+    '.pp-consent-cat{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid #f1f1f1}',
+    '.pp-consent-cat:last-child{border-bottom:none}',
+    '.pp-consent-cat__text{flex:1;min-width:0}',
+    '.pp-consent-cat__name{font-weight:600;font-size:.92rem;color:#0B1B36;margin:0 0 2px}',
+    '.pp-consent-cat__desc{font-size:.78rem;color:#5a6b85;margin:0}',
+    '.pp-consent-cat__toggle{position:relative;width:42px;height:24px;flex:0 0 42px;border-radius:24px;background:#cbd5e0;cursor:pointer;transition:background .2s ease;border:none;padding:0}',
+    '.pp-consent-cat__toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s ease;box-shadow:0 1px 3px rgba(0,0,0,.18)}',
+    '.pp-consent-cat__toggle.is-on{background:#F48716}',
+    '.pp-consent-cat__toggle.is-on::after{left:21px}',
+    '.pp-consent-cat__toggle.is-disabled{background:#9ae6b4;cursor:not-allowed;opacity:.7}',
+    '.pp-consent-cat__toggle.is-disabled::after{left:21px}',
+    '.pp-consent-trigger{position:fixed;left:14px;bottom:14px;z-index:99997;width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #cbd5e0;cursor:pointer;font-size:18px;color:#0B1B36;box-shadow:0 4px 14px rgba(0,0,0,.12);display:none;align-items:center;justify-content:center;padding:0;line-height:1}',
+    '.pp-consent-trigger.is-visible{display:flex}',
+    '.pp-consent-trigger:hover{background:#F48716;color:#fff;border-color:#F48716}',
+    '@media (prefers-reduced-motion: reduce){.pp-consent-banner.is-open{animation:none}.pp-consent-cat__toggle::after,.pp-consent-cat__toggle{transition:none}}'
+  ].join('');
+
+  function injectCss() {
+    if (document.getElementById('pp-consent-css')) return;
+    var s = document.createElement('style');
+    s.id = 'pp-consent-css';
+    s.textContent = CSS;
+    (document.head || document.documentElement).appendChild(s);
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function renderCat(key, name, desc, on, disabled) {
+    return '<div class="pp-consent-cat"><div class="pp-consent-cat__text">' +
+      '<p class="pp-consent-cat__name">' + escapeHtml(name) + '</p>' +
+      '<p class="pp-consent-cat__desc">' + escapeHtml(desc) + '</p></div>' +
+      '<button type="button" role="switch" aria-checked="' + (on ? 'true' : 'false') + '" ' +
+      'aria-label="' + escapeHtml(name) + '" ' +
+      'class="pp-consent-cat__toggle' + (on ? ' is-on' : '') + (disabled ? ' is-disabled' : '') + '" ' +
+      'data-pp-cat="' + escapeHtml(key) + '"' + (disabled ? ' aria-disabled="true"' : '') + '></button></div>';
+  }
+
+  function buildBanner() {
+    var t = TXT[getLang()];
+
+    var overlay = document.createElement('div');
+    overlay.className = 'pp-consent-overlay';
+    overlay.id = 'pp-consent-overlay';
+
+    var banner = document.createElement('div');
+    banner.className = 'pp-consent-banner';
+    banner.id = 'pp-consent-banner';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-labelledby', 'pp-consent-title');
+    banner.setAttribute('aria-describedby', 'pp-consent-body');
+
+    banner.innerHTML =
+      '<div class="pp-consent-banner__inner">' +
+        '<h2 class="pp-consent-banner__title" id="pp-consent-title">' + escapeHtml(t.title) + '</h2>' +
+        '<p class="pp-consent-banner__body" id="pp-consent-body">' + escapeHtml(t.body) +
+          ' <a href="' + escapeHtml(t.learnUrl) + '" rel="noopener">' + escapeHtml(t.learn) + '</a></p>' +
+        '<div class="pp-consent-banner__quick">' +
+          '<div class="pp-consent-banner__actions">' +
+            '<button type="button" class="pp-consent-banner__btn pp-consent-banner__btn--ghost" data-pp-consent="reject">' + escapeHtml(t.rejectAll) + '</button>' +
+            '<button type="button" class="pp-consent-banner__btn pp-consent-banner__btn--ghost" data-pp-consent="customize">' + escapeHtml(t.customize) + '</button>' +
+            '<button type="button" class="pp-consent-banner__btn pp-consent-banner__btn--primary" data-pp-consent="accept">' + escapeHtml(t.acceptAll) + '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pp-consent-banner__cats">' +
+          renderCat('essential', t.catEssential, t.catEssentialDesc, true, true) +
+          renderCat('analytics', t.catAnalytics, t.catAnalyticsDesc, false, false) +
+          renderCat('marketing', t.catMarketing, t.catMarketingDesc, false, false) +
+          '<div class="pp-consent-banner__actions" style="margin-top:14px">' +
+            '<button type="button" class="pp-consent-banner__btn pp-consent-banner__btn--ghost" data-pp-consent="back">' + escapeHtml(t.back) + '</button>' +
+            '<button type="button" class="pp-consent-banner__btn pp-consent-banner__btn--primary" data-pp-consent="save">' + escapeHtml(t.save) + '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+    document.body.appendChild(banner);
+
+    var trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'pp-consent-trigger';
+    trigger.id = 'pp-consent-trigger';
+    trigger.setAttribute('aria-label', t.manage);
+    trigger.title = t.manage;
+    trigger.innerHTML = '\u{1F36A}';
+    document.body.appendChild(trigger);
+
+    bindEvents(banner, trigger);
+  }
+
+  function bindEvents(banner, trigger) {
+    banner.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('[data-pp-consent]');
+      if (btn) { handleAction(btn.getAttribute('data-pp-consent')); return; }
+      var toggle = e.target.closest && e.target.closest('[data-pp-cat]');
+      if (toggle && !toggle.classList.contains('is-disabled')) {
+        var on = toggle.classList.toggle('is-on');
+        toggle.setAttribute('aria-checked', on ? 'true' : 'false');
+      }
+    });
+
+    trigger.addEventListener('click', function () { window.ppConsent.open(); });
+
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest && e.target.closest('a[href="#pp-consent-open"], .pp-consent-open, [data-pp-open-consent]');
+      if (a) { e.preventDefault(); window.ppConsent.open(); }
+    });
+  }
+
+  function handleAction(action) {
+    var banner = document.getElementById('pp-consent-banner');
+    if (!banner) return;
+    if (action === 'accept') { saveAndClose({ analytics: true, marketing: true }); }
+    else if (action === 'reject') { saveAndClose({ analytics: false, marketing: false }); }
+    else if (action === 'customize') { banner.classList.add('is-customize'); }
+    else if (action === 'back') { banner.classList.remove('is-customize'); }
+    else if (action === 'save') {
+      var aT = banner.querySelector('[data-pp-cat="analytics"]');
+      var mT = banner.querySelector('[data-pp-cat="marketing"]');
+      saveAndClose({
+        analytics: aT && aT.classList.contains('is-on'),
+        marketing: mT && mT.classList.contains('is-on')
+      });
+    }
+  }
+
+  function saveAndClose(consent) {
+    writeConsent(consent);
+    applyConsent(consent);
+    hideBanner();
+    showTrigger();
+  }
+
+  function showBanner(prefill) {
+    var banner = document.getElementById('pp-consent-banner');
+    if (!banner) return;
+    if (prefill) {
+      var aT = banner.querySelector('[data-pp-cat="analytics"]');
+      var mT = banner.querySelector('[data-pp-cat="marketing"]');
+      if (aT) {
+        aT.classList.toggle('is-on', !!prefill.analytics);
+        aT.setAttribute('aria-checked', prefill.analytics ? 'true' : 'false');
+      }
+      if (mT) {
+        mT.classList.toggle('is-on', !!prefill.marketing);
+        mT.setAttribute('aria-checked', prefill.marketing ? 'true' : 'false');
+      }
+    }
+    banner.classList.add('is-open');
+  }
+
+  function hideBanner() {
+    var banner = document.getElementById('pp-consent-banner');
+    if (banner) {
+      banner.classList.remove('is-open');
+      banner.classList.remove('is-customize');
+    }
+  }
+
+  function showTrigger() {
+    var t = document.getElementById('pp-consent-trigger');
+    if (t) t.classList.add('is-visible');
+  }
+
+  window.ppConsent = {
+    get: function () { return readConsent(); },
+    has: function (cat) { var c = readConsent(); return !!(c && c[cat]); },
+    open: function () { var c = readConsent() || { analytics: false, marketing: false }; showBanner(c); },
+    reset: function () { clearConsent(); showBanner({ analytics: false, marketing: false }); }
+  };
+
+  function boot() {
+    injectCss();
+    buildBanner();
+    var saved = readConsent();
+    if (saved) { applyConsent(saved); showTrigger(); }
+    else { showBanner(); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>

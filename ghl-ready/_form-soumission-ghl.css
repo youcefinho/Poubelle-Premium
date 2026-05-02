@@ -1,160 +1,76 @@
-/* CSS Sondage GHL "Soumission" - Coller dans Sondages > Soumission > Avance > CSS personnalise */
-/* Couleurs : #F48716 orange / #FE8800 CTA / #0B1B36 navy / #E2E8F0 border */
+/* CSS generique Poubelle Premium - applique sur tout element HTML basique
+   Fonctionne quels que soient les classes GHL */
 
-/* Wrapper */
-.ghl-form-wrap, .ghl-survey-form, .form-builder--wrap-questions {
-  background: transparent !important;
-  font-family: 'Poppins', sans-serif !important;
-  color: #0B1B36 !important;
-  border: none !important;
-  box-shadow: none !important;
-}
+* { font-family: 'Poppins', sans-serif !important; box-sizing: border-box !important; }
 
-/* Labels + asterisque obligatoire */
-label, .field-label {
-  font-family: 'Poppins', sans-serif !important;
+label {
+  display: block !important;
   font-weight: 600 !important;
   font-size: 0.9rem !important;
   color: #0B1B36 !important;
   margin-bottom: 6px !important;
-  display: block !important;
-}
-.label-alignment span, .field-label span { color: #F48716 !important; font-weight: 700 !important; }
-
-/* Espacement entre champs + force largeur 100% sur tous les wrappers */
-.form-field-wrapper, .col-12 { margin-bottom: 18px !important; width: 100% !important; }
-.flex-col, .field-input-container, .input-wrapper {
-  width: 100% !important;
-  display: block !important;
-  flex: 1 1 100% !important;
 }
 
-/* Inputs + textarea : 46px hauteur + bordure grise par defaut */
-input, .form-control, textarea {
+input, select, textarea {
   width: 100% !important;
-  max-width: 100% !important;
-  flex: 1 1 100% !important;
   height: 46px !important;
   padding: 0 16px !important;
   border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
   background: #fff !important;
   color: #0B1B36 !important;
-  font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
-  box-sizing: border-box !important;
+  outline: none !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
-textarea { height: auto !important; min-height: 110px !important; padding: 12px 16px !important; resize: vertical !important; }
 
-/* Hover + Focus -> bordure orange */
-input:hover, .form-control:hover, textarea:hover, .multiselect:hover .multiselect__tags { border-color: #F48716 !important; }
-input:focus, .form-control:focus, textarea:focus, .multiselect--active .multiselect__tags {
-  outline: none !important;
+textarea {
+  height: auto !important;
+  min-height: 110px !important;
+  padding: 12px 16px !important;
+  resize: vertical !important;
+}
+
+input:hover, select:hover, textarea:hover {
+  border-color: #F48716 !important;
+}
+
+input:focus, select:focus, textarea:focus {
   border-color: #F48716 !important;
   box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
 }
+
 ::placeholder { color: #94A3B8 !important; opacity: 1 !important; }
 
-/* Multiselect (champs "Nombre de bac(s)" / "Code postal") */
-.multiselect { position: relative !important; height: 46px !important; background: transparent !important; border: none !important; }
-.multiselect__tags {
-  width: 100% !important; height: 46px !important;
-  padding: 0 40px 0 16px !important;
-  border: 1.5px solid #E2E8F0 !important; border-radius: 10px !important;
-  background: #fff !important;
-  display: flex !important; align-items: center !important;
-  cursor: pointer !important; box-sizing: border-box !important;
-  transition: border-color 0.2s ease !important;
-}
-.multiselect__placeholder, .multiselect__single, .multiselect__input {
-  margin: 0 !important; padding: 0 !important;
-  border: none !important; background: transparent !important; box-shadow: none !important;
-  font-family: 'Poppins', sans-serif !important; font-size: 0.95rem !important;
-  height: auto !important;
-}
-.multiselect__placeholder { color: #94A3B8 !important; }
-.multiselect__single { color: #0B1B36 !important; }
-.multiselect__input:focus { box-shadow: none !important; border: none !important; }
-
-/* Chevron orange (pur CSS, pas de SVG inline car GHL bloque les data URI) */
-.multiselect__select {
-  position: absolute !important; right: 0 !important; top: 0 !important;
-  width: 40px !important; height: 46px !important;
-  border: none !important; background: transparent !important;
-  pointer-events: none !important;
-  transform: none !important;
-}
-.multiselect__select::before { display: none !important; content: none !important; }
-.multiselect__select::after {
-  content: '' !important;
-  display: block !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 9px !important;
-  height: 9px !important;
-  border-right: 2.5px solid #F48716 !important;
-  border-bottom: 2.5px solid #F48716 !important;
-  border-top: none !important;
-  border-left: none !important;
-  transform: translate(-50%, -70%) rotate(45deg) !important;
-}
-
-/* Liste options : cachee par defaut, visible si .multiselect--active */
-.multiselect__content-wrapper {
-  display: none !important;
-  position: absolute !important; top: 50px !important; left: 0 !important; width: 100% !important;
-  border: 1.5px solid #E2E8F0 !important; border-radius: 10px !important;
-  background: #fff !important; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
-  max-height: 240px !important; overflow-y: auto !important; z-index: 100 !important;
-}
-.multiselect--active .multiselect__content-wrapper { display: block !important; }
-.multiselect__option { padding: 10px 16px !important; font-size: 0.95rem !important; cursor: pointer !important; color: #0B1B36 !important; }
-.multiselect__option:hover, .multiselect__option--highlight { background: #FFF4E6 !important; color: #F48716 !important; }
-.multiselect__option--selected { background: #FFE8CC !important; color: #F48716 !important; font-weight: 600 !important; }
-
-/* Checkboxes / radios */
 input[type="checkbox"], input[type="radio"] {
+  width: 18px !important;
+  height: 18px !important;
   accent-color: #F48716 !important;
-  width: 18px !important; height: 18px !important;
-  margin-right: 10px !important; cursor: pointer !important;
-}
-.checkbox-container, .standard-radio-container { display: flex !important; align-items: center !important; gap: 8px !important; padding: 8px 0 !important; }
-
-/* Boutons GHL : <div role="button" class="ghl-btn ghl-footer-next/back/submit"> */
-/* !important obligatoire pour battre l'inline style="background-color:#0000001A" */
-.ghl-btn, .ghl-footer-next, .ghl-footer-submit {
-  background: linear-gradient(90deg, #F48716, #FE8800) !important;
-  color: #fff !important; border: none !important; border-radius: 50px !important;
-  height: 48px !important; padding: 0 28px !important;
-  display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 6px !important;
-  font-family: 'Poppins', sans-serif !important; font-size: 1rem !important; font-weight: 700 !important;
   cursor: pointer !important;
+  margin-right: 10px !important;
+}
+
+button, [role="button"] {
+  background: linear-gradient(90deg, #F48716, #FE8800) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50px !important;
+  height: 48px !important;
+  padding: 0 28px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
-  transition: all 0.2s ease !important;
+  transition: transform 0.2s ease !important;
 }
-.ghl-btn:hover, .ghl-footer-next:hover, .ghl-footer-submit:hover {
-  background: linear-gradient(90deg, #E27900, #F48716) !important;
-  box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
-  transform: translateY(-2px) !important;
+
+button:hover, [role="button"]:hover { transform: translateY(-2px) !important; }
+
+button span, button svg, [role="button"] span, [role="button"] svg {
+  color: #fff !important;
+  stroke: #fff !important;
 }
-.ghl-btn span, .ghl-btn svg { color: #fff !important; stroke: #fff !important; }
-
-/* Bouton Precedent -> outline */
-.ghl-footer-back {
-  background: transparent !important;
-  color: #F48716 !important; border: 1.5px solid #F48716 !important; box-shadow: none !important;
-}
-.ghl-footer-back span, .ghl-footer-back svg { color: #F48716 !important; stroke: #F48716 !important; }
-.ghl-footer-back:hover { background: rgba(244, 135, 22, 0.08) !important; }
-
-/* Footer layout */
-.ghl-footer { background: transparent !important; border: none !important; padding: 16px 0 0 !important; }
-.ghl-footer-buttons { display: flex !important; justify-content: space-between !important; gap: 12px !important; width: 100% !important; }
-.ghl-footer-back { flex: 0 0 auto !important; min-width: 110px !important; }
-.ghl-footer-next, .ghl-footer-submit { flex: 1 1 auto !important; }
-
-/* Erreurs */
-.error, .error-message { color: #e53e3e !important; font-size: 0.8rem !important; margin-top: 4px !important; }
-.has-error, .multiselect--error .multiselect__tags { border-color: #e53e3e !important; }

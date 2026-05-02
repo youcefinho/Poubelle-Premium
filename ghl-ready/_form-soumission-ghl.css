@@ -2,28 +2,37 @@
    CSS personnalise pour le SONDAGE GHL "Soumission" (VvEwIFqbMCj3t1kUnB6g)
    Coller dans : Sondages > Soumission > Avance > CSS personnalise
 
-   Design system Poubelle Premium :
-   - Orange : #F48716 (primaire) / #FE8800 (CTA gradient)
-   - Navy : #0B1B36 / Border : #E2E8F0
-   - Police : Poppins / Hauteur inputs : 46px / Border-radius : 10px ou 50px (pill)
+   Classes ciblees -> recuperees du DOM reel de l'ancien form :
+   - .ghl-form-wrap, .ghl-survey-form, .form-builder--wrap-questions (wrappers)
+   - .form-field-wrapper, .col-12, .flex-col (colonnes / champs)
+   - .label-alignment .field-label, label (labels)
+   - .multiselect, .multiselect__tags, .multiselect__input,
+     .multiselect__content-wrapper (dropdown vue-multiselect GHL)
+   - .ghl-footer, .ghl-footer-buttons, .ghl-btn,
+     .ghl-btn-next, .ghl-btn-prev, .ghl-btn-back, .ghl-btn-submit (boutons)
 
-   Note : ce CSS est injecte dans l'iframe GHL, donc on cible les
-   elements HTML directement (button, input, select) sans risque.
+   Design system Poubelle Premium :
+   - Orange primaire #F48716 / Orange CTA #FE8800
+   - Navy #0B1B36 / Border #E2E8F0
+   - Police Poppins / Inputs 46px / Radius 10px / Boutons pill 50px
    ============================================================ */
 
-/* Reset wrapper */
-body, .ghl-form-wrap, .ghl-survey-form, .form-builder--wrap-questions {
+/* Wrapper du form */
+.ghl-form-wrap,
+.ghl-survey-form,
+.form-builder--wrap-questions {
   background: transparent !important;
   font-family: 'Poppins', sans-serif !important;
   color: #0B1B36 !important;
   border: none !important;
   box-shadow: none !important;
   padding: 16px !important;
-  margin: 0 !important;
 }
 
-/* Labels */
-label, .field-label {
+/* Labels + asterisque obligatoire */
+.label-alignment .field-label,
+.field-label,
+label {
   display: block !important;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
@@ -32,19 +41,24 @@ label, .field-label {
   margin-bottom: 6px !important;
 }
 
-.label-alignment span, .required-mark {
+.label-alignment span,
+.field-label span {
   color: #F48716 !important;
   font-weight: 700 !important;
 }
 
-.form-builder-field, .form-field-wrapper {
+/* Espacement entre champs */
+.form-field-wrapper,
+.col-12 {
   margin-bottom: 14px !important;
 }
 
-/* Inputs texte */
-input[type="text"], input[type="email"], input[type="tel"],
-input[type="number"], input[type="url"], input[type="date"],
-.form-control {
+/* Inputs texte (nom, email, tel, adresse, etc.) */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"] {
   width: 100% !important;
   height: 46px !important;
   padding: 0 16px !important;
@@ -55,7 +69,6 @@ input[type="number"], input[type="url"], input[type="date"],
   font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
   box-sizing: border-box !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 textarea {
@@ -72,7 +85,9 @@ textarea {
   box-sizing: border-box !important;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+.multiselect--active .multiselect__tags {
   outline: none !important;
   border-color: #F48716 !important;
   box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
@@ -80,29 +95,107 @@ input:focus, textarea:focus, select:focus {
 
 ::placeholder { color: #94A3B8 !important; opacity: 1 !important; }
 
-/* Select / dropdown -> hauteur 46px stricte avec chevron orange */
-select {
+/* Dropdown GHL (.multiselect) - LES CHAMPS "Nombre de bac(s)" */
+/* Structure DOM reelle :
+   <div class="multiselect">
+     <div class="multiselect__select"></div>          <- chevron
+     <div class="multiselect__tags">                  <- box visible
+       <input class="multiselect__input" placeholder="Choisir">
+     </div>
+     <div class="multiselect__content-wrapper">       <- options ouvertes
+       [list]
+     </div>
+   </div>
+*/
+.multiselect {
+  position: relative !important;
   width: 100% !important;
   height: 46px !important;
-  padding: 0 44px 0 16px !important;
+  font-family: 'Poppins', sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+.multiselect__tags {
+  width: 100% !important;
+  height: 46px !important;
+  padding: 0 40px 0 16px !important;
   border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
-  background-color: #fff !important;
+  background: #fff !important;
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.multiselect__input {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
   color: #0B1B36 !important;
   font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
-  box-sizing: border-box !important;
-  cursor: pointer !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
+  outline: none !important;
+}
+
+.multiselect__select {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  width: 40px !important;
+  height: 46px !important;
+  padding: 0 !important;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
-  background-position: right 14px center !important;
+  background-position: center !important;
   background-size: 18px !important;
+  pointer-events: none !important;
+}
+
+.multiselect__select:before { display: none !important; }
+
+.multiselect__content-wrapper {
+  position: absolute !important;
+  top: 50px !important;
+  left: 0 !important;
+  width: 100% !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  z-index: 10 !important;
+  max-height: 240px !important;
+  overflow-y: auto !important;
+}
+
+.multiselect__option,
+.multiselect__content-wrapper .option {
+  padding: 10px 16px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.95rem !important;
+  color: #0B1B36 !important;
+  cursor: pointer !important;
+}
+
+.multiselect__option:hover,
+.multiselect__option--highlight,
+.multiselect__content-wrapper .option:hover {
+  background: #FFF4E6 !important;
+  color: #F48716 !important;
+}
+
+.multiselect__option--selected {
+  background: #FFE8CC !important;
+  color: #F48716 !important;
+  font-weight: 600 !important;
 }
 
 /* Checkboxes & radios */
-input[type="checkbox"], input[type="radio"] {
+input[type="checkbox"],
+input[type="radio"] {
   accent-color: #F48716 !important;
   width: 18px !important;
   height: 18px !important;
@@ -110,20 +203,12 @@ input[type="checkbox"], input[type="radio"] {
   margin-right: 10px !important;
 }
 
-.checkbox-container, .standard-radio-container {
-  display: flex !important;
-  align-items: center !important;
-  padding: 8px 0 !important;
-}
-
-.checkbox-container label, .standard-radio-container label {
-  margin: 0 !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-}
-
-/* Boutons -> orange CTA par defaut */
-button, input[type="submit"] {
+/* Boutons GHL : .ghl-btn .ghl-btn-next / .ghl-btn-prev / .ghl-btn-back / .ghl-btn-submit */
+/* + filet sur tout <button> au cas ou GHL ajoute un bouton sans .ghl-btn */
+.ghl-btn,
+.ghl-btn-next,
+.ghl-btn-submit,
+button {
   background: linear-gradient(90deg, #F48716, #FE8800) !important;
   color: #fff !important;
   border: none !important;
@@ -132,30 +217,39 @@ button, input[type="submit"] {
   font-family: 'Poppins', sans-serif !important;
   font-size: 1rem !important;
   font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
   cursor: pointer !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-button:hover, input[type="submit"]:hover {
+.ghl-btn:hover,
+.ghl-btn-next:hover,
+.ghl-btn-submit:hover,
+button:hover {
   background: linear-gradient(90deg, #E27900, #F48716) !important;
   box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
   transform: translateY(-2px) !important;
 }
 
-/* Override : bouton Precedent/Back -> outline orange */
-.ghl-btn-prev, .ghl-btn-back {
+/* Override : Precedent / Back -> outline orange */
+.ghl-btn-prev,
+.ghl-btn-back,
+button.ghl-btn-prev,
+button.ghl-btn-back {
   background: transparent !important;
   color: #F48716 !important;
   border: 1.5px solid #F48716 !important;
   box-shadow: none !important;
 }
 
-.ghl-btn-prev:hover, .ghl-btn-back:hover {
+.ghl-btn-prev:hover,
+.ghl-btn-back:hover {
   background: rgba(244, 135, 22, 0.08) !important;
+  color: #F48716 !important;
 }
 
-/* Footer GHL : Prev | Next cote a cote */
+/* Footer GHL -> Prev | Next cote a cote */
 .ghl-footer {
   background: transparent !important;
   border: none !important;
@@ -165,31 +259,27 @@ button:hover, input[type="submit"]:hover {
 .ghl-footer-buttons {
   display: flex !important;
   justify-content: space-between !important;
+  align-items: center !important;
   gap: 12px !important;
   width: 100% !important;
 }
 
-.ghl-btn-prev, .ghl-btn-back { flex: 0 0 auto !important; min-width: 100px !important; }
-.ghl-btn-next, .ghl-btn-submit { flex: 1 1 auto !important; }
-
-/* Barre de progression sondage multi-step */
-.survey-progress, .ghl-progress {
-  background: #E2E8F0 !important;
-  border-radius: 50px !important;
-  height: 6px !important;
-  overflow: hidden !important;
-  margin-bottom: 24px !important;
+.ghl-btn-prev,
+.ghl-btn-back {
+  flex: 0 0 auto !important;
+  min-width: 100px !important;
 }
 
-.progress-bar, .ghl-progress-fill {
-  background: linear-gradient(90deg, #F48716, #FE8800) !important;
-  height: 100% !important;
-  transition: width 0.4s ease !important;
+.ghl-btn-next,
+.ghl-btn-submit {
+  flex: 1 1 auto !important;
 }
 
 /* Erreurs */
-.error, .error-message {
+.error,
+.error-message {
   color: #e53e3e !important;
+  font-family: 'Poppins', sans-serif !important;
   font-size: 0.8rem !important;
   margin-top: 4px !important;
 }

@@ -300,22 +300,22 @@ button[type="submit"]:active,
   height: auto !important;
 }
 
-/* Boutons "Suivant/Precedent" si jamais le form repasse en multi-step */
-/* Sélecteurs élargis pour couvrir toutes les variantes GHL (next/prev/submit/back) */
-.ghl-btn-next,
-.ghl-btn-prev,
-.ghl-btn-back,
-.ghl-survey-next,
-.ghl-survey-prev,
-.btn-next,
-.btn-prev,
-.btn-back,
-button[data-action="next"],
-button[data-action="prev"],
-button[data-action="back"],
-button[data-action="submit"] {
+/* ============================================================
+   BOUTONS - APPROCHE BRUTE-FORCE
+   Regle 1 : TOUS les boutons du form deviennent orange par defaut
+   Regle 2 : Les boutons prev/back/precedent sont overrides en outline
+   Regle 3 : Selecteur attribut [class*=...] pour matcher meme les variantes GHL inconnues
+   ============================================================ */
+
+/* Reset commun pour tous les boutons du form */
+.ghl-form-wrap button,
+.ghl-survey-form button,
+.form-builder--wrap-questions button,
+.ghl-footer button,
+.ghl-footer-buttons button,
+form button:not([type="reset"]) {
   border-radius: 50px !important;
-  padding: 12px 24px !important;
+  padding: 12px 28px !important;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 700 !important;
   font-size: 1rem !important;
@@ -324,12 +324,25 @@ button[data-action="submit"] {
   letter-spacing: 0.5px !important;
 }
 
-/* Bouton Next/Suivant -> orange CTA */
+/* Regle 1 : tous les boutons -> orange CTA par defaut */
+.ghl-form-wrap button,
+.ghl-survey-form button,
+.form-builder--wrap-questions button,
+.ghl-footer button,
+.ghl-footer-buttons button,
+form button:not([type="reset"]),
+button.ghl-btn-next,
+button.ghl-btn-submit,
 .ghl-btn-next,
+.ghl-btn-submit,
 .ghl-survey-next,
 .btn-next,
+.btn-submit,
 button[data-action="next"],
-.ghl-footer-buttons button:last-child:not(.ghl-btn-prev):not(.ghl-btn-back):not(.btn-prev):not(.btn-back) {
+button[data-action="submit"],
+button[class*="next" i],
+button[class*="submit" i],
+button[class*="continue" i] {
   background: linear-gradient(90deg, #F48716, #FE8800) !important;
   background-color: #F48716 !important;
   color: #fff !important;
@@ -337,23 +350,47 @@ button[data-action="next"],
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
 }
 
+.ghl-form-wrap button:hover,
+.ghl-survey-form button:hover,
+.form-builder--wrap-questions button:hover,
+.ghl-footer button:hover,
+form button:not([type="reset"]):hover,
 .ghl-btn-next:hover,
+.ghl-btn-submit:hover,
 .ghl-survey-next:hover,
 .btn-next:hover,
-button[data-action="next"]:hover {
+.btn-submit:hover,
+button[data-action="next"]:hover,
+button[data-action="submit"]:hover,
+button[class*="next" i]:hover,
+button[class*="submit" i]:hover {
   background: linear-gradient(90deg, #E27900, #F48716) !important;
   box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
   transform: translateY(-2px) !important;
 }
 
-/* Bouton Précédent/Back -> outline orange */
+/* Regle 2 : OVERRIDE pour les boutons prev/back/precedent (specifite plus haute) */
+.ghl-form-wrap button.ghl-btn-prev,
+.ghl-form-wrap button.ghl-btn-back,
+.ghl-form-wrap button.btn-prev,
+.ghl-form-wrap button.btn-back,
+.ghl-survey-form button.ghl-btn-prev,
+.ghl-survey-form button.ghl-btn-back,
+.form-builder--wrap-questions button.ghl-btn-prev,
+.form-builder--wrap-questions button.ghl-btn-back,
+.ghl-footer button.ghl-btn-prev,
+.ghl-footer button.ghl-btn-back,
 .ghl-btn-prev,
 .ghl-btn-back,
 .ghl-survey-prev,
 .btn-prev,
 .btn-back,
 button[data-action="prev"],
-button[data-action="back"] {
+button[data-action="back"],
+button[data-action="previous"],
+button[class*="prev" i],
+button[class*="back" i],
+button[class*="precedent" i] {
   background: transparent !important;
   background-color: transparent !important;
   color: #F48716 !important;
@@ -364,8 +401,12 @@ button[data-action="back"] {
 .ghl-btn-prev:hover,
 .ghl-btn-back:hover,
 button[data-action="prev"]:hover,
-button[data-action="back"]:hover {
+button[data-action="back"]:hover,
+button[class*="prev" i]:hover,
+button[class*="back" i]:hover {
   background: rgba(244, 135, 22, 0.08) !important;
+  background-color: rgba(244, 135, 22, 0.08) !important;
+  transform: translateY(-1px) !important;
 }
 
 /* Messages d'erreur */

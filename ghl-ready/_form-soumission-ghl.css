@@ -47,18 +47,22 @@ label {
   font-weight: 700 !important;
 }
 
-/* Espacement entre champs */
+/* Espacement entre champs - 18px pour eviter l'effet "empile" */
 .form-field-wrapper,
 .col-12 {
-  margin-bottom: 14px !important;
+  margin-bottom: 18px !important;
 }
 
-/* Inputs texte (nom, email, tel, adresse, etc.) */
+/* Inputs texte (nom, prenom, email, telephone, adresse, etc.)
+   GHL utilise class="form-control" sur les inputs <input type="text"> */
+input.form-control,
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+input[type="url"],
+.form-control:not(textarea):not(select) {
   width: 100% !important;
   height: 46px !important;
   padding: 0 16px !important;
@@ -69,9 +73,11 @@ input[type="date"] {
   font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
   box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-textarea {
+textarea,
+textarea.form-control {
   width: 100% !important;
   min-height: 110px !important;
   padding: 12px 16px !important;
@@ -83,10 +89,30 @@ textarea {
   font-size: 0.95rem !important;
   resize: vertical !important;
   box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-input:focus,
+/* Hover - bordure plus foncee pour signal interactif */
+input.form-control:hover,
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="tel"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+.multiselect:hover .multiselect__tags {
+  border-color: #F48716 !important;
+}
+
+/* Focus - bordure orange + halo */
+input.form-control:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input.form-control:focus-visible,
 textarea:focus,
+textarea:focus-visible,
 .multiselect--active .multiselect__tags {
   outline: none !important;
   border-color: #F48716 !important;
@@ -157,7 +183,9 @@ textarea:focus,
 
 .multiselect__select:before { display: none !important; }
 
+/* Dropdown options : cache par defaut, visible seulement quand .multiselect--active */
 .multiselect__content-wrapper {
+  display: none !important;
   position: absolute !important;
   top: 50px !important;
   left: 0 !important;
@@ -166,9 +194,15 @@ textarea:focus,
   border-radius: 10px !important;
   background: #fff !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
-  z-index: 10 !important;
+  z-index: 100 !important;
   max-height: 240px !important;
   overflow-y: auto !important;
+}
+
+.multiselect--active .multiselect__content-wrapper,
+.multiselect--above .multiselect__content-wrapper,
+.multiselect.is-open .multiselect__content-wrapper {
+  display: block !important;
 }
 
 .multiselect__option,

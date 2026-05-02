@@ -1,9 +1,9 @@
 # Loi 25 — Guide de déploiement GHL
 
-Ce document explique comment intégrer la conformité **Loi 25 du Québec** dans le site Poubelle Premium servi via GoHighLevel.
+Ce document explique comment intégrer le banner Loi 25 du Québec sur le site Poubelle Premium servi via GoHighLevel.
 
 > **Statut :** branche `feat/loi25-compliance` • snapshot rollback : `audit-snapshot-2026-05-02`
-> **Risque :** modéré sur le tracking. L'ordre des étapes ci-dessous **garantit zéro coupure de tracking** pour les visiteurs qui ont déjà consenti.
+> **Décision business 2026-05-02** : le Meta Pixel reste **toujours actif** (fire au load), indépendamment du banner. Le banner Consent Mode v2 reste affiché pour la conformité visible Loi 25 et pour les outils tiers futurs (GA4, Clarity, Google Ads), mais **ne contrôle PAS Meta Pixel**.
 
 ---
 
@@ -14,7 +14,7 @@ Tout est intégré directement dans tes 4 paires de fichiers existants. **1 fich
 ### Fichiers modifiés (additif pur — aucune ligne existante touchée)
 | Fichier | Modification |
 |---|---|
-| `_accueil-header.html` | + Consent Mode v2 default DENIED en tête + Pixel wrappé dans `window.ppLoadMetaPixel` + auto-load si consent stocké |
+| `_accueil-header.html` | + Consent Mode v2 default DENIED en tête (pour outils tiers futurs) + Meta Pixel inchangé (fire au load) |
 | `_avis-header.html` | Idem |
 | `_soumission-header.html` | Idem |
 | `_retour-header.html` | Idem |
@@ -32,145 +32,128 @@ Tout est intégré directement dans tes 4 paires de fichiers existants. **1 fich
 ### Fichiers NON modifiés (volontaire)
 - Le `dist/` (Cloudflare Pages) : intact. Focus sur GHL natif.
 - Les liens internes vers `/accueil_index` : intacts. Coexistence v1+v2 voulue.
+- Les events `fbq('track', 'Lead', ...)` et `fbq('track', 'CompleteRegistration', ...)` dans les footers : intacts (Pixel browser fire les events comme avant).
 
 ---
 
-## 2. Séquence de déploiement GHL (ORDRE OBLIGATOIRE)
+## 2. Comportement du Meta Pixel (important)
 
-⚠️ **Respecter l'ordre.** Sinon les nouveaux visiteurs perdent le Meta Pixel pendant l'intervalle.
+| Action utilisateur | Meta Pixel browser fire ? | Consent Mode v2 flags |
+|---|---|---|
+| Première visite (banner affiché) | ✅ OUI au load | `ad_storage = denied` (pour autres outils) |
+| Clic "Tout accepter" | ✅ OUI (déjà fire) | `ad_storage = granted` |
+| Clic "Tout refuser" | ✅ OUI (toujours actif) | `ad_storage = denied` (mais Meta n'utilise pas ce flag) |
+| Clic "Personnaliser → Marketing OFF" | ✅ OUI (toujours actif) | `ad_storage = denied` |
 
-### Étape A — Footer Tracking (en PREMIER)
+**Conséquence** : tu reçois 100 % des données Meta Pixel, indépendamment du banner. Les events `Lead`, `Contact`, `CompleteRegistration`, `PageView` fire normalement.
+
+⚠️ **Note légale** : c'est techniquement non conforme à la Loi 25 stricte. Décision business assumée par le client.
+
+---
+
+## 3. Séquence de déploiement GHL
+
 Pour chaque page GHL (Accueil, Avis, Soumission, Retour) :
 
-1. GHL → **Sites** → **Pages** → page concernée → **Settings** → **Custom Code** → **Footer Tracking**
-2. **Remplacer intégralement** le contenu actuel par le contenu du fichier `_*-footer.html` correspondant (animations + Swiper + FAQ + tracking events + banner Loi 25 — tout est dedans)
-3. Sauvegarder
-
-À ce stade : le banner s'affiche au premier chargement. Le Header tracking n'est pas encore mis à jour, donc **le Pixel se charge toujours sans condition** → tracking actuel conservé. ✅ Aucune coupure.
-
-### Étape B — Header Tracking (APRÈS l'étape A)
-Pour chaque page GHL :
-
-1. GHL → page → **Settings** → **Custom Code** → **Header Tracking**
+### Étape A — Header Tracking
+1. GHL → **Sites** → **Pages** → page concernée → **Paramètres** → **Suivi de code tête de page** (Header Tracking)
 2. **Remplacer intégralement** le contenu actuel par le contenu du fichier `_*-header.html` correspondant
 3. Sauvegarder
 
-À ce stade :
-- Le Pixel ne se charge plus automatiquement.
-- Si l'utilisateur avait **déjà accepté** lors d'une visite < 12 mois (étape A déployée avant) : `localStorage.pp_consent_v1` est lu, `ppLoadMetaPixel()` est rappelé immédiatement, **tracking continu**.
-- Si l'utilisateur n'avait pas encore consenti : le banner s'affiche, et le Pixel ne charge qu'après "Tout accepter" ou "Personnaliser → Marketing ON → Enregistrer".
+### Étape B — Footer Tracking
+1. Même page GHL → **Suivi de code pied de page** (Footer Tracking)
+2. **Remplacer intégralement** le contenu actuel par le contenu du fichier `_*-footer.html` correspondant (animations + Swiper + FAQ + Meta Pixel events + banner Loi 25 — tout est dedans)
+3. Sauvegarder
 
 ### Étape C — Créer les pages légales
 1. GHL → créer une nouvelle page nommée **"Confidentialité"**, slug `/confidentialite`
-2. Headers/Footer/CSS slots : réutiliser ceux d'une page existante (par exemple les fichiers d'`_accueil-*` ou `_avis-*` — les modifs Loi 25 s'appliquent ainsi automatiquement)
+2. Headers/Footer slots : réutiliser ceux d'une page existante (par ex. `_accueil-*`)
 3. **Custom Code Body** : coller le contenu intégral de `5-confidentialite.html`
 4. Idem pour `/mentions-legales` avec `6-mentions-legales.html`
 
 ### Étape D — Liens dans le footer visible du site
-Le banner pointe déjà vers `/confidentialite` via le lien "En savoir plus". Pour la conformité complète, ajouter aussi dans le footer visible du site (composant Footer du builder GHL, pas le slot Footer Tracking) :
-- "Politique de confidentialité" → `/confidentialite`
-- "Mentions légales" → `/mentions-legales`
-- (optionnel) "Gérer mes cookies" → `<a href="#pp-consent-open" class="pp-consent-open">Gérer mes cookies</a>` (rouvre le banner)
+Ajouter dans le footer du site (composant Footer du builder GHL, pas le slot Footer Tracking) :
+- **Politique de confidentialité** → `/confidentialite`
+- **Mentions légales** → `/mentions-legales`
+- (optionnel) **Gérer mes cookies** → `<a href="#pp-consent-open" class="pp-consent-open">Gérer mes cookies</a>` (rouvre le banner)
 
 ---
 
-## 3. Test de validation après déploiement
+## 4. Tests
 
-### Test 1 — Visiteur qui n'a jamais consenti
-1. Naviguer en **navigation privée** sur `poubellepremium.ca/accueil_index`
-2. ✅ Banner consent apparaît en bas-droite (desktop) ou plein bas (mobile)
-3. ✅ Console F12 → Network → `fbevents.js` doit être **absent** (Pixel pas chargé)
-4. Cliquer **"Tout accepter"**
-5. ✅ Banner disparaît, bouton flottant 🍪 apparaît bas-gauche
-6. ✅ Network : `fbevents.js` se charge, requête `tr?id=986179510496466&ev=PageView`
-7. Recharger
-8. ✅ Banner ne réapparaît pas (consent stocké), Pixel charge auto
+### Test 1 — Banner s'affiche
+1. Navigation privée → `poubellepremium.ca/accueil_index`
+2. ✅ Banner consent apparaît (centré bas)
+3. ✅ Console F12 → Network → `fbevents.js` se charge **immédiatement** (Pixel actif au load)
+4. Recharger → banner réapparaît tant qu'aucun choix fait
 
-### Test 2 — Visiteur qui refuse
-1. Console : `localStorage.clear()`, recharger
-2. ✅ Banner réapparaît
-3. Cliquer **"Tout refuser"**
-4. ✅ Network : `fbevents.js` toujours **absent**
-5. ✅ Recharger : banner ne réapparaît plus (refus stocké 12 mois)
+### Test 2 — Pixel toujours actif après refus
+1. Cliquer **"Tout refuser"**
+2. ✅ Banner disparaît, bouton flottant 🍪 apparaît
+3. Recharger
+4. ✅ Network → `fbevents.js` toujours présent, requête `tr?id=986179510496466&ev=PageView` envoyée
+5. Soumettre form devis → ✅ event `Lead` envoyé à Meta
 
-### Test 3 — Visiteur qui personnalise
-1. `localStorage.clear()`, recharger
-2. Cliquer **"Personnaliser"** → Activer **uniquement Marketing** → "Enregistrer"
-3. ✅ Pixel se charge mais `analytics_storage` reste denied dans Consent Mode
-
-### Test 4 — Bilingue
-1. Toggle FR/EN dans la navbar → ✅ Banner et trigger flottant changent de langue
-2. ✅ Pages `/confidentialite` et `/mentions-legales` aussi (sections `.fr-block` et `.en-block`)
-
-### Test 5 — Lien "Gérer mes cookies"
-1. Cliquer le bouton flottant 🍪 ou un lien `<a href="#pp-consent-open">`
-2. ✅ Banner se rouvre avec choix actuels prérenseignés
-3. Modifier, sauvegarder → ✅ Pixel se (dé)charge selon le choix au prochain reload
-
-### Test 6 — Tracking events restent fonctionnels
-Vérifier que les events `Contact`, `Lead`, `CompleteRegistration` continuent quand le Pixel est chargé :
-1. Accepter le banner
-2. Cliquer un lien `tel:` → ✅ event `Contact` envoyé (Network : `tr?id=...&ev=Contact`)
-3. Soumettre le formulaire de devis → ✅ event `Lead` envoyé
-4. Soumettre la page Retour → ✅ event `CompleteRegistration` envoyé
+### Test 3 — Pages légales accessibles
+1. Footer du site → "Politique de confidentialité" → ouvre `/confidentialite`
+2. ✅ Page lisible FR/EN
+3. Bouton "Gérer mes cookies" → ouvre le banner
 
 ---
 
-## 4. Rollback en cas de problème
+## 5. Cleanup Meta (CAPI annulé)
 
-### Rollback côté GHL (rapide)
-Pour chaque page, restaurer dans Header Tracking le bloc Meta Pixel original :
+Vu que la décision business est de **garder uniquement le Pixel browser** (pas de CAPI), tu peux nettoyer côté Meta :
+
+### A — Révoquer le token CAPI généré
+Si tu avais déjà généré un token Meta CAPI :
+1. Meta Business Manager → **Events Manager** → Pixel "Poubelle premium pp"
+2. Onglet **Paramètres** → section **API Conversions**
+3. Trouve le token généré → bouton **"Révoquer"** ou **"Supprimer"**
+4. Confirme
+
+Si tu ne le révoques pas, ce n'est pas grave (le token n'est utilisé nulle part). Mais c'est plus propre de le révoquer.
+
+### B — Désassocier l'intégration Meta CAPI directe
+Si tu avais cliqué sur **"Associer maintenant"** dans la section **"Configurer avec Meta"** :
+1. Events Manager → Pixel "Poubelle premium pp" → Paramètres → **API Conversions**
+2. Section **"Configurer avec Meta"** → si une intégration apparaît → **"Désassocier"** ou **"Déconnecter"**
+
+### C — System User Conversions API (optionnel)
+Le System User "Conversions API System User" peut rester. Il ne fait rien tant qu'il n'a pas de token actif.
+
+Si tu veux vraiment tout nettoyer : Business Settings → Utilisateurs Système → "Conversions API System User" → retirer les permissions sur le Pixel "Poubelle premium pp".
+
+---
+
+## 6. Rollback en cas de problème
+
+### Côté GHL (rapide)
+Restaurer dans Header Tracking le bloc original (sans Consent Mode et sans wrapper) :
 ```html
+<meta name="facebook-domain-verification" content="7jm1m5hbiu8ua59wvj79278i5h0qyb" />
+... preconnect / dns-prefetch ...
 <!-- Meta Pixel Code -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','986179510496466');fbq('track','PageView');</script>
+<script>!function(f,b,e,v,n,t,s){...}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','986179510496466');fbq('track','PageView');</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=986179510496466&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel Code -->
 ```
 Et retirer la section banner Loi 25 du Footer Tracking (chercher `<!-- ===== Loi 25 Banner Consent` et supprimer jusqu'à la fin).
 
-### Rollback côté repo (git)
+### Côté repo (git)
 ```bash
 cd "Poubelle Premium"
 git checkout main
-git branch -D feat/loi25-compliance   # supprime la branche locale
+git branch -D feat/loi25-compliance
 # ou pour revenir au snapshot pré-audit :
 git reset --hard audit-snapshot-2026-05-02
 ```
 
 ---
 
-## 5. Impact attendu sur le tracking
-
-### Visiteurs qui avaient déjà consenti (visite < 12 mois)
-- **Aucun impact** : `localStorage.pp_consent_v1` lu au load, `ppLoadMetaPixel()` rappelé immédiatement.
-
-### Visiteurs nouveaux ou sans consent valide
-- Banner affiché → 3 issues :
-  - ~70% acceptent (taux moyen industrie : 60–80%) → Pixel chargé, events `Contact`, `Lead`, `CompleteRegistration` continuent normalement
-  - ~20% refusent → Pixel jamais chargé pour cette session
-  - ~10% ignorent → banner reste affiché → pas de tracking jusqu'au choix
-
-### Comparaison
-- **Avant Loi 25** : 100% trackés (mais site illégal)
-- **Après Loi 25** : ~70–80% trackés, conforme légalement
-- **Mitigation** : Conversions API serveur-side (Meta CAPI) = capture dual-side, retrouve une partie des 20–30% perdus côté browser
-
----
-
-## 6. Améliorations futures
-
-- [ ] Conversions API Meta serveur-side (Cloudflare Worker → Meta Graph API)
-- [ ] GA4 + Google Ads (placeholders `GTM-XXXXXXX`, `AW-XXXXX` toujours en commentaires) → activer quand IDs créés
-- [ ] Microsoft Clarity (analytics anonyme conforme Loi 25 par défaut)
-- [ ] Auto-générer `sitemap.xml` GHL pour inclure `/confidentialite` et `/mentions-legales`
-- [ ] Vérifier banner sur Safari iOS en navigation privée (`localStorage` peut être bloqué)
-- [ ] (Migration v1→v2) Quand l'ancien site GHL sera décommissionné, basculer le `/` du domaine sur `/accueil_index` et nettoyer les redirects 301
-
----
-
 ## 7. Crédits & contact
 
-- **Conformité** : Loi 25 du Québec (LPRPSP), entrée en vigueur 2024
+- **Conformité** : banner Loi 25 affiché (sans bloquer Meta Pixel — décision business)
 - **Référence CAI** : https://www.cai.gouv.qc.ca
 - **Pixel ID** : 986179510496466 (Meta Business)
 - **Domain Verification** : `7jm1m5hbiu8ua59wvj79278i5h0qyb`

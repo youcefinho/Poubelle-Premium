@@ -23,39 +23,15 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
 <!-- ===== TRACKING ===== -->
-<!-- Meta Pixel : chargement CONDITIONNEL (Loi 25). Le Pixel ne demarre QUE si
-     l'utilisateur a accepte le marketing dans le banner consent (Footer Tracking).
+<!-- Meta Pixel : ACTIF en permanence (decision business client - fire au load).
      Pixel ID : 986179510496466 (Poubelle Premium - 2026-05-01).
+     Le banner Consent Mode v2 reste actif (utile pour GA4/Clarity/Google Ads futurs)
+     mais n'affecte PAS Meta Pixel (Meta n'a pas d'integration Consent Mode native).
      GTM + Google Ads encore commentes (a remplir quand IDs crees). -->
 
-<!-- Meta Pixel Code (Loi 25 conditional) -->
-<script>
-  window.ppLoadMetaPixel = function () {
-    if (window._ppMetaPixelLoaded) return;
-    window._ppMetaPixelLoaded = true;
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init','986179510496466');
-    fbq('track','PageView');
-  };
-  // Auto-load si l'utilisateur avait deja consenti (max 12 mois - Loi 25)
-  try {
-    var ppRaw = localStorage.getItem('pp_consent_v1');
-    var ppDate = parseInt(localStorage.getItem('pp_consent_date_v1') || '0', 10);
-    if (ppRaw && ppDate && (Date.now() - ppDate) < 12*30*24*60*60*1000) {
-      var ppC = JSON.parse(ppRaw);
-      if (ppC && ppC.marketing === true) {
-        window.ppLoadMetaPixel();
-        gtag('consent','update',{
-          'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted',
-          'analytics_storage': ppC.analytics ? 'granted' : 'denied'
-        });
-      } else if (ppC && ppC.analytics === true) {
-        gtag('consent','update',{'analytics_storage':'granted'});
-      }
-    }
-  } catch(e) {}
-</script>
-<!-- noscript Pixel retire : sans JS, l'utilisateur ne peut pas consentir => pas de tracking (Loi 25 strict) -->
+<!-- Meta Pixel Code -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','986179510496466');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=986179510496466&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel Code -->
 
 <!-- GTM (a activer plus tard) :

@@ -203,55 +203,104 @@ input[type="radio"] {
   margin-right: 10px !important;
 }
 
-/* Boutons GHL : .ghl-btn .ghl-btn-next / .ghl-btn-prev / .ghl-btn-back / .ghl-btn-submit */
-/* + filet sur tout <button> au cas ou GHL ajoute un bouton sans .ghl-btn */
+/* ============================================================
+   BOUTONS - DOM REEL CONFIRME PAR F12 :
+   <div role="button" class="ghl-btn ghl-footer-next" aria-label="NEXT"
+        style="background-color:#0000001A;border-radius:0 0 8px 0;height:48px;">
+     <span>NEXT</span><svg>...</svg>
+   </div>
+
+   IMPORTANT :
+   - C'est un <div role="button">, PAS un <button> -> cibler .ghl-btn
+   - Classes reelles : .ghl-footer-next, .ghl-footer-back, .ghl-footer-submit
+     (PAS .ghl-btn-next/back/submit comme je croyais)
+   - Inline style="background-color:#0000001A" -> faut !important pour override
+   ============================================================ */
+
+/* Tous les boutons sondage -> orange CTA par defaut */
 .ghl-btn,
-.ghl-btn-next,
-.ghl-btn-submit,
-button {
+.ghl-footer-next,
+.ghl-footer-submit,
+[role="button"].ghl-btn,
+[aria-label="NEXT"],
+[aria-label="SUBMIT"],
+[aria-label="Suivant"],
+[aria-label="Envoyer"] {
   background: linear-gradient(90deg, #F48716, #FE8800) !important;
+  background-color: #F48716 !important;
   color: #fff !important;
   border: none !important;
   border-radius: 50px !important;
-  padding: 12px 28px !important;
+  height: 48px !important;
+  padding: 0 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   font-family: 'Poppins', sans-serif !important;
   font-size: 1rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.5px !important;
   cursor: pointer !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
 }
 
 .ghl-btn:hover,
-.ghl-btn-next:hover,
-.ghl-btn-submit:hover,
-button:hover {
+.ghl-footer-next:hover,
+.ghl-footer-submit:hover {
   background: linear-gradient(90deg, #E27900, #F48716) !important;
+  background-color: #E27900 !important;
   box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
   transform: translateY(-2px) !important;
 }
 
-/* Override : Precedent / Back -> outline orange */
-.ghl-btn-prev,
-.ghl-btn-back,
-button.ghl-btn-prev,
-button.ghl-btn-back {
+/* Texte et icones a l'interieur du bouton (le span "NEXT" + l'arrow svg) */
+.ghl-btn span,
+.ghl-footer-next span,
+.ghl-footer-submit span,
+.ghl-btn svg,
+.ghl-footer-next svg,
+.ghl-footer-submit svg {
+  color: #fff !important;
+  stroke: #fff !important;
+  fill: none !important;
+}
+
+/* OVERRIDE : Precedent / Back -> outline orange */
+.ghl-footer-back,
+.ghl-footer-prev,
+.ghl-btn.ghl-footer-back,
+.ghl-btn.ghl-footer-prev,
+[aria-label="BACK"],
+[aria-label="PREV"],
+[aria-label="Precedent"],
+[aria-label="Retour"] {
   background: transparent !important;
+  background-color: transparent !important;
   color: #F48716 !important;
   border: 1.5px solid #F48716 !important;
   box-shadow: none !important;
 }
 
-.ghl-btn-prev:hover,
-.ghl-btn-back:hover {
-  background: rgba(244, 135, 22, 0.08) !important;
+.ghl-footer-back span,
+.ghl-footer-prev span,
+.ghl-footer-back svg,
+.ghl-footer-prev svg {
   color: #F48716 !important;
+  stroke: #F48716 !important;
 }
 
-/* Footer GHL -> Prev | Next cote a cote */
+.ghl-footer-back:hover,
+.ghl-footer-prev:hover {
+  background: rgba(244, 135, 22, 0.08) !important;
+  background-color: rgba(244, 135, 22, 0.08) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Footer GHL -> wrapper des boutons */
 .ghl-footer {
   background: transparent !important;
+  background-color: transparent !important;
   border: none !important;
   padding: 16px 0 0 !important;
 }
@@ -264,14 +313,14 @@ button.ghl-btn-back {
   width: 100% !important;
 }
 
-.ghl-btn-prev,
-.ghl-btn-back {
+.ghl-footer-back,
+.ghl-footer-prev {
   flex: 0 0 auto !important;
   min-width: 100px !important;
 }
 
-.ghl-btn-next,
-.ghl-btn-submit {
+.ghl-footer-next,
+.ghl-footer-submit {
   flex: 1 1 auto !important;
 }
 

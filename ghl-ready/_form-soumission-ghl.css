@@ -1,36 +1,18 @@
 /* ============================================================
-   CSS personnalise pour le SONDAGE natif GHL "Soumission"
-   (surveyId: VvEwIFqbMCj3t1kUnB6g)
+   CSS personnalise pour le SONDAGE GHL "Soumission" (VvEwIFqbMCj3t1kUnB6g)
+   Coller dans : Sondages > Soumission > Avance > CSS personnalise
 
-   OU LE COLLER :
-   Sites > Sondages > "Soumission" > Modifier
-   > onglet Avance > section CSS PERSONNALISE
+   Design system Poubelle Premium :
+   - Orange : #F48716 (primaire) / #FE8800 (CTA gradient)
+   - Navy : #0B1B36 / Border : #E2E8F0
+   - Police : Poppins / Hauteur inputs : 46px / Border-radius : 10px ou 50px (pill)
 
-   IMPORTANT : ce CSS est injecte UNIQUEMENT dans l'iframe du sondage
-   GHL (cross-origin). Le HTML parent n'y a pas acces. On peut donc
-   cibler `button`, `input`, `select` directement sans risque de
-   bavure sur des elements exterieurs.
-
-   DESIGN SYSTEM Poubelle Premium :
-   - Orange primaire  : #F48716 (icones, borders focus)
-   - Orange CTA       : #FE8800 (gradient endpoint, boutons)
-   - Navy             : #0B1B36 (texte principal)
-   - Gris border      : #E2E8F0
-   - Gris placeholder : #94A3B8
-   - Gris secondaire  : #4A5568
-   - Font             : Poppins, sans-serif
-   - Border-radius    : 10px (inputs) / 50px (boutons pill)
-   - Hauteur inputs   : 46px stricte
+   Note : ce CSS est injecte dans l'iframe GHL, donc on cible les
+   elements HTML directement (button, input, select) sans risque.
    ============================================================ */
 
-
-/* ============================================================
-   1. RESET WRAPPER
-   ============================================================ */
-body,
-.ghl-form-wrap,
-.ghl-survey-form,
-.form-builder--wrap-questions {
+/* Reset wrapper */
+body, .ghl-form-wrap, .ghl-survey-form, .form-builder--wrap-questions {
   background: transparent !important;
   font-family: 'Poppins', sans-serif !important;
   color: #0B1B36 !important;
@@ -40,52 +22,31 @@ body,
   margin: 0 !important;
 }
 
-
-/* ============================================================
-   2. LABELS
-   ============================================================ */
-.field-label,
-label {
+/* Labels */
+label, .field-label {
   display: block !important;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
   font-size: 0.9rem !important;
   color: #0B1B36 !important;
   margin-bottom: 6px !important;
-  letter-spacing: 0.2px !important;
 }
 
-/* Asterisque champ requis -> orange */
-.label-alignment span,
-.required-mark,
-.required-asterisk,
-label .required {
+.label-alignment span, .required-mark {
   color: #F48716 !important;
   font-weight: 700 !important;
 }
 
-/* Espacement entre champs */
-.form-field-wrapper,
-.form-builder-field {
+.form-builder-field, .form-field-wrapper {
   margin-bottom: 14px !important;
 }
 
-
-/* ============================================================
-   3. INPUTS TEXTE / EMAIL / TEL / NUMBER / DATE
-   ============================================================ */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-input[type="url"],
-input[type="date"],
-input[type="search"],
+/* Inputs texte */
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="number"], input[type="url"], input[type="date"],
 .form-control {
   width: 100% !important;
   height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
   padding: 0 16px !important;
   border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
@@ -93,7 +54,6 @@ input[type="search"],
   color: #0B1B36 !important;
   font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
-  line-height: 46px !important;
   box-sizing: border-box !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
@@ -108,44 +68,23 @@ textarea {
   color: #0B1B36 !important;
   font-family: 'Poppins', sans-serif !important;
   font-size: 0.95rem !important;
-  line-height: 1.5 !important;
   resize: vertical !important;
   box-sizing: border-box !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-/* Focus state -> border + halo orange */
-input:focus,
-textarea:focus,
-select:focus,
-.form-control:focus,
-.multiselect--active .multiselect__tags {
+input:focus, textarea:focus, select:focus {
   outline: none !important;
   border-color: #F48716 !important;
   box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
 }
 
-::placeholder {
-  color: #94A3B8 !important;
-  opacity: 1 !important;
-}
+::placeholder { color: #94A3B8 !important; opacity: 1 !important; }
 
-
-/* ============================================================
-   4. SELECT / DROPDOWN - HAUTEUR 46px STRICTE
-   Couvre <select> natif + .multiselect (vue-multiselect) +
-   .q-field (Quasar) + autres custom dropdowns GHL.
-   ============================================================ */
-
-/* Select natif */
-select,
-.ghl-select {
+/* Select / dropdown -> hauteur 46px stricte avec chevron orange */
+select {
   width: 100% !important;
   height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
   padding: 0 44px 0 16px !important;
-  line-height: 46px !important;
   border: 1.5px solid #E2E8F0 !important;
   border-radius: 10px !important;
   background-color: #fff !important;
@@ -156,186 +95,36 @@ select,
   cursor: pointer !important;
   appearance: none !important;
   -webkit-appearance: none !important;
-  -moz-appearance: none !important;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F48716' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
   background-position: right 14px center !important;
   background-size: 18px !important;
-  transition: border-color 0.2s ease !important;
 }
 
-/* Vue-multiselect (utilise par GHL pour selects custom) */
-.multiselect,
-.multiselect__tags {
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  box-sizing: border-box !important;
-  font-family: 'Poppins', sans-serif !important;
-}
-
-.multiselect__tags {
-  width: 100% !important;
-  padding: 0 40px 0 16px !important;
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  background: #fff !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-.multiselect__single,
-.multiselect__input {
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  color: #0B1B36 !important;
-  line-height: 1 !important;
-  min-height: auto !important;
-  height: auto !important;
-}
-
-.multiselect__placeholder {
-  margin: 0 !important;
-  padding: 0 !important;
-  color: #94A3B8 !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-}
-
-.multiselect__select {
-  height: 46px !important;
-  top: 0 !important;
-  right: 8px !important;
-}
-
-/* Dropdown ouvert (liste des options) */
-.multiselect__content-wrapper {
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  margin-top: 4px !important;
-  background: #fff !important;
-}
-
-.multiselect__option {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.95rem !important;
-  color: #0B1B36 !important;
-  padding: 10px 16px !important;
-}
-
-.multiselect__option:hover,
-.multiselect__option--highlight {
-  background: #FFF4E6 !important;
-  color: #F48716 !important;
-}
-
-.multiselect__option--selected {
-  background: #FFE8CC !important;
-  color: #F48716 !important;
-  font-weight: 600 !important;
-}
-
-/* Quasar/Vuetify wrappers (au cas ou GHL change) */
-.q-field,
-.q-field--outlined,
-.q-field__control,
-.q-field__inner {
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  border-radius: 10px !important;
-  box-sizing: border-box !important;
-}
-
-.q-field--outlined .q-field__control:before {
-  border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-}
-
-/* Catch-all dropdowns custom */
-[role="combobox"],
-.dropdown-toggle {
-  height: 46px !important;
-  min-height: 46px !important;
-  max-height: 46px !important;
-  display: flex !important;
-  align-items: center !important;
-  box-sizing: border-box !important;
-}
-
-/* Filet anti-padding orphelin */
-.field-input-container,
-.field-input-wrapper,
-.input-wrapper,
-.select-wrapper {
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
-}
-
-
-/* ============================================================
-   5. CHECKBOXES & RADIOS
-   ============================================================ */
-input[type="checkbox"],
-input[type="radio"] {
+/* Checkboxes & radios */
+input[type="checkbox"], input[type="radio"] {
   accent-color: #F48716 !important;
   width: 18px !important;
   height: 18px !important;
   cursor: pointer !important;
   margin-right: 10px !important;
-  flex-shrink: 0 !important;
 }
 
-.checkbox-container,
-.terms-and-conditions {
-  display: flex !important;
-  align-items: flex-start !important;
-  gap: 8px !important;
-  padding: 8px 0 !important;
-}
-
-.checkbox-container label,
-.terms-and-conditions label,
-.terms-text-container p {
-  margin-bottom: 0 !important;
-  font-weight: 500 !important;
-  font-size: 0.875rem !important;
-  color: #4A5568 !important;
-  line-height: 1.5 !important;
-}
-
-.standard-radio-container,
-.option-radio {
+.checkbox-container, .standard-radio-container {
   display: flex !important;
   align-items: center !important;
   padding: 8px 0 !important;
 }
 
-.standard-radio-container label,
-.option-radio label {
+.checkbox-container label, .standard-radio-container label {
   margin: 0 !important;
-  cursor: pointer !important;
   font-weight: 500 !important;
-  color: #0B1B36 !important;
+  cursor: pointer !important;
 }
 
-
-/* ============================================================
-   6. BOUTONS - REGLE GLOBALE
-   Defaut : tout button = orange CTA.
-   Override : .ghl-btn-prev / .ghl-btn-back / [class*="prev"] = outline.
-   ============================================================ */
-
-button,
-input[type="submit"],
-input[type="button"] {
+/* Boutons -> orange CTA par defaut */
+button, input[type="submit"] {
   background: linear-gradient(90deg, #F48716, #FE8800) !important;
-  background-color: #F48716 !important;
   color: #fff !important;
   border: none !important;
   border-radius: 50px !important;
@@ -343,113 +132,48 @@ input[type="button"] {
   font-family: 'Poppins', sans-serif !important;
   font-size: 1rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
   cursor: pointer !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-button:hover,
-input[type="submit"]:hover,
-input[type="button"]:hover {
+button:hover, input[type="submit"]:hover {
   background: linear-gradient(90deg, #E27900, #F48716) !important;
-  background-color: #E27900 !important;
   box-shadow: 0 8px 22px rgba(226, 121, 0, 0.5) !important;
   transform: translateY(-2px) !important;
 }
 
-button:active,
-input[type="submit"]:active,
-input[type="button"]:active {
-  transform: translateY(0) !important;
-}
-
-button:disabled,
-input[type="submit"]:disabled {
-  opacity: 0.5 !important;
-  cursor: not-allowed !important;
-  transform: none !important;
-}
-
-/* OVERRIDE : boutons Prev / Back / Precedent -> outline orange */
-button.ghl-btn-prev,
-button.ghl-btn-back,
-button.btn-prev,
-button.btn-back,
-button.ghl-survey-prev,
-button[data-action="prev"],
-button[data-action="back"],
-button[data-action="previous"],
-button[class*="prev" i],
-button[class*="back" i],
-button[class*="precedent" i] {
+/* Override : bouton Precedent/Back -> outline orange */
+.ghl-btn-prev, .ghl-btn-back {
   background: transparent !important;
-  background-color: transparent !important;
   color: #F48716 !important;
   border: 1.5px solid #F48716 !important;
   box-shadow: none !important;
 }
 
-button.ghl-btn-prev:hover,
-button.ghl-btn-back:hover,
-button[data-action="prev"]:hover,
-button[data-action="back"]:hover,
-button[class*="prev" i]:hover,
-button[class*="back" i]:hover {
+.ghl-btn-prev:hover, .ghl-btn-back:hover {
   background: rgba(244, 135, 22, 0.08) !important;
-  background-color: rgba(244, 135, 22, 0.08) !important;
-  color: #F48716 !important;
-  transform: translateY(-1px) !important;
 }
 
-
-/* ============================================================
-   7. FOOTER GHL (zone des boutons Suivant/Precedent)
-   ============================================================ */
+/* Footer GHL : Prev | Next cote a cote */
 .ghl-footer {
   background: transparent !important;
   border: none !important;
-  height: auto !important;
   padding: 16px 0 0 !important;
-  margin: 0 !important;
 }
 
 .ghl-footer-buttons {
   display: flex !important;
   justify-content: space-between !important;
-  align-items: center !important;
   gap: 12px !important;
   width: 100% !important;
-  height: auto !important;
-  padding: 0 !important;
 }
 
-/* Prev/Back -> taille auto, ne prend pas toute la largeur */
-.ghl-btn-back,
-.ghl-btn-prev {
-  flex: 0 0 auto !important;
-  min-width: 100px !important;
-  width: auto !important;
-}
+.ghl-btn-prev, .ghl-btn-back { flex: 0 0 auto !important; min-width: 100px !important; }
+.ghl-btn-next, .ghl-btn-submit { flex: 1 1 auto !important; }
 
-/* Next/Submit -> remplit l'espace restant */
-.ghl-btn-next,
-.ghl-btn-submit {
-  flex: 1 1 auto !important;
-}
-
-/* Si seul Next present (etape 1) -> full width */
-.ghl-footer-buttons:has(.ghl-btn-next):not(:has(.ghl-btn-prev)) .ghl-btn-next {
-  width: 100% !important;
-}
-
-
-/* ============================================================
-   8. SONDAGE MULTI-STEP : barre de progression + indicateur
-   ============================================================ */
-.survey-progress,
-.progress-bar-wrapper,
-.ghl-progress {
+/* Barre de progression sondage multi-step */
+.survey-progress, .ghl-progress {
   background: #E2E8F0 !important;
   border-radius: 50px !important;
   height: 6px !important;
@@ -457,78 +181,15 @@ button[class*="back" i]:hover {
   margin-bottom: 24px !important;
 }
 
-.progress-bar,
-.ghl-progress-fill,
-.survey-progress-fill {
+.progress-bar, .ghl-progress-fill {
   background: linear-gradient(90deg, #F48716, #FE8800) !important;
   height: 100% !important;
-  border-radius: 50px !important;
   transition: width 0.4s ease !important;
 }
 
-.survey-step-counter,
-.step-indicator,
-.ghl-step-counter,
-.page-counter {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 0.85rem !important;
-  font-weight: 600 !important;
-  color: #F48716 !important;
-  text-align: center !important;
-  margin-bottom: 12px !important;
-  letter-spacing: 0.5px !important;
-  text-transform: uppercase !important;
-}
-
-/* Animation d'apparition d'une page de sondage */
-.ghl-page-current,
-.survey-page-active,
-.survey-page {
-  animation: ppFadeInUp 0.35s ease !important;
-}
-
-@keyframes ppFadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ============================================================
-   9. ERREURS, DIVIDERS, MESSAGE SUCCES
-   ============================================================ */
-.error,
-.error-message,
-.field-error {
+/* Erreurs */
+.error, .error-message {
   color: #e53e3e !important;
-  font-family: 'Poppins', sans-serif !important;
   font-size: 0.8rem !important;
   margin-top: 4px !important;
-}
-
-input.has-error,
-input.error,
-select.has-error,
-.multiselect--error .multiselect__tags {
-  border-color: #e53e3e !important;
-}
-
-.field-divider {
-  border-top: 1px solid #E2E8F0 !important;
-  margin: 16px 0 !important;
-}
-
-.form-success,
-.thank-you-message {
-  text-align: center !important;
-  padding: 24px !important;
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  color: #0B1B36 !important;
 }

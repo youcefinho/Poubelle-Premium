@@ -1,0 +1,266 @@
+<!--
+  =====================================================================
+  POUBELLE PREMIUM - Page : Politique de confidentialite (Loi 25 Quebec)
+  =====================================================================
+  EMPLACEMENT GHL : Custom Code Body de la page "Confidentialite"
+  Slug suggere : /confidentialite (linke depuis le banner consent
+  via t.learnUrl = '/confidentialite').
+
+  Headers/Footer : reutiliser les slots _accueil-* (Consent Mode v2 +
+  Pixel conditionnel + banner). Les modifications Loi 25 s'appliquent
+  donc automatiquement a cette page.
+
+  Contenu : conforme Loi 25 (LPRPSP du Quebec, en vigueur depuis 2024).
+  Bilingue FR / EN (toggle gere par le switchLang() existant).
+  Date de derniere mise a jour : a synchroniser avec le deploiement.
+  =====================================================================
+-->
+
+<style>
+  .pp-legal {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 80px 24px 60px;
+    color: #0B1B36;
+    font-family: 'Poppins', system-ui, sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+  .pp-legal h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #0B1B36;
+  }
+  .pp-legal__subtitle {
+    color: #5a6b85;
+    font-size: 0.95rem;
+    margin: 0 0 36px;
+  }
+  .pp-legal h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: #F48716;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #F48716;
+    display: inline-block;
+  }
+  .pp-legal h3 { font-size: 1.05rem; font-weight: 600; margin: 22px 0 8px; color: #0B1B36; }
+  .pp-legal p, .pp-legal li { color: #2a3a55; margin: 0 0 10px; }
+  .pp-legal ul { padding-left: 22px; margin: 0 0 14px; }
+  .pp-legal li { margin-bottom: 6px; }
+  .pp-legal a { color: #F48716; text-decoration: underline; }
+  .pp-legal__cta {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 12px 22px;
+    background: #F48716;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+  .pp-legal__cta:hover { background: #e07c0d; }
+  .pp-legal__contact {
+    background: #f7f8fa;
+    border-left: 4px solid #F48716;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin: 18px 0;
+  }
+  .pp-legal__contact p { margin: 0 0 4px; }
+  @media (max-width: 600px) { .pp-legal { padding: 60px 18px 40px; } }
+</style>
+
+<!-- ============== VERSION FRANCAISE ============== -->
+<section class="pp-legal fr-block" lang="fr-CA">
+  <h1>Politique de confidentialite</h1>
+  <p class="pp-legal__subtitle">Conforme a la Loi 25 du Quebec (LPRPSP).<br>Derniere mise a jour : 2 mai 2026</p>
+
+  <h2>1. Identite du responsable</h2>
+  <p>La presente politique s'applique au site <strong>poubellepremium.ca</strong>, exploite par Poubelle Premium, situe a Laval (Quebec, Canada).</p>
+  <div class="pp-legal__contact">
+    <p><strong>Poubelle Premium</strong></p>
+    <p>Telephone : <a href="tel:+14387994449">438-799-4449</a></p>
+    <p>Courriel : <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></p>
+    <p>Region desservie : Laval et Rive-Nord de Montreal</p>
+  </div>
+
+  <h2>2. Renseignements personnels collectes</h2>
+  <p>Lorsque vous remplissez un formulaire (devis, contact, retour client), nous recueillons les informations suivantes :</p>
+  <ul>
+    <li><strong>Nom et prenom</strong> : pour personnaliser nos communications.</li>
+    <li><strong>Adresse postale</strong> : pour calculer le tarif et planifier l'intervention.</li>
+    <li><strong>Code postal</strong> : pour valider la zone de service.</li>
+    <li><strong>Adresse courriel</strong> : pour vous transmettre le devis et le suivi.</li>
+    <li><strong>Numero de telephone</strong> : pour la confirmation et la coordination du service.</li>
+    <li><strong>Choix de forfait et services</strong> : pour preparer votre devis.</li>
+  </ul>
+  <p>Lors de votre navigation, nous pouvons egalement collecter (avec votre consentement uniquement) :</p>
+  <ul>
+    <li>Donnees techniques anonymes (pages visitees, duree, type d'appareil) - <em>cookies analytics</em>.</li>
+    <li>Donnees marketing (efficacite de nos publicites Facebook / Instagram) - <em>cookies marketing (Meta Pixel)</em>.</li>
+  </ul>
+
+  <h2>3. Finalites de la collecte</h2>
+  <ul>
+    <li>Repondre a votre demande de devis ou d'information.</li>
+    <li>Planifier et executer le service de nettoyage de bacs.</li>
+    <li>Vous transmettre des communications relatives a votre dossier.</li>
+    <li>Ameliorer la qualite du site et de nos services (analytics).</li>
+    <li>Mesurer l'efficacite de nos campagnes publicitaires (avec votre consentement).</li>
+  </ul>
+
+  <h2>4. Base legale</h2>
+  <p>Nous collectons et traitons vos donnees sur la base de :</p>
+  <ul>
+    <li>Votre <strong>consentement explicite</strong> (formulaires, banner cookies).</li>
+    <li>L'execution du service de nettoyage de bacs que vous nous demandez.</li>
+    <li>Notre interet legitime a operer un site fonctionnel et securise.</li>
+  </ul>
+
+  <h2>5. Destinataires de vos donnees</h2>
+  <p>Vos donnees sont communiquees uniquement a :</p>
+  <ul>
+    <li>L'equipe de Poubelle Premium (operations, service client).</li>
+    <li>Notre CRM <strong>GoHighLevel</strong> (heberge en Amerique du Nord, transfert encadre).</li>
+    <li>Notre outil de mesure publicitaire <strong>Meta (Facebook) Pixel</strong>, uniquement si vous avez accepte les cookies marketing.</li>
+    <li>Les autorites legales competentes, en cas d'obligation legale.</li>
+  </ul>
+  <p>Nous ne vendons jamais vos donnees a des tiers.</p>
+
+  <h2>6. Duree de conservation</h2>
+  <ul>
+    <li>Donnees de prospect (sans contrat) : 24 mois apres le dernier contact.</li>
+    <li>Donnees client (avec contrat execute) : 7 ans, conformement aux obligations comptables.</li>
+    <li>Cookies de consentement : 12 mois (renouvellement automatique du choix).</li>
+  </ul>
+
+  <h2>7. Vos droits (Loi 25)</h2>
+  <p>Vous disposez des droits suivants sur vos renseignements personnels :</p>
+  <ul>
+    <li><strong>Acces</strong> : obtenir une copie de vos donnees.</li>
+    <li><strong>Rectification</strong> : corriger une donnee inexacte.</li>
+    <li><strong>Suppression</strong> : demander l'effacement (sous reserve d'obligations legales).</li>
+    <li><strong>Portabilite</strong> : recevoir vos donnees dans un format structure.</li>
+    <li><strong>Retrait du consentement</strong> : a tout moment, sans justification.</li>
+    <li><strong>Opposition</strong> : refuser le traitement marketing.</li>
+  </ul>
+  <p>Pour exercer un droit : ecrivez a <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a>. Nous repondrons dans les 30 jours.</p>
+
+  <h2>8. Cookies et technologies similaires</h2>
+  <p>Le site utilise trois categories de cookies :</p>
+  <ul>
+    <li><strong>Essentiels</strong> : memorisation de la langue choisie. Toujours actifs.</li>
+    <li><strong>Mesure d'audience</strong> : statistiques anonymes. Optionnels.</li>
+    <li><strong>Marketing</strong> : Meta Pixel pour l'efficacite publicitaire. Optionnels.</li>
+  </ul>
+  <p>Vous pouvez modifier votre choix a tout moment :</p>
+  <button type="button" class="pp-legal__cta pp-consent-open" data-pp-open-consent>Gerer mes cookies</button>
+
+  <h2>9. Securite</h2>
+  <p>Nous mettons en oeuvre des mesures techniques et organisationnelles raisonnables pour proteger vos donnees : connexion HTTPS, acces restreint au CRM, mots de passe robustes, surveillance des acces.</p>
+
+  <h2>10. Plainte aupres de la CAI</h2>
+  <p>Si vous estimez que vos droits ne sont pas respectes, vous pouvez deposer une plainte aupres de la <strong>Commission d'acces a l'information du Quebec</strong> (CAI) : <a href="https://www.cai.gouv.qc.ca" target="_blank" rel="noopener">cai.gouv.qc.ca</a>.</p>
+
+  <h2>11. Modifications de la politique</h2>
+  <p>Nous pouvons modifier la presente politique. La date de derniere mise a jour est indiquee en haut de cette page. En cas de changement substantiel, nous vous en informerons.</p>
+</section>
+
+<!-- ============== ENGLISH VERSION ============== -->
+<section class="pp-legal en-block" lang="en-CA" style="display:none">
+  <h1>Privacy policy</h1>
+  <p class="pp-legal__subtitle">Compliant with Quebec's Law 25 (LPRPSP).<br>Last updated: May 2, 2026</p>
+
+  <h2>1. Identity of the controller</h2>
+  <p>This policy applies to the website <strong>poubellepremium.ca</strong>, operated by Poubelle Premium, located in Laval (Quebec, Canada).</p>
+  <div class="pp-legal__contact">
+    <p><strong>Poubelle Premium</strong></p>
+    <p>Phone: <a href="tel:+14387994449">438-799-4449</a></p>
+    <p>Email: <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></p>
+    <p>Service area: Laval and the North Shore of Montreal</p>
+  </div>
+
+  <h2>2. Personal information collected</h2>
+  <p>When you fill out a form (quote, contact, customer feedback), we collect:</p>
+  <ul>
+    <li><strong>First and last name</strong>: to personalize our communications.</li>
+    <li><strong>Address</strong>: to calculate the price and schedule service.</li>
+    <li><strong>Postal code</strong>: to validate service area.</li>
+    <li><strong>Email</strong>: to send you the quote and follow-up.</li>
+    <li><strong>Phone number</strong>: for confirmation and coordination.</li>
+    <li><strong>Package and service choices</strong>: to prepare your quote.</li>
+  </ul>
+  <p>While you browse, we may also collect (only with your consent):</p>
+  <ul>
+    <li>Anonymous technical data (pages visited, duration, device type) - <em>analytics cookies</em>.</li>
+    <li>Marketing data (effectiveness of our Facebook / Instagram ads) - <em>marketing cookies (Meta Pixel)</em>.</li>
+  </ul>
+
+  <h2>3. Purposes of the collection</h2>
+  <ul>
+    <li>Respond to your request for a quote or information.</li>
+    <li>Schedule and execute the bin cleaning service.</li>
+    <li>Send communications related to your file.</li>
+    <li>Improve site quality and services (analytics).</li>
+    <li>Measure ad campaign effectiveness (with your consent).</li>
+  </ul>
+
+  <h2>4. Legal basis</h2>
+  <ul>
+    <li>Your <strong>explicit consent</strong> (forms, cookie banner).</li>
+    <li>Performance of the service you request.</li>
+    <li>Our legitimate interest in operating a functional and secure site.</li>
+  </ul>
+
+  <h2>5. Recipients of your data</h2>
+  <ul>
+    <li>The Poubelle Premium team (operations, customer service).</li>
+    <li>Our CRM <strong>GoHighLevel</strong> (hosted in North America, regulated transfer).</li>
+    <li>Our advertising measurement tool <strong>Meta (Facebook) Pixel</strong>, only if you accepted marketing cookies.</li>
+    <li>Competent legal authorities, if legally required.</li>
+  </ul>
+  <p>We never sell your data to third parties.</p>
+
+  <h2>6. Retention period</h2>
+  <ul>
+    <li>Prospect data (no contract): 24 months after last contact.</li>
+    <li>Customer data (executed contract): 7 years, per accounting obligations.</li>
+    <li>Consent cookies: 12 months (automatic renewal of choice).</li>
+  </ul>
+
+  <h2>7. Your rights (Law 25)</h2>
+  <ul>
+    <li><strong>Access</strong>: obtain a copy of your data.</li>
+    <li><strong>Rectification</strong>: correct inaccurate data.</li>
+    <li><strong>Deletion</strong>: request erasure (subject to legal obligations).</li>
+    <li><strong>Portability</strong>: receive your data in a structured format.</li>
+    <li><strong>Withdrawal of consent</strong>: at any time, no justification needed.</li>
+    <li><strong>Objection</strong>: refuse marketing processing.</li>
+  </ul>
+  <p>To exercise a right: write to <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a>. We will respond within 30 days.</p>
+
+  <h2>8. Cookies and similar technologies</h2>
+  <ul>
+    <li><strong>Essential</strong>: language choice memorization. Always active.</li>
+    <li><strong>Audience measurement</strong>: anonymous statistics. Optional.</li>
+    <li><strong>Marketing</strong>: Meta Pixel for ad performance. Optional.</li>
+  </ul>
+  <p>You can change your choice at any time:</p>
+  <button type="button" class="pp-legal__cta pp-consent-open" data-pp-open-consent>Manage my cookies</button>
+
+  <h2>9. Security</h2>
+  <p>We implement reasonable technical and organizational measures to protect your data: HTTPS connection, restricted CRM access, strong passwords, access monitoring.</p>
+
+  <h2>10. Complaint to the CAI</h2>
+  <p>If you believe your rights are not respected, you can file a complaint with the <strong>Commission d'acces a l'information du Quebec</strong> (CAI): <a href="https://www.cai.gouv.qc.ca" target="_blank" rel="noopener">cai.gouv.qc.ca</a>.</p>
+
+  <h2>11. Policy changes</h2>
+  <p>We may modify this policy. The last update date is indicated at the top of this page. In case of substantial change, we will notify you.</p>
+</section>

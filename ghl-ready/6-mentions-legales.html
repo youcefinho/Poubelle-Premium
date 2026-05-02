@@ -1,0 +1,144 @@
+<!--
+  =====================================================================
+  POUBELLE PREMIUM - Page : Mentions legales
+  =====================================================================
+  EMPLACEMENT GHL : Custom Code Body de la page "Mentions legales"
+  Slug suggere : /mentions-legales
+
+  Reutilise les memes header/footer/CSS slots que la page Confidentialite
+  (Consent Mode v2 + Pixel conditionnel + banner Loi 25).
+
+  Bilingue FR / EN (toggle gere par switchLang() existant).
+  =====================================================================
+-->
+
+<style>
+  .pp-legal {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 80px 24px 60px;
+    color: #0B1B36;
+    font-family: 'Poppins', system-ui, sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+  .pp-legal h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #0B1B36;
+  }
+  .pp-legal__subtitle {
+    color: #5a6b85;
+    font-size: 0.95rem;
+    margin: 0 0 36px;
+  }
+  .pp-legal h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: #F48716;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #F48716;
+    display: inline-block;
+  }
+  .pp-legal p, .pp-legal li { color: #2a3a55; margin: 0 0 10px; }
+  .pp-legal ul { padding-left: 22px; margin: 0 0 14px; }
+  .pp-legal li { margin-bottom: 6px; }
+  .pp-legal a { color: #F48716; text-decoration: underline; }
+  .pp-legal__contact {
+    background: #f7f8fa;
+    border-left: 4px solid #F48716;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin: 18px 0;
+  }
+  .pp-legal__contact p { margin: 0 0 4px; }
+  @media (max-width: 600px) { .pp-legal { padding: 60px 18px 40px; } }
+</style>
+
+<!-- ============== VERSION FRANCAISE ============== -->
+<section class="pp-legal fr-block" lang="fr-CA">
+  <h1>Mentions legales</h1>
+  <p class="pp-legal__subtitle">Derniere mise a jour : 2 mai 2026</p>
+
+  <h2>1. Editeur du site</h2>
+  <div class="pp-legal__contact">
+    <p><strong>Poubelle Premium</strong></p>
+    <p>Service professionnel de nettoyage de bacs a haute pression</p>
+    <p>Region desservie : Laval et Rive-Nord de Montreal (Quebec, Canada)</p>
+    <p>Telephone : <a href="tel:+14387994449">438-799-4449</a></p>
+    <p>Courriel : <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></p>
+  </div>
+
+  <h2>2. Hebergement</h2>
+  <p>Le site <strong>poubellepremium.ca</strong> est heberge par <strong>Cloudflare, Inc.</strong> (101 Townsend Street, San Francisco, CA 94107, Etats-Unis) ainsi que par <strong>GoHighLevel</strong> (HighLevel Inc., Dallas, Texas, Etats-Unis), pour les fonctions CRM et formulaires.</p>
+
+  <h2>3. Propriete intellectuelle</h2>
+  <p>L'ensemble du contenu du site (textes, photographies, logos, graphismes, illustrations, mise en page) est la propriete exclusive de Poubelle Premium ou est utilise avec l'autorisation des titulaires de droits.</p>
+  <p>Toute reproduction, representation, modification, publication ou adaptation totale ou partielle des elements du site, par quelque procede que ce soit, est interdite sans l'autorisation ecrite prealable de Poubelle Premium.</p>
+
+  <h2>4. Liens externes</h2>
+  <p>Le site peut contenir des liens vers des sites tiers (Google, Facebook, Instagram, TikTok, GoHighLevel). Poubelle Premium n'est pas responsable du contenu, des pratiques de confidentialite ou des conditions d'utilisation de ces sites externes.</p>
+
+  <h2>5. Responsabilite</h2>
+  <p>Les informations presentees sur le site sont fournies a titre informatif. Poubelle Premium s'efforce de maintenir des informations exactes et a jour, mais ne peut garantir l'absence d'erreurs ou d'omissions.</p>
+  <p>Les tarifs affiches a titre indicatif peuvent varier en fonction des particularites de chaque demande. Le devis officiel transmis par courriel ou via le formulaire fait foi.</p>
+
+  <h2>6. Donnees personnelles</h2>
+  <p>Le traitement de vos donnees personnelles est decrit en detail dans notre <a href="/confidentialite">Politique de confidentialite</a>, conforme a la <strong>Loi 25 du Quebec</strong> (LPRPSP).</p>
+
+  <h2>7. Cookies</h2>
+  <p>L'utilisation de cookies sur le site est detaillee dans la Politique de confidentialite. Vous pouvez gerer vos preferences a tout moment :</p>
+  <p><a href="#pp-consent-open" class="pp-consent-open" data-pp-open-consent>Gerer mes cookies</a></p>
+
+  <h2>8. Droit applicable</h2>
+  <p>Les presentes mentions legales sont regies par le droit en vigueur dans la province du Quebec, Canada. En cas de litige, et a defaut d'un reglement amiable, les tribunaux competents du district judiciaire de Laval seront seuls competents.</p>
+
+  <h2>9. Contact</h2>
+  <p>Pour toute question relative au site ou a ses contenus :</p>
+  <p>Courriel : <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a><br>Telephone : <a href="tel:+14387994449">438-799-4449</a></p>
+</section>
+
+<!-- ============== ENGLISH VERSION ============== -->
+<section class="pp-legal en-block" lang="en-CA" style="display:none">
+  <h1>Legal notice</h1>
+  <p class="pp-legal__subtitle">Last updated: May 2, 2026</p>
+
+  <h2>1. Site publisher</h2>
+  <div class="pp-legal__contact">
+    <p><strong>Poubelle Premium</strong></p>
+    <p>Professional high-pressure bin cleaning service</p>
+    <p>Service area: Laval and the North Shore of Montreal (Quebec, Canada)</p>
+    <p>Phone: <a href="tel:+14387994449">438-799-4449</a></p>
+    <p>Email: <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a></p>
+  </div>
+
+  <h2>2. Hosting</h2>
+  <p>The site <strong>poubellepremium.ca</strong> is hosted by <strong>Cloudflare, Inc.</strong> (101 Townsend Street, San Francisco, CA 94107, USA) and by <strong>GoHighLevel</strong> (HighLevel Inc., Dallas, Texas, USA) for CRM and form functions.</p>
+
+  <h2>3. Intellectual property</h2>
+  <p>All site content (text, photographs, logos, graphics, illustrations, layout) is the exclusive property of Poubelle Premium or is used with the authorization of rights holders.</p>
+  <p>Any reproduction, representation, modification, publication, or adaptation, in whole or in part, of site elements by any process whatsoever is prohibited without prior written authorization from Poubelle Premium.</p>
+
+  <h2>4. External links</h2>
+  <p>The site may contain links to third-party sites (Google, Facebook, Instagram, TikTok, GoHighLevel). Poubelle Premium is not responsible for the content, privacy practices, or terms of use of these external sites.</p>
+
+  <h2>5. Liability</h2>
+  <p>Information presented on the site is provided for informational purposes. Poubelle Premium strives to keep information accurate and up-to-date but cannot guarantee the absence of errors or omissions.</p>
+  <p>Prices displayed are indicative and may vary based on the specifics of each request. The official quote sent by email or via the form prevails.</p>
+
+  <h2>6. Personal data</h2>
+  <p>The processing of your personal data is described in detail in our <a href="/confidentialite">Privacy policy</a>, compliant with <strong>Quebec's Law 25</strong> (LPRPSP).</p>
+
+  <h2>7. Cookies</h2>
+  <p>The use of cookies on the site is detailed in the Privacy policy. You can manage your preferences at any time:</p>
+  <p><a href="#pp-consent-open" class="pp-consent-open" data-pp-open-consent>Manage my cookies</a></p>
+
+  <h2>8. Applicable law</h2>
+  <p>These legal notices are governed by the law in effect in the province of Quebec, Canada. In case of dispute, and failing amicable settlement, the competent courts of the judicial district of Laval shall have sole jurisdiction.</p>
+
+  <h2>9. Contact</h2>
+  <p>For any questions about the site or its content:</p>
+  <p>Email: <a href="mailto:info@poubellepremium.ca">info@poubellepremium.ca</a><br>Phone: <a href="tel:+14387994449">438-799-4449</a></p>
+</section>

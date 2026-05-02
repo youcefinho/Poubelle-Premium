@@ -21,3 +21,8 @@ wrangler.toml.bak
 # Logs
 *.log
 npm-debug.log*
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

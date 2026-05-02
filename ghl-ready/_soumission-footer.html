@@ -329,10 +329,10 @@
 
   var CSS = [
     '.pp-consent-overlay{position:fixed;inset:0;background:rgba(11,27,54,.5);z-index:99998;display:none}',
-    '.pp-consent-banner{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:calc(100vw - 32px);max-width:520px;z-index:99999;background:#fff;color:#0B1B36;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);font-family:Poppins,system-ui,sans-serif;line-height:1.5;display:none;overflow:hidden;border:1px solid #EEE;font-size:14px}',
+    '.pp-consent-banner{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:calc(100% - 32px);max-width:520px;z-index:99999;background:#fff;color:#0B1B36;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.22);font-family:Poppins,system-ui,sans-serif;line-height:1.5;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease-out,visibility .25s;overflow:hidden;border:1px solid #EEE;font-size:14px}',
     '@media(min-width:768px){.pp-consent-banner{bottom:24px;width:520px}}',
-    '.pp-consent-banner.is-open{display:block;animation:ppConsentIn .25s ease-out}',
-    '@keyframes ppConsentIn{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}',
+    '.pp-consent-banner.is-open{opacity:1;visibility:visible;pointer-events:auto}',
+    
     '.pp-consent-banner__inner{padding:20px 22px}',
     '.pp-consent-banner__title{font-size:1.05rem;font-weight:700;margin:0 0 6px;color:#0B1B36;font-family:Poppins,system-ui,sans-serif}',
     '.pp-consent-banner__body{font-size:.9rem;color:#3a4a66;margin:0 0 12px}',
@@ -360,7 +360,7 @@
     '.pp-consent-trigger{position:fixed;left:14px;bottom:14px;z-index:99997;width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #cbd5e0;cursor:pointer;font-size:18px;color:#0B1B36;box-shadow:0 4px 14px rgba(0,0,0,.12);display:none;align-items:center;justify-content:center;padding:0;line-height:1}',
     '.pp-consent-trigger.is-visible{display:flex}',
     '.pp-consent-trigger:hover{background:#F48716;color:#fff;border-color:#F48716}',
-    '@media (prefers-reduced-motion: reduce){.pp-consent-banner.is-open{animation:none}.pp-consent-cat__toggle::after,.pp-consent-cat__toggle{transition:none}}'
+    '@media (prefers-reduced-motion: reduce){.pp-consent-banner{transition:none}.pp-consent-cat__toggle::after,.pp-consent-cat__toggle{transition:none}}'
   ].join('');
 
   function injectCss() {

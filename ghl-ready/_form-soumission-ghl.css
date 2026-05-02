@@ -6,15 +6,15 @@ label {
   color: #0B1B36 !important;
 }
 
-/* Bordure grise par defaut (selecteurs avec specificite haute pour battre les regles GHL Vue scoped sur [data-required]) */
+/* Bordure orange par defaut sur tous les inputs (uniforme avec la marque) */
 input:not(.multiselect__input),
 input.form-control,
 input[data-required],
 input[data-required="true"],
 input[required],
 select, textarea, textarea.form-control {
-  border: 1.5px solid #E2E8F0 !important;
-  border-color: #E2E8F0 !important;
+  border: 1.5px solid #F48716 !important;
+  border-color: #F48716 !important;
   border-radius: 10px !important;
   font-family: 'Poppins', sans-serif !important;
   color: #0B1B36 !important;
@@ -22,13 +22,16 @@ select, textarea, textarea.form-control {
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
+/* Hover : halo subtil (bordure deja orange) */
 input:not(.multiselect__input):hover, select:hover, textarea:hover, .multiselect:hover .multiselect__tags {
-  border-color: #F48716 !important;
+  border-color: #FE8800 !important;
+  box-shadow: 0 0 0 2px rgba(244, 135, 22, 0.1) !important;
 }
 
+/* Focus : halo plus prominent */
 input:not(.multiselect__input):focus, select:focus, textarea:focus, .multiselect--active .multiselect__tags {
-  border-color: #F48716 !important;
-  box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
+  border-color: #FE8800 !important;
+  box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.2) !important;
   outline: none !important;
 }
 
@@ -39,9 +42,10 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .multiselect__tags {
-  border: 1.5px solid #E2E8F0 !important;
+  border: 1.5px solid #F48716 !important;
   border-radius: 10px !important;
   font-family: 'Poppins', sans-serif !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 button, [role="button"] {

@@ -7,6 +7,12 @@ html[lang="en"] .fr-block { display: none !important; }
 html[lang="en"] .en-text { display: inline !important; }
 html[lang="en"] .en-block { display: block !important; }
 
+/* Force body en blanc : evite les "containers gris" visibles sur Mac/Safari/cache vide
+   ou GHL applique son --smoke #f5f5f5 par defaut sur le body */
+body {
+  background: #ffffff !important;
+}
+
 header.header-nav,
 .header-nav {
   width: 100vw !important;

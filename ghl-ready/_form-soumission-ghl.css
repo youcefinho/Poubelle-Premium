@@ -6,8 +6,15 @@ label {
   color: #0B1B36 !important;
 }
 
-input:not(.multiselect__input), select, textarea {
+/* Bordure grise par defaut (selecteurs avec specificite haute pour battre les regles GHL Vue scoped sur [data-required]) */
+input:not(.multiselect__input),
+input.form-control,
+input[data-required],
+input[data-required="true"],
+input[required],
+select, textarea, textarea.form-control {
   border: 1.5px solid #E2E8F0 !important;
+  border-color: #E2E8F0 !important;
   border-radius: 10px !important;
   font-family: 'Poppins', sans-serif !important;
   color: #0B1B36 !important;

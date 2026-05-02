@@ -13,6 +13,19 @@ body {
   background: #ffffff !important;
 }
 
+/* Force TOUS les wrappers GHL natifs ET sections custom en blanc :
+   le Custom Code GHL est plus etroit que la Section GHL parent (visible en
+   editor : Section verte > Custom Code bleu). La Section parente affiche
+   son propre fond beige/gris qui depasse autour. Cette regle force la
+   Section + tous les <div id="section-XXX"> en blanc uniforme.
+   Demande client 2026-05-02 : tout en blanc, pas de rythme beige. */
+body .fullSection,
+body .c-section,
+body div[id^="section-"] {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
 header.header-nav,
 .header-nav {
   width: 100vw !important;

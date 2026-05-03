@@ -147,89 +147,136 @@
     }
 
     // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
-    // Lead = Thank You URL detection (Plan B fiable, voir GHL Survey Settings -> On Submit Redirect URL :
-    // /soumission_1?lead=ok&em={{contact.email}}&ph={{contact.phone}}&fn={{contact.first_name}}&ln={{contact.last_name}}&ct={{contact.city}}&pc={{contact.postal_code}})
-    // GHL passe les valeurs du formulaire via merge tags dans l'URL -> on extrait pour AAM riche (EMQ 7-9/10).
-    // L'iframe cross-origin GHL ne permet pas de lire le DOM directement, donc l'URL est le seul canal.
-    // La PII est presente quelques ms avant history.replaceState clean -> acceptable pour ce use case.
+    // Strategie : on capte le postMessage `set-sticky-contacts` (l'iframe Sondage envoie
+    // toutes les valeurs du form vers le parent au fur et a mesure du remplissage), on
+    // stocke le user_data, puis quand survey:complete arrive on fait fbq('init', PIXEL, ud)
+    // pour enrichir l'AAM (EMQ 7-9/10) AVANT de fire Lead.
+    // Plan B (URL ?lead=ok&em=...) garde comme fallback si jamais GHL change.
     var ppLeadFired = false;
+    var ppCapturedUserData = null;
+
+    function ppFireLeadWithUserData() {
+      if (ppLeadFired || typeof fbq !== 'function') return;
+      if (ppCapturedUserData && Object.keys(ppCapturedUserData).length > 0) {
+        try { fbq('init', '986179510496466', ppCapturedUserData); } catch (e) {}
+      }
+      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
+      ppLeadFired = true;
+    }
+
+    function showThankYouOverlay() {
+      if (document.getElementById('pp-thank-you-overlay')) return;
+      var isEn = document.body.classList.contains('lang-en');
+      var overlay = document.createElement('div');
+      overlay.id = 'pp-thank-you-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
+      overlay.innerHTML = '' +
+        '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
+        '<div style="background:#fff;border-radius:18px;max-width:560px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
+        '<div style="font-size:64px;line-height:1;margin-bottom:14px;">&#9989;</div>' +
+        '<h2 style="font-size:26px;font-weight:800;color:#0d3b66;margin:0 0 18px;text-align:center;">' +
+          (isEn ? 'Thank you for your request!' : 'Merci pour votre demande !') +
+        '</h2>' +
+        '<p style="font-size:17px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
+          (isEn
+            ? 'Everything is in order, and we will contact you soon to follow up and schedule the service.'
+            : 'Tout est en ordre, et nous vous contacterons bient&ocirc;t pour faire le suivi et planifier le service.') +
+        '</p>' +
+        '<p style="font-size:16px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
+          (isEn
+            ? 'If you have questions in the meantime, feel free to call us at <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.'
+            : 'Si vous avez des questions en attendant, n&rsquo;h&eacute;sitez pas &agrave; nous &eacute;crire au <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.') +
+        '</p>' +
+        '<p style="font-size:17px;color:#0d3b66;font-weight:700;line-height:1.5;margin:0 0 26px;text-align:center;">' +
+          (isEn ? 'See you soon!' : '&Agrave; tr&egrave;s bient&ocirc;t !') +
+        '</p>' +
+        '<button id="pp-thank-you-close" style="background:#FE8800;color:#fff;border:0;border-radius:999px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 8px 18px rgba(254,136,0,.35);">' +
+          'OK' +
+        '</button>' +
+        '</div>';
+      document.body.appendChild(overlay);
+      function closeOverlay() {
+        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      }
+      document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
+    }
+
+    // Plan A (rare) : URL ?lead=ok&em=... -> Lead immediat (cas standalone hors funnel)
     var qs = window.location.search || '';
     if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
-      if (typeof fbq === 'function') {
-        // Re-init pixel avec user_data pour AAM (Meta hash ces valeurs server-side automatiquement)
-        try {
-          var ppParams = new URLSearchParams(qs);
-          var ppUserData = {};
-          var ppFieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp' };
-          for (var k in ppFieldMap) {
-            var v = ppParams.get(k);
-            if (v && v.trim() && v.indexOf('{{') === -1) {
-              ppUserData[ppFieldMap[k]] = v.trim().toLowerCase();
-            }
-          }
-          if (Object.keys(ppUserData).length > 0) {
-            fbq('init', '986179510496466', ppUserData);
-          }
-        } catch (e) {}
-        // eventID partage avec CAPI server pour dedup Meta
-        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
-        ppLeadFired = true; // bloque le postMessage fallback pour eviter un double-tracking
-      }
-      function showThankYouOverlay() {
-        if (document.getElementById('pp-thank-you-overlay')) return;
-        var isEn = document.body.classList.contains('lang-en');
-        var overlay = document.createElement('div');
-        overlay.id = 'pp-thank-you-overlay';
-        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
-        overlay.innerHTML = '' +
-          '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
-          '<div style="background:#fff;border-radius:18px;max-width:560px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
-          '<div style="font-size:64px;line-height:1;margin-bottom:14px;">&#9989;</div>' +
-          '<h2 style="font-size:28px;font-weight:800;color:#0d3b66;margin:0 0 14px;">' +
-            (isEn ? 'Thank you!' : 'Merci !') +
-          '</h2>' +
-          '<p style="font-size:17px;color:#374151;line-height:1.55;margin:0 0 26px;">' +
-            (isEn
-              ? 'Your request has been sent successfully. We will contact you soon.'
-              : 'Votre demande a ete envoyee avec succes. Nous vous contacterons bientot.') +
-          '</p>' +
-          '<button id="pp-thank-you-close" style="background:#FE8800;color:#fff;border:0;border-radius:999px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 8px 18px rgba(254,136,0,.35);">' +
-            'OK' +
-          '</button>' +
-          '</div>';
-        document.body.appendChild(overlay);
-        function closeOverlay() {
-          if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      try {
+        var ppParams = new URLSearchParams(qs);
+        var ppFieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp' };
+        var ppUd = {};
+        for (var k in ppFieldMap) {
+          var v = ppParams.get(k);
+          if (v && v.trim() && v.indexOf('{{') === -1) ppUd[ppFieldMap[k]] = v.trim().toLowerCase();
         }
-        document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
-        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
-      }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', showThankYouOverlay);
-      } else {
-        showThankYouOverlay();
-      }
+        if (Object.keys(ppUd).length > 0) ppCapturedUserData = ppUd;
+      } catch (e) {}
+      ppFireLeadWithUserData();
+      showThankYouOverlay();
       try {
         var clean = window.location.pathname + window.location.hash;
         window.history.replaceState({}, document.title, clean);
-      } catch (e) { }
+      } catch (e) {}
     }
-    // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
-    // ppLeadFired declare plus haut (Plan B le set a true s'il fire en premier).
-    // Origin check pour eviter qu'un domaine externe puisse fake un Lead via postMessage.
+
+    // Plan B (principal) : capter le postMessage GHL `set-sticky-contacts`
+    // (l'iframe Sondage envoie au parent toutes les valeurs du form pendant le remplissage)
+    // -> on stocke user_data, puis quand survey:complete arrive on init pixel + fire Lead.
+    function ppExtractUserData(ud) {
+      if (!ud || typeof ud !== 'object') return null;
+      var out = {};
+      if (ud.email) out.em = String(ud.email).trim().toLowerCase();
+      if (ud.phone) out.ph = String(ud.phone).replace(/\D/g, '');
+      if (ud.first_name) out.fn = String(ud.first_name).trim().toLowerCase();
+      if (ud.last_name) out.ln = String(ud.last_name).trim().toLowerCase();
+      if (ud.city) out.ct = String(ud.city).trim().toLowerCase().replace(/\s/g, '');
+      if (ud.country) out.country = String(ud.country).trim().toLowerCase();
+      // Code postal : champ custom GHL (slug `code_postal_2026` ou ID equivalent)
+      var pc = ud.code_postal_2026 || ud.postal_code || ud.zip || ud.zp;
+      if (pc) out.zp = String(pc).replace(/\s/g, '').toLowerCase();
+      // event_id : si GHL Workflow utilise le meme ID via custom field, on s'aligne
+      if (ud.event_id && typeof ud.event_id === 'string') {
+        ppEventId = ud.event_id;
+        try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
+      }
+      return Object.keys(out).length > 0 ? out : null;
+    }
+
     window.addEventListener('message', function (e) {
-      if (!e.data || ppLeadFired || typeof fbq !== 'function' || !isTrustedGhlOrigin(e.origin)) return;
+      if (!e.data || typeof fbq !== 'function' || !isTrustedGhlOrigin(e.origin)) return;
       var d = e.data;
+
+      // Capture user_data depuis set-sticky-contacts (format: ["set-sticky-contacts", "_ud", {...}])
+      // GHL envoie ce message quand l'iframe push les valeurs du form vers le contact
+      // (= moment de la soumission). Si on a email + (phone OR name), c'est un submit valide.
+      if (Array.isArray(d) && d[0] === 'set-sticky-contacts' && d[1] === '_ud') {
+        var ud = ppExtractUserData(d[2]);
+        if (ud) ppCapturedUserData = ud;
+        // Trigger Lead si c'est une vraie soumission (email + au moins un autre identifiant)
+        if (!ppLeadFired && ud && ud.em && (ud.ph || ud.fn || ud.ln)) {
+          ppFireLeadWithUserData();
+          showThankYouOverlay();
+        }
+        return;
+      }
+      if (ppLeadFired) return;
+
+      // Backup : detection survey:complete / form:submit en messages classiques
       var t = '';
       if (typeof d === 'object' && d) {
         t = String(d.type || d.event || d.action || d.name || '');
         if (!t && d.eventName) t = String(d.eventName);
+        if (!t && Array.isArray(d) && typeof d[0] === 'string') t = d[0];
       } else if (typeof d === 'string') {
         t = d;
       }
       if (/survey[:_-]?(complete|submit|finish|done|end)|form[:_-]?submit|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
-        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL (postMessage fallback)', content_category: 'devis' }, { eventID: ppEventId });
-        ppLeadFired = true;
+        ppFireLeadWithUserData();
+        showThankYouOverlay();
       }
     });
     // Contact = click sur lien tel:

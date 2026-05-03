@@ -146,23 +146,12 @@
       setTimeout(ppInjectEventIdInSurveyIframe, 2000);
     }
 
-    // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
-    // Strategie : on capte le postMessage `set-sticky-contacts` (l'iframe Sondage envoie
-    // toutes les valeurs du form vers le parent au fur et a mesure du remplissage), on
-    // stocke le user_data, puis quand survey:complete arrive on fait fbq('init', PIXEL, ud)
-    // pour enrichir l'AAM (EMQ 7-9/10) AVANT de fire Lead.
-    // Plan B (URL ?lead=ok&em=...) garde comme fallback si jamais GHL change.
-    var ppLeadFired = false;
-    var ppCapturedUserData = null;
-
-    function ppFireLeadWithUserData() {
-      if (ppLeadFired || typeof fbq !== 'function') return;
-      if (ppCapturedUserData && Object.keys(ppCapturedUserData).length > 0) {
-        try { fbq('init', '986179510496466', ppCapturedUserData); } catch (e) {}
-      }
-      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
-      ppLeadFired = true;
-    }
+    // ===== OVERLAY MERCI =====
+    // Le Lead est envoye cote serveur par GHL Workflow CAPI (avec user_data 100% via le
+    // contact). Pas de fbq('track','Lead') client-side : l'iframe Sondage cross-origin
+    // empeche d'enrichir l'AAM proprement, et tenter de fire un Lead browser sans AAM
+    // donnerait juste un EMQ tres bas. CAPI cote serveur = source unique du Lead, plus propre.
+    // Pixel browser fire seulement PageView (auto via base code) + Contact (click tel: ci-dessous).
 
     function showThankYouOverlay() {
       if (document.getElementById('pp-thank-you-overlay')) return;
@@ -202,83 +191,18 @@
       overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
     }
 
-    // Plan A (rare) : URL ?lead=ok&em=... -> Lead immediat (cas standalone hors funnel)
-    var qs = window.location.search || '';
-    if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
-      try {
-        var ppParams = new URLSearchParams(qs);
-        var ppFieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp' };
-        var ppUd = {};
-        for (var k in ppFieldMap) {
-          var v = ppParams.get(k);
-          if (v && v.trim() && v.indexOf('{{') === -1) ppUd[ppFieldMap[k]] = v.trim().toLowerCase();
-        }
-        if (Object.keys(ppUd).length > 0) ppCapturedUserData = ppUd;
-      } catch (e) {}
-      ppFireLeadWithUserData();
-      showThankYouOverlay();
-      try {
-        var clean = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, clean);
-      } catch (e) {}
-    }
-
-    // Plan B (principal) : capter le postMessage GHL `set-sticky-contacts`
-    // (l'iframe Sondage envoie au parent toutes les valeurs du form pendant le remplissage)
-    // -> on stocke user_data, puis quand survey:complete arrive on init pixel + fire Lead.
-    function ppExtractUserData(ud) {
-      if (!ud || typeof ud !== 'object') return null;
-      var out = {};
-      if (ud.email) out.em = String(ud.email).trim().toLowerCase();
-      if (ud.phone) out.ph = String(ud.phone).replace(/\D/g, '');
-      if (ud.first_name) out.fn = String(ud.first_name).trim().toLowerCase();
-      if (ud.last_name) out.ln = String(ud.last_name).trim().toLowerCase();
-      if (ud.city) out.ct = String(ud.city).trim().toLowerCase().replace(/\s/g, '');
-      if (ud.country) out.country = String(ud.country).trim().toLowerCase();
-      // Code postal : champ custom GHL (slug `code_postal_2026` ou ID equivalent)
-      var pc = ud.code_postal_2026 || ud.postal_code || ud.zip || ud.zp;
-      if (pc) out.zp = String(pc).replace(/\s/g, '').toLowerCase();
-      // event_id : si GHL Workflow utilise le meme ID via custom field, on s'aligne
-      if (ud.event_id && typeof ud.event_id === 'string') {
-        ppEventId = ud.event_id;
-        try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
-      }
-      return Object.keys(out).length > 0 ? out : null;
-    }
-
+    // Trigger overlay merci sur set-sticky-contacts (= moment de la soumission GHL).
+    // Pas de fbq Lead ici : c'est CAPI server-side qui envoie le Lead avec full user_data.
+    var ppOverlayShown = false;
     window.addEventListener('message', function (e) {
-      if (!e.data || typeof fbq !== 'function' || !isTrustedGhlOrigin(e.origin)) return;
+      if (!e.data || ppOverlayShown || !isTrustedGhlOrigin(e.origin)) return;
       var d = e.data;
-
-      // Capture user_data depuis set-sticky-contacts (format: ["set-sticky-contacts", "_ud", {...}])
-      // GHL envoie ce message quand l'iframe push les valeurs du form vers le contact
-      // (= moment de la soumission). Si on a email + (phone OR name), c'est un submit valide.
-      if (Array.isArray(d) && d[0] === 'set-sticky-contacts' && d[1] === '_ud') {
-        var ud = ppExtractUserData(d[2]);
-        if (ud) ppCapturedUserData = ud;
-        // Trigger Lead si c'est une vraie soumission (email + au moins un autre identifiant)
-        if (!ppLeadFired && ud && ud.em && (ud.ph || ud.fn || ud.ln)) {
-          ppFireLeadWithUserData();
-          showThankYouOverlay();
-        }
-        return;
-      }
-      if (ppLeadFired) return;
-
-      // Backup : detection survey:complete / form:submit en messages classiques
-      var t = '';
-      if (typeof d === 'object' && d) {
-        t = String(d.type || d.event || d.action || d.name || '');
-        if (!t && d.eventName) t = String(d.eventName);
-        if (!t && Array.isArray(d) && typeof d[0] === 'string') t = d[0];
-      } else if (typeof d === 'string') {
-        t = d;
-      }
-      if (/survey[:_-]?(complete|submit|finish|done|end)|form[:_-]?submit|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
-        ppFireLeadWithUserData();
+      if (Array.isArray(d) && d[0] === 'set-sticky-contacts' && d[1] === '_ud' && d[2] && d[2].email) {
+        ppOverlayShown = true;
         showThankYouOverlay();
       }
     });
+
     // Contact = click sur lien tel:
     var ppContactFired = false;
     document.addEventListener('click', function (e) {

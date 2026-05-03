@@ -114,12 +114,66 @@
     }, 500);
 
     // ===== TRACKING PIXEL META =====
-    // Le Lead est envoye cote serveur par GHL CAPI (workflow ou integration native location).
-    // Le pixel browser fire :
+    // Pixel browser fire :
     //  - PageView (auto via base code)
-    //  - Contact (click sur lien tel:, ci-dessous)
-    // Pas de Lead browser : l'iframe Sondage cross-origin empeche d'enrichir l'AAM et le CAPI
-    // server-side (avec full user_data) suffit pour Meta. GHL gere la merci dans l'iframe.
+    //  - Lead (postMessage GHL set-sticky-contacts avec user_data depuis le contact)
+    //  - Contact (click sur lien tel:)
+    // event_id partage avec CAPI server (via custom field GHL injecte dans l'iframe Sondage)
+    // pour dedup automatique cote Meta.
+
+    // event_id session : meme UUID utilise par browser pixel + CAPI workflow GHL
+    var ppEventId = (function () {
+      var id = null;
+      try { id = sessionStorage.getItem('pp_event_id_lead'); } catch (e) {}
+      if (!id) {
+        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+           : (Date.now() + '-' + Math.random().toString(36).slice(2));
+        try { sessionStorage.setItem('pp_event_id_lead', id); } catch (e) {}
+      }
+      return id;
+    })();
+
+    // Injection event_id dans l'iframe Sondage (URL param) pour que GHL prefill le custom field
+    function ppInjectEventId() {
+      var iframe = document.querySelector('iframe[src*="leadconnectorhq.com/widget/survey/"]');
+      if (!iframe) return false;
+      var src = iframe.getAttribute('src') || '';
+      if (src.indexOf('event_id=') !== -1) return true;
+      var sep = src.indexOf('?') === -1 ? '?' : '&';
+      iframe.setAttribute('src', src + sep + 'event_id=' + encodeURIComponent(ppEventId));
+      return true;
+    }
+    if (!ppInjectEventId()) {
+      setTimeout(ppInjectEventId, 200);
+      setTimeout(ppInjectEventId, 800);
+      setTimeout(ppInjectEventId, 2000);
+    }
+
+    // Lead = postMessage set-sticky-contacts (= moment de la soumission GHL)
+    // On fire fbq('init', PIXEL, ud) avant Lead pour AAM riche (em, ph, fn, ln, ct, country)
+    var ppLeadFired = false;
+    window.addEventListener('message', function (e) {
+      if (ppLeadFired || typeof fbq !== 'function') return;
+      if (!e.origin || e.origin.indexOf('leadconnectorhq.com') === -1) return;
+      var d = e.data;
+      if (!Array.isArray(d) || d[0] !== 'set-sticky-contacts' || d[1] !== '_ud') return;
+      var ud = d[2];
+      if (!ud || !ud.email) return;
+
+      var userData = {};
+      userData.em = String(ud.email).trim().toLowerCase();
+      if (ud.phone) userData.ph = String(ud.phone).replace(/\D/g, '');
+      if (ud.first_name) userData.fn = String(ud.first_name).trim().toLowerCase();
+      if (ud.last_name) userData.ln = String(ud.last_name).trim().toLowerCase();
+      if (ud.city) userData.ct = String(ud.city).trim().toLowerCase().replace(/\s/g, '');
+      if (ud.country) userData.country = String(ud.country).trim().toLowerCase();
+      var pc = ud.code_postal_2026 || ud.postal_code || ud.zip;
+      if (pc) userData.zp = String(pc).replace(/\s/g, '').toLowerCase();
+
+      try { fbq('init', '986179510496466', userData); } catch (err) {}
+      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
+      ppLeadFired = true;
+    });
 
     // Contact = click sur lien tel:
     var ppContactFired = false;

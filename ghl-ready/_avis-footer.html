@@ -50,41 +50,10 @@
     setTimeout(patchOldLinks, 1000);
     setTimeout(patchOldLinks, 3000);
 
-    // Click sur iframe Google reviews -> redirige vers /retour apres ouverture nouvel onglet
-    var lastIframeClick = 0;
-    document.addEventListener('mousedown', function (e) {
-      var t = e.target;
-      while (t) {
-        if (t.id === 'msgsndr_reviews' || (t.tagName === 'IFRAME' && t.src && t.src.indexOf('leadconnectorhq.com/appengine/reviews') >= 0)) {
-          lastIframeClick = Date.now();
-          break;
-        }
-        t = t.parentElement;
-      }
-    }, true);
-    window.addEventListener('blur', function () {
-      // Cas 1 : on a detecte un mousedown sur l'iframe (browser permissif)
-      // Cas 2 : l'iframe msgsndr_reviews est l'element actif au moment du blur
-      //   (cross-origin iframe : le mousedown ne fire pas mais focus passe a l'iframe
-      //   quand l'user clique dedans avant que window.open ouvre Google)
-      var ae = document.activeElement;
-      var isReviewIframe = ae && (ae.id === 'msgsndr_reviews' ||
-        (ae.tagName === 'IFRAME' && ae.src && ae.src.indexOf('leadconnectorhq.com/appengine/reviews') >= 0));
-      if (isReviewIframe || (Date.now() - lastIframeClick < 3000 && ae && ae.tagName === 'IFRAME')) {
-        setTimeout(function () { window.location.href = '/retour'; }, 600);
-      }
-    });
-
-    // Click sur n'importe quel lien Google reviews Poubelle Premium -> redirige
-    // (filet pour les CTA dont le onclick inline serait strippe par GHL)
-    document.addEventListener('click', function (e) {
-      var a = e.target && e.target.closest && e.target.closest('a');
-      if (!a) return;
-      var href = a.getAttribute('href') || '';
-      if (href.indexOf('google.com') < 0) return;
-      if (href.indexOf('Poubelle+Premium') < 0 && href.indexOf('ludocid') < 0 && href.indexOf('0xaf3ef64ce9c08449') < 0 && href.indexOf('11tjz8j7cs') < 0) return;
-      setTimeout(function () { window.location.href = '/retour'; }, 250);
-    });
+    // [RETIRE 2026-05-02] Anciennes redirections auto vers /retour apres click
+    // Google reviews (iframe widget GHL OU lien direct). Remplace par le rating gate
+    // propre sur /avis-clients (5★→Google, 1-4★→/retour via star selector). Plus
+    // besoin d'auto-channeling : le user choisit explicitement via les etoiles.
 
     // ===== META PIXEL CONVERSION TRACKING =====
     // Contact = click sur lien tel:

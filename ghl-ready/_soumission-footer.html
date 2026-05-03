@@ -113,6 +113,39 @@
       obs.observe(iframe, { attributes: true, attributeFilter: ['style', 'height'] });
     }, 500);
 
+    // ===== EVENT_ID POUR DEDUP PIXEL <-> CAPI =====
+    // UUID genere par session, partage entre pixel client (fbq eventID) et CAPI server
+    // (GHL Workflow webhook -> Meta CAPI). Meta dedupe les 2 events si event_id identique.
+    function ppGetOrCreateEventId() {
+      var id = null;
+      try { id = sessionStorage.getItem('pp_event_id_lead'); } catch (e) {}
+      if (!id) {
+        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+           : (Date.now() + '-' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2));
+        try { sessionStorage.setItem('pp_event_id_lead', id); } catch (e) {}
+      }
+      return id;
+    }
+    var ppEventId = ppGetOrCreateEventId();
+
+    // Injection event_id dans le src de l'iframe Sondage (avant que form_embed.js le lance).
+    // GHL Sondage prefill le custom field event_id depuis ce param URL.
+    function ppInjectEventIdInSurveyIframe() {
+      var iframe = document.querySelector('iframe[src*="leadconnectorhq.com/widget/survey/"]');
+      if (!iframe) return false;
+      var src = iframe.getAttribute('src') || '';
+      if (src.indexOf('event_id=') !== -1) return true; // deja injecte
+      var sep = src.indexOf('?') === -1 ? '?' : '&';
+      iframe.setAttribute('src', src + sep + 'event_id=' + encodeURIComponent(ppEventId));
+      return true;
+    }
+    // Tente plusieurs fois : iframe peut etre injecte async par form_embed.js
+    if (!ppInjectEventIdInSurveyIframe()) {
+      setTimeout(ppInjectEventIdInSurveyIframe, 200);
+      setTimeout(ppInjectEventIdInSurveyIframe, 800);
+      setTimeout(ppInjectEventIdInSurveyIframe, 2000);
+    }
+
     // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
     // Lead = Thank You URL detection (Plan B fiable, voir GHL Survey Settings -> On Submit Redirect URL : /soumission_1?lead=ok)
     // GHL ne permet pas Show message + Redirect URL en meme temps -> overlay merci custom quand ?lead=ok detecte.
@@ -120,7 +153,8 @@
     var qs = window.location.search || '';
     if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
       if (typeof fbq === 'function') {
-        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' });
+        // eventID partage avec CAPI server (GHL Workflow webhook) pour dedup Meta
+        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
         ppLeadFired = true; // bloque le postMessage fallback pour eviter un double-tracking
       }
       function showThankYouOverlay() {
@@ -176,7 +210,7 @@
         t = d;
       }
       if (/survey[:_-]?(complete|submit|finish|done|end)|form[:_-]?submit|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
-        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL (postMessage fallback)', content_category: 'devis' });
+        fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL (postMessage fallback)', content_category: 'devis' }, { eventID: ppEventId });
         ppLeadFired = true;
       }
     });

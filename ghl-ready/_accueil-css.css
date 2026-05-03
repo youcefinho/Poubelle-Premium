@@ -7,15 +7,13 @@ html[lang="en"] .fr-block { display: none !important; }
 html[lang="en"] .en-text { display: inline !important; }
 html[lang="en"] .en-block { display: block !important; }
 
-/* Force tout l'environnement en blanc - couverture complete v2 (2026-05-02) :
-   - html + body (level browser)
-   - GHL preview wrappers (hl_page-preview, hl_page-preview--content)
-   - <main> tag si present
-   - .fullSection / .c-section (wrapper GHL Section visible en editor)
-   - tous les <div id="section-XXX"> custom
-   Pourquoi v2 : v1 ne couvrait que body + .fullSection, mais le beige
-   provenait aussi des wrappers parents GHL natifs (.hl_page-preview etc)
-   qui ne sont pas dans notre HTML mais ajoutes par GHL au runtime. */
+/* Force tout l'environnement en blanc - couverture complete v3 (2026-05-02) :
+   v1 = body + .fullSection
+   v2 = + html, hl_page-preview, hl_page-preview--content, main
+   v3 = + .bg.fill-width-height (couche de fond interne aux sections),
+         .c-row, .c-column, .c-wrapper, .inner
+   IMPORTANT : on utilise UNIQUEMENT background-color (pas background:
+   shorthand) pour ne pas casser les background-image (hero photo, etc.) */
 html,
 body,
 body .hl_page-preview,
@@ -23,6 +21,11 @@ body .hl_page-preview--content,
 body main,
 body .fullSection,
 body .c-section,
+body .c-row,
+body .c-column,
+body .c-wrapper,
+body .inner,
+body .bg.fill-width-height,
 body div[id^="section-"] {
   background-color: #ffffff !important;
 }

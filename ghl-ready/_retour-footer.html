@@ -73,79 +73,10 @@
     setTimeout(patchOldLinks, 1000);
     setTimeout(patchOldLinks, 3000);
 
-    // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
-    // CompleteRegistration = Thank You URL detection (Plan B fiable, voir GHL Form Settings -> On Submit Redirect URL : /retour?lead=ok)
-    // GHL ne permet pas Show message + Redirect URL en meme temps -> on affiche un overlay merci custom quand ?lead=ok detecte.
-    var ppRegFired = false;
-    var qs = window.location.search || '';
-    if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
-      if (typeof fbq === 'function') {
-        fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews' });
-        ppRegFired = true; // bloque le postMessage fallback pour eviter un double-tracking
-      }
-      // Overlay merci (FR/EN selon lang du body) - reste affiche jusqu'au click sur Fermer
-      function showThankYouOverlay() {
-        if (document.getElementById('pp-thank-you-overlay')) return;
-        var isEn = document.body.classList.contains('lang-en');
-        var overlay = document.createElement('div');
-        overlay.id = 'pp-thank-you-overlay';
-        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
-        overlay.innerHTML = '' +
-          '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
-          '<div style="background:#fff;border-radius:18px;max-width:520px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
-          '<h2 style="font-size:26px;font-weight:800;color:#0d3b66;margin:0 0 14px;line-height:1.3;">' +
-            (isEn ? 'We appreciate your feedback!' : 'Nous apprecions vos commentaires !') +
-          '</h2>' +
-          '<p style="font-size:17px;color:#374151;line-height:1.55;margin:0 0 26px;">' +
-            (isEn
-              ? 'Thank you for taking the time to fill out this form.'
-              : 'Merci d\'avoir pris le temps de remplir ce formulaire.') +
-          '</p>' +
-          '<button id="pp-thank-you-close" style="background:#FE8800;color:#fff;border:0;border-radius:999px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 8px 18px rgba(254,136,0,.35);">' +
-            (isEn ? 'OK' : 'OK') +
-          '</button>' +
-          '</div>';
-        document.body.appendChild(overlay);
-        function closeOverlay() {
-          if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        }
-        document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
-        // Click outside ferme aussi (sur le fond noir, pas sur le modal)
-        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
-      }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', showThankYouOverlay);
-      } else {
-        showThankYouOverlay();
-      }
-      // Nettoyer l'URL (evite re-fire au refresh ou au partage du lien)
-      try {
-        var clean = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, clean);
-      } catch (e) { }
-    }
-    // Fallback : detection postMessage (au cas ou GHL change de mecanique un jour, on garde au cas ou)
-    // ppRegFired declare plus haut (Plan B le set a true s'il fire en premier).
-    // Origin check : on accepte uniquement les messages de domaines GHL connus pour eviter le spoofing.
-    function isTrustedGhlOrigin(origin) {
-      try {
-        return origin && /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
-      } catch (e) { return false; }
-    }
-    window.addEventListener('message', function (e) {
-      if (!e.data || ppRegFired || typeof fbq !== 'function' || !isTrustedGhlOrigin(e.origin)) return;
-      var d = e.data;
-      var t = '';
-      if (typeof d === 'object' && d) {
-        t = String(d.type || d.event || d.action || d.name || d.eventName || '');
-      } else if (typeof d === 'string') {
-        t = d;
-      }
-      if (/form[:_-]?(submit|complete|done|success)|submit[:_-]?success|onSubmit|formCompleted/i.test(t)) {
-        fbq('track', 'CompleteRegistration', { content_name: 'Form Retour Google reviews (postMessage fallback)' });
-        ppRegFired = true;
-      }
-    });
+    // ===== META PIXEL CONVERSION TRACKING =====
+    // Page /retour : pas d'event de conversion form (pas de Lead, pas de CompleteRegistration).
+    // Seul PageView (auto via header) + Contact (click tel:) sont tracks ici.
+    // Le Form Retour ne doit PAS fire de conversion - c'est /soumission_1 qui porte le Lead.
     // Contact = click sur lien tel:
     var ppContactFired = false;
     document.addEventListener('click', function (e) {

@@ -147,13 +147,31 @@
     }
 
     // ===== META PIXEL CONVERSION TRACKING + OVERLAY MERCI =====
-    // Lead = Thank You URL detection (Plan B fiable, voir GHL Survey Settings -> On Submit Redirect URL : /soumission_1?lead=ok)
-    // GHL ne permet pas Show message + Redirect URL en meme temps -> overlay merci custom quand ?lead=ok detecte.
+    // Lead = Thank You URL detection (Plan B fiable, voir GHL Survey Settings -> On Submit Redirect URL :
+    // /soumission_1?lead=ok&em={{contact.email}}&ph={{contact.phone}}&fn={{contact.first_name}}&ln={{contact.last_name}}&ct={{contact.city}}&pc={{contact.postal_code}})
+    // GHL passe les valeurs du formulaire via merge tags dans l'URL -> on extrait pour AAM riche (EMQ 7-9/10).
+    // L'iframe cross-origin GHL ne permet pas de lire le DOM directement, donc l'URL est le seul canal.
+    // La PII est presente quelques ms avant history.replaceState clean -> acceptable pour ce use case.
     var ppLeadFired = false;
     var qs = window.location.search || '';
     if (/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) {
       if (typeof fbq === 'function') {
-        // eventID partage avec CAPI server (GHL Workflow webhook) pour dedup Meta
+        // Re-init pixel avec user_data pour AAM (Meta hash ces valeurs server-side automatiquement)
+        try {
+          var ppParams = new URLSearchParams(qs);
+          var ppUserData = {};
+          var ppFieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp' };
+          for (var k in ppFieldMap) {
+            var v = ppParams.get(k);
+            if (v && v.trim() && v.indexOf('{{') === -1) {
+              ppUserData[ppFieldMap[k]] = v.trim().toLowerCase();
+            }
+          }
+          if (Object.keys(ppUserData).length > 0) {
+            fbq('init', '986179510496466', ppUserData);
+          }
+        } catch (e) {}
+        // eventID partage avec CAPI server pour dedup Meta
         fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
         ppLeadFired = true; // bloque le postMessage fallback pour eviter un double-tracking
       }

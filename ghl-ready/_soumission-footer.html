@@ -166,13 +166,19 @@
       if (!ud || typeof ud !== 'object' || !ud.email) return;
 
       var userData = {};
-      userData.em = String(ud.email).trim().toLowerCase();
-      if (ud.phone) userData.ph = String(ud.phone).replace(/\D/g, '');
-      if (ud.first_name) userData.fn = String(ud.first_name).trim().toLowerCase();
-      if (ud.last_name) userData.ln = String(ud.last_name).trim().toLowerCase();
-      if (ud.city) userData.ct = String(ud.city).trim().toLowerCase().replace(/\s/g, '');
-      if (ud.country) userData.country = String(ud.country).trim().toLowerCase();
-      var pc = ud.code_postal_2026 || ud.postal_code || ud.zip;
+      userData.em = String(ud.email || ud.Email).trim().toLowerCase();
+      var phone = ud.phone || ud.Phone;
+      if (phone) userData.ph = String(phone).replace(/\D/g, '');
+      // GHL incoherent : 'first_name' minuscule mais 'Last_name' capital -> fallback les 2 casses
+      var fn = ud.first_name || ud.First_name || ud.firstname;
+      if (fn) userData.fn = String(fn).trim().toLowerCase();
+      var ln = ud.last_name || ud.Last_name || ud.lastname;
+      if (ln) userData.ln = String(ln).trim().toLowerCase();
+      var city = ud.city || ud.City;
+      if (city) userData.ct = String(city).trim().toLowerCase().replace(/\s/g, '');
+      var country = ud.country || ud.Country;
+      if (country) userData.country = String(country).trim().toLowerCase();
+      var pc = ud.code_postal_2026 || ud.postal_code || ud.zip || ud.zipcode;
       if (pc) userData.zp = String(pc).replace(/\s/g, '').toLowerCase();
 
       try { fbq('init', '986179510496466', userData); } catch (err) {}

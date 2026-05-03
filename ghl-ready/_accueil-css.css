@@ -664,8 +664,8 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
 }
 
 /* Migrate from <style> bloc 17 (P0-5b Phase 2 - 2026-05-01) - section evolution premium */
+/* Bg beige #f8f6f1 RETIRE 2026-05-02 sur demande client (tout en blanc) */
 #section-EvolutionPremium {
-  background: #f8f6f1;
   padding: 80px 20px;
 }
 .evolution-premium-container {
@@ -879,7 +879,7 @@ div#comparison figure div {
 /* Migrate from <style> bloc 20 (P0-5b Phase 2 - 2026-05-01) - secondary services slider + .ss-card + swiper nav */
 .secondary-services-section {
   padding: 80px 0 !important;
-  background: #f9f9f9 !important;
+  /* bg #f9f9f9 retire 2026-05-02 sur demande client (tout en blanc) */
 }
 .ss-swiper-outer {
   position: relative;
@@ -2303,7 +2303,7 @@ select:focus,
   font-size: 16px;
 }
 .mission-section-enhanced {
-  background-color: #f9f9f9 !important;
+  /* bg #f9f9f9 retire 2026-05-02 sur demande client (tout en blanc) */
   position: relative !important;
   padding: 100px 0 !important;
   overflow: hidden !important;
@@ -2349,6 +2349,16 @@ select:focus,
   background: none !important;
   -webkit-text-fill-color: initial !important;
 }
+/* Anti-AOS sur mission-title : sur mobile AOS peut bugger (header fixe + offset)
+   et laisser le titre a opacity:0 (invisible). Force la visibilite + neutralise
+   l'animation fade-right pour garantir l'affichage. Demande Rochdi 2026-05-02
+   apres bug "Notre mission apparait que selectionnee" sur mobile. */
+.mission-title-premium,
+.mission-title-premium.c-heading {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
 .mission-text-premium h2,
 .mission-text-premium p {
   font-family: var(--contentfont), 'Poppins', sans-serif !important;
@@ -2389,7 +2399,7 @@ div#comparison {
   .mission-section-enhanced { padding: 60px 10px !important; }
 }
 .evolution-upgrade-section {
-  background-color: #f9f9f9 !important;
+  /* bg #f9f9f9 retire 2026-05-02 sur demande client (tout en blanc) */
   padding: 80px 0 !important;
 }
 .evolution-card-premium {

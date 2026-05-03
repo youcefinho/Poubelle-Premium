@@ -113,95 +113,13 @@
       obs.observe(iframe, { attributes: true, attributeFilter: ['style', 'height'] });
     }, 500);
 
-    // ===== EVENT_ID POUR DEDUP PIXEL <-> CAPI =====
-    // UUID genere par session, partage entre pixel client (fbq eventID) et CAPI server
-    // (GHL Workflow webhook -> Meta CAPI). Meta dedupe les 2 events si event_id identique.
-    function ppGetOrCreateEventId() {
-      var id = null;
-      try { id = sessionStorage.getItem('pp_event_id_lead'); } catch (e) {}
-      if (!id) {
-        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
-           : (Date.now() + '-' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2));
-        try { sessionStorage.setItem('pp_event_id_lead', id); } catch (e) {}
-      }
-      return id;
-    }
-    var ppEventId = ppGetOrCreateEventId();
-
-    // Injection event_id dans le src de l'iframe Sondage (avant que form_embed.js le lance).
-    // GHL Sondage prefill le custom field event_id depuis ce param URL.
-    function ppInjectEventIdInSurveyIframe() {
-      var iframe = document.querySelector('iframe[src*="leadconnectorhq.com/widget/survey/"]');
-      if (!iframe) return false;
-      var src = iframe.getAttribute('src') || '';
-      if (src.indexOf('event_id=') !== -1) return true; // deja injecte
-      var sep = src.indexOf('?') === -1 ? '?' : '&';
-      iframe.setAttribute('src', src + sep + 'event_id=' + encodeURIComponent(ppEventId));
-      return true;
-    }
-    // Tente plusieurs fois : iframe peut etre injecte async par form_embed.js
-    if (!ppInjectEventIdInSurveyIframe()) {
-      setTimeout(ppInjectEventIdInSurveyIframe, 200);
-      setTimeout(ppInjectEventIdInSurveyIframe, 800);
-      setTimeout(ppInjectEventIdInSurveyIframe, 2000);
-    }
-
-    // ===== OVERLAY MERCI =====
-    // Le Lead est envoye cote serveur par GHL Workflow CAPI (avec user_data 100% via le
-    // contact). Pas de fbq('track','Lead') client-side : l'iframe Sondage cross-origin
-    // empeche d'enrichir l'AAM proprement, et tenter de fire un Lead browser sans AAM
-    // donnerait juste un EMQ tres bas. CAPI cote serveur = source unique du Lead, plus propre.
-    // Pixel browser fire seulement PageView (auto via base code) + Contact (click tel: ci-dessous).
-
-    function showThankYouOverlay() {
-      if (document.getElementById('pp-thank-you-overlay')) return;
-      var isEn = document.body.classList.contains('lang-en');
-      var overlay = document.createElement('div');
-      overlay.id = 'pp-thank-you-overlay';
-      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
-      overlay.innerHTML = '' +
-        '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
-        '<div style="background:#fff;border-radius:18px;max-width:560px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
-        '<div style="font-size:64px;line-height:1;margin-bottom:14px;">&#9989;</div>' +
-        '<h2 style="font-size:26px;font-weight:800;color:#0d3b66;margin:0 0 18px;text-align:center;">' +
-          (isEn ? 'Thank you for your request!' : 'Merci pour votre demande !') +
-        '</h2>' +
-        '<p style="font-size:17px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
-          (isEn
-            ? 'Everything is in order, and we will contact you soon to follow up and schedule the service.'
-            : 'Tout est en ordre, et nous vous contacterons bient&ocirc;t pour faire le suivi et planifier le service.') +
-        '</p>' +
-        '<p style="font-size:16px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
-          (isEn
-            ? 'If you have questions in the meantime, feel free to call us at <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.'
-            : 'Si vous avez des questions en attendant, n&rsquo;h&eacute;sitez pas &agrave; nous &eacute;crire au <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.') +
-        '</p>' +
-        '<p style="font-size:17px;color:#0d3b66;font-weight:700;line-height:1.5;margin:0 0 26px;text-align:center;">' +
-          (isEn ? 'See you soon!' : '&Agrave; tr&egrave;s bient&ocirc;t !') +
-        '</p>' +
-        '<button id="pp-thank-you-close" style="background:#FE8800;color:#fff;border:0;border-radius:999px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 8px 18px rgba(254,136,0,.35);">' +
-          'OK' +
-        '</button>' +
-        '</div>';
-      document.body.appendChild(overlay);
-      function closeOverlay() {
-        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
-      }
-      document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
-    }
-
-    // Trigger overlay merci sur set-sticky-contacts (= moment de la soumission GHL).
-    // Pas de fbq Lead ici : c'est CAPI server-side qui envoie le Lead avec full user_data.
-    var ppOverlayShown = false;
-    window.addEventListener('message', function (e) {
-      if (!e.data || ppOverlayShown || !isTrustedGhlOrigin(e.origin)) return;
-      var d = e.data;
-      if (Array.isArray(d) && d[0] === 'set-sticky-contacts' && d[1] === '_ud' && d[2] && d[2].email) {
-        ppOverlayShown = true;
-        showThankYouOverlay();
-      }
-    });
+    // ===== TRACKING PIXEL META =====
+    // Le Lead est envoye cote serveur par GHL CAPI (workflow ou integration native location).
+    // Le pixel browser fire :
+    //  - PageView (auto via base code)
+    //  - Contact (click sur lien tel:, ci-dessous)
+    // Pas de Lead browser : l'iframe Sondage cross-origin empeche d'enrichir l'AAM et le CAPI
+    // server-side (avec full user_data) suffit pour Meta. GHL gere la merci dans l'iframe.
 
     // Contact = click sur lien tel:
     var ppContactFired = false;

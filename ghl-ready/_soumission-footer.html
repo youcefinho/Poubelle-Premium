@@ -150,6 +150,7 @@
     }
 
     // Lead = postMessage set-sticky-contacts (= moment de la soumission GHL)
+    // GHL envoie ["set-sticky-contacts", "_ud", "<JSON_STRING>"] -> faut JSON.parse d[2]
     // On fire fbq('init', PIXEL, ud) avant Lead pour AAM riche (em, ph, fn, ln, ct, country)
     var ppLeadFired = false;
     window.addEventListener('message', function (e) {
@@ -158,7 +159,11 @@
       var d = e.data;
       if (!Array.isArray(d) || d[0] !== 'set-sticky-contacts' || d[1] !== '_ud') return;
       var ud = d[2];
-      if (!ud || !ud.email) return;
+      // GHL envoie ud comme JSON string (parfois objet selon version) -> normalise
+      if (typeof ud === 'string') {
+        try { ud = JSON.parse(ud); } catch (err) { return; }
+      }
+      if (!ud || typeof ud !== 'object' || !ud.email) return;
 
       var userData = {};
       userData.em = String(ud.email).trim().toLowerCase();

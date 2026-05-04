@@ -29,14 +29,24 @@
 
 ## Tracking & CRM (TOUT EST CABLÉ)
 
-### Pixel Meta + AAM (browser)
+### Pixel Meta + AAM (browser) — VALIDÉ 2026-05-04
 - **Pixel ID** : `986179510496466`
-- **AAM** : via postMessage `set-sticky-contacts` (Plan B) + URL params via `window.__ppLeadParams` (Plan A)
-- **7 champs** : em, ph, fn, ln, ct, zp, country
-- **EMQ** browser projeté : 7-9/10
+- **Architecture finale** :
+  - **Plan B (postMessage `set-sticky-contacts`)** ✅ fire pendant fill form (page 1)
+  - **Plan A (URL `?lead=ok&...` via window.__ppLeadParams)** ✅ fire après redirect (page 2)
+  - **Backup image pixel** (`ppFireLeadBackup`) ✅ garantit Lead reach Meta même si fbq queue perdu en navigation rapide
+  - **Même eventID** sessionStorage UUID partagé Plan A/B → Meta dedupe à 1 unique conversion
+- **GHL Sondage Redirect URL** : **avec lien complet** (params PII pour AAM extraction côté Plan A)
+- **Header capture+clean URL** : params capturés dans `window.__ppLeadParams`, URL nettoyée à `/soumission_1?source=lead-redirect` AVANT PageView pixel (Meta Terms PII compliance)
+- **8 champs AAM** : em, ph, fn, ln, ct, zp, country, + IP/UA auto
+- **customData enrichi** : content_name, content_category, lead_source (url_redirect / postmessage), address, full_address, forfait, forfait_perso, type_client, nb_poubelle, nb_recyclage, nb_compost, contact_pref
+- **EMQ** browser : 8-9/10
+- **Test Events** : 2 lignes Lead (1 "Dédupliqué" + 1 normal) ✅
+- **Vue d'ensemble** : 1 unique conversion par submit (dedup eventID) ✅
+- **event_id CAPI dedup** : injecté dans iframe URL via `ppInjectEventId()` → GHL custom field → CAPI workflow récupère
 - **Code clé** :
-  - `_soumission-header.html` (commit `be8c2a9`) : capture URL params + clean URL AVANT pixel PageView (Meta Terms compliance)
-  - `_soumission-footer.html` (commit `6cbaa29`) : Plan A lit `window.__ppLeadParams` + Plan B postMessage + overlay merci
+  - `_soumission-header.html` : capture+clean URL avant pixel PageView (Meta Terms)
+  - `_soumission-footer.html` (commit `101e132`) : Plan A + Plan B + ppFireLeadBackup + overlay + iframe event_id injection
 - **Tag rollback** : `pre-fix-meta-pii-2026-05-04`
 
 ### CAPI (server-side via GHL)

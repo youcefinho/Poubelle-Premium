@@ -92,7 +92,7 @@
             padding-top: 80px;
         }
 
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(11, 27, 54, 0.95) 0%, rgba(30, 58, 138, 0.9) 100%); }
+        .hero-overlay { display: none !important; }
 
         .hero-grid { position: relative; z-index: 10; width: 100%; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
         @media(min-width:1024px) { .hero-grid { grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; } }
@@ -467,7 +467,6 @@
 </nav>
 
     <div class="hero-split">
-        <div class="hero-overlay"></div>
         <div class="hero-grid">
             <div class="hero-left">
                 <span class="surtitle animate-in delay-1" style="color:rgba(251,251,251,0.7);">

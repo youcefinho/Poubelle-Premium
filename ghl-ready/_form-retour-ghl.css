@@ -2,13 +2,16 @@
    CSS personnalise pour le form natif GHL "Form 9" (page Retour)
    (formId: g5pvDJWBSQmPuMQ9hvTu)
 
+   VERSION SIMPLIFIEE : 1 seul champ textarea (avis libre)
+   Plus de Nom / Email / Telephone — juste le retour client.
+
    OU LE COLLER :
    Sites > Formulaires > "Form 9" > Parametres / Style
    > CSS personnalise (ou Custom CSS)
 
    Ce CSS s'applique a l'INTERIEUR de l'iframe GHL (pas depuis
-   la page parent — l'iframe est cross-origin). Il style les
-   champs, labels, bouton submit pour matcher le look Poubelle
+   la page parent — l'iframe est cross-origin). Il style le
+   textarea, label, bouton submit pour matcher le look Poubelle
    Premium (Poppins + orange #F48716 + bouton pill).
    ============================================================ */
 
@@ -21,50 +24,48 @@ body,
   font-family: 'Poppins', sans-serif !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 16px !important;
+  padding: 20px !important;
   margin: 0 !important;
 }
 
-/* Champs input (Full Name, Phone, Email) */
+/* Textarea unique (champ avis) */
 .form-control,
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
 textarea {
   width: 100% !important;
-  padding: 12px 16px !important;
+  min-height: 140px !important;
+  padding: 14px 16px !important;
   border: 1.5px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  font-size: 0.95rem !important;
+  border-radius: 12px !important;
+  font-size: 1rem !important;
   font-family: 'Poppins', sans-serif !important;
   background: #fff !important;
   color: #0B1B36 !important;
+  line-height: 1.6 !important;
+  resize: vertical !important;
   transition: all 0.25s ease !important;
   box-sizing: border-box !important;
 }
 
 .form-control:focus,
-input:focus,
 textarea:focus {
   outline: none !important;
   border-color: #F48716 !important;
   box-shadow: 0 0 0 3px rgba(244, 135, 22, 0.15) !important;
 }
 
-/* Labels au-dessus des champs */
+/* Label au-dessus du champ */
 .field-label,
 label {
   display: block !important;
   font-weight: 600 !important;
-  font-size: 0.9rem !important;
-  margin-bottom: 6px !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 8px !important;
   color: #0B1B36 !important;
   font-family: 'Poppins', sans-serif !important;
   letter-spacing: 0.2px !important;
 }
 
-/* Asterisque champ requis */
+/* Asterisque champ requis (au cas ou le champ est obligatoire) */
 .label-alignment span,
 .required-mark,
 .required-asterisk {
@@ -72,10 +73,10 @@ label {
   font-weight: 700 !important;
 }
 
-/* Espacement entre champs */
+/* Wrapper du champ unique */
 .form-field-wrapper,
 .form-builder-field {
-  margin-bottom: 14px !important;
+  margin-bottom: 18px !important;
 }
 
 /* Bouton Envoyer */
@@ -94,7 +95,7 @@ input[type="submit"] {
   font-weight: 700 !important;
   font-family: 'Poppins', sans-serif !important;
   cursor: pointer !important;
-  margin-top: 16px !important;
+  margin-top: 8px !important;
   transition: all 0.3s ease !important;
   box-shadow: 0 4px 14px rgba(244, 135, 22, 0.35) !important;
   letter-spacing: 0.5px !important;
@@ -141,15 +142,17 @@ button[type="submit"]:active,
 ::placeholder {
   color: #94A3B8 !important;
   opacity: 1 !important;
+  font-style: italic !important;
 }
 
 /* Message de succes apres submit */
 .form-success,
 .thank-you-message {
   text-align: center !important;
-  padding: 24px !important;
+  padding: 32px 24px !important;
   color: #0B1B36 !important;
   font-family: 'Poppins', sans-serif !important;
-  font-size: 1rem !important;
+  font-size: 1.05rem !important;
   font-weight: 600 !important;
+  line-height: 1.6 !important;
 }

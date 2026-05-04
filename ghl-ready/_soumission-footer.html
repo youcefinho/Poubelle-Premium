@@ -78,13 +78,7 @@
     // Detection 1 : message GHL form_embed.js (pageChange / nextPage / etc.)
     // Origin check : on accepte uniquement les messages de domaines GHL connus pour eviter le spoofing.
     function isTrustedGhlOrigin(origin) {
-      if (!origin) return false;
-      try {
-        return /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
-      } catch (e) {
-        // Fallback string match au cas ou URL constructor throw (origin malforme)
-        return /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)/i.test(origin);
-      }
+      return origin && /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
     }
     window.addEventListener('message', function (e) {
       if (!e.data || !isTrustedGhlOrigin(e.origin)) return;
@@ -155,111 +149,46 @@
       setTimeout(ppInjectEventId, 2000);
     }
 
-    // ppLeadFired uniquement IN-PAGE (memoire JS de la page courante).
-    // Si la page navigue (ex: GHL redirect URL fire apres Plan B), ppLeadFired reset
-    // a false sur le nouveau chargement -> Plan A peut refire sur la nouvelle page.
-    // Meta dedupe les 2 events via event_id partage (sessionStorage pp_event_id_lead).
-    // Ce comportement est INTENTIONNEL : si la navigation tue le Lead de Plan B en transit,
-    // Plan A prend le relais sur la nouvelle page. Meta dedupe = pas de double-counting.
+    // ppLeadFired (memoire JS, page courante) + sessionStorage pp_lead_fired_session (cross-page)
+    // pour priorite : Plan B postMessage en premier, Plan A URL seulement si Plan B n'a pas fire
     var ppLeadFired = false;
+    function ppLeadAlreadyFiredInSession() {
+      try { return sessionStorage.getItem('pp_lead_fired_session') === '1'; } catch (e) { return false; }
+    }
     function ppMarkLeadFired() {
       ppLeadFired = true;
+      try { sessionStorage.setItem('pp_lead_fired_session', '1'); } catch (e) {}
     }
 
-    // Overlay merci visuel - affiche au moment de la soumission (Plan A ou Plan B)
-    function showThankYouOverlay() {
-      if (document.getElementById('pp-thank-you-overlay')) return;
-      var isEn = document.body.classList.contains('lang-en');
-      var overlay = document.createElement('div');
-      overlay.id = 'pp-thank-you-overlay';
-      // iOS Safari < 14.5 ne supporte pas `inset:0` shorthand -> top/right/bottom/left explicites
-      overlay.style.cssText = 'position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;-webkit-overflow-scrolling:touch;';
-      overlay.innerHTML = '' +
-        '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
-        '<div style="background:#fff;border-radius:18px;max-width:560px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
-        '<div style="font-size:64px;line-height:1;margin-bottom:14px;">&#9989;</div>' +
-        '<h2 style="font-size:26px;font-weight:800;color:#0d3b66;margin:0 0 18px;text-align:center;">' +
-          (isEn ? 'Thank you for your request!' : 'Merci pour votre demande !') +
-        '</h2>' +
-        '<p style="font-size:17px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
-          (isEn
-            ? 'Everything is in order, and we will contact you soon to follow up and schedule the service.'
-            : 'Tout est en ordre, et nous vous contacterons bient&ocirc;t pour faire le suivi et planifier le service.') +
-        '</p>' +
-        '<p style="font-size:16px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
-          (isEn
-            ? 'If you have questions in the meantime, feel free to call us at <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.'
-            : 'Si vous avez des questions en attendant, n&rsquo;h&eacute;sitez pas &agrave; nous &eacute;crire au <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.') +
-        '</p>' +
-        '<p style="font-size:17px;color:#0d3b66;font-weight:700;line-height:1.5;margin:0 0 26px;text-align:center;">' +
-          (isEn ? 'See you soon!' : '&Agrave; tr&egrave;s bient&ocirc;t !') +
-        '</p>' +
-        '<button id="pp-thank-you-close" style="background:#FE8800;color:#fff;border:0;border-radius:999px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 8px 18px rgba(254,136,0,.35);">' +
-          'OK' +
-        '</button>' +
-        '</div>';
-      document.body.appendChild(overlay);
-      function closeOverlay() {
-        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
-      }
-      document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
-    }
-
-    // Helper : recupere param URL safe (retourne null si vide ou contient {{ non remplace)
-    function ppGetParam(params, key) {
-      var v = params.get(key);
-      if (!v || !v.trim() || v.indexOf('{{') !== -1) return null;
-      return v.trim();
-    }
-
-    // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&forfait=...&nb_poubelle=...`
+    // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&ph=...&fn=...&ln=...&ct=...&pc=...`
     // Active si redirect URL Sondage GHL utilise des merge tags. En funnel iframe ca arrive
     // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases.
     // SKIP si Plan B postMessage a deja fire dans la session (cross-page protection).
     (function () {
-      if (ppLeadFired) return;
+      if (ppLeadAlreadyFiredInSession()) return;
       var qs = window.location.search || '';
       if (!/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) return;
       if (typeof fbq !== 'function') return;
-
-      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
       try {
         var params = new URLSearchParams(qs);
-
-        // AAM standard fields (hash auto par Meta)
-        var aamMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
+        var fieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
         var ud = {};
-        for (var k in aamMap) {
-          var v = ppGetParam(params, k);
-          if (v) ud[aamMap[k]] = v.toLowerCase();
+        for (var k in fieldMap) {
+          var v = params.get(k);
+          if (v && v.trim() && v.indexOf('{{') === -1) ud[fieldMap[k]] = v.trim().toLowerCase();
+        }
+        // event_id passe par URL aussi (pour aligner avec CAPI workflow)
+        var urlEvtId = params.get('event_id');
+        if (urlEvtId && urlEvtId.indexOf('{{') === -1) {
+          ppEventId = urlEvtId;
+          try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
         }
         if (Object.keys(ud).length > 0) {
           try { fbq('init', '986179510496466', ud); } catch (err) {}
         }
-
-        // Custom data pour audiences Meta (forfait, type client, nombre bacs, etc.)
-        var addr = ppGetParam(params, 'address');         if (addr) customData.address = addr;
-        var fullAddr = ppGetParam(params, 'full_address'); if (fullAddr) customData.full_address = fullAddr;
-        var forfait = ppGetParam(params, 'forfait');      if (forfait) customData.forfait = forfait;
-        var fp = ppGetParam(params, 'forfait_perso');     if (fp) customData.forfait_perso = fp;
-        var typ = ppGetParam(params, 'type');             if (typ) customData.type_client = typ;
-        var nbP = ppGetParam(params, 'nb_poubelle');      if (nbP) customData.nb_poubelle = nbP;
-        var nbR = ppGetParam(params, 'nb_recyclage');     if (nbR) customData.nb_recyclage = nbR;
-        var nbC = ppGetParam(params, 'nb_compost');       if (nbC) customData.nb_compost = nbC;
-        var pref = ppGetParam(params, 'contact_pref');    if (pref) customData.contact_pref = pref;
-
-        // event_id passe par URL aussi (pour aligner avec CAPI workflow)
-        var urlEvtId = ppGetParam(params, 'event_id');
-        if (urlEvtId) {
-          ppEventId = urlEvtId;
-          try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
-        }
       } catch (e) {}
-
-      fbq('track', 'Lead', customData, { eventID: ppEventId });
+      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
       ppMarkLeadFired();
-      showThankYouOverlay();
       // Clean URL : retire les params PII apres extraction (1 frame)
       try {
         var clean = window.location.pathname + window.location.hash;
@@ -282,7 +211,6 @@
       }
       if (!ud || typeof ud !== 'object' || !ud.email) return;
 
-      // AAM standard fields
       var userData = {};
       userData.em = String(ud.email || ud.Email).trim().toLowerCase();
       var phone = ud.phone || ud.Phone;
@@ -299,27 +227,9 @@
       var pc = ud.code_postal_2026 || ud.postal_code || ud.zip || ud.zipcode;
       if (pc) userData.zp = String(pc).replace(/\s/g, '').toLowerCase();
 
-      // Custom data pour audiences Meta segmentees (forfait, type client, nb bacs, etc.)
-      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
-      if (ud.address1) customData.address = String(ud.address1).trim();
-      if (ud.full_address) customData.full_address = String(ud.full_address).trim();
-      if (ud.forfait_2025) customData.forfait = String(ud.forfait_2025).trim();
-      if (ud.veuillez_prcisez_votre_forfait_personnalis) customData.forfait_perso = String(ud.veuillez_prcisez_votre_forfait_personnalis).trim();
-      if (ud.particulier_ou_entreprise) customData.type_client = String(ud.particulier_ou_entreprise).trim();
-      if (ud.nb_poubelle_2025) customData.nb_poubelle = String(ud.nb_poubelle_2025).trim();
-      if (ud.nb_recyclage_2025) customData.nb_recyclage = String(ud.nb_recyclage_2025).trim();
-      if (ud.nb_compost_2025) customData.nb_compost = String(ud.nb_compost_2025).trim();
-      if (ud.comment_voulez_vous_etre_contacte) customData.contact_pref = String(ud.comment_voulez_vous_etre_contacte).trim();
-      // event_id : si GHL workflow utilise le meme via custom field, on s'aligne
-      if (ud.event_id && typeof ud.event_id === 'string') {
-        ppEventId = ud.event_id;
-        try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
-      }
-
       try { fbq('init', '986179510496466', userData); } catch (err) {}
-      fbq('track', 'Lead', customData, { eventID: ppEventId });
+      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
       ppMarkLeadFired();
-      showThankYouOverlay();
     });
 
     // Contact = click sur lien tel:

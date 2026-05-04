@@ -160,48 +160,6 @@
       try { sessionStorage.setItem('pp_lead_fired_session', '1'); } catch (e) {}
     }
 
-    // Overlay merci : affiche UNIQUEMENT depuis Plan A (page stable apres redirect).
-    // Pas appele dans Plan B car Plan B fire avant la navigation parent -> overlay
-    // serait visible 200ms puis tue par la page qui navigue.
-    function showThankYouOverlay() {
-      if (document.getElementById('pp-thank-you-overlay')) return;
-      var isEn = document.body.classList.contains('lang-en');
-      var overlay = document.createElement('div');
-      overlay.id = 'pp-thank-you-overlay';
-      // top/right/bottom/left explicites pour iOS Safari < 14.5 (pas de support inset shorthand)
-      overlay.style.cssText = 'position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
-      overlay.innerHTML = '' +
-        '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
-        '<div style="background:#fff;border-radius:18px;max-width:560px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +
-        '<div style="font-size:64px;line-height:1;margin-bottom:14px;">&#9989;</div>' +
-        '<h2 style="font-size:26px;font-weight:800;color:#0d3b66;margin:0 0 18px;text-align:center;">' +
-          (isEn ? 'Thank you for your request!' : 'Merci pour votre demande !') +
-        '</h2>' +
-        '<p style="font-size:17px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
-          (isEn
-            ? 'Everything is in order, and we will contact you soon to follow up and schedule the service.'
-            : 'Tout est en ordre, et nous vous contacterons bient&ocirc;t pour faire le suivi et planifier le service.') +
-        '</p>' +
-        '<p style="font-size:16px;color:#374151;line-height:1.6;margin:0 0 18px;text-align:center;">' +
-          (isEn
-            ? 'If you have questions in the meantime, feel free to call us at <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.'
-            : 'Si vous avez des questions en attendant, n&rsquo;h&eacute;sitez pas &agrave; nous &eacute;crire au <a href="tel:+14387994449" style="color:#FE8800;font-weight:700;text-decoration:none;">(438) 799-4449</a>.') +
-        '</p>' +
-        '<p style="font-size:17px;color:#0d3b66;font-weight:700;line-height:1.5;margin:0 0 26px;text-align:center;">' +
-          (isEn ? 'See you soon!' : '&Agrave; tr&egrave;s bient&ocirc;t !') +
-        '</p>' +
-        '<button id="pp-thank-you-close" style="background:#FE8800;color:#fff;border:0;border-radius:999px;padding:13px 38px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 8px 18px rgba(254,136,0,.35);">' +
-          'OK' +
-        '</button>' +
-        '</div>';
-      document.body.appendChild(overlay);
-      function closeOverlay() {
-        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
-      }
-      document.getElementById('pp-thank-you-close').addEventListener('click', closeOverlay);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
-    }
-
     // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&ph=...&fn=...&ln=...&ct=...&pc=...`
     // Active si redirect URL Sondage GHL utilise des merge tags. En funnel iframe ca arrive
     // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases.
@@ -231,8 +189,6 @@
       } catch (e) {}
       fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
       ppMarkLeadFired();
-      // Affiche overlay merci ICI (page stable, ne sera pas tue par navigation)
-      showThankYouOverlay();
       // Clean URL : retire les params PII apres extraction (1 frame)
       try {
         var clean = window.location.pathname + window.location.hash;

@@ -149,15 +149,13 @@
       setTimeout(ppInjectEventId, 2000);
     }
 
-    // ppLeadFired (memoire JS, page courante) + sessionStorage pp_lead_fired_session (cross-page)
-    // pour priorite : Plan B postMessage en premier, Plan A URL seulement si Plan B n'a pas fire
+    // ppLeadFired uniquement IN-PAGE (memoire JS de la page courante).
+    // Pas de flag cross-page : on veut que Plan A re-fire sur la nouvelle page apres
+    // redirect URL, meme si Plan B avait deja fire en page 1. Meta dedupe les 2 events
+    // via event_id partage (sessionStorage pp_event_id_lead).
     var ppLeadFired = false;
-    function ppLeadAlreadyFiredInSession() {
-      try { return sessionStorage.getItem('pp_lead_fired_session') === '1'; } catch (e) { return false; }
-    }
     function ppMarkLeadFired() {
       ppLeadFired = true;
-      try { sessionStorage.setItem('pp_lead_fired_session', '1'); } catch (e) {}
     }
 
     // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&ph=...&fn=...&ln=...&ct=...&pc=...`
@@ -165,7 +163,7 @@
     // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases.
     // SKIP si Plan B postMessage a deja fire dans la session (cross-page protection).
     (function () {
-      if (ppLeadAlreadyFiredInSession()) return;
+      if (ppLeadFired) return;
       var qs = window.location.search || '';
       if (!/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) return;
       if (typeof fbq !== 'function') return;

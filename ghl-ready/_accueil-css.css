@@ -2359,6 +2359,22 @@ select:focus,
   transform: none !important;
   visibility: visible !important;
 }
+/* VRAI ROOT CAUSE du bug "Notre mission invisible sur mobile" :
+   GHL natif applique .heading-RPXIDaHpePD strong { color: var(--white) }
+   au <strong> enfant du <h2>. Le card mission a un bg quasi-blanc
+   (rgba 255,255,255,0.8). Resultat : texte blanc sur fond blanc = invisible.
+   Notre regle .mission-title-premium h2 { color: orange } cible le h2
+   mais le <strong> enfant garde son override blanc.
+   Fix : forcer color sur strong + tous les descendants directs. */
+.mission-title-premium h1 strong,
+.mission-title-premium h2 strong,
+.mission-title-premium h1 strong span,
+.mission-title-premium h2 strong span,
+.mission-title-premium strong,
+.mission-title-premium strong * {
+  color: #F48716 !important;
+  -webkit-text-fill-color: #F48716 !important;
+}
 .mission-text-premium h2,
 .mission-text-premium p {
   font-family: var(--contentfont), 'Poppins', sans-serif !important;

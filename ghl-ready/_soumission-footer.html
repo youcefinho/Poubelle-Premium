@@ -233,6 +233,7 @@
 
         // Custom data pour audiences Meta (forfait, type client, nombre bacs, etc.)
         var addr = ppGetParam(params, 'address');         if (addr) customData.address = addr;
+        var fullAddr = ppGetParam(params, 'full_address'); if (fullAddr) customData.full_address = fullAddr;
         var forfait = ppGetParam(params, 'forfait');      if (forfait) customData.forfait = forfait;
         var fp = ppGetParam(params, 'forfait_perso');     if (fp) customData.forfait_perso = fp;
         var typ = ppGetParam(params, 'type');             if (typ) customData.type_client = typ;

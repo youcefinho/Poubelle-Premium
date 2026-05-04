@@ -149,15 +149,15 @@
       setTimeout(ppInjectEventId, 2000);
     }
 
-    // ppLeadFired (memoire JS, page courante) + sessionStorage pp_lead_fired_session (cross-page)
-    // pour priorite : Plan B postMessage en premier, Plan A URL seulement si Plan B n'a pas fire
+    // ppLeadFired uniquement IN-PAGE (memoire JS de la page courante).
+    // Si la page navigue (ex: GHL redirect URL fire apres Plan B), ppLeadFired reset
+    // a false sur le nouveau chargement -> Plan A peut refire sur la nouvelle page.
+    // Meta dedupe les 2 events via event_id partage (sessionStorage pp_event_id_lead).
+    // Ce comportement est INTENTIONNEL : si la navigation tue le Lead de Plan B en transit,
+    // Plan A prend le relais sur la nouvelle page. Meta dedupe = pas de double-counting.
     var ppLeadFired = false;
-    function ppLeadAlreadyFiredInSession() {
-      try { return sessionStorage.getItem('pp_lead_fired_session') === '1'; } catch (e) { return false; }
-    }
     function ppMarkLeadFired() {
       ppLeadFired = true;
-      try { sessionStorage.setItem('pp_lead_fired_session', '1'); } catch (e) {}
     }
 
     // Overlay merci visuel - affiche au moment de la soumission (Plan A ou Plan B)
@@ -211,7 +211,7 @@
     // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases.
     // SKIP si Plan B postMessage a deja fire dans la session (cross-page protection).
     (function () {
-      if (ppLeadAlreadyFiredInSession()) return;
+      if (ppLeadFired) return;
       var qs = window.location.search || '';
       if (!/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) return;
       if (typeof fbq !== 'function') return;

@@ -25,6 +25,26 @@
      mais n'affecte PAS Meta Pixel (Meta n'a pas d'integration Consent Mode native).
      GTM + Google Ads encore commentes (a remplir quand IDs crees). -->
 
+<!-- ===== CAPTURE + CLEAN URL avant Pixel init (Meta Business Tools Terms compliance) =====
+     Si l'URL contient des params PII (em, ph, fn, ln) suite au redirect Sondage,
+     on les capture dans window.__ppLeadParams puis on nettoie l'URL via replaceState
+     AVANT que le Pixel base ne fire PageView (sinon Meta voit les PII non hashes). -->
+<script>
+(function () {
+  try {
+    var p = new URLSearchParams(window.location.search || '');
+    if (p.has('lead') || p.has('em') || p.has('ph') || p.has('fn') || p.has('ln')) {
+      var keys = ['lead','em','ph','fn','ln','ct','st','pc','zp','country','address','full_address','forfait','forfait_perso','type','nb_poubelle','nb_recyclage','nb_compost','contact_pref','event_id'];
+      var data = {};
+      for (var i = 0; i < keys.length; i++) { data[keys[i]] = p.get(keys[i]); }
+      window.__ppLeadParams = data;
+      var clean = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, clean);
+    }
+  } catch (e) {}
+})();
+</script>
+
 <!-- Meta Pixel Code -->
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','986179510496466');fbq('track','PageView');</script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=986179510496466&ev=PageView&noscript=1"/></noscript>

@@ -222,7 +222,7 @@
         return String(v).trim();
       }
 
-      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
+      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis', lead_source: 'url_redirect' };
       try {
         // AAM standard fields (hash auto par Meta cote pixel)
         var aamMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
@@ -300,7 +300,7 @@
       if (pc) userData.zp = String(pc).replace(/\s/g, '').toLowerCase();
 
       // Custom data pour audiences Meta segmentees (forfait, type client, nb bacs, etc.)
-      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
+      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis', lead_source: 'postmessage' };
       if (ud.address1) customData.address = String(ud.address1).trim();
       if (ud.full_address) customData.full_address = String(ud.full_address).trim();
       if (ud.forfait_2025) customData.forfait = String(ud.forfait_2025).trim();

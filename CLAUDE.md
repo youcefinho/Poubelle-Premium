@@ -31,10 +31,13 @@
 
 ### Pixel Meta + AAM (browser)
 - **Pixel ID** : `986179510496466`
-- **AAM** : via postMessage `set-sticky-contacts` (footer commit `ee41ccf`)
+- **AAM** : via postMessage `set-sticky-contacts` (Plan B) + URL params via `window.__ppLeadParams` (Plan A)
 - **7 champs** : em, ph, fn, ln, ct, zp, country
 - **EMQ** browser projeté : 7-9/10
-- **Code clé** : `_soumission-footer.html` (Plan A URL + Plan B postMessage + overlay merci)
+- **Code clé** :
+  - `_soumission-header.html` (commit `be8c2a9`) : capture URL params + clean URL AVANT pixel PageView (Meta Terms compliance)
+  - `_soumission-footer.html` (commit `6cbaa29`) : Plan A lit `window.__ppLeadParams` + Plan B postMessage + overlay merci
+- **Tag rollback** : `pre-fix-meta-pii-2026-05-04`
 
 ### CAPI (server-side via GHL)
 - **Workflow** : Trigger Form Submitted Sondage → Action Meta Conversion API

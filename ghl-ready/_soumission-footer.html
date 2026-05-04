@@ -213,25 +213,29 @@
       return v.trim();
     }
 
-    // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&forfait=...&nb_poubelle=...`
-    // Active si redirect URL Sondage GHL utilise des merge tags. En funnel iframe ca arrive
-    // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases.
+    // Plan A (BACKUP) : Lead via redirect URL Sondage GHL `?lead=ok&em=...&forfait=...`
+    // Lit window.__ppLeadParams (capturé+nettoyé par le header AVANT pixel init pour
+    // conformité Meta Business Tools Terms : pas de PII non-hashe dans PageView URL).
     // SKIP si Plan B postMessage a deja fire dans la session (cross-page protection).
     (function () {
       if (ppLeadFired) return;
-      var qs = window.location.search || '';
-      if (!/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) return;
+      var ppData = window.__ppLeadParams || {};
+      if (!ppData.lead || !/^(ok|1|true)$/i.test(ppData.lead)) return;
       if (typeof fbq !== 'function') return;
+
+      function ppRead(key) {
+        var v = ppData[key];
+        if (!v || !String(v).trim() || String(v).indexOf('{{') !== -1) return null;
+        return String(v).trim();
+      }
 
       var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
       try {
-        var params = new URLSearchParams(qs);
-
-        // AAM standard fields (hash auto par Meta)
+        // AAM standard fields (hash auto par Meta cote pixel)
         var aamMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
         var ud = {};
         for (var k in aamMap) {
-          var v = ppGetParam(params, k);
+          var v = ppRead(k);
           if (v) ud[aamMap[k]] = v.toLowerCase();
         }
         if (Object.keys(ud).length > 0) {
@@ -239,18 +243,18 @@
         }
 
         // Custom data pour audiences Meta (forfait, type client, nombre bacs, etc.)
-        var addr = ppGetParam(params, 'address');         if (addr) customData.address = addr;
-        var fullAddr = ppGetParam(params, 'full_address'); if (fullAddr) customData.full_address = fullAddr;
-        var forfait = ppGetParam(params, 'forfait');      if (forfait) customData.forfait = forfait;
-        var fp = ppGetParam(params, 'forfait_perso');     if (fp) customData.forfait_perso = fp;
-        var typ = ppGetParam(params, 'type');             if (typ) customData.type_client = typ;
-        var nbP = ppGetParam(params, 'nb_poubelle');      if (nbP) customData.nb_poubelle = nbP;
-        var nbR = ppGetParam(params, 'nb_recyclage');     if (nbR) customData.nb_recyclage = nbR;
-        var nbC = ppGetParam(params, 'nb_compost');       if (nbC) customData.nb_compost = nbC;
-        var pref = ppGetParam(params, 'contact_pref');    if (pref) customData.contact_pref = pref;
+        var addr = ppRead('address');         if (addr) customData.address = addr;
+        var fullAddr = ppRead('full_address'); if (fullAddr) customData.full_address = fullAddr;
+        var forfait = ppRead('forfait');      if (forfait) customData.forfait = forfait;
+        var fp = ppRead('forfait_perso');     if (fp) customData.forfait_perso = fp;
+        var typ = ppRead('type');             if (typ) customData.type_client = typ;
+        var nbP = ppRead('nb_poubelle');      if (nbP) customData.nb_poubelle = nbP;
+        var nbR = ppRead('nb_recyclage');     if (nbR) customData.nb_recyclage = nbR;
+        var nbC = ppRead('nb_compost');       if (nbC) customData.nb_compost = nbC;
+        var pref = ppRead('contact_pref');    if (pref) customData.contact_pref = pref;
 
-        // event_id passe par URL aussi (pour aligner avec CAPI workflow)
-        var urlEvtId = ppGetParam(params, 'event_id');
+        // event_id passe via window.__ppLeadParams aussi (aligne CAPI workflow)
+        var urlEvtId = ppRead('event_id');
         if (urlEvtId) {
           ppEventId = urlEvtId;
           try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
@@ -260,7 +264,8 @@
       fbq('track', 'Lead', customData, { eventID: ppEventId });
       ppMarkLeadFired();
       showThankYouOverlay();
-      // Clean URL : retire les params PII apres extraction (1 frame)
+      // Filet de securite : si le header n'a pas tourne pour une raison,
+      // on re-nettoie l'URL ici pour eviter le PII en navigation.
       try {
         var clean = window.location.pathname + window.location.hash;
         window.history.replaceState({}, document.title, clean);

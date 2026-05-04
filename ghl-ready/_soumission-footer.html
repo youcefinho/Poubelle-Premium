@@ -257,12 +257,14 @@
       fbq('track', 'Lead', customData, { eventID: ppEventId });
       ppMarkLeadFired();
       showThankYouOverlay();
-      // Filet de securite : si le header n'a pas tourne pour une raison,
-      // on re-nettoie l'URL ici pour eviter le PII en navigation.
-      try {
-        var clean = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, clean);
-      } catch (e) {}
+      // Final clean : retire `?source=lead-redirect` apres que fbq ait pu processer
+      // sa queue (delai 1000ms). User voit URL propre /soumission_1 dans la barre.
+      setTimeout(function () {
+        try {
+          var clean = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, document.title, clean);
+        } catch (e) {}
+      }, 1000);
     })();
 
     // Plan B : Lead via postMessage set-sticky-contacts (= moment de la soumission GHL)

@@ -38,7 +38,10 @@
       var data = {};
       for (var i = 0; i < keys.length; i++) { data[keys[i]] = p.get(keys[i]); }
       window.__ppLeadParams = data;
-      var clean = window.location.pathname + window.location.hash;
+      // URL nettoyée des PII MAIS avec marqueur non-PII `?source=lead-redirect`
+      // pour que Plan A (page 2) ait une URL distincte de Plan B (page 1) dans Test Events.
+      // EventID identique → dedup Meta OK + 2 lignes visibles.
+      var clean = window.location.pathname + '?source=lead-redirect' + window.location.hash;
       window.history.replaceState({}, document.title, clean);
     }
   } catch (e) {}

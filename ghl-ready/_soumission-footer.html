@@ -206,13 +206,6 @@
       overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
     }
 
-    // Helper : recupere param URL safe (retourne null si vide ou contient {{ non remplace)
-    function ppGetParam(params, key) {
-      var v = params.get(key);
-      if (!v || !v.trim() || v.indexOf('{{') !== -1) return null;
-      return v.trim();
-    }
-
     // Plan A (BACKUP) : Lead via redirect URL Sondage GHL `?lead=ok&em=...&forfait=...`
     // Lit window.__ppLeadParams (capturé+nettoyé par le header AVANT pixel init pour
     // conformité Meta Business Tools Terms : pas de PII non-hashe dans PageView URL).

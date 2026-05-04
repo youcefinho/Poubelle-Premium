@@ -78,7 +78,13 @@
     // Detection 1 : message GHL form_embed.js (pageChange / nextPage / etc.)
     // Origin check : on accepte uniquement les messages de domaines GHL connus pour eviter le spoofing.
     function isTrustedGhlOrigin(origin) {
-      return origin && /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
+      if (!origin) return false;
+      try {
+        return /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)$/i.test(new URL(origin).hostname);
+      } catch (e) {
+        // Fallback string match au cas ou URL constructor throw (origin malforme)
+        return /(leadconnectorhq\.com|msgsndr\.com|highlevelui\.com)/i.test(origin);
+      }
     }
     window.addEventListener('message', function (e) {
       if (!e.data || !isTrustedGhlOrigin(e.origin)) return;
@@ -166,7 +172,8 @@
       var isEn = document.body.classList.contains('lang-en');
       var overlay = document.createElement('div');
       overlay.id = 'pp-thank-you-overlay';
-      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;';
+      // iOS Safari < 14.5 ne supporte pas `inset:0` shorthand -> top/right/bottom/left explicites
+      overlay.style.cssText = 'position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.78);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;animation:ppFadeIn .25s ease-out;-webkit-overflow-scrolling:touch;';
       overlay.innerHTML = '' +
         '<style>@keyframes ppFadeIn{from{opacity:0}to{opacity:1}}@keyframes ppPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style>' +
         '<div style="background:#fff;border-radius:18px;max-width:560px;width:100%;padding:42px 32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:ppPop .35s ease-out;">' +

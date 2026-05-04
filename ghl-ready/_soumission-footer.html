@@ -199,7 +199,14 @@
       overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOverlay(); });
     }
 
-    // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&ph=...&fn=...&ln=...&ct=...&pc=...`
+    // Helper : recupere param URL safe (retourne null si vide ou contient {{ non remplace)
+    function ppGetParam(params, key) {
+      var v = params.get(key);
+      if (!v || !v.trim() || v.indexOf('{{') !== -1) return null;
+      return v.trim();
+    }
+
+    // Plan A (BACKUP) : Lead via URL `?lead=ok&em=...&forfait=...&nb_poubelle=...`
     // Active si redirect URL Sondage GHL utilise des merge tags. En funnel iframe ca arrive
     // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases.
     // SKIP si Plan B postMessage a deja fire dans la session (cross-page protection).
@@ -208,25 +215,41 @@
       var qs = window.location.search || '';
       if (!/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) return;
       if (typeof fbq !== 'function') return;
+
+      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
       try {
         var params = new URLSearchParams(qs);
-        var fieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
+
+        // AAM standard fields (hash auto par Meta)
+        var aamMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
         var ud = {};
-        for (var k in fieldMap) {
-          var v = params.get(k);
-          if (v && v.trim() && v.indexOf('{{') === -1) ud[fieldMap[k]] = v.trim().toLowerCase();
-        }
-        // event_id passe par URL aussi (pour aligner avec CAPI workflow)
-        var urlEvtId = params.get('event_id');
-        if (urlEvtId && urlEvtId.indexOf('{{') === -1) {
-          ppEventId = urlEvtId;
-          try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
+        for (var k in aamMap) {
+          var v = ppGetParam(params, k);
+          if (v) ud[aamMap[k]] = v.toLowerCase();
         }
         if (Object.keys(ud).length > 0) {
           try { fbq('init', '986179510496466', ud); } catch (err) {}
         }
+
+        // Custom data pour audiences Meta (forfait, type client, nombre bacs, etc.)
+        var addr = ppGetParam(params, 'address');         if (addr) customData.address = addr;
+        var forfait = ppGetParam(params, 'forfait');      if (forfait) customData.forfait = forfait;
+        var fp = ppGetParam(params, 'forfait_perso');     if (fp) customData.forfait_perso = fp;
+        var typ = ppGetParam(params, 'type');             if (typ) customData.type_client = typ;
+        var nbP = ppGetParam(params, 'nb_poubelle');      if (nbP) customData.nb_poubelle = nbP;
+        var nbR = ppGetParam(params, 'nb_recyclage');     if (nbR) customData.nb_recyclage = nbR;
+        var nbC = ppGetParam(params, 'nb_compost');       if (nbC) customData.nb_compost = nbC;
+        var pref = ppGetParam(params, 'contact_pref');    if (pref) customData.contact_pref = pref;
+
+        // event_id passe par URL aussi (pour aligner avec CAPI workflow)
+        var urlEvtId = ppGetParam(params, 'event_id');
+        if (urlEvtId) {
+          ppEventId = urlEvtId;
+          try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
+        }
       } catch (e) {}
-      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
+
+      fbq('track', 'Lead', customData, { eventID: ppEventId });
       ppMarkLeadFired();
       showThankYouOverlay();
       // Clean URL : retire les params PII apres extraction (1 frame)
@@ -251,6 +274,7 @@
       }
       if (!ud || typeof ud !== 'object' || !ud.email) return;
 
+      // AAM standard fields
       var userData = {};
       userData.em = String(ud.email || ud.Email).trim().toLowerCase();
       var phone = ud.phone || ud.Phone;
@@ -267,8 +291,25 @@
       var pc = ud.code_postal_2026 || ud.postal_code || ud.zip || ud.zipcode;
       if (pc) userData.zp = String(pc).replace(/\s/g, '').toLowerCase();
 
+      // Custom data pour audiences Meta segmentees (forfait, type client, nb bacs, etc.)
+      var customData = { content_name: 'Soumission Sondage GHL', content_category: 'devis' };
+      if (ud.address1) customData.address = String(ud.address1).trim();
+      if (ud.full_address) customData.full_address = String(ud.full_address).trim();
+      if (ud.forfait_2025) customData.forfait = String(ud.forfait_2025).trim();
+      if (ud.veuillez_prcisez_votre_forfait_personnalis) customData.forfait_perso = String(ud.veuillez_prcisez_votre_forfait_personnalis).trim();
+      if (ud.particulier_ou_entreprise) customData.type_client = String(ud.particulier_ou_entreprise).trim();
+      if (ud.nb_poubelle_2025) customData.nb_poubelle = String(ud.nb_poubelle_2025).trim();
+      if (ud.nb_recyclage_2025) customData.nb_recyclage = String(ud.nb_recyclage_2025).trim();
+      if (ud.nb_compost_2025) customData.nb_compost = String(ud.nb_compost_2025).trim();
+      if (ud.comment_voulez_vous_etre_contacte) customData.contact_pref = String(ud.comment_voulez_vous_etre_contacte).trim();
+      // event_id : si GHL workflow utilise le meme via custom field, on s'aligne
+      if (ud.event_id && typeof ud.event_id === 'string') {
+        ppEventId = ud.event_id;
+        try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
+      }
+
       try { fbq('init', '986179510496466', userData); } catch (err) {}
-      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
+      fbq('track', 'Lead', customData, { eventID: ppEventId });
       ppMarkLeadFired();
       showThankYouOverlay();
     });

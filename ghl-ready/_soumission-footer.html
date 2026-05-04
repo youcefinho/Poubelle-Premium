@@ -149,10 +149,46 @@
       setTimeout(ppInjectEventId, 2000);
     }
 
-    // Lead = postMessage set-sticky-contacts (= moment de la soumission GHL)
+    // ppLeadFired partage entre Plan A (URL) et Plan B (postMessage) pour eviter double fire
+    var ppLeadFired = false;
+
+    // Plan A : Lead via URL `?lead=ok&em=...&ph=...&fn=...&ln=...&ct=...&pc=...`
+    // Active si redirect URL Sondage GHL utilise des merge tags. En funnel iframe ca arrive
+    // rarement (URL parent ne change pas), mais ca couvre le cas standalone + edge cases mobile.
+    (function () {
+      var qs = window.location.search || '';
+      if (!/[?&](lead|completed|merci|thanks)=(ok|1|true)/i.test(qs)) return;
+      if (typeof fbq !== 'function') return;
+      try {
+        var params = new URLSearchParams(qs);
+        var fieldMap = { em: 'em', ph: 'ph', fn: 'fn', ln: 'ln', ct: 'ct', st: 'st', pc: 'zp', zp: 'zp', country: 'country' };
+        var ud = {};
+        for (var k in fieldMap) {
+          var v = params.get(k);
+          if (v && v.trim() && v.indexOf('{{') === -1) ud[fieldMap[k]] = v.trim().toLowerCase();
+        }
+        // event_id passe par URL aussi (pour aligner avec CAPI workflow)
+        var urlEvtId = params.get('event_id');
+        if (urlEvtId && urlEvtId.indexOf('{{') === -1) {
+          ppEventId = urlEvtId;
+          try { sessionStorage.setItem('pp_event_id_lead', ppEventId); } catch (e) {}
+        }
+        if (Object.keys(ud).length > 0) {
+          try { fbq('init', '986179510496466', ud); } catch (err) {}
+        }
+      } catch (e) {}
+      fbq('track', 'Lead', { content_name: 'Soumission Sondage GHL', content_category: 'devis' }, { eventID: ppEventId });
+      ppLeadFired = true;
+      // Clean URL : retire les params PII apres extraction (1 frame)
+      try {
+        var clean = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, clean);
+      } catch (e) {}
+    })();
+
+    // Plan B : Lead via postMessage set-sticky-contacts (= moment de la soumission GHL)
     // GHL envoie ["set-sticky-contacts", "_ud", "<JSON_STRING>"] -> faut JSON.parse d[2]
     // On fire fbq('init', PIXEL, ud) avant Lead pour AAM riche (em, ph, fn, ln, ct, country)
-    var ppLeadFired = false;
     window.addEventListener('message', function (e) {
       if (ppLeadFired || typeof fbq !== 'function') return;
       if (!e.origin || e.origin.indexOf('leadconnectorhq.com') === -1) return;

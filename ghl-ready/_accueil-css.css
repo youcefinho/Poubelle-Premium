@@ -36,6 +36,21 @@ body div[id^="section-"] {
   background: #ffffff !important;
 }
 
+/* v4 (2026-05-04) : redefinit la variable GHL native --color-lxs55nfl
+   (defaut #f9f9f9) en blanc. Survit aux regens HTML par GHL/Antigravity
+   - empeche la bande grise sur section 'Pourquoi choisir' (mz-BaNBEjd)
+   et autres sections qui utilisent var(--color-lxs55nfl) comme bg. */
+:root,
+.hl_page-preview,
+.hl_page-preview--content {
+  --color-lxs55nfl: #ffffff !important;
+}
+
+/* Footer modern : force fond blanc (anti-bande grise sur Contactez-nous) */
+.footer-modern {
+  background-color: #ffffff !important;
+}
+
 header.header-nav,
 .header-nav {
   width: 100vw !important;

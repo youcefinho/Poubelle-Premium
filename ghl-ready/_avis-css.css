@@ -36,6 +36,11 @@ body div[id^="section-"] {
   background: #ffffff !important;
 }
 
+/* Footer modern : force fond blanc (anti-bande grise sur Contactez-nous) */
+.footer-modern {
+  background-color: #ffffff !important;
+}
+
 header.header-nav,
 .header-nav {
   width: 100vw !important;

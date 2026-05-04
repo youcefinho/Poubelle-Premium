@@ -1039,7 +1039,7 @@ div#comparison figure div {
 }
 /* Note: .besoin-btn-container et .besoin-btn sont deja override (pill orange) plus haut */
 .footer-modern {
-  background-color: #f9f9f9;
+  background-color: #ffffff !important;
   padding: 60px 20px 20px;
   border-top: 1px solid #eaeaea;
   color: #444;

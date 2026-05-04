@@ -166,6 +166,18 @@
       ppLeadFired = true;
     }
 
+    // Backup image pixel pour garantir que Lead reach Meta meme si fbq queue
+    // est perdu pendant navigation (race condition). Meta dedupe via eventID.
+    function ppFireLeadBackup(evtId) {
+      try {
+        new Image().src = 'https://www.facebook.com/tr/?id=986179510496466&ev=Lead' +
+          '&eid=' + encodeURIComponent(evtId) +
+          '&dl=' + encodeURIComponent(window.location.href) +
+          '&rl=' + encodeURIComponent(document.referrer || '') +
+          '&_t=' + Date.now();
+      } catch (e) {}
+    }
+
     // Overlay merci visuel - affiche au moment de la soumission (Plan A ou Plan B)
     function showThankYouOverlay() {
       if (document.getElementById('pp-thank-you-overlay')) return;
@@ -255,6 +267,7 @@
       } catch (e) {}
 
       fbq('track', 'Lead', customData, { eventID: ppEventId });
+      ppFireLeadBackup(ppEventId);
       ppMarkLeadFired();
       showThankYouOverlay();
       // Final clean : retire `?source=lead-redirect` apres que fbq ait pu processer
@@ -318,6 +331,7 @@
 
       try { fbq('init', '986179510496466', userData); } catch (err) {}
       fbq('track', 'Lead', customData, { eventID: ppEventId });
+      ppFireLeadBackup(ppEventId);
       ppMarkLeadFired();
       showThankYouOverlay();
     });

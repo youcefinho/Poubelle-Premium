@@ -51,6 +51,32 @@ body div[id^="section-"] {
   background-color: #ffffff !important;
 }
 
+/* Stats 'Nos chiffres' : agrandit + uniformise en orange pour aligner
+   visuellement avec la carte Google Maps a droite (2026-05-05) */
+.image-feature-CVqfXg1csT .featureHeadline h2,
+.image-feature-zIZLW70ekM .featureHeadline h2,
+.image-feature-XIV7NGseBa .featureHeadline h2,
+.c-image-feature .featureHeadline h2 {
+  font-size: 2.4rem !important;
+  color: #F48716 !important;
+  font-weight: 800 !important;
+  line-height: 1.25 !important;
+  margin: 0.7em 0 !important;
+}
+.c-image-feature:hover .featureHeadline h2 {
+  color: #F48716 !important;
+  text-shadow: 0 0 18px rgba(244, 135, 22, 0.5) !important;
+}
+@media (max-width: 768px) {
+  .image-feature-CVqfXg1csT .featureHeadline h2,
+  .image-feature-zIZLW70ekM .featureHeadline h2,
+  .image-feature-XIV7NGseBa .featureHeadline h2,
+  .c-image-feature .featureHeadline h2 {
+    font-size: 1.5rem !important;
+    margin: 0.5em 0 !important;
+  }
+}
+
 header.header-nav,
 .header-nav {
   width: 100vw !important;

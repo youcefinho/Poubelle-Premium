@@ -41,6 +41,11 @@ body div[id^="section-"] {
   background-color: #ffffff !important;
 }
 
+/* Section reviews wrapper bg blanc (anti bande grise autour iframe) */
+.pp-avis-section {
+  background-color: #ffffff !important;
+}
+
 /* GHL Reviews widget : force iframe et parent .inner a etre wide
    pour declencher le layout 3-cols desktop du widget */
 #section-AvisClients2 {

@@ -41,6 +41,11 @@ body div[id^="section-"] {
   background-color: #ffffff !important;
 }
 
+/* Section reviews wrapper bg blanc (anti bande grise autour iframe) */
+.pp-avis-section {
+  background-color: #ffffff !important;
+}
+
 /* GHL Reviews widget : iframe 700px desktop pour conserver layout 3-cols */
 #msgsndr_reviews {
   width: 100% !important;

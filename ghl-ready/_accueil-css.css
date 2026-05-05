@@ -52,28 +52,40 @@ body div[id^="section-"] {
 }
 
 /* Stats 'Nos chiffres' : agrandit + uniformise en orange pour aligner
-   visuellement avec la carte Google Maps a droite (2026-05-05) */
+   visuellement avec la carte Google Maps a droite (2026-05-05).
+   Cible 60-80% hauteur carte (~480px) -> ~3 stats x 100-130px. */
 .image-feature-CVqfXg1csT .featureHeadline h2,
 .image-feature-zIZLW70ekM .featureHeadline h2,
 .image-feature-XIV7NGseBa .featureHeadline h2,
 .c-image-feature .featureHeadline h2 {
-  font-size: 2.4rem !important;
+  font-size: 3.4rem !important;
   color: #F48716 !important;
   font-weight: 800 !important;
-  line-height: 1.25 !important;
-  margin: 0.7em 0 !important;
+  line-height: 1.2 !important;
+  margin: 1.2em 0 !important;
+}
+/* Icones plus gros pour balancer la nouvelle taille du texte */
+.c-image-feature .image-container img {
+  width: 80px !important;
+  height: 80px !important;
+  max-width: 80px !important;
 }
 .c-image-feature:hover .featureHeadline h2 {
   color: #F48716 !important;
-  text-shadow: 0 0 18px rgba(244, 135, 22, 0.5) !important;
+  text-shadow: 0 0 22px rgba(244, 135, 22, 0.55) !important;
 }
 @media (max-width: 768px) {
   .image-feature-CVqfXg1csT .featureHeadline h2,
   .image-feature-zIZLW70ekM .featureHeadline h2,
   .image-feature-XIV7NGseBa .featureHeadline h2,
   .c-image-feature .featureHeadline h2 {
-    font-size: 1.5rem !important;
-    margin: 0.5em 0 !important;
+    font-size: 1.8rem !important;
+    margin: 0.7em 0 !important;
+  }
+  .c-image-feature .image-container img {
+    width: 56px !important;
+    height: 56px !important;
+    max-width: 56px !important;
   }
 }
 

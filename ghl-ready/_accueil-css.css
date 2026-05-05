@@ -65,17 +65,17 @@ body div[id^="section-"] {
 .image-feature-zIZLW70ekM .featureHeadline h2,
 .image-feature-XIV7NGseBa .featureHeadline h2,
 .c-image-feature .featureHeadline h2 {
-  font-size: 4rem !important;
+  font-size: 5rem !important;
   color: #F48716 !important;
   font-weight: 800 !important;
-  line-height: 1.2 !important;
+  line-height: 1.15 !important;
   margin: 0 !important;
 }
 /* Icones plus gros pour balancer la nouvelle taille du texte */
 .c-image-feature .image-container img {
-  width: 110px !important;
-  height: 110px !important;
-  max-width: 110px !important;
+  width: 140px !important;
+  height: 140px !important;
+  max-width: 140px !important;
 }
 .c-image-feature:hover .featureHeadline h2 {
   color: #F48716 !important;

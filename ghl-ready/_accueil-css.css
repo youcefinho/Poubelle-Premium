@@ -641,9 +641,12 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   max-width: 1170px;
   margin: 0 auto;
   background: #ffffff !important;
+  max-height: 600px !important;
+  overflow: hidden !important;
 }
-/* GHL Reviews widget : hauteur 700px desktop pour conserver layout 3-cols
-   + bg blanc sur iframe pour camoufler bande grise interne */
+/* GHL Reviews widget : hauteur 700px iframe (3-cols garanti) MAIS
+   wrapper clip a 600px pour eviter l'espace blanc apres la pagination
+   et avant le bouton Donner mon avis */
 #msgsndr_reviews {
   width: 100% !important;
   min-width: 100% !important;
@@ -652,12 +655,21 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
   border: 0 !important;
   background: #ffffff !important;
 }
+/* Donner mon avis CTA : reduit margin-top pour coller au card */
+.pp-avis-section + * { margin-top: 0 !important; }
+.pp-avis-inner > div[style*="text-align:center"] { margin-top: 12px !important; }
+.pp-avis-section { padding: 60px 0 20px 0 !important; }
+
 @media (max-width: 767px) {
   .avis-title-premium-2 h2 { font-size: 1.8rem; }
+  .ghl-review-wrapper-2 {
+    max-height: 1050px !important;
+  }
   #msgsndr_reviews {
     height: 1300px !important;
     min-height: 1300px !important;
   }
+  .pp-avis-section { padding: 40px 0 16px 0 !important; }
 }
 
 /* Migrate from <style> bloc 18 (P0-5b Phase 2 - 2026-05-01) - service-card-premium-new */

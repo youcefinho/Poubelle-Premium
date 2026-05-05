@@ -41,8 +41,23 @@ body div[id^="section-"] {
   background-color: #ffffff !important;
 }
 
-/* GHL Reviews widget : hauteur plus haute pour conserver layout 3-cols
-   desktop + bg blanc sur iframe pour camoufler bande grise interne */
+/* GHL Reviews widget : force iframe et parent .inner a etre wide
+   pour declencher le layout 3-cols desktop du widget */
+#section-AvisClients2 {
+  background: transparent !important;
+}
+#section-AvisClients2 > .inner {
+  max-width: 1200px !important;
+  width: 100% !important;
+  padding: 0 20px !important;
+  margin: 0 auto !important;
+}
+.ghl-review-wrapper-2 {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  background: #ffffff !important;
+}
 #msgsndr_reviews {
   width: 100% !important;
   min-width: 100% !important;
@@ -50,19 +65,24 @@ body div[id^="section-"] {
   min-height: 700px !important;
   border: 0 !important;
   background: #ffffff !important;
+  display: block !important;
 }
-.ghl-review-wrapper-2 {
-  background: #ffffff !important;
-  max-width: 1200px !important;
-  margin: 0 auto !important;
-  padding: 0 20px !important;
+/* Force layout 3-cols desktop quand viewport >= 1024px */
+@media (min-width: 1024px) {
+  #msgsndr_reviews {
+    min-width: 1100px !important;
+  }
+  .ghl-review-wrapper-2 {
+    min-width: 1100px !important;
+  }
 }
 @media (max-width: 768px) {
   #msgsndr_reviews {
+    min-width: 100% !important;
     height: 1300px !important;
     min-height: 1300px !important;
   }
-  .ghl-review-wrapper-2 {
+  #section-AvisClients2 > .inner {
     padding: 0 10px !important;
   }
 }

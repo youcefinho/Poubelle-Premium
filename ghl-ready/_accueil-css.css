@@ -663,13 +663,14 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
 @media (max-width: 767px) {
   .avis-title-premium-2 h2 { font-size: 1.8rem; }
   .ghl-review-wrapper-2 {
-    max-height: 1050px !important;
+    max-height: 850px !important;
   }
   #msgsndr_reviews {
     height: 1300px !important;
     min-height: 1300px !important;
   }
-  .pp-avis-section { padding: 40px 0 16px 0 !important; }
+  .pp-avis-section { padding: 40px 0 8px 0 !important; }
+  .pp-avis-inner > div[style*="text-align:center"] { margin-top: 8px !important; }
 }
 
 /* Migrate from <style> bloc 18 (P0-5b Phase 2 - 2026-05-01) - service-card-premium-new */

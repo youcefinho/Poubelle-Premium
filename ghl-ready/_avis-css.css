@@ -41,6 +41,32 @@ body div[id^="section-"] {
   background-color: #ffffff !important;
 }
 
+/* GHL Reviews widget : iframe trop courte (350px par defaut) cachait
+   les avis sur mobile. Force hauteur + permet scroll interne. */
+#msgsndr_reviews {
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 800px !important;
+  min-height: 800px !important;
+  border: 0 !important;
+  overflow: visible !important;
+}
+.ghl-review-wrapper-2 {
+  overflow: visible !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+@media (max-width: 768px) {
+  #msgsndr_reviews {
+    height: 1500px !important;
+    min-height: 1500px !important;
+  }
+  .ghl-review-wrapper-2 {
+    padding: 0 10px !important;
+  }
+}
+
 header.header-nav,
 .header-nav {
   width: 100vw !important;

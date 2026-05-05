@@ -591,9 +591,23 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
 .ghl-review-wrapper-2 {
   max-width: 1170px;
   margin: 0 auto;
+  overflow: visible !important;
+}
+/* GHL Reviews widget : iframe trop courte cachait avis sur mobile */
+#msgsndr_reviews {
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 800px !important;
+  min-height: 800px !important;
+  border: 0 !important;
+  overflow: visible !important;
 }
 @media (max-width: 767px) {
   .avis-title-premium-2 h2 { font-size: 1.8rem; }
+  #msgsndr_reviews {
+    height: 1500px !important;
+    min-height: 1500px !important;
+  }
 }
 
 /* Migrate from <style> bloc 18 (P0-5b Phase 2 - 2026-05-01) - service-card-premium-new */

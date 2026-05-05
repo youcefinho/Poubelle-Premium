@@ -640,24 +640,23 @@ html:not([lang="en"]) #pp-mobile-nav a .en-text {
 .ghl-review-wrapper-2 {
   max-width: 1170px;
   margin: 0 auto;
-  overflow: hidden !important;
   background: #ffffff !important;
 }
-/* GHL Reviews widget : iframe calibre pour matcher contenu reel,
-   evite bande grise sous le card */
+/* GHL Reviews widget : hauteur 700px desktop pour conserver layout 3-cols
+   + bg blanc sur iframe pour camoufler bande grise interne */
 #msgsndr_reviews {
   width: 100% !important;
   min-width: 100% !important;
-  height: 550px !important;
-  min-height: 550px !important;
+  height: 700px !important;
+  min-height: 700px !important;
   border: 0 !important;
   background: #ffffff !important;
 }
 @media (max-width: 767px) {
   .avis-title-premium-2 h2 { font-size: 1.8rem; }
   #msgsndr_reviews {
-    height: 1100px !important;
-    min-height: 1100px !important;
+    height: 1300px !important;
+    min-height: 1300px !important;
   }
 }
 

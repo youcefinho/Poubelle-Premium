@@ -41,18 +41,17 @@ body div[id^="section-"] {
   background-color: #ffffff !important;
 }
 
-/* GHL Reviews widget : iframe calibre pour matcher le contenu reel
-   (header + 3 reviews + pagination) - evite la bande grise sous le card */
+/* GHL Reviews widget : hauteur plus haute pour conserver layout 3-cols
+   desktop + bg blanc sur iframe pour camoufler bande grise interne */
 #msgsndr_reviews {
   width: 100% !important;
   min-width: 100% !important;
-  height: 550px !important;
-  min-height: 550px !important;
+  height: 700px !important;
+  min-height: 700px !important;
   border: 0 !important;
   background: #ffffff !important;
 }
 .ghl-review-wrapper-2 {
-  overflow: hidden !important;
   background: #ffffff !important;
   max-width: 1200px !important;
   margin: 0 auto !important;
@@ -60,8 +59,8 @@ body div[id^="section-"] {
 }
 @media (max-width: 768px) {
   #msgsndr_reviews {
-    height: 1100px !important;
-    min-height: 1100px !important;
+    height: 1300px !important;
+    min-height: 1300px !important;
   }
   .ghl-review-wrapper-2 {
     padding: 0 10px !important;

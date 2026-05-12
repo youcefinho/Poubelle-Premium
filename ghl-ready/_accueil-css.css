@@ -124,11 +124,12 @@ header.header-nav,
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
   box-sizing: border-box !important;
-  /* Desktop : aligne texte+card en bas mais avec gros padding-bottom
-     pour que le card soit au niveau du torse de Renaud, pas des roues */
-  align-items: flex-end !important;
+  /* Desktop : contenu en HAUT du hero (texte gauche + card droite dans la
+     zone superieure sombre des arbres, au dessus du visage de Renaud) */
+  align-items: flex-start !important;
   background-position: center top !important;
-  padding-bottom: 180px !important;
+  padding-top: 100px !important;
+  padding-bottom: 60px !important;
 }
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */

@@ -124,10 +124,15 @@ header.header-nav,
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
   box-sizing: border-box !important;
-  /* Retour a l'alignement par defaut (centre vertical) - meilleur compromis
-     pour photo de Renaud + camion + remorque */
-  align-items: center !important;
+  /* Texte (top-left) + card (top-right) collés en HAUT du hero - au dessus
+     du visage de Renaud, dans la zone sombre des arbres/maison */
+  align-items: flex-start !important;
   background-position: center !important;
+  padding-top: 60px !important;
+}
+/* Force aussi la grid interne a aligner ses items en haut (pas centre vertical) */
+#pp-hero .pp-hero-inner {
+  align-items: flex-start !important;
 }
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */

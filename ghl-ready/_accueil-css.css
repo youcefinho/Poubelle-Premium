@@ -124,9 +124,19 @@ header.header-nav,
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
   box-sizing: border-box !important;
-  /* Desktop : aligne texte+card EN BAS du hero pour que Renaud reste visible (2026-05-13) */
+  /* Desktop : aligne texte+card en bas mais avec gros padding-bottom
+     pour que le card soit au niveau du torse de Renaud, pas des roues */
   align-items: flex-end !important;
   background-position: center top !important;
+  padding-bottom: 180px !important;
+}
+/* Decale le contenu (texte + card) un peu vers la gauche au lieu d'etre
+   centre sur 1200px (Renaud apparait mieux en zone visuelle droite) */
+#pp-hero .pp-hero-inner {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  max-width: 1100px !important;
+  padding-left: 40px !important;
 }
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */

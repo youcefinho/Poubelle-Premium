@@ -124,11 +124,11 @@ header.header-nav,
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
   box-sizing: border-box !important;
-  /* Texte (top-left) + card (top-right) collés en HAUT du hero - au dessus
-     du visage de Renaud, dans la zone sombre des arbres/maison */
+  /* Texte (top-left) + card (top-right) en HAUT du hero, MAIS sous le
+     header de nav (qui fait ~80px). 140px = clear le header + gap visuel */
   align-items: flex-start !important;
   background-position: center !important;
-  padding-top: 60px !important;
+  padding-top: 140px !important;
 }
 /* Force aussi la grid interne a aligner ses items en haut (pas centre vertical) */
 #pp-hero .pp-hero-inner {

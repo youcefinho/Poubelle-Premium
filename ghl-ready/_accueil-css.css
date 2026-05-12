@@ -124,7 +124,7 @@ header.header-nav,
   margin-left: calc(-50vw + 50%) !important;
   margin-right: calc(-50vw + 50%) !important;
   box-sizing: border-box !important;
-  /* Aligne texte+card EN BAS du hero pour que Renaud reste visible (2026-05-13) */
+  /* Desktop : aligne texte+card EN BAS du hero pour que Renaud reste visible (2026-05-13) */
   align-items: flex-end !important;
   background-position: center top !important;
 }
@@ -132,6 +132,19 @@ header.header-nav,
    au centre (Renaud visible), sombre a droite (card pop) */
 #pp-hero .pp-hero-overlay {
   background: linear-gradient(90deg, rgba(11,27,54,0.92) 0%, rgba(11,27,54,0.72) 45%, rgba(11,27,54,0.85) 100%) !important;
+}
+/* Mobile : contenu remonte (pas colle au bas) + Renaud shifte pour etre visible */
+@media (max-width: 960px) {
+  #pp-hero {
+    align-items: center !important;
+    background-position: 35% 30% !important;
+    min-height: auto !important;
+    padding: 80px 20px 60px !important;
+  }
+  /* Overlay mobile : plus sombre uniforme pour texte plein-largeur lisible */
+  #pp-hero .pp-hero-overlay {
+    background: linear-gradient(180deg, rgba(11,27,54,0.88) 0%, rgba(11,27,54,0.78) 100%) !important;
+  }
 }
 
 /* Header desktop : container + nav + lang switch + CTA (migre depuis bloc unihdr du HTML body) */

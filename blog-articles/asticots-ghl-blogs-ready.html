@@ -1,323 +1,494 @@
 <!-- ===================================================================
      ARTICLE GHL BLOGS READY — ASTICOTS DANS LA POUBELLE
+     Theme custom #pp-blog-wrapper (scope CSS isole)
      ===================================================================
 
-     CHAMPS À REMPLIR SÉPARÉMENT DANS GHL BLOGS UI :
+     CHAMPS A REMPLIR SEPAREMENT DANS GHL BLOGS UI :
 
-     Titre :          Asticots dans la poubelle : guide complet pour s'en débarrasser et éviter leur retour
+     Titre :          Asticots dans la poubelle : guide complet pour s'en debarrasser
      Slug URL :       asticots-dans-la-poubelle-guide-complet
-     Description :    Vers blancs dans votre bac brun ? Comprenez le cycle des mouches, les vrais risques sanitaires et pourquoi un nettoyage à haute pression est la seule solution durable.
+     Description :    Vers blancs dans votre bac brun ? Comprenez le cycle des mouches, les vrais risques sanitaires et pourquoi un nettoyage a haute pression est la seule solution durable.
      Cover Image :    https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2599becb53a7350377b9.jpg
-     Auteur :         Renaud Lannier (ou Poubelle Premium)
-     Catégorie :      Nettoyage de bacs
-     Date publication : 2026-05-08
-     Temps lecture :  12 min
-
+     Auteur :         Renaud Lannier
+     Categorie :      Nettoyage de bacs
+     Date :           2026-05-08
      SEO Title :      Asticots dans la poubelle : Guide complet | Poubelle Premium
-     SEO Description : Découvrez comment vous débarrasser des asticots dans votre bac brun. Guide complet, risques sanitaires et solutions professionnelles.
-     Canonical URL :  https://poubellepremium.ca/post/asticots-dans-la-poubelle-guide-complet
+     SEO Desc :       Decouvrez comment vous debarrasser des asticots dans votre bac brun. Guide complet, risques sanitaires et solutions professionnelles.
+     Canonical :      https://poubellepremium.ca/post/asticots-dans-la-poubelle-guide-complet
 
-     SCHEMA FAQ (à mettre dans Header Tracking de la page ou via GHL SEO custom code) :
-     Le bloc JSON-LD ci-dessous est optionnel mais améliore le SEO Google "rich snippet FAQ".
-
-     ===================================================================
-     COPIE TOUT CE QUI SUIT (à partir de <article>) DANS LE CHAMP "CONTENU"
+     COPIE TOUT CE QUI SUIT (a partir de <style>) DANS LE CHAMP "CONTENU"
+     en mode HTML / Source (icone </> de l'editeur).
      =================================================================== -->
+
+<style>
+/* =========================================================================
+   ISOLATED CSS SCOPE FOR GO HIGH LEVEL (#pp-blog-wrapper)
+   ========================================================================= */
+#pp-blog-wrapper {
+  --pp-primary: #1c6ba4;
+  --pp-accent: #f58410;
+  --pp-accent-hover: #d6700b;
+  --pp-bg-light: #F4F7F9;
+  --pp-text: #333333;
+  --pp-text-light: #666666;
+  --pp-border: #E5E7EB;
+  --pp-warning: #FFF4E5;
+  --pp-warning-text: #B45309;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--pp-text);
+  line-height: 1.8;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+#pp-blog-wrapper h1,
+#pp-blog-wrapper h2,
+#pp-blog-wrapper h3 {
+  color: var(--pp-primary) !important;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+#pp-blog-wrapper .pp-hero {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background-color: var(--pp-primary);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(28,107,164,0.2);
+}
+#pp-blog-wrapper .pp-hero h1 {
+  color: white !important;
+  font-size: 2.2rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+#pp-blog-wrapper .pp-zero-click {
+  background: white;
+  border-left: 5px solid var(--pp-accent);
+  padding: 1.5rem;
+  border-radius: 4px 8px 8px 4px;
+  font-size: 1.1rem;
+  color: var(--pp-primary);
+  max-width: 850px;
+  margin: 0 auto;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  text-align: left;
+}
+#pp-blog-wrapper .pp-inline-toc {
+  background: var(--pp-bg-light);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--pp-border);
+  margin: 2.5rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+#pp-blog-wrapper .pp-toc-title {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pp-primary) !important;
+  margin-bottom: 1.2rem;
+  font-weight: 800;
+  border-bottom: 2px solid var(--pp-border);
+  padding-bottom: 0.5rem;
+}
+#pp-blog-wrapper .pp-toc-list { list-style: none; padding: 0; margin: 0; }
+#pp-blog-wrapper .pp-toc-list li { margin-bottom: 0.75rem; }
+#pp-blog-wrapper .pp-toc-list a {
+  color: var(--pp-text) !important;
+  text-decoration: none !important;
+  font-size: 1.05rem;
+  transition: all 0.2s;
+  display: inline-block;
+  border-left: 3px solid transparent;
+  padding-left: 10px;
+}
+#pp-blog-wrapper .pp-toc-list a:hover {
+  color: var(--pp-accent) !important;
+  border-left-color: var(--pp-accent);
+  font-weight: 700;
+}
+#pp-blog-wrapper p { margin-bottom: 1.5rem; }
+#pp-blog-wrapper ul,
+#pp-blog-wrapper ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+#pp-blog-wrapper li { margin-bottom: 0.5rem; }
+#pp-blog-wrapper strong { color: var(--pp-primary); }
+#pp-blog-wrapper article a:not(.pp-btn) {
+  color: var(--pp-accent) !important;
+  font-weight: 700;
+  text-decoration: underline;
+}
+#pp-blog-wrapper .pp-alert {
+  background-color: var(--pp-warning);
+  color: var(--pp-warning-text);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid #FDE68A;
+}
+#pp-blog-wrapper .pp-alert-icon { font-size: 1.5rem; line-height: 1; }
+#pp-blog-wrapper .pp-table-wrapper {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  border: 1px solid var(--pp-border);
+}
+#pp-blog-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  text-align: left;
+  font-size: 0.95rem;
+}
+#pp-blog-wrapper th,
+#pp-blog-wrapper td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--pp-border);
+}
+#pp-blog-wrapper th {
+  background-color: var(--pp-primary);
+  color: white !important;
+  font-weight: 600;
+  white-space: nowrap;
+}
+#pp-blog-wrapper tr:nth-child(even) { background-color: var(--pp-bg-light); }
+#pp-blog-wrapper tr:hover td { background-color: #EBF4FA; }
+#pp-blog-wrapper .pp-cta-wrapper { margin: 2.5rem 0; text-align: center; }
+#pp-blog-wrapper .pp-btn {
+  display: inline-block;
+  background-color: var(--pp-accent) !important;
+  color: white !important;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(245,132,16,0.3);
+  border: none;
+}
+#pp-blog-wrapper .pp-btn:hover {
+  background-color: var(--pp-accent-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(245,132,16,0.4);
+}
+#pp-blog-wrapper .pp-faq-item {
+  margin-bottom: 1rem;
+  border: 1px solid var(--pp-border);
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+}
+#pp-blog-wrapper .pp-faq-item summary {
+  padding: 1.25rem;
+  font-weight: 700;
+  color: var(--pp-primary) !important;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#pp-blog-wrapper .pp-faq-item summary::-webkit-details-marker { display: none; }
+#pp-blog-wrapper .pp-faq-item summary::after {
+  content: '+';
+  font-size: 1.5rem;
+  color: var(--pp-accent);
+  transition: transform 0.3s;
+}
+#pp-blog-wrapper .pp-faq-item[open] summary::after {
+  content: '\2212';
+  transform: rotate(180deg);
+}
+#pp-blog-wrapper .pp-faq-content {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--pp-border);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+#pp-blog-wrapper figure { margin: 2rem 0; text-align: center; }
+#pp-blog-wrapper figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+#pp-blog-wrapper figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--pp-text-light);
+  font-style: italic;
+}
+</style>
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Comment se débarrasser des asticots dans une poubelle extérieure ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "En urgence, versez de l'eau très chaude sur les larves visibles, videz le bac, frottez les parois avec un produit dégraissant, puis rincez abondamment. Pour traiter les zones où les œufs invisibles et les biofilms peuvent se loger, un nettoyage professionnel à haute pression est recommandé."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Est-ce que les asticots dans la poubelle sont dangereux pour la santé ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Les asticots et les mouches sont associés à des matières organiques en décomposition et peuvent contribuer à déplacer des bactéries sur les surfaces. Le principal enjeu est l'hygiène autour de la maison, surtout près des zones de passage, des animaux et des enfants."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Pourquoi j'ai des asticots dans mon bac brun (compost) ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le bac brun contient de la matière organique, de l'humidité et de la chaleur, soit des conditions favorables aux mouches qui cherchent un site de ponte. Les résidus de table, les liquides et les odeurs de fermentation attirent particulièrement les mouches au printemps et en été."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Comment empêcher les mouches de pondre dans vos bacs roulants ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Gardez les couvercles fermés, réduisez les liquides, emballez les déchets organiques odorants, placez les bacs à l'ombre et nettoyez-les régulièrement. Un bac propre et désodorisé est moins attirant pour les mouches."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Le vinaigre blanc tue-t-il les larves de mouches ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le vinaigre blanc peut aider sur les larves directement exposées, mais il ne traite pas toujours les biofilms, les œufs dissimulés et les résidus dans les recoins. Il s'agit d'une mesure d'appoint, pas d'un nettoyage en profondeur."
-      }
-    }
+    {"@type":"Question","name":"Comment se débarrasser des asticots dans une poubelle extérieure ?","acceptedAnswer":{"@type":"Answer","text":"En urgence, versez de l'eau très chaude sur les larves visibles, videz le bac, frottez les parois avec un produit dégraissant, puis rincez abondamment. Pour traiter les zones où les œufs invisibles et les biofilms peuvent se loger, un nettoyage professionnel à haute pression est recommandé."}},
+    {"@type":"Question","name":"Est-ce que les asticots dans la poubelle sont dangereux pour la santé ?","acceptedAnswer":{"@type":"Answer","text":"Les asticots et les mouches sont associés à des matières organiques en décomposition et peuvent contribuer à déplacer des bactéries sur les surfaces. Le principal enjeu est l'hygiène autour de la maison, surtout près des zones de passage, des animaux et des enfants."}},
+    {"@type":"Question","name":"Pourquoi j'ai des asticots dans mon bac brun (compost) ?","acceptedAnswer":{"@type":"Answer","text":"Le bac brun contient de la matière organique, de l'humidité et de la chaleur, soit des conditions favorables aux mouches qui cherchent un site de ponte. Les résidus de table, les liquides et les odeurs de fermentation attirent particulièrement les mouches au printemps et en été."}},
+    {"@type":"Question","name":"Comment empêcher les mouches de pondre dans vos bacs roulants ?","acceptedAnswer":{"@type":"Answer","text":"Gardez les couvercles fermés, réduisez les liquides, emballez les déchets organiques odorants, placez les bacs à l'ombre et nettoyez-les régulièrement. Un bac propre et désodorisé est moins attirant pour les mouches."}},
+    {"@type":"Question","name":"Le vinaigre blanc tue-t-il les larves de mouches ?","acceptedAnswer":{"@type":"Answer","text":"Le vinaigre blanc peut aider sur les larves directement exposées, mais il ne traite pas toujours les biofilms, les œufs dissimulés et les résidus dans les recoins. Il s'agit d'une mesure d'appoint, pas d'un nettoyage en profondeur."}}
   ]
 }
 </script>
 
-<article>
+<div id="pp-blog-wrapper">
 
-<p><strong>Résumé :</strong> Pour éliminer les asticots, un nettoyage à haute pression avec de l'eau chaude est nécessaire pour tuer les larves et atteindre les œufs invisibles nichés dans les recoins. Les méthodes maison comme le vinaigre sont souvent insuffisantes pour une désinfection en profondeur.</p>
+  <header class="pp-hero">
+    <h1>Asticots dans la poubelle : guide complet pour s'en débarrasser et éviter leur retour</h1>
+    <div class="pp-zero-click">
+      <p style="margin:0;"><strong>Résumé :</strong> Pour éliminer les asticots, un nettoyage à haute pression avec de l'eau chaude est nécessaire pour tuer les larves et atteindre les œufs invisibles nichés dans les recoins. Les méthodes maison comme le vinaigre sont souvent insuffisantes pour une désinfection en profondeur.</p>
+    </div>
+  </header>
 
-<p>Vous avez ouvert votre bac brun ce matin. Ce que vous avez vu, ces petits vers blancs qui grouillent dans vos déchets organiques, n'est pas un hasard, pas une malchance. C'est la conséquence mécanique d'un processus biologique précis, accéléré par la chaleur humide du printemps québécois. Prenez une grande inspiration. Voici tout ce que vous devez savoir pour régler le problème une bonne fois pour toutes.</p>
+  <article>
 
-<figure>
-  <img src="https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2599becb53a7350377b9.jpg" alt="Un bac brun propre et sans odeur devant une maison" />
-  <figcaption><em>Un entretien régulier de votre bac brun garantit un environnement plus sain et moins attirant pour les nuisibles.</em></figcaption>
-</figure>
+    <section>
+      <p>Vous avez ouvert votre bac brun ce matin. Ce que vous avez vu, ces petits vers blancs qui grouillent dans vos déchets organiques, n'est pas un hasard, pas une malchance. C'est la conséquence mécanique d'un processus biologique précis, accéléré par la chaleur humide du printemps québécois. Prenez une grande inspiration. Voici tout ce que vous devez savoir pour régler le problème une bonne fois pour toutes.</p>
+    </section>
 
-<h2>Table des matières</h2>
-<ol>
-  <li><a href="#pourquoi">Pourquoi les asticots envahissent-ils vos bacs en mai ?</a></li>
-  <li><a href="#risques">Les risques sanitaires liés aux larves de mouches près de la maison</a></li>
-  <li><a href="#limites-maison">Pourquoi les solutions « maison » échouent-elles souvent ?</a></li>
-  <li><a href="#comparaison">Comparaison : méthodes maison vs. désinfection professionnelle</a></li>
-  <li><a href="#prevention">Comment prévenir une nouvelle infestation d'asticots cet été ?</a></li>
-  <li><a href="#faq">FAQ : Vos questions sur l'entretien des bacs au Québec</a></li>
-  <li><a href="#tranquillite">La tranquillité d'esprit pour toute la saison commence par un bac sain</a></li>
-</ol>
+    <figure>
+      <img src="https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2599becb53a7350377b9.jpg" alt="Un bac brun propre et sans odeur devant une maison" />
+      <figcaption>Un entretien régulier de votre bac brun garantit un environnement plus sain et moins attirant pour les nuisibles.</figcaption>
+    </figure>
 
-<h2 id="pourquoi">Pourquoi les asticots envahissent-ils vos bacs en mai ?</h2>
-<p>Chaque printemps sur la Rive-Nord de Montréal, de Laval à Saint-Jérôme, le même scénario se répète. La mouche domestique (Musca domestica) sort de sa dormance hivernale dès que les températures dépassent 15°C. Elle n'a alors qu'une seule obsession : trouver de la matière organique en décomposition pour pondre ses œufs.</p>
-<p>Votre bac brun (compost) et vos ordures sont son hôtel cinq étoiles.</p>
-<p>La mécanique du problème est implacable :</p>
-<ul>
-  <li>Une femelle peut pondre jusqu'à 500 à 600 œufs au cours de sa vie, souvent en plusieurs pontes groupées directement sur vos résidus alimentaires.</li>
-  <li>Ces œufs, blanchâtres et mesurant à peine 1,2 mm, sont pratiquement invisibles à l'œil nu.</li>
-  <li>À une température ambiante de 30°C (ce que votre bac atteint facilement en plein soleil de mai), ces œufs éclosent en moins de 24 heures.</li>
-  <li>À 30°C, le cycle complet (de l'œuf à la mouche adulte) se boucle en seulement 8 à 10 jours.</li>
-</ul>
-<p>Ce que vous voyez grouiller dans votre bac, ce sont des larves (les asticots) au stade 2 ou 3 de leur développement. Elles mesurent entre 3 et 12 mm, sont blanc laiteux et se nourrissent activement de vos déchets organiques en décomposition. Leur développement est optimal entre 17°C et 38°C, exactement la plage de température d'un bac québécois exposé au soleil du mois de mai.</p>
-<p>Le climat chaud et humide du Québec printanier crée des conditions quasi-tropicales à l'intérieur de vos bacs fermés. C'est la raison pour laquelle la saison des asticots frappe si fort et si vite sur la Rive-Nord.</p>
+    <nav class="pp-inline-toc">
+      <div class="pp-toc-title">Table des matières</div>
+      <ul class="pp-toc-list">
+        <li><a href="#pourquoi-mai">Pourquoi les asticots envahissent-ils vos bacs en mai ?</a></li>
+        <li><a href="#risques-sanitaires">Les risques sanitaires liés aux larves</a></li>
+        <li><a href="#solutions-maison">Pourquoi les solutions « maison » échouent</a></li>
+        <li><a href="#comparaison">Comparaison : méthodes maison vs. professionnelle</a></li>
+        <li><a href="#prevention">Comment prévenir une nouvelle infestation</a></li>
+        <li><a href="#faq">FAQ : Vos questions sur l'entretien</a></li>
+        <li><a href="#tranquillite">La tranquillité d'esprit pour la saison</a></li>
+      </ul>
+    </nav>
 
-<h2 id="risques">Les risques sanitaires liés aux larves de mouches près de la maison</h2>
-<p>Le dégoût que vous ressentez face à ces vers blancs n'est pas irrationnel. Il est biologiquement fondé. Les asticots ne sont pas seulement répugnants : ils représentent un risque sanitaire documenté pour votre famille et vos animaux.</p>
-<p>Voici pourquoi : les larves de mouches se développent en ingérant de la matière organique putréfiée. Ce faisant, elles accumulent sur et dans leur corps des agents pathogènes comme :</p>
-<ul>
-  <li>Salmonella (responsable de salmonellose, une intoxication alimentaire grave)</li>
-  <li>Escherichia coli (E. coli) (infections digestives, particulièrement dangereuses pour les jeunes enfants et les personnes âgées)</li>
-  <li>Staphylocoques dorés</li>
-</ul>
-<p>Ces larves se déplacent. Une larve qui rampe hors de votre bac et entre en contact avec votre terrasse, vos marches d'entrée ou vos chaussures transporte ces pathogènes partout sur son passage.</p>
-<p>Plus alarmant encore : les mouches adultes issues de ces larves se posent indifféremment sur vos déchets, puis sur vos aliments, vos surfaces de cuisine et vos ustensiles. Elles régurgitent une salive digestive sur tout ce qu'elles touchent : c'est leur mécanisme d'alimentation.</p>
-<p>Les personnes les plus vulnérables à ces contaminations :</p>
-<ul>
-  <li>Les enfants en bas âge (système immunitaire en développement)</li>
-  <li>Les personnes âgées</li>
-  <li>Les femmes enceintes</li>
-  <li>Les personnes immunodéprimées</li>
-  <li>Les animaux domestiques qui reniflent ou touchent les bacs</li>
-</ul>
+    <section id="pourquoi-mai">
+      <h2>Pourquoi les asticots envahissent-ils vos bacs en mai ?</h2>
+      <p>Chaque printemps sur la Rive-Nord de Montréal, de Laval à Saint-Jérôme, le même scénario se répète. La mouche domestique (Musca domestica) sort de sa dormance hivernale dès que les températures dépassent 15°C. Elle n'a alors qu'une seule obsession : trouver de la matière organique en décomposition pour pondre ses œufs.</p>
+      <p>Votre bac brun (compost) et vos ordures sont son hôtel cinq étoiles.</p>
+      <p><strong>La mécanique du problème est implacable :</strong></p>
+      <ul>
+        <li>Une femelle peut pondre jusqu'à 500 à 600 œufs au cours de sa vie, souvent en plusieurs pontes groupées directement sur vos résidus alimentaires.</li>
+        <li>Ces œufs, blanchâtres et mesurant à peine 1,2 mm, sont pratiquement invisibles à l'œil nu.</li>
+        <li>À une température ambiante de 30°C (ce que votre bac atteint facilement en plein soleil de mai), ces œufs éclosent en <strong>moins de 24 heures</strong>.</li>
+        <li>À 30°C, le cycle complet (de l'œuf à la mouche adulte) se boucle en <strong>seulement 8 à 10 jours</strong>.</li>
+      </ul>
+      <p>Ce que vous voyez grouiller dans votre bac, ce sont des larves (les asticots) au stade 2 ou 3 de leur développement. Elles mesurent entre 3 et 12 mm, sont blanc laiteux et se nourrissent activement de vos déchets organiques en décomposition. Leur développement est optimal entre 17°C et 38°C, exactement la plage de température d'un bac québécois exposé au soleil du mois de mai.</p>
+      <p>Le climat chaud et humide du Québec printanier crée des conditions quasi-tropicales à l'intérieur de vos bacs fermés. C'est la raison pour laquelle la saison des asticots frappe si fort et si vite sur la Rive-Nord.</p>
+    </section>
 
-<figure>
-  <img src="https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2599ea88e31e44389964.jpg" alt="Protéger sa famille et ses animaux des risques sanitaires" />
-  <figcaption><em>La sécurité sanitaire de votre foyer commence par des bacs propres.</em></figcaption>
-</figure>
+    <section id="risques-sanitaires">
+      <h2>Les risques sanitaires liés aux larves de mouches près de la maison</h2>
+      <p>Le dégoût que vous ressentez face à ces vers blancs n'est pas irrationnel. Il est biologiquement fondé. Les asticots ne sont pas seulement répugnants : ils représentent un <strong>risque sanitaire documenté</strong> pour votre famille et vos animaux.</p>
+      <p>Voici pourquoi : les larves de mouches se développent en ingérant de la matière organique putréfiée. Ce faisant, elles accumulent sur et dans leur corps des agents pathogènes comme :</p>
+      <ul>
+        <li><strong>Salmonella</strong> (responsable de salmonellose, une intoxication alimentaire grave)</li>
+        <li><strong>Escherichia coli (E. coli)</strong> (infections digestives, particulièrement dangereuses pour les jeunes enfants et les personnes âgées)</li>
+        <li><strong>Staphylocoques dorés</strong></li>
+      </ul>
+      <p>Ces larves se déplacent. Une larve qui rampe hors de votre bac et entre en contact avec votre terrasse, vos marches d'entrée ou vos chaussures transporte ces pathogènes partout sur son passage.</p>
+      <p>Plus alarmant encore : les mouches adultes issues de ces larves se posent indifféremment sur vos déchets, puis sur vos aliments, vos surfaces de cuisine et vos ustensiles. Elles régurgitent une salive digestive sur tout ce qu'elles touchent : c'est leur mécanisme d'alimentation.</p>
+      <p><strong>Les personnes les plus vulnérables à ces contaminations :</strong></p>
+      <ul>
+        <li>Les enfants en bas âge (système immunitaire en développement)</li>
+        <li>Les personnes âgées</li>
+        <li>Les femmes enceintes</li>
+        <li>Les personnes immunodéprimées</li>
+        <li>Les animaux domestiques qui reniflent ou touchent les bacs</li>
+      </ul>
 
-<blockquote>
-  <p><strong>Ne laissez pas les bactéries proliférer à quelques mètres de votre entrée.</strong> Une désinfection professionnelle aide à traiter les larves visibles et les biofilms bactériens invisibles qui tapissent les parois de vos bacs.</p>
-  <p><a href="https://poubellepremium.ca/soumission_1"><strong>👉 Demander ma soumission gratuite</strong></a></p>
-</blockquote>
+      <figure>
+        <img src="https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2599ea88e31e44389964.jpg" alt="Protéger sa famille et ses animaux des risques sanitaires" />
+        <figcaption>La sécurité sanitaire de votre foyer commence par des bacs propres.</figcaption>
+      </figure>
 
-<p>📖 <strong>Article recommandé</strong> — Pour en savoir plus sur l'ensemble des risques liés à des bacs mal entretenus, consultez notre article complet : <a href="https://poubellepremium.ca/post/les-risques-de-ne-pas-entretenir-vos-bacs-exterieurs-bacteries-mouches-et-mauvaises-odeurs">Les risques de ne pas entretenir vos bacs extérieurs : bactéries, mouches et mauvaises odeurs</a>.</p>
+      <div class="pp-alert">
+        <div class="pp-alert-icon">⚠️</div>
+        <div>
+          <p style="margin:0;"><strong>Ne laissez pas les bactéries proliférer à quelques mètres de votre entrée.</strong> Une désinfection professionnelle aide à traiter les larves visibles et les biofilms bactériens invisibles qui tapissent les parois de vos bacs.</p>
+        </div>
+      </div>
 
-<h2 id="limites-maison">Pourquoi les solutions « maison » échouent-elles souvent ?</h2>
-<p>La première réaction de la plupart des gens face à des asticots dans la poubelle est d'attraper ce qu'ils ont sous la main : du vinaigre blanc, de l'eau de Javel, ou du sel. Ces produits peuvent tuer les larves visibles. Mais ils ne règlent pas le problème en profondeur, et voici pourquoi, scientifiquement.</p>
+      <div class="pp-cta-wrapper">
+        <a href="https://poubellepremium.ca/soumission_1" class="pp-btn">Demander ma soumission gratuite</a>
+      </div>
 
-<h3>Le problème avec le vinaigre et l'eau de Javel</h3>
-<p>Le vinaigre blanc a un pH acide qui peut désorienter et tuer les larves directement exposées. L'eau de Javel diluée (1 pour 10) a un effet bactéricide réel. Mais ces solutions partagent les mêmes limites :</p>
-<ul>
-  <li><strong>Elles ne pénètrent pas les biofilms.</strong> Un biofilm est une couche de bactéries et de résidus organiques solidifiés sur les parois plastiques de votre bac. C'est dans ce biofilm que les œufs de mouches s'enkystent et survivent. Le vinaigre versé à la surface ne l'atteint pas.</li>
-  <li><strong>Elles ne dissolvent pas les œufs invisibles.</strong> Les œufs de mouches sont collants et microscopiques. Ils adhèrent dans les rainures, les angles et les aspérités du plastique. Un traitement superficiel ne les détruit pas.</li>
-  <li><strong>Elles ne désodorisent pas en profondeur.</strong> Les odeurs de putréfaction sont produites par des composés organiques volatils (COV) libérés par la décomposition. Masquer l'odeur ne supprime pas l'attraction pour les mouches.</li>
-  <li><strong>Elles laissent des résidus chimiques.</strong> Contrairement aux produits biodégradables professionnels, la Javel peut affecter la durabilité du plastique et présente des risques si votre bac est proche d'un potager ou d'un espace où jouent des enfants.</li>
-</ul>
+      <p>Pour en savoir plus sur l'ensemble des risques liés à des bacs mal entretenus, consultez notre article complet : <a href="https://poubellepremium.ca/post/les-risques-de-ne-pas-entretenir-vos-bacs-exterieurs-bacteries-mouches-et-mauvaises-odeurs">Les risques de ne pas entretenir vos bacs extérieurs : bactéries, mouches et mauvaises odeurs</a>.</p>
+    </section>
 
-<h3>L'importance de la température de l'eau : le facteur décisif</h3>
-<p>C'est ici que la science est absolument claire : les larves de mouches commencent à mourir de façon significative à partir de 45°C environ. À 60°C et au-delà, la chaleur réduit fortement la survie des larves exposées : à température élevée, elle affecte rapidement leur développement et leur capacité à survivre. En dessous de 45°C, elles peuvent survivre et ramper pour fuir la zone traitée.</p>
+    <section id="solutions-maison">
+      <h2>Pourquoi les solutions « maison » échouent-elles souvent ?</h2>
+      <p>La première réaction de la plupart des gens face à des asticots dans la poubelle est d'attraper ce qu'ils ont sous la main : du vinaigre blanc, de l'eau de Javel, ou du sel. Ces produits peuvent tuer les larves visibles. Mais ils ne règlent pas le problème en profondeur, et voici pourquoi, scientifiquement.</p>
 
-<figure>
-  <img src="https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2d3ebecb53a735057ba0.jpg" alt="Unité mobile de nettoyage à haute pression en action" />
-  <figcaption><em>L'équipement professionnel permet une désinfection en profondeur par haute pression et eau chaude.</em></figcaption>
-</figure>
+      <h3>Le problème avec le vinaigre et l'eau de Javel</h3>
+      <p>Le vinaigre blanc a un pH acide qui peut désorienter et tuer les larves directement exposées. L'eau de Javel diluée (1 pour 10) a un effet bactéricide réel. Mais ces solutions partagent les mêmes limites :</p>
+      <ul>
+        <li><strong>Elles ne pénètrent pas les biofilms.</strong> Un biofilm est une couche de bactéries et de résidus organiques solidifiés sur les parois plastiques de votre bac. C'est dans ce biofilm que les œufs de mouches s'enkystent et survivent. Le vinaigre versé à la surface ne l'atteint pas.</li>
+        <li><strong>Elles ne dissolvent pas les œufs invisibles.</strong> Les œufs de mouches sont collants et microscopiques. Ils adhèrent dans les rainures, les angles et les aspérités du plastique. Un traitement superficiel ne les détruit pas.</li>
+        <li><strong>Elles ne désodorisent pas en profondeur.</strong> Les odeurs de putréfaction sont produites par des composés organiques volatils (COV) libérés par la décomposition. Masquer l'odeur ne supprime pas l'attraction pour les mouches.</li>
+        <li><strong>Elles laissent des résidus chimiques.</strong> Contrairement aux produits biodégradables professionnels, la Javel peut affecter la durabilité du plastique et présente des risques si votre bac est proche d'un potager ou d'un espace où jouent des enfants.</li>
+      </ul>
 
-<table>
-  <thead>
-    <tr>
-      <th>Méthode</th>
-      <th>Température</th>
-      <th>Efficacité sur larves</th>
-      <th>Efficacité sur œufs</th>
-      <th>Pénétration du biofilm</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Vinaigre blanc</td>
-      <td>Ambiante (~20°C)</td>
-      <td>Partielle</td>
-      <td>Faible</td>
-      <td>Non</td>
-    </tr>
-    <tr>
-      <td>Eau de Javel diluée</td>
-      <td>Ambiante (~20°C)</td>
-      <td>Moyenne</td>
-      <td>Faible</td>
-      <td>Non</td>
-    </tr>
-    <tr>
-      <td>Eau bouillante (maison)</td>
-      <td>~80-90°C (refroidit vite)</td>
-      <td>Bonne sur zone directe</td>
-      <td>Moyenne</td>
-      <td>Non</td>
-    </tr>
-    <tr>
-      <td><strong>Haute pression eau chaude professionnelle</strong></td>
-      <td><strong>Eau chaude soutenue sous pression</strong></td>
-      <td><strong>Très élevée</strong></td>
-      <td><strong>Très élevée</strong></td>
-      <td><strong>Oui</strong></td>
-    </tr>
-  </tbody>
-</table>
+      <h3>L'importance de la température de l'eau : le facteur décisif</h3>
+      <p>C'est ici que la science est absolument claire : <strong>les larves de mouches commencent à mourir de façon significative à partir de 45°C environ. À 60°C et au-delà, la chaleur réduit fortement la survie des larves exposées</strong> : à température élevée, elle affecte rapidement leur développement et leur capacité à survivre. En dessous de 45°C, elles peuvent survivre et ramper pour fuir la zone traitée.</p>
 
-<p>L'avantage irréfutable du nettoyage professionnel à haute pression, comme celui effectué par les unités mobiles de Poubelle Premium, c'est la combinaison de facteurs :</p>
-<ul>
-  <li><strong>Eau chaude maintenue sous pression :</strong> la température létale est atteinte et maintenue, même dans les recoins.</li>
-  <li><strong>Pression mécanique :</strong> elle décroche physiquement les biofilms et les œufs collés aux parois.</li>
-  <li><strong>Produits dégraissants biodégradables :</strong> ils dissolvent les résidus organiques qui constituent la source nutritive et l'attrait olfactif pour les mouches.</li>
-  <li><strong>Gestion de l'eau de nettoyage :</strong> l'eau de lavage est déversée à l'égout le plus proche, conformément aux pratiques du service.</li>
-</ul>
-<p>Les méthodes maison reproduisent difficilement cette combinaison.</p>
+      <figure>
+        <img src="https://assets.cdn.filesafe.space/Q4K7xsLSm5SH7e2GyuSi/media/69fa2d3ebecb53a735057ba0.jpg" alt="Unité mobile de nettoyage à haute pression en action" />
+        <figcaption>L'équipement professionnel permet une désinfection en profondeur par haute pression et eau chaude.</figcaption>
+      </figure>
 
-<blockquote>
-  <p><strong>Évitez la corvée répugnante et les résultats incomplets.</strong> Nos unités mobiles s'occupent de tout, directement chez vous, dans les 48h suivant votre collecte.</p>
-  <p><a href="https://poubellepremium.ca/soumission_1"><strong>👉 Obtenir mon prix par courriel</strong></a></p>
-</blockquote>
+      <div class="pp-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Méthode</th>
+              <th>Température</th>
+              <th>Efficacité larves</th>
+              <th>Efficacité œufs</th>
+              <th>Pénètre biofilm</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Vinaigre blanc</td><td>Ambiante (~20°C)</td><td>Partielle</td><td>Faible</td><td>Non</td></tr>
+            <tr><td>Eau de Javel diluée</td><td>Ambiante (~20°C)</td><td>Moyenne</td><td>Faible</td><td>Non</td></tr>
+            <tr><td>Eau bouillante (maison)</td><td>~80-90°C (refroidit vite)</td><td>Bonne sur zone directe</td><td>Moyenne</td><td>Non</td></tr>
+            <tr><td><strong>Haute pression eau chaude pro</strong></td><td><strong>Eau chaude soutenue sous pression</strong></td><td><strong>Très élevée</strong></td><td><strong>Très élevée</strong></td><td><strong>Oui</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-<h2 id="comparaison">Comparaison : méthodes maison vs. désinfection professionnelle</h2>
+      <p>L'avantage irréfutable du nettoyage professionnel à haute pression, comme celui effectué par les unités mobiles de Poubelle Premium, c'est la <strong>combinaison</strong> de facteurs :</p>
+      <ol>
+        <li><strong>Eau chaude maintenue sous pression :</strong> la température létale est atteinte et maintenue, même dans les recoins.</li>
+        <li><strong>Pression mécanique :</strong> elle décroche physiquement les biofilms et les œufs collés aux parois.</li>
+        <li><strong>Produits dégraissants biodégradables :</strong> ils dissolvent les résidus organiques qui constituent la source nutritive et l'attrait olfactif pour les mouches.</li>
+        <li><strong>Gestion de l'eau de nettoyage :</strong> l'eau de lavage est déversée à l'égout le plus proche, conformément aux pratiques du service.</li>
+      </ol>
+      <p>Aucune méthode maison ne peut reproduire cette combinaison.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Critère</th>
-      <th>DIY (vinaigre, Javel)</th>
-      <th>Poubelle Premium</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Larves visibles traitées</td>
-      <td>✅ Oui</td>
-      <td>✅ Oui</td>
-    </tr>
-    <tr>
-      <td>Œufs invisibles mieux traités</td>
-      <td>❌ Non</td>
-      <td>✅ Oui</td>
-    </tr>
-    <tr>
-      <td>Biofilm bactérien mieux délogé</td>
-      <td>❌ Non</td>
-      <td>✅ Oui</td>
-    </tr>
-    <tr>
-      <td>Odeurs réduites en profondeur</td>
-      <td>❌ Non</td>
-      <td>✅ Oui</td>
-    </tr>
-    <tr>
-      <td>Produits écologiques</td>
-      <td>⚠️ Variable</td>
-      <td>✅ 100% biodégradables</td>
-    </tr>
-    <tr>
-      <td>Eau de nettoyage</td>
-      <td>❌ Non gérée</td>
-      <td>✅ Déversée à l'égout le plus proche</td>
-    </tr>
-    <tr>
-      <td>Temps investi par le propriétaire</td>
-      <td>30-60 min de corvée</td>
-      <td>0 min</td>
-    </tr>
-  </tbody>
-</table>
+      <div class="pp-alert" style="background-color:#F8FAFC;border:1px solid var(--pp-primary);color:var(--pp-text);">
+        <div class="pp-alert-icon">🚫</div>
+        <div>
+          <p style="margin:0;"><strong>Évitez la corvée répugnante et les résultats incomplets.</strong> Nos unités mobiles s'occupent de tout, directement chez vous, dans les 48h suivant votre collecte.</p>
+        </div>
+      </div>
 
-<h2 id="prevention">Comment prévenir une nouvelle infestation d'asticots cet été ?</h2>
-<p>Même après un nettoyage professionnel en profondeur, les mouches reviendront. C'est inévitable : elles sont partout dès que la chaleur s'installe. Votre objectif est de rendre vos bacs aussi peu attractifs que possible entre chaque nettoyage.</p>
-<p>Les gestes qui font une vraie différence :</p>
-<ul>
-  <li><strong>Double-emballage des déchets protéinés.</strong> La viande, le poisson et les produits laitiers sont les sites de ponte préférés des mouches. Emballez-les dans du papier journal ou un sac de plastique hermétique avant de les déposer dans le bac brun.</li>
-  <li><strong>Ne laissez jamais votre bac brun ouvert.</strong> Quelques minutes suffisent à une mouche pour pondre des dizaines d'œufs. Vérifiez que le couvercle ferme bien.</li>
-  <li><strong>Placez vos bacs à l'ombre.</strong> La chaleur accélère la décomposition et l'attraction olfactive. Un bac à l'ombre reste plus frais et moins odorant.</li>
-  <li><strong>Rincez les contenants alimentaires avant de les jeter.</strong> Les résidus de sauce, de jus de viande ou de produits laitiers dans votre bac de recyclage suffisent à attirer les mouches.</li>
-  <li><strong>Saupoudrez du bicarbonate de soude au fond du bac brun après chaque collecte.</strong> Il absorbe l'humidité et neutralise partiellement les odeurs.</li>
-  <li><strong>Respectez un calendrier de nettoyage professionnel.</strong> Sur la Rive-Nord, un nettoyage aux deux semaines durant les mois de mai à septembre est une des meilleures protections. La désinfection élimine le biofilm attractif avant qu'il n'attire la prochaine génération de mouches.</li>
-</ul>
+      <div class="pp-cta-wrapper">
+        <a href="https://poubellepremium.ca/soumission_1" class="pp-btn">Obtenir mon prix par courriel</a>
+      </div>
+    </section>
 
-<p>📖 <strong>Article recommandé</strong> — Pour prévenir les odeurs avant que les asticots apparaissent, consultez aussi notre guide : <a href="https://poubellepremium.ca/post/nettoyage-de-poubelle-au-printemps">Nettoyage de poubelle au printemps : guide d'hygiène pour un été sans odeurs</a>.</p>
+    <section id="comparaison">
+      <h2>Comparaison : méthodes maison vs. désinfection professionnelle</h2>
+      <div class="pp-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>DIY (vinaigre, Javel)</th>
+              <th style="background-color:var(--pp-accent);">Poubelle Premium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Larves visibles traitées</td><td>✅ Oui</td><td>✅ Oui</td></tr>
+            <tr><td>Œufs invisibles mieux traités</td><td>❌ Non</td><td>✅ Oui</td></tr>
+            <tr><td>Biofilm bactérien mieux délogé</td><td>❌ Non</td><td>✅ Oui</td></tr>
+            <tr><td>Odeurs réduites en profondeur</td><td>❌ Non</td><td>✅ Oui</td></tr>
+            <tr><td>Produits écologiques</td><td>⚠️ Variable</td><td>✅ 100% biodégradables</td></tr>
+            <tr><td>Eau de nettoyage</td><td>❌ Non gérée</td><td>✅ Déversée à l'égout le plus proche</td></tr>
+            <tr><td>Temps investi par le propriétaire</td><td>30-60 min de corvée</td><td>0 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<p>📖 <strong>Article recommandé</strong> — Pour des astuces pratiques entre deux nettoyages professionnels, lisez notre guide : <a href="https://poubellepremium.ca/post/comment-enlever-les-odeurs-dans-vos-bacs-entre-chaque-nettoyage-professionnel">Comment enlever les odeurs dans vos bacs entre chaque nettoyage professionnel</a>.</p>
+    <section id="prevention">
+      <h2>Comment prévenir une nouvelle infestation d'asticots cet été ?</h2>
+      <p>Même après un nettoyage professionnel en profondeur, les mouches reviendront. C'est inévitable : elles sont partout dès que la chaleur s'installe. Votre objectif est de rendre vos bacs aussi peu attractifs que possible entre chaque nettoyage.</p>
+      <p><strong>Les gestes qui font une vraie différence :</strong></p>
+      <ul>
+        <li><strong>Double-emballage des déchets protéinés.</strong> La viande, le poisson et les produits laitiers sont les sites de ponte préférés des mouches. Emballez-les dans du papier journal ou un sac de plastique hermétique avant de les déposer dans le bac brun.</li>
+        <li><strong>Ne laissez jamais votre bac brun ouvert.</strong> Quelques minutes suffisent à une mouche pour pondre des dizaines d'œufs. Vérifiez que le couvercle ferme bien.</li>
+        <li><strong>Placez vos bacs à l'ombre.</strong> La chaleur accélère la décomposition et l'attraction olfactive. Un bac à l'ombre reste plus frais et moins odorant.</li>
+        <li><strong>Rincez les contenants alimentaires avant de les jeter.</strong> Les résidus de sauce, de jus de viande ou de produits laitiers dans votre bac de recyclage suffisent à attirer les mouches.</li>
+        <li><strong>Saupoudrez du bicarbonate de soude au fond du bac brun après chaque collecte.</strong> Il absorbe l'humidité et neutralise partiellement les odeurs.</li>
+        <li><strong>Respectez un calendrier de nettoyage professionnel.</strong> Sur la Rive-Nord, un nettoyage aux deux semaines durant les mois de mai à septembre est une des meilleures protections. La désinfection élimine le biofilm attractif avant qu'il n'attire la prochaine génération de mouches.</li>
+      </ul>
 
-<p>Pour en savoir plus sur la gestion écologique des déchets organiques au Québec et les bonnes pratiques du compostage, consultez les ressources de <a href="https://www.recyc-quebec.gouv.qc.ca/" target="_blank" rel="noopener noreferrer">RECYC-QUÉBEC</a>, l'organisme gouvernemental responsable de la réduction des déchets dans la province.</p>
+      <p>Pour prévenir les odeurs avant que les asticots apparaissent, consultez aussi notre guide : <a href="https://poubellepremium.ca/post/nettoyage-de-poubelle-au-printemps">Nettoyage de poubelle au printemps : guide d'hygiène pour un été sans odeurs</a>.</p>
 
-<h2 id="faq">FAQ : Vos questions sur l'entretien des bacs au Québec</h2>
+      <p>Pour des astuces pratiques entre deux nettoyages professionnels, lisez notre guide : <a href="https://poubellepremium.ca/post/comment-enlever-les-odeurs-dans-vos-bacs-entre-chaque-nettoyage-professionnel">Comment enlever les odeurs dans vos bacs entre chaque nettoyage professionnel</a>.</p>
 
-<details>
-  <summary><strong>Comment se débarrasser des asticots dans une poubelle extérieure ?</strong></summary>
-  <p>En urgence, versez de l'eau très chaude (proche de 100°C) directement sur les larves visibles pour les éliminer par choc thermique. Ensuite, vider complètement le bac, frotter les parois avec une brosse et un produit dégraissant, puis rincer abondamment. Pour un traitement en profondeur incluant les zones où les œufs invisibles et les biofilms peuvent se loger, un nettoyage professionnel à haute pression est nécessaire. Les solutions maison traitent le symptôme ; la désinfection professionnelle aide à traiter la cause.</p>
-</details>
+      <p>Pour en savoir plus sur la gestion écologique des déchets organiques au Québec et les bonnes pratiques du compostage, consultez les ressources de <a href="https://www.recyc-quebec.gouv.qc.ca/" target="_blank" rel="noopener noreferrer">RECYC-QUÉBEC</a>, l'organisme gouvernemental responsable de la réduction des déchets dans la province.</p>
+    </section>
 
-<details>
-  <summary><strong>Est-ce que les asticots dans la poubelle sont dangereux pour la santé ?</strong></summary>
-  <p>Oui. Les larves de mouches transportent des bactéries pathogènes comme la Salmonella et l'E. coli, qu'elles déposent sur toutes les surfaces qu'elles touchent. Les mouches adultes issues de ces larves contaminent ensuite les espaces de vie et les surfaces alimentaires. Les enfants, les personnes âgées et les animaux domestiques sont particulièrement à risque.</p>
-</details>
+    <section id="faq">
+      <h2>FAQ : Vos questions sur l'entretien des bacs au Québec</h2>
 
-<details>
-  <summary><strong>Pourquoi j'ai des asticots dans mon bac brun (compost) ?</strong></summary>
-  <p>Le bac brun (compost) contient exactement ce que cherche une mouche pour pondre : de la matière organique en décomposition, de l'humidité et de la chaleur. Les résidus de viande, de poisson, de produits laitiers et de légumes fermentés produisent des odeurs de putréfaction qui attirent les femelles en recherche de site de ponte. Une fois les œufs pondus, la chaleur du bac fermé accélère l'éclosion des larves. En mai et juin au Québec, le cycle peut se boucler en moins de 10 jours.</p>
-</details>
+      <details class="pp-faq-item">
+        <summary>Comment se débarrasser des asticots dans une poubelle extérieure ?</summary>
+        <div class="pp-faq-content">
+          <p>En urgence, versez de l'eau très chaude (proche de 100°C) directement sur les larves visibles pour les éliminer par choc thermique. Ensuite, vider complètement le bac, frotter les parois avec une brosse et un produit dégraissant, puis rincer abondamment. Pour un traitement en profondeur incluant les zones où les œufs invisibles et les biofilms peuvent se loger, un nettoyage professionnel à haute pression est nécessaire. Les solutions maison traitent le symptôme ; la désinfection professionnelle aide à traiter la cause.</p>
+        </div>
+      </details>
 
-<details>
-  <summary><strong>Comment empêcher les mouches de pondre dans vos bacs roulants ?</strong></summary>
-  <p>La prévention repose sur trois axes : supprimer les odeurs attractives (double-emballage des déchets organiques, nettoyage régulier), maintenir les couvercles fermés hermétiquement, et éliminer le biofilm bactérien par des désinfections régulières à haute température. Un bac propre et désodorisé est simplement moins intéressant pour une mouche en quête de site de ponte.</p>
-</details>
+      <details class="pp-faq-item">
+        <summary>Est-ce que les asticots dans la poubelle sont dangereux pour la santé ?</summary>
+        <div class="pp-faq-content">
+          <p>Oui. Les larves de mouches transportent des bactéries pathogènes comme la Salmonella et l'E. coli, qu'elles déposent sur toutes les surfaces qu'elles touchent. Les mouches adultes issues de ces larves contaminent ensuite les espaces de vie et les surfaces alimentaires. Les enfants, les personnes âgées et les animaux domestiques sont particulièrement à risque.</p>
+        </div>
+      </details>
 
-<details>
-  <summary><strong>Le vinaigre blanc tue-t-il les larves de mouches ?</strong></summary>
-  <p>Partiellement. Le vinaigre blanc a un effet acide qui peut désorienter et tuer les larves directement exposées. Cependant, il ne pénètre pas les biofilms bactériens sur les parois du bac, ne détruit pas les œufs microscopiques dissimulés dans les résidus et recoins, et ne désodérise pas en profondeur. C'est une mesure d'appoint utile entre deux nettoyages, mais insuffisante pour traiter une infestation en profondeur ou prévenir une récidive. L'eau chaude appliquée sous pression reste la méthode la plus fiable pour détruire tous les stades de développement de façon certaine : les larves meurent significativement dès 45°C, mais c'est à 60°C et au-delà que l'intervention est plus complète, surtout dans les recoins.</p>
-</details>
+      <details class="pp-faq-item">
+        <summary>Pourquoi j'ai des asticots dans mon bac brun (compost) ?</summary>
+        <div class="pp-faq-content">
+          <p>Le bac brun (compost) contient exactement ce que cherche une mouche pour pondre : de la matière organique en décomposition, de l'humidité et de la chaleur. Les résidus de viande, de poisson, de produits laitiers et de légumes fermentés produisent des odeurs de putréfaction qui attirent les femelles en recherche de site de ponte. Une fois les œufs pondus, la chaleur du bac fermé accélère l'éclosion des larves. En mai et juin au Québec, le cycle peut se boucler en moins de 10 jours.</p>
+        </div>
+      </details>
 
-<h2 id="tranquillite">La tranquillité d'esprit pour toute la saison commence par un bac sain</h2>
-<p>Vous savez maintenant exactement ce qui se passe dans vos bacs et pourquoi les demi-mesures ne suffisent pas. Vous connaissez maintenant la logique du problème : une désinfection à haute température, réalisée avec du matériel adapté, aide à traiter le problème à sa racine : les œufs invisibles, les biofilms bactériens et les odeurs qui attirent la prochaine génération de mouches.</p>
-<p>Renaud et l'équipe de Poubelle Premium desservent 12 municipalités sur la Rive-Nord. Nos unités mobiles passent dans les 48h suivant votre collecte, s'occupent de tout, et remettent vos bacs en place. Produits 100% biodégradables, eau de nettoyage déversée à l'égout le plus proche. Notre processus de nettoyage écologique respecte les normes environnementales les plus strictes du Québec.</p>
-<p>Joignez les familles de la Rive-Nord qui font confiance à Poubelle Premium depuis 2023.</p>
+      <details class="pp-faq-item">
+        <summary>Comment empêcher les mouches de pondre dans vos bacs roulants ?</summary>
+        <div class="pp-faq-content">
+          <p>La prévention repose sur trois axes : supprimer les odeurs attractives (double-emballage des déchets organiques, nettoyage régulier), maintenir les couvercles fermés hermétiquement, et éliminer le biofilm bactérien par des désinfections régulières à haute température. Un bac propre et désodorisé est simplement moins intéressant pour une mouche en quête de site de ponte.</p>
+        </div>
+      </details>
 
-<blockquote>
-  <p><a href="https://poubellepremium.ca/soumission_1"><strong>👉 Demander une soumission en 2 minutes</strong></a></p>
-</blockquote>
+      <details class="pp-faq-item">
+        <summary>Le vinaigre blanc tue-t-il les larves de mouches ?</summary>
+        <div class="pp-faq-content">
+          <p>Partiellement. Le vinaigre blanc a un effet acide qui peut désorienter et tuer les larves directement exposées. Cependant, il ne pénètre pas les biofilms bactériens sur les parois du bac, ne détruit pas les œufs microscopiques dissimulés dans les résidus et recoins, et ne désodérise pas en profondeur. C'est une mesure d'appoint utile entre deux nettoyages, mais insuffisante pour traiter une infestation en profondeur ou prévenir une récidive. L'eau chaude appliquée sous pression reste la méthode la plus fiable pour détruire tous les stades de développement de façon certaine : les larves meurent significativement dès 45°C, mais c'est à 60°C et au-delà que l'intervention est plus complète, surtout dans les recoins.</p>
+        </div>
+      </details>
+    </section>
 
-<p><small><strong>Sources scientifiques :</strong> Rentokil : Reproduction et cycle de vie de la mouche domestique ; Virbac Pro : Impacts de la météo sur le cycle de la mouche ; Wikipédia : Mouche domestique (Musca domestica). Ressources québécoises : <a href="https://www.recyc-quebec.gouv.qc.ca/" target="_blank" rel="noopener noreferrer">RECYC-QUÉBEC</a>.</small></p>
+    <section id="tranquillite">
+      <h2>La tranquillité d'esprit pour toute la saison commence par un bac sain</h2>
+      <p>Vous savez maintenant exactement ce qui se passe dans vos bacs et pourquoi les demi-mesures ne suffisent pas. Vous connaissez maintenant la logique du problème : une désinfection à haute température, réalisée avec du matériel adapté, aide à traiter le problème à sa racine : les œufs invisibles, les biofilms bactériens et les odeurs qui attirent la prochaine génération de mouches.</p>
+      <p>Renaud et l'équipe de Poubelle Premium desservent 12 municipalités sur la Rive-Nord. Nos unités mobiles passent dans les 48h suivant votre collecte, s'occupent de tout, et remettent vos bacs en place. Produits 100% biodégradables, eau de nettoyage déversée à l'égout le plus proche. Notre processus de nettoyage écologique respecte les normes environnementales les plus strictes du Québec.</p>
+      <p>Joignez les familles de la Rive-Nord qui font confiance à Poubelle Premium depuis 2023.</p>
 
-</article>
+      <div class="pp-cta-wrapper">
+        <a href="https://poubellepremium.ca/soumission_1" class="pp-btn">Demander une soumission en 2 minutes</a>
+      </div>
+
+      <p style="font-size:0.9rem;color:var(--pp-text-light);font-style:italic;border-top:1px solid var(--pp-border);padding-top:1.5rem;margin-top:3rem;"><strong>Sources scientifiques :</strong> Rentokil : Reproduction et cycle de vie de la mouche domestique ; Virbac Pro : Impacts de la météo sur le cycle de la mouche ; Wikipédia : Mouche domestique (Musca domestica). Ressources québécoises : <a href="https://www.recyc-quebec.gouv.qc.ca/" target="_blank" rel="noopener noreferrer">RECYC-QUÉBEC</a>.</p>
+    </section>
+
+  </article>
+</div>

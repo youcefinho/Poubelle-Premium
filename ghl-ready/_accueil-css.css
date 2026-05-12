@@ -130,14 +130,6 @@ header.header-nav,
   background-position: center top !important;
   padding-bottom: 180px !important;
 }
-/* Decale le contenu (texte + card) un peu vers la gauche au lieu d'etre
-   centre sur 1200px (Renaud apparait mieux en zone visuelle droite) */
-#pp-hero .pp-hero-inner {
-  margin-left: 0 !important;
-  margin-right: auto !important;
-  max-width: 1100px !important;
-  padding-left: 40px !important;
-}
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */
 #pp-hero .pp-hero-overlay {

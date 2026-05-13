@@ -15031,6 +15031,14 @@
                   grid-template-columns: 1fr;
                   gap: 48px;
                 }
+                /* Reset les transforms desktop sur mobile (sinon contenu sort de l'ecran) */
+                .pp-hero-left {
+                  transform: none !important;
+                }
+                .pp-dash-wrapper {
+                  transform: none !important;
+                  margin: 0 auto !important;
+                }
               }
 
               .pp-hero-left {

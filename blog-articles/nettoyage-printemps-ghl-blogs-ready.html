@@ -216,6 +216,17 @@
   margin-top: 1rem;
   padding-top: 1rem;
 }
+/* Force toutes les images (futures + actuelles) a respecter la largeur container.
+   GHL Blogs WYSIWYG strippe parfois les <figure>, laissant des <img> bruts qui
+   s'affichent a leur taille native (1200-1600px = casse layout). */
+#pp-blog-wrapper img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
 </style>
 
 <script type="application/ld+json">

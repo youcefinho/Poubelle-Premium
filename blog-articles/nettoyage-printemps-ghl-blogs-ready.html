@@ -216,6 +216,33 @@
   margin-top: 1rem;
   padding-top: 1rem;
 }
+/* Cap la cover image GHL Blogs (en HAUT du post, AVANT #pp-blog-wrapper).
+   Selecteurs defensifs car on ne connait pas la vraie classe GHL sans F12.
+   Si aucun ne match, F12 inspect la cover image et ajouter sa classe ici. */
+.hl-blog-cover,
+.hl-blog-cover img,
+.blog-post-cover,
+.blog-post-cover img,
+.blog-post__cover,
+.blog-post__cover img,
+.featured-image,
+.featured-image img,
+.cover-image,
+.cover-image img,
+.post-cover-image,
+.post-thumbnail,
+.post-thumbnail img,
+.blog-detail-page__cover,
+.blog-detail-page__cover img,
+[class*="cover-image"] img,
+[class*="featured-image"] img,
+[class*="post-image"] img,
+[class*="blog-cover"] img {
+  max-height: 350px !important;
+  object-fit: cover !important;
+  width: 100% !important;
+}
+
 /* Images du blog : compact + ratio coherent pour ne pas casser le flow du texte.
    max-width 700px + max-height 400px + object-fit cover = images uniformes
    centrees, jamais trop hautes ni trop larges, peu importe la taille source. */

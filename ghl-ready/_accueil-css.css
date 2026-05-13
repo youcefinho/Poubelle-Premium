@@ -135,13 +135,9 @@ header.header-nav,
 #pp-hero .pp-hero-inner {
   align-items: flex-start !important;
 }
-/* Card (colonne droite) pousse vers le bord droit de sa cellule
-   + translateX 120px (au lieu de 60px) pour shift bien visible */
-#pp-hero .pp-hero-right {
-  justify-self: end !important;
-  margin-left: auto !important;
-  transform: translateX(120px) !important;
-}
+/* Note: la card a droite utilise .pp-dash-wrapper (PAS .pp-hero-right qui
+   n'existe pas dans le HTML). La regle de decalage est dans <style id="pp-hero-styles">
+   du HTML directement (.pp-dash-wrapper { margin: 0 0 0 auto; transform: translateX(80px) }) */
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */
 #pp-hero .pp-hero-overlay {

@@ -135,10 +135,12 @@ header.header-nav,
 #pp-hero .pp-hero-inner {
   align-items: flex-start !important;
 }
-/* Card (colonne droite) pousse vers le bord droit de sa cellule */
+/* Card (colonne droite) pousse vers le bord droit de sa cellule
+   + translateX pour le decaler encore plus a droite que la grid */
 #pp-hero .pp-hero-right {
   justify-self: end !important;
   margin-left: auto !important;
+  transform: translateX(60px) !important;
 }
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */

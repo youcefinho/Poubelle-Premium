@@ -147,7 +147,7 @@ header.header-nav,
 @media (max-width: 960px) {
   #pp-hero {
     align-items: center !important;
-    background-position: 35% 30% !important;
+    background-position: 65% 30% !important;
     min-height: auto !important;
     padding: 80px 20px 60px !important;
   }

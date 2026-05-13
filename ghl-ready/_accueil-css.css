@@ -125,14 +125,20 @@ header.header-nav,
   margin-right: calc(-50vw + 50%) !important;
   box-sizing: border-box !important;
   /* Texte (top-left) + card (top-right) en HAUT du hero, MAIS sous le
-     header de nav (qui fait ~80px). 140px = clear le header + gap visuel */
+     header de nav (qui fait ~80px). 180px = clear le header + gap visuel
+     + un peu de baisse pour matcher la zone annotee rouge/bleue du user */
   align-items: flex-start !important;
   background-position: center !important;
-  padding-top: 140px !important;
+  padding-top: 180px !important;
 }
 /* Force aussi la grid interne a aligner ses items en haut (pas centre vertical) */
 #pp-hero .pp-hero-inner {
   align-items: flex-start !important;
+}
+/* Card (colonne droite) pousse vers le bord droit de sa cellule */
+#pp-hero .pp-hero-right {
+  justify-self: end !important;
+  margin-left: auto !important;
 }
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */

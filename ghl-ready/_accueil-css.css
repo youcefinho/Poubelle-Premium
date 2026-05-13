@@ -136,11 +136,11 @@ header.header-nav,
   align-items: flex-start !important;
 }
 /* Card (colonne droite) pousse vers le bord droit de sa cellule
-   + translateX pour le decaler encore plus a droite que la grid */
+   + translateX 120px (au lieu de 60px) pour shift bien visible */
 #pp-hero .pp-hero-right {
   justify-self: end !important;
   margin-left: auto !important;
-  transform: translateX(60px) !important;
+  transform: translateX(120px) !important;
 }
 /* Overlay renforce : sombre a gauche (texte lisible), legerement transparent
    au centre (Renaud visible), sombre a droite (card pop) */
